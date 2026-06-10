@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coupe du Monde 2026 · Calendrier, Résultats, Classements · Focus Côte d'Ivoire 🇨🇮</title>
+<meta name="description" content="Suivi quotidien (MAJ 08h GMT) de la Coupe du Monde FIFA 2026 : calendrier complet des 104 matchs, résultats, classements des 12 groupes, phase finale et onglet dédié aux Éléphants de Côte d'Ivoire." />
+<style>
+  /* ============================================================
+     COUPE DU MONDE 2026 — LANDING PAGE COMPLÈTE
+     MAJ quotidienne à 08h00 GMT.
+     → Les données à éditer sont dans le <script> "DONNÉES" en bas.
+     Couleurs : Orange #FF7900 · Blanc · Vert #009E60 (drapeau CIV)
+     ============================================================ */
+  :root{
+    --orange:#FF7900; --orange-dark:#e56e00;
+    --green:#009E60; --green-dark:#00824f;
+    --ink:#11150f; --muted:#6b7280; --line:#e7e7e2;
+    --bg:#fbfbf7; --card:#ffffff;
+    --shadow:0 8px 30px rgba(17,21,15,.08);
+    --radius:18px;
+    --font:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.55}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  section{padding:48px 0}
+  h2{font-size:clamp(1.4rem,3vw,2rem);margin-bottom:6px;letter-spacing:-.02em}
+  h3{letter-spacing:-.01em}
+  .sub{color:var(--muted);margin-bottom:24px;font-size:1rem}
+
+  /* ---------- Top bar + Tabs ---------- */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(251,251,247,.94);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:58px;gap:12px}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+  .brand .ball{font-size:1.3rem}
+  .tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab-btn{border:none;background:none;font-family:var(--font);font-size:.9rem;font-weight:700;
+    color:var(--muted);padding:9px 14px;border-radius:10px;cursor:pointer;white-space:nowrap;
+    transition:all .15s}
+  .tab-btn:hover{color:var(--orange)}
+  .tab-btn.active{background:var(--ink);color:#fff}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block}
+
+  /* ---------- Update bar ---------- */
+  .update-bar{background:var(--ink);color:#fff;text-align:center;font-size:.86rem;
+    padding:9px 16px;font-weight:600}
+  .update-bar b{color:#ffcf99}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;overflow:hidden;color:#fff;
+    background:linear-gradient(120deg,#FF7900 0%,#ff9a3d 38%,#009E60 100%)}
+  .hero::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 80% -10%,rgba(255,255,255,.25),transparent 45%)}
+  .hero .wrap{position:relative;z-index:2;padding:64px 20px 70px}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.4);padding:6px 14px;border-radius:999px;
+    font-size:.8rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+  .hero h1{font-size:clamp(2rem,5.5vw,3.4rem);line-height:1.06;margin:18px 0 12px;
+    letter-spacing:-.03em;font-weight:900;text-shadow:0 2px 18px rgba(0,0,0,.18)}
+  .hero p.lead{font-size:clamp(1rem,2.2vw,1.2rem);max-width:660px;opacity:.96}
+  .hero .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .hero .meta span{background:rgba(0,0,0,.16);padding:8px 14px;border-radius:10px;
+    font-size:.88rem;font-weight:600}
+  .countdown{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+  .cd-box{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+    border-radius:14px;padding:12px 18px;text-align:center;min-width:80px}
+  .cd-box b{display:block;font-size:1.9rem;font-weight:900;line-height:1}
+  .cd-box small{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;opacity:.9}
+  #cd-label{margin-top:12px;font-size:.95rem;font-weight:600;opacity:.95}
+
+  /* ---------- Cards ---------- */
+  .grid{display:grid;gap:16px}
+  .focus-grid{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow)}
+  .card.flag-top{border-top:5px solid var(--orange)}
+  .stat b{font-size:1.9rem;font-weight:900;color:var(--orange);display:block;line-height:1.1}
+  .stat span{color:var(--muted);font-size:.9rem}
+
+  /* ---------- Matches ---------- */
+  .match{display:flex;align-items:center;justify-content:space-between;gap:14px;
+    background:var(--card);border:1px solid var(--line);border-radius:13px;
+    padding:13px 18px;margin-bottom:10px;box-shadow:0 3px 14px rgba(17,21,15,.05)}
+  .match.civ{border-left:5px solid var(--green);background:linear-gradient(90deg,rgba(0,158,96,.05),transparent 40%)}
+  .m-teams{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1rem;flex:1;flex-wrap:wrap}
+  .m-score{font-weight:900;font-size:1.1rem;background:var(--bg);border:1px solid var(--line);
+    border-radius:8px;padding:3px 11px;min-width:58px;text-align:center}
+  .m-when{text-align:right;font-size:.82rem;color:var(--muted);min-width:175px}
+  .m-when b{display:block;color:var(--ink);font-size:.88rem}
+  .badge{display:inline-block;font-size:.68rem;font-weight:800;text-transform:uppercase;
+    letter-spacing:.05em;padding:3px 9px;border-radius:999px;margin-left:6px}
+  .badge.up{background:#fff3e6;color:var(--orange-dark)}
+  .badge.live{background:#ffe3e3;color:#d22}
+  .badge.done{background:#e6f6ee;color:var(--green-dark)}
+  .day-head{font-weight:900;font-size:1.05rem;margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+  .day-head::after{content:"";flex:1;height:1px;background:var(--line)}
+  .group-block{margin-bottom:34px}
+  .group-title{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.15rem;margin-bottom:12px}
+  .group-title .gl{background:var(--ink);color:#fff;border-radius:9px;padding:3px 11px;font-size:.95rem}
+  @media(max-width:640px){
+    .match{flex-wrap:wrap}.m-when{text-align:left;min-width:0;width:100%}
+  }
+
+  /* ---------- Tables ---------- */
+  table{width:100%;border-collapse:collapse;background:var(--card);
+    border-radius:14px;overflow:hidden;box-shadow:0 4px 18px rgba(17,21,15,.06)}
+  thead{background:var(--ink);color:#fff}
+  th,td{padding:10px 9px;text-align:center;font-size:.88rem}
+  th:nth-child(2),td:nth-child(2){text-align:left}
+  tbody tr{border-top:1px solid var(--line)}
+  tbody tr.civ{background:linear-gradient(90deg,rgba(255,121,0,.10),rgba(0,158,96,.06))}
+  td.team{font-weight:700;white-space:nowrap}
+  .qual{width:4px;height:20px;border-radius:3px;display:inline-block;vertical-align:middle}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;font-size:.83rem;color:var(--muted)}
+  .legend span{display:flex;align-items:center;gap:7px}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+  .standings-grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+
+  /* ---------- Chemin des Éléphants ---------- */
+  .path-card{border-left:5px solid var(--green)}
+  .path-steps{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-top:14px}
+  .step{background:var(--bg);border:1px solid var(--line);border-radius:11px;
+    padding:10px 13px;font-size:.82rem;min-width:148px;flex:1}
+  .step b{display:block;font-size:.88rem;color:var(--orange-dark)}
+  .step small{color:var(--muted)}
+  .arrow{align-self:center;font-size:1.1rem;color:var(--green);font-weight:900}
+  .scenario-tag{display:inline-block;background:var(--green);color:#fff;font-weight:800;
+    font-size:.78rem;padding:4px 12px;border-radius:999px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em}
+  .scenario-tag.alt{background:var(--orange)}
+  .scenario-tag.third{background:var(--muted)}
+
+  /* ---------- News ---------- */
+  .news-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .news{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px;box-shadow:0 3px 14px rgba(17,21,15,.05);border-top:4px solid var(--green)}
+  .news time{font-size:.76rem;color:var(--orange-dark);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+  .news h3{font-size:1.05rem;margin:6px 0 8px}
+  .news p{color:var(--muted);font-size:.92rem}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink);color:#cfd2cc;padding:38px 0;font-size:.9rem}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+  footer b{color:#fff}
+  .src{font-size:.77rem;color:#8a8f86;margin-top:10px}
+  .src a{color:#b9bdb4}
+  .alt-bg{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<!-- =================== NAV / ONGLETS =================== -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand"><span class="ball">⚽</span> Mondial 2026</div>
+    <nav class="tabs" id="tabs">
+      <button class="tab-btn active" data-tab="accueil">🏠 Accueil</button>
+      <button class="tab-btn" data-tab="civ">🇨🇮 Côte d'Ivoire</button>
+      <button class="tab-btn" data-tab="calendrier">📅 Calendrier</button>
+      <button class="tab-btn" data-tab="resultats">⚽ Résultats</button>
+      <button class="tab-btn" data-tab="classements">📊 Classements</button>
+    </nav>
+  </div>
+</header>
+
+<!-- =================== BANDEAU MAJ =================== -->
+<div class="update-bar">🔄 Mise à jour quotidienne à <b>08h00 GMT</b> — Dernière MAJ : <b id="last-update">—</b></div>
+
+<!-- ════════════════════ ONGLET ACCUEIL ════════════════════ -->
+<div class="tab-panel active" id="panel-accueil">
+  <div class="hero">
+    <div class="wrap">
+      <span class="pill">🏆 FIFA World Cup · 🇺🇸🇨🇦🇲🇽 2026 · 48 équipes</span>
+      <h1>Coupe du Monde 2026<br>Tout le Mondial, cap sur les <span style="color:#003a1e">Éléphants</span> 🐘</h1>
+      <p class="lead">Calendrier intégral des 104 matchs, résultats, classements des 12 groupes,
+         tableau final — et un onglet dédié à la Côte d'Ivoire. Actualisé chaque jour à 08h00 GMT.</p>
+      <div class="meta">
+        <span>📅 11 juin → 19 juillet 2026</span>
+        <span>🏟️ 16 stades · 3 pays</span>
+        <span>🏁 Finale : MetLife Stadium, New York/NJ</span>
+      </div>
+      <div class="countdown" id="countdown"></div>
+      <div id="cd-label"></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2>🗓️ Les prochains matchs</h2>
+      <p class="sub">Les 8 prochaines rencontres au programme, toutes équipes confondues.</p>
+      <div id="next-matches"></div>
+    </div>
+  </section>
+
+  <section class="alt-bg">
+    <div class="wrap">
+      <h2>📰 Dernières informations</h2>
+      <p class="sub">L'actu du jour autour du Mondial et des Éléphants.</p>
+      <div class="grid news-grid" id="news"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════ ONGLET CÔTE D'IVOIRE ════════════════════ -->
+<div class="tab-panel" id="panel-civ">
+  <section>
+    <div class="wrap">
+      <h2>🇨🇮 Les Éléphants au Mondial 2026</h2>
+      <p class="sub">De retour à la Coupe du Monde après 12 ans d'absence, champions d'Afrique en titre (CAN 2023).</p>
+      <div class="grid focus-grid">
+        <div class="card flag-top stat"><b>Gr. E</b><span>🇩🇪 Allemagne · 🇪🇨 Équateur · 🇨🇼 Curaçao</span></div>
+        <div class="card flag-top stat"><b>2014</b><span>Dernière participation au Mondial</span></div>
+        <div class="card flag-top stat"><b>2023</b><span>Championne d'Afrique (CAN, à domicile)</span></div>
+        <div class="card flag-top stat"><b>4<sup>e</sup></b><span>Participation à une Coupe du Monde</span></div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <h3 style="margin-bottom:8px">L'effectif à suivre</h3>
+        <p style="color:var(--muted)">Sélectionneur : <b style="color:var(--ink)">Emerse Faé</b>. Cadres attendus :
+        Sébastien Haller, Franck Kessié, Simon Adingra, Évan Ndicka, Amad Diallo, Yves Bissouma,
+        Nicolas Pépé, Wilfried Singo, Odilon Kossounou. <em>(Actualisé quotidiennement.)</em></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt-bg">
+    <div class="wrap">
+      <h2>📅 Les matchs de la Côte d'Ivoire</h2>
+      <p class="sub">Phase de groupes puis phase finale — horaires en heure GMT (Abidjan) puis heure de Paris.</p>
+      <div id="civ-matches"></div>
+      <h3 style="margin:26px 0 12px">📊 Classement du Groupe E</h3>
+      <div id="civ-group-table"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>🛤️ Le chemin vers la finale</h2>
+      <p class="sub">Le parcours des Éléphants jusqu'au MetLife Stadium (19 juillet), selon leur classement dans le groupe E.</p>
+
+      <div class="card path-card" style="margin-bottom:16px">
+        <span class="scenario-tag">Scénario 1 · 1ᵉʳ du groupe E</span>
+        <div class="path-steps">
+          <div class="step"><b>16ᵉ de finale</b>vs meilleur 3ᵉ (A/B/C/D/F)<small><br>29 juin · Boston (Gillette)</small></div>
+          <div class="arrow">→</div>
+          <div class="step"><b>8ᵉ de finale</b>vs vainqueur 1I-3ᵉ<small><br>4 juillet · Philadelphie</small></div>
+          <div class="arrow">→</div>
+          <div class="step"><b>Quart</b>vs issu de 2A/2B/1F/2C<small><br>9 juillet · Boston</small></div>
+          <div class="arrow">→</div>
+          <div class="step"><b>Demi-finale</b><small><br>14 juillet · Dallas (AT&T)</small></div>
+          <div class="arrow">→</div>
+          <div class="step" style="border-color:var(--orange);background:#fff3e6"><b>🏆 Finale</b><small><br>19 juillet · MetLife, NY/NJ</small></div>
+        </div>
+      </div>
+
+      <div class="card path-card" style="margin-bottom:16px;border-left-color:var(--orange)">
+        <span class="scenario-tag alt">Scénario 2 · 2ᵉ du groupe E</span>
+        <div class="path-steps">
+          <div class="step"><b>16ᵉ de finale</b>vs 2ᵉ du groupe I<small><br>30 juin · Dallas (AT&T)</small></div>
+          <div class="arrow">→</div>
+          <div class="step"><b>8ᵉ de finale</b>vs vainqueur 1C-2F<small><br>5 juillet · MetLife, NY/NJ</small></div>
+          <div class="arrow">→</div>
+          <div class="step"><b>Quart</b>vs issu de 1A/1L/3ᵉˢ<small><br>11 juillet · Miami</small></div>
+          <div class="arrow">→</div>
+          <div class="step"><b>Demi-finale</b><small><br>15 juillet · Atlanta</small></div>
+          <div class="arrow">→</div>
+          <div class="step" style="border-color:var(--orange);background:#fff3e6"><b>🏆 Finale</b><small><br>19 juillet · MetLife, NY/NJ</small></div>
+        </div>
+      </div>
+
+      <div class="card path-card" style="border-left-color:var(--muted)">
+        <span class="scenario-tag third">Scénario 3 · 3ᵉ du groupe E (repêchage)</span>
+        <p style="color:var(--muted);font-size:.92rem;margin-top:6px">
+          Qualifiable parmi les <b>8 meilleurs 3ᵉˢ</b> (sur 12). L'adversaire en 16ᵉ dépendra de la grille officielle d'allocation :
+          le 1ᵉʳ du groupe L (1ᵉʳ juillet, Atlanta), du groupe D (1ᵉʳ juillet, Santa Clara), du groupe G (1ᵉʳ juillet, Seattle),
+          du groupe B (2 juillet, Vancouver) ou du groupe K (3 juillet, Kansas City).
+          Le chemin vers la finale suit ensuite la branche du match concerné.
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════ ONGLET CALENDRIER ════════════════════ -->
+<div class="tab-panel" id="panel-calendrier">
+  <section>
+    <div class="wrap">
+      <h2>📅 Calendrier complet — Phase de groupes</h2>
+      <p class="sub">Les 72 matchs des 12 groupes (11 → 27 juin). Horaires en heure GMT (Abidjan) puis heure de Paris ; (+1j) = match dans la nuit, date du lendemain.</p>
+      <div id="cal-groups"></div>
+    </div>
+  </section>
+  <section class="alt-bg">
+    <div class="wrap">
+      <h2>🏆 Phase à élimination directe</h2>
+      <p class="sub">Des 16ᵉˢ de finale (28 juin) à la finale (19 juillet, MetLife Stadium). Les équipes s'affichent au fur et à mesure des qualifications.</p>
+      <div id="cal-knockout"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════ ONGLET RÉSULTATS ════════════════════ -->
+<div class="tab-panel" id="panel-resultats">
+  <section>
+    <div class="wrap">
+      <h2>⚽ Tous les résultats</h2>
+      <p class="sub">Tous les matchs joués, sans exception, du match d'ouverture à la finale — les plus récents en premier.</p>
+      <div id="results"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════ ONGLET CLASSEMENTS ════════════════════ -->
+<div class="tab-panel" id="panel-classements">
+  <section>
+    <div class="wrap">
+      <h2>📊 Classements des 12 groupes</h2>
+      <p class="sub">Calculés automatiquement à partir des résultats. Les 2 premiers de chaque groupe + les 8 meilleurs 3ᵉˢ se qualifient pour les 16ᵉˢ.</p>
+      <div class="standings-grid" id="standings"></div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--green)"></i> Qualifié direct (1ᵉʳ-2ᵉ)</span>
+        <span><i class="dot" style="background:var(--orange)"></i> 3ᵉ (repêchage : 8 meilleurs sur 12)</span>
+        <span><i class="dot" style="background:#d22"></i> Éliminé</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== FOOTER =================== -->
+<footer>
+  <div class="wrap">
+    <div>
+      <b>Coupe du Monde 2026 · Focus Côte d'Ivoire 🇨🇮</b><br>
+      Calendrier complet · Résultats · Classements · MAJ quotidienne 08h00 GMT.
+      <div class="src">Sources : <a href="https://www.fifa.com/fr/tournaments/mens/worldcup/canadamexicousa2026/">FIFA</a> ·
+        <a href="https://en.wikipedia.org/wiki/2026_FIFA_World_Cup">Wikipédia</a> ·
+        <a href="https://www.flashscore.fr">Flashscore</a> ·
+        <a href="https://www.olympics.com/fr/">Olympics.com</a></div>
+    </div>
+    <div style="text-align:right">
+      Allez les Éléphants ! 🐘🧡<br>
+      <span style="color:#8a8f86">#CIV · #WorldCup2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   DONNÉES — MISE À JOUR QUOTIDIENNE (08h00 GMT)
+   Chaque jour :
+   1. LAST_UPDATE → date du jour (AAAA-MM-JJ)
+   2. Matchs joués → renseigner score:"2-1" et status:"done"
+      (le classement se recalcule automatiquement)
+   3. Phase finale → dès qu'une affiche est connue, remplir
+      home/away (noms exacts des équipes, drapeaux automatiques)
+   4. NEWS → ajouter les infos du jour en haut de la liste
+   5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
+   ════════════════════════════════════════════════════════════ */
+
+const LAST_UPDATE = "2026-06-10";
+
+// Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
+const NEXT_KICKOFF = { iso:"2026-06-14T23:00:00Z", label:"⏳ avant Côte d'Ivoire 🇨🇮 – Équateur 🇪🇨 (1ʳᵉ journée)" };
+
+// Drapeaux des 48 équipes
+const FLAGS = {
+  "Mexique":"🇲🇽","Afrique du Sud":"🇿🇦","Corée du Sud":"🇰🇷","Tchéquie":"🇨🇿",
+  "Canada":"🇨🇦","Suisse":"🇨🇭","Qatar":"🇶🇦","Bosnie-Herzégovine":"🇧🇦",
+  "Brésil":"🇧🇷","Maroc":"🇲🇦","Écosse":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","Haïti":"🇭🇹",
+  "États-Unis":"🇺🇸","Paraguay":"🇵🇾","Türkiye":"🇹🇷","Australie":"🇦🇺",
+  "Allemagne":"🇩🇪","Équateur":"🇪🇨","Côte d'Ivoire":"🇨🇮","Curaçao":"🇨🇼",
+  "Pays-Bas":"🇳🇱","Japon":"🇯🇵","Suède":"🇸🇪","Tunisie":"🇹🇳",
+  "Belgique":"🇧🇪","Égypte":"🇪🇬","Iran":"🇮🇷","Nouvelle-Zélande":"🇳🇿",
+  "Espagne":"🇪🇸","Uruguay":"🇺🇾","Arabie saoudite":"🇸🇦","Cap-Vert":"🇨🇻",
+  "France":"🇫🇷","Sénégal":"🇸🇳","Norvège":"🇳🇴","Irak":"🇮🇶",
+  "Argentine":"🇦🇷","Algérie":"🇩🇿","Autriche":"🇦🇹","Jordanie":"🇯🇴",
+  "Portugal":"🇵🇹","Colombie":"🇨🇴","Ouzbékistan":"🇺🇿","RD Congo":"🇨🇩",
+  "Angleterre":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Croatie":"🇭🇷","Ghana":"🇬🇭","Panama":"🇵🇦"
+};
+
+// ───────── 72 MATCHS DE GROUPES ─────────
+// d = date (juin 2026) · t = heure de Paris · s = score "a-b" · st = "upcoming"|"live"|"done"
+const GROUP_MATCHES = [
+ // Groupe A
+ {g:"A",j:1,d:"11 juin",home:"Mexique",away:"Afrique du Sud",venue:"Estadio Azteca · Mexico",t:"21h00",s:"",st:"upcoming"},
+ {g:"A",j:1,d:"11 juin",home:"Corée du Sud",away:"Tchéquie",venue:"Estadio Akron · Guadalajara",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ {g:"A",j:2,d:"18 juin",home:"Tchéquie",away:"Afrique du Sud",venue:"Mercedes-Benz Stadium · Atlanta",t:"18h00",s:"",st:"upcoming"},
+ {g:"A",j:2,d:"18 juin",home:"Mexique",away:"Corée du Sud",venue:"Estadio Akron · Guadalajara",t:"03h00 (+1j)",s:"",st:"upcoming"},
+ {g:"A",j:3,d:"24 juin",home:"Tchéquie",away:"Mexique",venue:"Estadio Azteca · Mexico",t:"03h00 (+1j)",s:"",st:"upcoming"},
+ {g:"A",j:3,d:"24 juin",home:"Afrique du Sud",away:"Corée du Sud",venue:"Estadio BBVA · Monterrey",t:"03h00 (+1j)",s:"",st:"upcoming"},
+ // Groupe B
+ {g:"B",j:1,d:"12 juin",home:"Canada",away:"Bosnie-Herzégovine",venue:"BMO Field · Toronto",t:"21h00",s:"",st:"upcoming"},
+ {g:"B",j:1,d:"13 juin",home:"Qatar",away:"Suisse",venue:"Levi's Stadium · San Francisco",t:"21h00",s:"",st:"upcoming"},
+ {g:"B",j:2,d:"18 juin",home:"Suisse",away:"Bosnie-Herzégovine",venue:"SoFi Stadium · Los Angeles",t:"21h00",s:"",st:"upcoming"},
+ {g:"B",j:2,d:"18 juin",home:"Canada",away:"Qatar",venue:"BC Place · Vancouver",t:"00h00 (+1j)",s:"",st:"upcoming"},
+ {g:"B",j:3,d:"24 juin",home:"Suisse",away:"Canada",venue:"BC Place · Vancouver",t:"21h00",s:"",st:"upcoming"},
+ {g:"B",j:3,d:"24 juin",home:"Bosnie-Herzégovine",away:"Qatar",venue:"Lumen Field · Seattle",t:"21h00",s:"",st:"upcoming"},
+ // Groupe C
+ {g:"C",j:1,d:"13 juin",home:"Brésil",away:"Maroc",venue:"MetLife Stadium · New York/NJ",t:"00h00 (+1j)",s:"",st:"upcoming"},
+ {g:"C",j:1,d:"13 juin",home:"Haïti",away:"Écosse",venue:"Gillette Stadium · Boston",t:"03h00 (+1j)",s:"",st:"upcoming"},
+ {g:"C",j:2,d:"19 juin",home:"Écosse",away:"Maroc",venue:"Gillette Stadium · Boston",t:"00h00 (+1j)",s:"",st:"upcoming"},
+ {g:"C",j:2,d:"19 juin",home:"Brésil",away:"Haïti",venue:"Lincoln Financial Field · Philadelphie",t:"02h30 (+1j)",s:"",st:"upcoming"},
+ {g:"C",j:3,d:"24 juin",home:"Écosse",away:"Brésil",venue:"Hard Rock Stadium · Miami",t:"00h00 (+1j)",s:"",st:"upcoming"},
+ {g:"C",j:3,d:"24 juin",home:"Maroc",away:"Haïti",venue:"Mercedes-Benz Stadium · Atlanta",t:"00h00 (+1j)",s:"",st:"upcoming"},
+ // Groupe D
+ {g:"D",j:1,d:"12 juin",home:"États-Unis",away:"Paraguay",venue:"SoFi Stadium · Los Angeles",t:"03h00 (+1j)",s:"",st:"upcoming"},
+ {g:"D",j:1,d:"13 juin",home:"Australie",away:"Türkiye",venue:"BC Place · Vancouver",t:"06h00 (+1j)",s:"",st:"upcoming"},
+ {g:"D",j:2,d:"19 juin",home:"États-Unis",away:"Australie",venue:"Lumen Field · Seattle",t:"21h00",s:"",st:"upcoming"},
+ {g:"D",j:2,d:"19 juin",home:"Türkiye",away:"Paraguay",venue:"Levi's Stadium · San Francisco",t:"05h00 (+1j)",s:"",st:"upcoming"},
+ {g:"D",j:3,d:"25 juin",home:"Türkiye",away:"États-Unis",venue:"SoFi Stadium · Los Angeles",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ {g:"D",j:3,d:"25 juin",home:"Paraguay",away:"Australie",venue:"Levi's Stadium · San Francisco",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ // Groupe E (Côte d'Ivoire 🇨🇮)
+ {g:"E",j:1,d:"14 juin",home:"Allemagne",away:"Curaçao",venue:"NRG Stadium · Houston",t:"19h00",s:"",st:"upcoming"},
+ {g:"E",j:1,d:"14 juin",home:"Côte d'Ivoire",away:"Équateur",venue:"Lincoln Financial Field · Philadelphie",t:"01h00 (+1j)",s:"",st:"upcoming"},
+ {g:"E",j:2,d:"20 juin",home:"Allemagne",away:"Côte d'Ivoire",venue:"BMO Field · Toronto",t:"22h00",s:"",st:"upcoming"},
+ {g:"E",j:2,d:"20 juin",home:"Équateur",away:"Curaçao",venue:"Arrowhead Stadium · Kansas City",t:"02h00 (+1j)",s:"",st:"upcoming"},
+ {g:"E",j:3,d:"25 juin",home:"Curaçao",away:"Côte d'Ivoire",venue:"Lincoln Financial Field · Philadelphie",t:"22h00",s:"",st:"upcoming"},
+ {g:"E",j:3,d:"25 juin",home:"Équateur",away:"Allemagne",venue:"MetLife Stadium · New York/NJ",t:"22h00",s:"",st:"upcoming"},
+ // Groupe F
+ {g:"F",j:1,d:"14 juin",home:"Pays-Bas",away:"Japon",venue:"AT&T Stadium · Dallas",t:"22h00",s:"",st:"upcoming"},
+ {g:"F",j:1,d:"14 juin",home:"Suède",away:"Tunisie",venue:"Estadio BBVA · Monterrey",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ {g:"F",j:2,d:"20 juin",home:"Pays-Bas",away:"Suède",venue:"NRG Stadium · Houston",t:"19h00",s:"",st:"upcoming"},
+ {g:"F",j:2,d:"20 juin",home:"Tunisie",away:"Japon",venue:"Estadio BBVA · Monterrey",t:"06h00 (+1j)",s:"",st:"upcoming"},
+ {g:"F",j:3,d:"25 juin",home:"Japon",away:"Suède",venue:"AT&T Stadium · Dallas",t:"01h00 (+1j)",s:"",st:"upcoming"},
+ {g:"F",j:3,d:"25 juin",home:"Tunisie",away:"Pays-Bas",venue:"Arrowhead Stadium · Kansas City",t:"01h00 (+1j)",s:"",st:"upcoming"},
+ // Groupe G
+ {g:"G",j:1,d:"15 juin",home:"Belgique",away:"Égypte",venue:"Lumen Field · Seattle",t:"21h00",s:"",st:"upcoming"},
+ {g:"G",j:1,d:"15 juin",home:"Iran",away:"Nouvelle-Zélande",venue:"SoFi Stadium · Los Angeles",t:"03h00 (+1j)",s:"",st:"upcoming"},
+ {g:"G",j:2,d:"21 juin",home:"Belgique",away:"Iran",venue:"SoFi Stadium · Los Angeles",t:"21h00",s:"",st:"upcoming"},
+ {g:"G",j:2,d:"21 juin",home:"Nouvelle-Zélande",away:"Égypte",venue:"BC Place · Vancouver",t:"03h00 (+1j)",s:"",st:"upcoming"},
+ {g:"G",j:3,d:"26 juin",home:"Égypte",away:"Iran",venue:"Lumen Field · Seattle",t:"05h00 (+1j)",s:"",st:"upcoming"},
+ {g:"G",j:3,d:"26 juin",home:"Nouvelle-Zélande",away:"Belgique",venue:"BC Place · Vancouver",t:"05h00 (+1j)",s:"",st:"upcoming"},
+ // Groupe H
+ {g:"H",j:1,d:"15 juin",home:"Espagne",away:"Cap-Vert",venue:"Mercedes-Benz Stadium · Atlanta",t:"18h00",s:"",st:"upcoming"},
+ {g:"H",j:1,d:"15 juin",home:"Arabie saoudite",away:"Uruguay",venue:"Hard Rock Stadium · Miami",t:"00h00 (+1j)",s:"",st:"upcoming"},
+ {g:"H",j:2,d:"21 juin",home:"Espagne",away:"Arabie saoudite",venue:"Mercedes-Benz Stadium · Atlanta",t:"18h00",s:"",st:"upcoming"},
+ {g:"H",j:2,d:"21 juin",home:"Uruguay",away:"Cap-Vert",venue:"Hard Rock Stadium · Miami",t:"00h00 (+1j)",s:"",st:"upcoming"},
+ {g:"H",j:3,d:"26 juin",home:"Cap-Vert",away:"Arabie saoudite",venue:"NRG Stadium · Houston",t:"02h00 (+1j)",s:"",st:"upcoming"},
+ {g:"H",j:3,d:"26 juin",home:"Uruguay",away:"Espagne",venue:"Estadio Akron · Guadalajara",t:"02h00 (+1j)",s:"",st:"upcoming"},
+ // Groupe I
+ {g:"I",j:1,d:"16 juin",home:"France",away:"Sénégal",venue:"MetLife Stadium · New York/NJ",t:"21h00",s:"",st:"upcoming"},
+ {g:"I",j:1,d:"16 juin",home:"Irak",away:"Norvège",venue:"Gillette Stadium · Boston",t:"00h00 (+1j)",s:"",st:"upcoming"},
+ {g:"I",j:2,d:"22 juin",home:"France",away:"Irak",venue:"Lincoln Financial Field · Philadelphie",t:"23h00",s:"",st:"upcoming"},
+ {g:"I",j:2,d:"22 juin",home:"Norvège",away:"Sénégal",venue:"MetLife Stadium · New York/NJ",t:"02h00 (+1j)",s:"",st:"upcoming"},
+ {g:"I",j:3,d:"26 juin",home:"Norvège",away:"France",venue:"Gillette Stadium · Boston",t:"21h00",s:"",st:"upcoming"},
+ {g:"I",j:3,d:"26 juin",home:"Sénégal",away:"Irak",venue:"BMO Field · Toronto",t:"21h00",s:"",st:"upcoming"},
+ // Groupe J
+ {g:"J",j:1,d:"16 juin",home:"Argentine",away:"Algérie",venue:"Arrowhead Stadium · Kansas City",t:"03h00 (+1j)",s:"",st:"upcoming"},
+ {g:"J",j:1,d:"16 juin",home:"Autriche",away:"Jordanie",venue:"Levi's Stadium · San Francisco",t:"06h00 (+1j)",s:"",st:"upcoming"},
+ {g:"J",j:2,d:"22 juin",home:"Argentine",away:"Autriche",venue:"AT&T Stadium · Dallas",t:"19h00",s:"",st:"upcoming"},
+ {g:"J",j:2,d:"22 juin",home:"Jordanie",away:"Algérie",venue:"Levi's Stadium · San Francisco",t:"05h00 (+1j)",s:"",st:"upcoming"},
+ {g:"J",j:3,d:"27 juin",home:"Algérie",away:"Autriche",venue:"Arrowhead Stadium · Kansas City",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ {g:"J",j:3,d:"27 juin",home:"Jordanie",away:"Argentine",venue:"AT&T Stadium · Dallas",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ // Groupe K
+ {g:"K",j:1,d:"17 juin",home:"Portugal",away:"RD Congo",venue:"NRG Stadium · Houston",t:"19h00",s:"",st:"upcoming"},
+ {g:"K",j:1,d:"17 juin",home:"Ouzbékistan",away:"Colombie",venue:"Estadio Azteca · Mexico",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ {g:"K",j:2,d:"23 juin",home:"Portugal",away:"Ouzbékistan",venue:"NRG Stadium · Houston",t:"19h00",s:"",st:"upcoming"},
+ {g:"K",j:2,d:"23 juin",home:"Colombie",away:"RD Congo",venue:"Estadio Akron · Guadalajara",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ {g:"K",j:3,d:"27 juin",home:"Colombie",away:"Portugal",venue:"Hard Rock Stadium · Miami",t:"01h30 (+1j)",s:"",st:"upcoming"},
+ {g:"K",j:3,d:"27 juin",home:"RD Congo",away:"Ouzbékistan",venue:"Mercedes-Benz Stadium · Atlanta",t:"01h30 (+1j)",s:"",st:"upcoming"},
+ // Groupe L
+ {g:"L",j:1,d:"17 juin",home:"Angleterre",away:"Croatie",venue:"AT&T Stadium · Dallas",t:"22h00",s:"",st:"upcoming"},
+ {g:"L",j:1,d:"17 juin",home:"Ghana",away:"Panama",venue:"BMO Field · Toronto",t:"01h00 (+1j)",s:"",st:"upcoming"},
+ {g:"L",j:2,d:"23 juin",home:"Angleterre",away:"Ghana",venue:"Gillette Stadium · Boston",t:"22h00",s:"",st:"upcoming"},
+ {g:"L",j:2,d:"23 juin",home:"Panama",away:"Croatie",venue:"BMO Field · Toronto",t:"01h00 (+1j)",s:"",st:"upcoming"},
+ {g:"L",j:3,d:"27 juin",home:"Panama",away:"Angleterre",venue:"MetLife Stadium · New York/NJ",t:"23h00",s:"",st:"upcoming"},
+ {g:"L",j:3,d:"27 juin",home:"Croatie",away:"Ghana",venue:"Lincoln Financial Field · Philadelphie",t:"23h00",s:"",st:"upcoming"},
+];
+
+// ───────── PHASE FINALE (32 matchs M73→M104) ─────────
+// pairing = affiche théorique · home/away = remplir dès que connu · s = score · st = statut
+const KNOCKOUT = [
+ {phase:"16ᵉˢ de finale (28 juin – 3 juillet)", matches:[
+  {id:"M73",d:"28 juin",pairing:"2ᵉ A – 2ᵉ B",venue:"SoFi Stadium · Los Angeles",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M74",d:"29 juin",pairing:"1ᵉʳ E – 3ᵉ (A/B/C/D/F)",venue:"Gillette Stadium · Boston",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M75",d:"29 juin",pairing:"1ᵉʳ F – 2ᵉ C",venue:"Estadio BBVA · Monterrey",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M76",d:"29 juin",pairing:"1ᵉʳ C – 2ᵉ F",venue:"NRG Stadium · Houston",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M77",d:"30 juin",pairing:"1ᵉʳ I – 3ᵉ (C/D/F/G/H)",venue:"MetLife Stadium · New York/NJ",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M78",d:"30 juin",pairing:"2ᵉ E – 2ᵉ I",venue:"AT&T Stadium · Dallas",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M79",d:"30 juin",pairing:"1ᵉʳ A – 3ᵉ (C/E/F/H/I)",venue:"Estadio Azteca · Mexico",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M80",d:"1ᵉʳ juillet",pairing:"1ᵉʳ L – 3ᵉ (E/H/I/J/K)",venue:"Mercedes-Benz Stadium · Atlanta",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M81",d:"1ᵉʳ juillet",pairing:"1ᵉʳ D – 3ᵉ (B/E/F/I/J)",venue:"Levi's Stadium · San Francisco",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M82",d:"1ᵉʳ juillet",pairing:"1ᵉʳ G – 3ᵉ (A/E/H/I/J)",venue:"Lumen Field · Seattle",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M83",d:"2 juillet",pairing:"2ᵉ K – 2ᵉ L",venue:"BMO Field · Toronto",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M84",d:"2 juillet",pairing:"1ᵉʳ H – 2ᵉ J",venue:"SoFi Stadium · Los Angeles",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M85",d:"2 juillet",pairing:"1ᵉʳ B – 3ᵉ (E/F/G/I/J)",venue:"BC Place · Vancouver",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M86",d:"3 juillet",pairing:"1ᵉʳ J – 2ᵉ H",venue:"Hard Rock Stadium · Miami",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M87",d:"3 juillet",pairing:"1ᵉʳ K – 3ᵉ (D/E/I/J/L)",venue:"Arrowhead Stadium · Kansas City",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M88",d:"3 juillet",pairing:"2ᵉ D – 2ᵉ G",venue:"AT&T Stadium · Dallas",home:"",away:"",s:"",st:"upcoming"}]},
+ {phase:"8ᵉˢ de finale (4 – 7 juillet)", matches:[
+  {id:"M89",d:"4 juillet",pairing:"V. M74 – V. M77",venue:"Lincoln Financial Field · Philadelphie",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M90",d:"4 juillet",pairing:"V. M73 – V. M75",venue:"NRG Stadium · Houston",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M91",d:"5 juillet",pairing:"V. M76 – V. M78",venue:"MetLife Stadium · New York/NJ",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M92",d:"5 juillet",pairing:"V. M79 – V. M80",venue:"Estadio Azteca · Mexico",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M93",d:"6 juillet",pairing:"V. M83 – V. M84",venue:"AT&T Stadium · Dallas",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M94",d:"6 juillet",pairing:"V. M81 – V. M82",venue:"Lumen Field · Seattle",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M95",d:"7 juillet",pairing:"V. M86 – V. M88",venue:"Mercedes-Benz Stadium · Atlanta",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M96",d:"7 juillet",pairing:"V. M85 – V. M87",venue:"BC Place · Vancouver",home:"",away:"",s:"",st:"upcoming"}]},
+ {phase:"Quarts de finale (9 – 11 juillet)", matches:[
+  {id:"M97",d:"9 juillet",pairing:"V. M89 – V. M90",venue:"Gillette Stadium · Boston",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M98",d:"10 juillet",pairing:"V. M93 – V. M94",venue:"SoFi Stadium · Los Angeles",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M99",d:"11 juillet",pairing:"V. M91 – V. M92",venue:"Hard Rock Stadium · Miami",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M100",d:"11 juillet",pairing:"V. M95 – V. M96",venue:"Arrowhead Stadium · Kansas City",home:"",away:"",s:"",st:"upcoming"}]},
+ {phase:"Demi-finales (14 – 15 juillet)", matches:[
+  {id:"M101",d:"14 juillet",pairing:"V. M97 – V. M98",venue:"AT&T Stadium · Dallas",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M102",d:"15 juillet",pairing:"V. M99 – V. M100",venue:"Mercedes-Benz Stadium · Atlanta",home:"",away:"",s:"",st:"upcoming"}]},
+ {phase:"Match pour la 3ᵉ place (18 juillet)", matches:[
+  {id:"M103",d:"18 juillet",pairing:"Perdant M101 – Perdant M102",venue:"Hard Rock Stadium · Miami",home:"",away:"",s:"",st:"upcoming"}]},
+ {phase:"🏆 FINALE (19 juillet)", matches:[
+  {id:"M104",d:"19 juillet",pairing:"V. M101 – V. M102",venue:"MetLife Stadium · New York/NJ",home:"",away:"",s:"",st:"upcoming"}]},
+];
+
+// ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
+const NEWS = [
+  { date:"10 juin 2026", title:"J-1 : le Mondial s'ouvre demain à Mexico", text:"Mexique – Afrique du Sud lance la compétition le 11 juin à l'Estadio Azteca (19h00 GMT · 21h00 Paris)." },
+  { date:"10 juin 2026", title:"Les Éléphants peaufinent leur préparation", text:"Premier match le 14 juin contre l'Équateur à Philadelphie (01h00 dans la nuit du 14 au 15, heure de Paris ; 23h00 à Abidjan)." },
+  { date:"5 déc. 2025",  title:"Tirage : la Côte d'Ivoire dans le groupe E", text:"Les Ivoiriens affronteront l'Allemagne, l'Équateur et Curaçao dans ce premier Mondial à 48 équipes." },
+];
+
+/* ════════════════════════════════════════════════════════════
+   MOTEUR DE RENDU — ne pas modifier pour la MAJ quotidienne
+   ════════════════════════════════════════════════════════════ */
+const $=s=>document.querySelector(s);
+const flag=t=>FLAGS[t]||"🏳️";
+const team=t=>`${flag(t)} ${t}`;
+
+// Conversion heure de Paris (stockée dans t) → heure GMT/Abidjan (Paris = GMT+2 en été)
+function timeLabel(t){
+  const m=/^(\d{1,2})h(\d{2})(\s*\(\+1j\))?$/.exec(t||"");
+  if(!m) return t||"";
+  let mins=(+m[1])*60+(+m[2])-120, day=m[3]?1:0;
+  if(mins<0){mins+=1440;day-=1;}
+  const gmt=`${String(Math.floor(mins/60)).padStart(2,'0')}h${String(mins%60).padStart(2,'0')}${day===1?' (+1j)':''}`;
+  return `${gmt} GMT · ${t} Paris`;
+}
+const badge={upcoming:'<span class="badge up">À venir</span>',live:'<span class="badge live">● Live</span>',done:'<span class="badge done">Terminé</span>'};
+
+// Onglets
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:0});
+  });
+});
+
+// Bandeau MAJ
+const fmt=new Intl.DateTimeFormat('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+$("#last-update").textContent=fmt.format(new Date(LAST_UPDATE+"T12:00:00"));
+
+// Compte à rebours
+function renderCountdown(){
+  const target=new Date(NEXT_KICKOFF.iso).getTime();
+  let diff=target-Date.now();
+  const box=$("#countdown"), lbl=$("#cd-label");
+  if(diff<=0){ box.innerHTML=`<div class="cd-box"><b>🔥</b><small>C'est parti !</small></div>`;
+               lbl.textContent="Le match est lancé — allez les Éléphants !"; return; }
+  const d=Math.floor(diff/864e5); diff-=d*864e5;
+  const h=Math.floor(diff/36e5);  diff-=h*36e5;
+  const m=Math.floor(diff/6e4);   diff-=m*6e4;
+  const s=Math.floor(diff/1e3);
+  box.innerHTML=[[d,"Jours"],[h,"Heures"],[m,"Min"],[s,"Sec"]]
+    .map(([v,t])=>`<div class="cd-box"><b>${String(v).padStart(2,'0')}</b><small>${t}</small></div>`).join('');
+  lbl.textContent=NEXT_KICKOFF.label;
+}
+renderCountdown(); setInterval(renderCountdown,1000);
+
+// Rendu d'un match
+function matchRow(m,opts={}){
+  const isCiv=(m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
+  const teams=(m.home&&m.away)
+    ?`<span>${team(m.home)}</span><span class="m-score">${m.s||'vs'}</span><span>${team(m.away)}</span>`
+    :`<span style="color:var(--muted)">${m.pairing}</span><span class="m-score">vs</span>`;
+  const extra=opts.tag?`<span class="badge up" style="background:#eef;color:#449">${opts.tag}</span>`:"";
+  return `<div class="match ${isCiv?'civ':''}">
+    <div class="m-teams">${teams}${extra}</div>
+    <div class="m-when"><b>${m.d}${m.t?' · '+timeLabel(m.t):''}</b>${m.venue} ${badge[m.st]||''}</div>
+  </div>`;
+}
+
+// ── Accueil : prochains matchs (8 premiers non joués)
+const upcoming=GROUP_MATCHES.filter(m=>m.st!=="done");
+const koFlat=KNOCKOUT.flatMap(p=>p.matches.map(m=>({...m,tag:p.phase})));
+const nextList=[...upcoming.map(m=>({...m,tag:"Groupe "+m.g})),...koFlat.filter(m=>m.st!=="done")].slice(0,8);
+$("#next-matches").innerHTML=nextList.map(m=>matchRow(m,{tag:m.tag})).join('')
+  ||'<div class="card" style="text-align:center;color:var(--muted)">Tous les matchs ont été joués — merci pour ce Mondial ! 🏆</div>';
+
+// ── Calendrier : 12 groupes
+$("#cal-groups").innerHTML=["A","B","C","D","E","F","G","H","I","J","K","L"].map(g=>{
+  const ms=GROUP_MATCHES.filter(m=>m.g===g);
+  const teams=[...new Set(ms.flatMap(m=>[m.home,m.away]))];
+  return `<div class="group-block">
+    <div class="group-title"><span class="gl">Groupe ${g}</span>
+      <span style="font-weight:600;color:var(--muted);font-size:.9rem">${teams.map(flag).join(' ')}</span>
+      ${g==="E"?'<span class="badge done">🐘 Groupe des Éléphants</span>':''}</div>
+    ${ms.map(m=>matchRow(m)).join('')}
+  </div>`;
+}).join('');
+
+// ── Calendrier : phase finale
+$("#cal-knockout").innerHTML=KNOCKOUT.map(p=>`
+  <div class="group-block">
+    <div class="group-title"><span class="gl" style="background:var(--orange)">${p.phase}</span></div>
+    ${p.matches.map(m=>matchRow(m)).join('')}
+  </div>`).join('');
+
+// ── Résultats : tous les matchs joués (groupes + phase finale), plus récents d'abord
+const played=[
+  ...GROUP_MATCHES.filter(m=>m.st==="done").map(m=>({...m,tag:"Groupe "+m.g})),
+  ...koFlat.filter(m=>m.st==="done")
+].reverse();
+$("#results").innerHTML=played.length
+  ? played.map(m=>matchRow(m,{tag:m.tag})).join('')
+  : `<div class="card" style="text-align:center;color:var(--muted)">
+      ⏳ Aucun match joué pour l'instant — coup d'envoi le <b>11 juin 2026</b> avec Mexique 🇲🇽 – Afrique du Sud 🇿🇦 à Mexico.
+      Tous les résultats, du match d'ouverture à la finale, s'afficheront ici.</div>`;
+
+// ── Classements : calcul automatique depuis les scores
+function computeTable(g){
+  const ms=GROUP_MATCHES.filter(m=>m.g===g);
+  const tbl={};
+  ms.forEach(m=>[m.home,m.away].forEach(t=>{ if(!tbl[t])tbl[t]={team:t,j:0,g:0,n:0,p:0,bp:0,bc:0,pts:0}; }));
+  ms.filter(m=>m.st==="done"&&/^\d+-\d+$/.test(m.s)).forEach(m=>{
+    const [a,b]=m.s.split('-').map(Number), H=tbl[m.home], A=tbl[m.away];
+    H.j++;A.j++; H.bp+=a;H.bc+=b; A.bp+=b;A.bc+=a;
+    if(a>b){H.g++;H.pts+=3;A.p++;} else if(a<b){A.g++;A.pts+=3;H.p++;} else {H.n++;A.n++;H.pts++;A.pts++;}
+  });
+  return Object.values(tbl).map(t=>({...t,diff:t.bp-t.bc}))
+    .sort((x,y)=>y.pts-x.pts||y.diff-x.diff||y.bp-x.bp||x.team.localeCompare(y.team));
+}
+function tableHTML(g){
+  const rows=computeTable(g).map((t,i)=>{
+    const color=i<2?'var(--green)':i===2?'var(--orange)':'#d22';
+    return `<tr class="${t.team==="Côte d'Ivoire"?'civ':''}">
+      <td><span class="qual" style="background:${color}"></span> ${i+1}</td>
+      <td class="team">${team(t.team)}</td>
+      <td>${t.j}</td><td>${t.g}</td><td>${t.n}</td><td>${t.p}</td>
+      <td>${t.bp}</td><td>${t.bc}</td><td>${t.diff>0?'+':''}${t.diff}</td><td><b>${t.pts}</b></td></tr>`;
+  }).join('');
+  return `<table><thead><tr><th>#</th><th>Équipe</th><th>J</th><th>G</th><th>N</th><th>P</th><th>BP</th><th>BC</th><th>±</th><th>Pts</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+$("#standings").innerHTML=["A","B","C","D","E","F","G","H","I","J","K","L"].map(g=>`
+  <div><div class="group-title" style="margin-bottom:8px"><span class="gl">Groupe ${g}</span>
+    ${g==="E"?'<span class="badge done">🐘</span>':''}</div>${tableHTML(g)}</div>`).join('');
+
+// ── Onglet CIV : matchs (groupes + phase finale si CIV qualifiée) + classement E
+const civGroup=GROUP_MATCHES.filter(m=>m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
+const civKO=koFlat.filter(m=>m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
+$("#civ-matches").innerHTML=
+  civGroup.map(m=>matchRow(m,{tag:"Groupe E · J"+m.j})).join('')+
+  (civKO.length?`<div class="day-head">🏆 Phase finale</div>`+civKO.map(m=>matchRow(m,{tag:m.tag})).join(''):"");
+$("#civ-group-table").innerHTML=tableHTML("E");
+
+// ── News
+$("#news").innerHTML=NEWS.map(n=>`
+  <article class="news"><time>${n.date}</time><h3>${n.title}</h3><p>${n.text}</p></article>`).join('');
+</script>
+</body>
+</html>
