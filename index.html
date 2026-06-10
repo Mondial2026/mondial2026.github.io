@@ -537,6 +537,15 @@ function timeLabel(t){
   const gmt=`${String(Math.floor(mins/60)).padStart(2,'0')}h${String(mins%60).padStart(2,'0')}${day===1?' (+1j)':''}`;
   return `${gmt} GMT · ${t} Paris`;
 }
+
+// Clé de tri chronologique (date du match + heure de Paris, gestion du (+1j))
+function sortKey(m){
+  const day=+(/^(\d{1,2})/.exec(m.d)||[0,99])[1];
+  const month=/juillet/.test(m.d)?7:6;
+  const tm=/^(\d{1,2})h(\d{2})(\s*\(\+1j\))?$/.exec(m.t||"");
+  const mins=tm?(+tm[1])*60+(+tm[2]):0, plus=(tm&&tm[3])?1:0;
+  return ((month*31+day+plus)*1440)+mins;
+}
 const badge={upcoming:'<span class="badge up">À venir</span>',live:'<span class="badge live">● Live</span>',done:'<span class="badge done">Terminé</span>'};
 
 // Onglets
@@ -576,7 +585,7 @@ function matchRow(m,opts={}){
   const isCiv=(m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
   const teams=(m.home&&m.away)
     ?`<span>${team(m.home)}</span><span class="m-score">${m.s||'vs'}</span><span>${team(m.away)}</span>`
-    :`<span style="color:var(--muted)">${m.pairing}</span><span class="m-score">vs</span>`;
+    :`<span style="color:var(--muted)">${m.pairing}</span>`;
   const extra=opts.tag?`<span class="badge up" style="background:#eef;color:#449">${opts.tag}</span>`:"";
   return `<div class="match ${isCiv?'civ':''}">
     <div class="m-teams">${teams}${extra}</div>
@@ -587,7 +596,8 @@ function matchRow(m,opts={}){
 // ── Accueil : prochains matchs (8 premiers non joués)
 const upcoming=GROUP_MATCHES.filter(m=>m.st!=="done");
 const koFlat=KNOCKOUT.flatMap(p=>p.matches.map(m=>({...m,tag:p.phase})));
-const nextList=[...upcoming.map(m=>({...m,tag:"Groupe "+m.g})),...koFlat.filter(m=>m.st!=="done")].slice(0,8);
+const nextList=[...upcoming.map(m=>({...m,tag:"Groupe "+m.g})),...koFlat.filter(m=>m.st!=="done")]
+  .sort((a,b)=>sortKey(a)-sortKey(b)).slice(0,8);
 $("#next-matches").innerHTML=nextList.map(m=>matchRow(m,{tag:m.tag})).join('')
   ||'<div class="card" style="text-align:center;color:var(--muted)">Tous les matchs ont été joués — merci pour ce Mondial ! 🏆</div>';
 
@@ -661,5 +671,7 @@ $("#civ-group-table").innerHTML=tableHTML("E");
 $("#news").innerHTML=NEWS.map(n=>`
   <article class="news"><time>${n.date}</time><h3>${n.title}</h3><p>${n.text}</p></article>`).join('');
 </script>
+<!-- Compteur de visites GoatCounter — à réactiver avec le bon code de compte :
+<script data-goatcounter="https://CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script> -->
 </body>
 </html>
