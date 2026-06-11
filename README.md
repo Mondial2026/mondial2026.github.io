@@ -1,6 +1,6 @@
 # 🏆 Coupe du Monde 2026 · Focus Côte d'Ivoire 🇨🇮🐘
 
-**Site en ligne : [odicarine-lgtm.github.io/mondial2026](https://odicarine-lgtm.github.io/mondial2026/)**
+**Site en ligne : [mondial2026.github.io](https://mondial2026.github.io/)**
 
 Landing page de suivi de la Coupe du Monde FIFA 2026 (11 juin – 19 juillet 2026, États-Unis 🇺🇸 / Canada 🇨🇦 / Mexique 🇲🇽, 48 équipes), avec un focus sur les **Éléphants de Côte d'Ivoire** — de retour au Mondial après 12 ans d'absence, champions d'Afrique en titre (CAN 2023).
 
