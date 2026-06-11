@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Sécurité : politique de contenu (limite les sources de scripts/styles au strict nécessaire) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://gc.zgo.at; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://mondialodi.goatcounter.com; connect-src 'self' https://mondialodi.goatcounter.com; font-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; frame-ancestors 'none'" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <title>Coupe du Monde 2026 · Calendrier, Résultats, Classements · Focus Côte d'Ivoire 🇨🇮</title>
 <meta name="description" content="Suivi quotidien (MAJ 08h GMT) de la Coupe du Monde FIFA 2026 : calendrier complet des 104 matchs, résultats, classements des 12 groupes, phase finale et onglet dédié aux Éléphants de Côte d'Ivoire." />
 <style>
@@ -676,6 +679,6 @@ $("#news").innerHTML=NEWS.map(n=>`
   <article class="news"><time>${n.date}</time><h3>${n.title}</h3><p>${n.text}</p></article>`).join('');
 </script>
 <!-- Compteur de visites GoatCounter — tableau de bord : https://mondialodi.goatcounter.com -->
-<script data-goatcounter="https://mondialodi.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="https://mondialodi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
