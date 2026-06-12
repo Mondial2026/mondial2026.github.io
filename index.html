@@ -296,7 +296,7 @@
   <section>
     <div class="wrap">
       <h2>📅 Calendrier complet — Phase de groupes</h2>
-      <p class="sub">Les 72 matchs des 12 groupes (11 → 27 juin). Horaires en heure GMT (Abidjan) puis heure de Paris ; (+1j) = match dans la nuit, date du lendemain.</p>
+      <p class="sub">Les 72 matchs classés jour par jour (11 → 27 juin). Le groupe de chaque match est indiqué par une étiquette. Horaires en heure GMT (Abidjan) puis heure de Paris ; (+1j) = match dans la nuit, date du lendemain.</p>
       <div id="cal-groups"></div>
     </div>
   </section>
@@ -553,6 +553,14 @@ function sortKey(m){
   const mins=tm?(+tm[1])*60+(+tm[2]):0, plus=(tm&&tm[3])?1:0;
   return ((month*31+day+plus)*1440)+mins;
 }
+// Clé de jour (date officielle affichée, sans décalage +1j) et libellé avec jour de la semaine
+const WEEKDAYS=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+function dayInfo(m){
+  const day=+(/^(\d{1,2})/.exec(m.d)||[0,1])[1];
+  const month=/juillet/.test(m.d)?7:6;
+  const wd=WEEKDAYS[new Date(2026,month-1,day).getDay()];
+  return { key:month*31+day, label:`${wd} ${m.d}` };
+}
 const badge={upcoming:'<span class="badge up">À venir</span>',live:'<span class="badge live">● Live</span>',done:'<span class="badge done">Terminé</span>'};
 
 // Onglets
@@ -608,15 +616,20 @@ const nextList=[...upcoming.map(m=>({...m,tag:"Groupe "+m.g})),...koFlat.filter(
 $("#next-matches").innerHTML=nextList.map(m=>matchRow(m,{tag:m.tag})).join('')
   ||'<div class="card" style="text-align:center;color:var(--muted)">Tous les matchs ont été joués — merci pour ce Mondial ! 🏆</div>';
 
-// ── Calendrier : 12 groupes
-$("#cal-groups").innerHTML=["A","B","C","D","E","F","G","H","I","J","K","L"].map(g=>{
-  const ms=GROUP_MATCHES.filter(m=>m.g===g);
-  const teams=[...new Set(ms.flatMap(m=>[m.home,m.away]))];
+// ── Calendrier : phase de groupes classée par DATE (plus intuitif)
+const calDays={};
+GROUP_MATCHES.forEach(m=>{
+  const {key,label}=dayInfo(m);
+  (calDays[key]=calDays[key]||{label,matches:[]}).matches.push(m);
+});
+$("#cal-groups").innerHTML=Object.keys(calDays).map(Number).sort((a,b)=>a-b).map(k=>{
+  const ms=calDays[k].matches.slice().sort((a,b)=>sortKey(a)-sortKey(b));
+  const hasCiv=ms.some(m=>m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
   return `<div class="group-block">
-    <div class="group-title"><span class="gl">Groupe ${g}</span>
-      <span style="font-weight:600;color:var(--muted);font-size:.9rem">${teams.map(flag).join(' ')}</span>
-      ${g==="E"?'<span class="badge done">🐘 Groupe des Éléphants</span>':''}</div>
-    ${ms.map(m=>matchRow(m)).join('')}
+    <div class="group-title"><span class="gl">${calDays[k].label}</span>
+      <span style="font-weight:600;color:var(--muted);font-size:.9rem">${ms.length} match${ms.length>1?'s':''}</span>
+      ${hasCiv?'<span class="badge done">🐘 Match des Éléphants</span>':''}</div>
+    ${ms.map(m=>matchRow(m,{tag:"Gr. "+m.g})).join('')}
   </div>`;
 }).join('');
 
