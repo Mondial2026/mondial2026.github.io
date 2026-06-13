@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- Sécurité : politique de contenu (limite les sources de scripts/styles au strict nécessaire) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://gc.zgo.at https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://mondialodi.goatcounter.com; connect-src 'self' https://mondialodi.goatcounter.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebasedatabase.app https://*.googleapis.com; font-src 'self'; frame-src https://www.sportbusy.com; base-uri 'self'; form-action 'none'; object-src 'none'" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://gc.zgo.at https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://mondialodi.goatcounter.com; connect-src 'self' https://mondialodi.goatcounter.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebasedatabase.app https://*.googleapis.com; font-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <title>Coupe du Monde 2026 · Calendrier, Résultats, Classements · Focus Côte d'Ivoire 🇨🇮</title>
 <meta name="description" content="Suivi quotidien (MAJ 08h GMT) de la Coupe du Monde FIFA 2026 : calendrier complet des 104 matchs, résultats, classements des 12 groupes, phase finale et onglet dédié aux Éléphants de Côte d'Ivoire." />
@@ -225,6 +225,12 @@
   .ptoast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   .pempty{background:var(--card);border:1px dashed var(--line);border-radius:14px;
     padding:22px;text-align:center;color:var(--muted)}
+  .dl-card{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 22px;box-shadow:var(--shadow)}
+  .dl-btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#fff;font-weight:800;
+    background:linear-gradient(90deg,var(--orange),var(--orange-dark));padding:14px 26px;border-radius:14px;white-space:nowrap}
+  .dl-btn:hover{filter:brightness(1.06)}
 </style>
 </head>
 <body>
@@ -268,17 +274,9 @@
 
   <section class="alt-bg">
     <div class="wrap">
-      <h2>🔴 Scores en direct</h2>
-      <p class="sub">Suivi en temps réel des matchs du Mondial — rencontres en cours et à venir, filtrables par groupe et par pays.</p>
-      <div style="display:flex;justify-content:center">
-        <iframe src="https://www.sportbusy.com/embed/world-cup"
-          width="380" height="500" loading="lazy"
-          style="border:none;border-radius:12px;max-width:100%;box-shadow:0 4px 18px rgba(0,0,0,.12)"
-          title="Scores en direct du Mondial 2026"></iframe>
-      </div>
-      <p class="sub" style="text-align:center;margin-top:10px;font-size:.85rem">
-        Données sportives en direct par <a href="https://www.sportbusy.com" target="_blank" rel="noopener noreferrer">SportBusy</a>.
-      </p>
+      <h2>⚽ Scores du jour</h2>
+      <p class="sub">Les matchs d'aujourd'hui avec leur score, mis à jour automatiquement — heure d'Abidjan (GMT) puis heure de Paris.</p>
+      <div id="today-scores"></div>
     </div>
   </section>
 
@@ -295,6 +293,18 @@
       <h2>📰 Dernières informations</h2>
       <p class="sub">L'actu du jour autour du Mondial et des Éléphants.</p>
       <div class="grid news-grid" id="news"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>📔 Le carnet du Mondial</h2>
+      <p class="sub">Calendrier complet, fiches des Éléphants 🐘 et pages de pronostics à remplir — en PDF imprimable A4, à garder en souvenir.</p>
+      <div class="dl-card">
+        <div>📔 <b>Carnet du Mondial 2026 · Spécial Éléphants</b><br>
+          <span style="color:var(--muted);font-size:.9rem">PDF A4 · calendrier, scores &amp; pronostics à remplir</span></div>
+        <a class="dl-btn" href="carnet-mondial-2026.pdf" download>⬇️ Télécharger le carnet (PDF)</a>
+      </div>
     </div>
   </section>
 </div>
@@ -966,6 +976,30 @@ async function fetchLive(){
 renderAll();
 fetchLive();
 setInterval(fetchLive,POLL_MS);
+
+/* ════════════════════════════════════════════════════════════
+   SCORES DU JOUR (panneau maison, fiable, heure d'Abidjan)
+   Remplace l'ancien widget tiers. Lit GROUP_MATCHES/KNOCKOUT (déjà
+   actualisés par la MAJ quotidienne + l'overlay live data.json).
+   ════════════════════════════════════════════════════════════ */
+(function(){
+  const MN=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  function todayLabel(){const n=new Date();const d=n.getUTCDate();return (d===1?'1ᵉʳ':d)+' '+MN[n.getUTCMonth()];}
+  function renderToday(){
+    const box=document.querySelector('#today-scores'); if(!box) return;
+    const today=todayLabel();
+    const all=[...GROUP_MATCHES,...koAll()].filter(m=>m.home&&m.away);
+    const list=all.filter(m=>m.d===today).sort((a,b)=>sortKey(a)-sortKey(b));
+    if(!list.length){
+      const nx=all.filter(m=>m.st!=='done').sort((a,b)=>sortKey(a)-sortKey(b))[0];
+      box.innerHTML=`<div class="card" style="text-align:center;color:var(--muted)">📅 Aucun match aujourd'hui (${today}).${nx?`<br>Prochain : <b>${team(nx.home)} – ${team(nx.away)}</b> · ${nx.d} · ${timeLabel(nx.t)}`:''}</div>`;
+      return;
+    }
+    box.innerHTML=list.map(m=>matchRow(m)).join('');
+  }
+  renderToday();
+  setInterval(renderToday,POLL_MS);
+})();
 
 /* ════════════════════════════════════════════════════════════
    JEU DES PRONOSTICS
