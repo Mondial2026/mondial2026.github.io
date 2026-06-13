@@ -367,7 +367,7 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-06-12";
+const LAST_UPDATE = "2026-06-13";
 
 // Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
 const NEXT_KICKOFF = { iso:"2026-06-14T23:00:00Z", label:"⏳ avant Côte d'Ivoire 🇨🇮 – Équateur 🇪🇨 (1ʳᵉ journée)" };
@@ -399,7 +399,7 @@ const GROUP_MATCHES = [
  {g:"A",j:3,d:"24 juin",home:"Tchéquie",away:"Mexique",venue:"Estadio Azteca · Mexico",t:"03h00 (+1j)",s:"",st:"upcoming"},
  {g:"A",j:3,d:"24 juin",home:"Afrique du Sud",away:"Corée du Sud",venue:"Estadio BBVA · Monterrey",t:"03h00 (+1j)",s:"",st:"upcoming"},
  // Groupe B
- {g:"B",j:1,d:"12 juin",home:"Canada",away:"Bosnie-Herzégovine",venue:"BMO Field · Toronto",t:"21h00",s:"",st:"upcoming"},
+ {g:"B",j:1,d:"12 juin",home:"Canada",away:"Bosnie-Herzégovine",venue:"BMO Field · Toronto",t:"21h00",s:"1-1",st:"done"},
  {g:"B",j:1,d:"13 juin",home:"Qatar",away:"Suisse",venue:"Levi's Stadium · San Francisco",t:"21h00",s:"",st:"upcoming"},
  {g:"B",j:2,d:"18 juin",home:"Suisse",away:"Bosnie-Herzégovine",venue:"SoFi Stadium · Los Angeles",t:"21h00",s:"",st:"upcoming"},
  {g:"B",j:2,d:"18 juin",home:"Canada",away:"Qatar",venue:"BC Place · Vancouver",t:"00h00 (+1j)",s:"",st:"upcoming"},
@@ -413,7 +413,7 @@ const GROUP_MATCHES = [
  {g:"C",j:3,d:"24 juin",home:"Écosse",away:"Brésil",venue:"Hard Rock Stadium · Miami",t:"00h00 (+1j)",s:"",st:"upcoming"},
  {g:"C",j:3,d:"24 juin",home:"Maroc",away:"Haïti",venue:"Mercedes-Benz Stadium · Atlanta",t:"00h00 (+1j)",s:"",st:"upcoming"},
  // Groupe D
- {g:"D",j:1,d:"12 juin",home:"États-Unis",away:"Paraguay",venue:"SoFi Stadium · Los Angeles",t:"03h00 (+1j)",s:"",st:"upcoming"},
+ {g:"D",j:1,d:"12 juin",home:"États-Unis",away:"Paraguay",venue:"SoFi Stadium · Los Angeles",t:"03h00 (+1j)",s:"4-1",st:"done"},
  {g:"D",j:1,d:"13 juin",home:"Australie",away:"Türkiye",venue:"BC Place · Vancouver",t:"06h00 (+1j)",s:"",st:"upcoming"},
  {g:"D",j:2,d:"19 juin",home:"États-Unis",away:"Australie",venue:"Lumen Field · Seattle",t:"21h00",s:"",st:"upcoming"},
  {g:"D",j:2,d:"19 juin",home:"Türkiye",away:"Paraguay",venue:"Levi's Stadium · San Francisco",t:"05h00 (+1j)",s:"",st:"upcoming"},
@@ -522,8 +522,9 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
+  { date:"13 juin 2026", title:"J-1 avant Côte d'Ivoire – Équateur : les Éléphants entrent en scène demain", text:"À la veille de leur entrée dans le tournoi, les champions d'Afrique d'Emerse Faé peaufinent les derniers réglages à Philadelphie. Coup d'envoi le 14 juin à 23h00 GMT (01h00 Paris) au Lincoln Financial Field face à l'Équateur, pour viser une première sortie de groupe après les éliminations au 1ᵉʳ tour en 2006, 2010 et 2014. Plus tôt dans la journée, l'Allemagne lance le groupe E face au Curaçao." },
+  { date:"13 juin 2026", title:"Carton des États-Unis, le Canada accroche la Bosnie", text:"Le pays hôte a frappé fort à Los Angeles : États-Unis 4-1 Paraguay, avec un doublé de Folarin Balogun en première période et un but de Giovanni Reyna ; Maurício a sauvé l'honneur paraguayen. Plus tôt à Toronto, le Canada a arraché le nul 1-1 face à la Bosnie-Herzégovine — premier point de son histoire en Coupe du monde — Cyle Larin égalisant (78ᵉ) après l'ouverture de Jovo Lukić (21ᵉ)." },
   { date:"12 juin 2026", title:"La Corée du Sud renverse la Tchéquie 2-1 et complète la 1ʳᵉ journée du groupe A", text:"À Guadalajara, les Tchèques ouvrent le score par leur capitaine Ladislav Krejčí d'une tête (59ᵉ), mais la Corée du Sud répond par Hwang In-beom (67ᵉ) puis Oh Hyeon-gyu (80ᵉ) pour un succès mérité. La Corée rejoint le Mexique en tête du groupe A ; la Tchéquie sera le prochain test de l'Afrique du Sud." },
-  { date:"12 juin 2026", title:"J-2 avant Côte d'Ivoire – Équateur", text:"Les champions d'Afrique d'Emerse Faé visent une première sortie de groupe après les éliminations au 1ᵉʳ tour en 2006, 2010 et 2014. Coup d'envoi le 14 juin à 23h00 GMT (01h00 Paris) au Lincoln Financial Field de Philadelphie. L'Allemagne ouvre le groupe E plus tôt face au Curaçao." },
   { date:"9 juin 2026", title:"Préparation parfaite : les Éléphants battent la France puis Philadelphie", text:"Après leur victoire de prestige 2-1 contre la France à Nantes, les hommes d'Emerse Faé ont conclu par un succès 2-0 face à Philadelphia Union II : premier but de Bonny en sélection et un Lafont brillant." },
   { date:"15 mai 2026", title:"La liste officielle des 26 Éléphants", text:"Emerse Faé a retenu 26 joueurs, dont le néo-international Ange-Yoan Bonny et le retour de Nicolas Pépé. Sébastien Haller, freiné par les blessures, est réserviste." },
 ];
