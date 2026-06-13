@@ -966,6 +966,173 @@ async function fetchLive(){
 renderAll();
 fetchLive();
 setInterval(fetchLive,POLL_MS);
+
+/* ════════════════════════════════════════════════════════════
+   JEU DES PRONOSTICS
+   - Pseudo uniquement (aucune donnée personnelle), UID aléatoire local.
+   - Mode démo (localStorage) tant que Firebase n'est pas configuré ;
+     bascule automatique en classement partagé temps réel dès que
+     FIREBASE_CONFIG est rempli.
+
+   === ADMIN : pour ajouter un résultat ===
+   Rien à faire ! Les résultats sont lus AUTOMATIQUEMENT depuis les scores
+   déjà saisis dans le bloc DONNÉES (un match avec st:"done" et s:"x-y").
+   Dès qu'un score passe en "done", les points de tous les joueurs se
+   recalculent et le classement se met à jour en direct. Aucune double saisie.
+
+   === FIREBASE RULES (à coller dans Realtime Database → Règles) ===
+   {
+     "rules": {
+       "pronostics": {
+         ".read": true,
+         "$uid": {
+           ".write": true,
+           ".validate": "newData.hasChildren(['pseudo'])",
+           "pseudo": { ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 20" },
+           "scores": { "$mid": { ".validate": "newData.isString() && newData.val().matches(/^[0-9]{1,2}-[0-9]{1,2}$/)" } },
+           "updatedAt": { ".validate": "newData.isNumber()" },
+           "$autre": { ".validate": false }
+         }
+       }
+     }
+   }
+   (Lecture publique pour le classement ; écriture validée — pseudo + scores
+    au bon format uniquement, pas de champ parasite. Jeu « pour le fun » sans
+    authentification : un tricheur déterminé reste possible, c'est assumé.)
+   ════════════════════════════════════════════════════════════ */
+(function(){
+  // ▼▼▼ À REMPLIR avec la config de TON projet Firebase (console Firebase → Paramètres du projet) ▼▼▼
+  const FIREBASE_CONFIG = {
+    apiKey:"", authDomain:"", databaseURL:"", projectId:"",
+    storageBucket:"", messagingSenderId:"", appId:""
+  };
+  // ▲▲▲ Tant que c'est vide → mode démo local. Rempli → classement partagé en direct. ▲▲▲
+  const FB_READY = !!(FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.databaseURL);
+
+  const $=s=>document.querySelector(s);
+  const CIV="Côte d'Ivoire";
+  const UID_KEY="mondial2026_uid", PSEUDO_KEY="mondial2026_pseudo", LOCAL_PRONO="mondial2026_prono";
+  const MNAMES=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  const MONTHS={'janvier':1,'février':2,'mars':3,'avril':4,'mai':5,'juin':6,'juillet':7,'août':8,'septembre':9,'octobre':10,'novembre':11,'décembre':12};
+  let store=null, LB=[], toastT=null;
+
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const getUid=()=>localStorage.getItem(UID_KEY);
+  const getPseudo=()=>localStorage.getItem(PSEUDO_KEY);
+  const isCiv=m=>m.home===CIV||m.away===CIV;
+  function readLocal(){try{return JSON.parse(localStorage.getItem(LOCAL_PRONO))||{};}catch(e){return{};}}
+  function writeLocal(o){localStorage.setItem(LOCAL_PRONO,JSON.stringify(o));}
+  function slug(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z]/g,'').slice(0,3);}
+  function matchId(m){return (m.id?('ko_'+m.id):`${m.g}_j${m.j}_${slug(m.home)}_${slug(m.away)}`).toLowerCase();}
+  function monthOf(d){for(const k in MONTHS){if(d.indexOf(k)>=0)return MONTHS[k];}return 6;}
+  function todayLabel(){const n=new Date();const d=n.getUTCDate();return (d===1?'1ᵉʳ':d)+' '+MNAMES[n.getUTCMonth()];}
+  function getMatchTimestamp(m){
+    const md=/^(\d{1,2})/.exec(m.d), tm=/^(\d{1,2})h(\d{2})(\s*\(\+1j\))?$/.exec(m.t||'');
+    if(!md||!tm) return NaN;
+    let day=+md[1], hh=+tm[1], mm=+tm[2]; if(tm[3]) day+=1;
+    return Date.UTC(2026,monthOf(m.d)-1,day,hh,mm)-2*3600*1000; // Paris (UTC+2 l'été) → UTC
+  }
+  const allPlayable=()=>[...GROUP_MATCHES,...koAll()].filter(m=>m.home&&m.away);
+  const findMatch=id=>allPlayable().find(m=>matchId(m)===id);
+  function results(){const r={};[...GROUP_MATCHES,...koAll()].forEach(m=>{if(m.st==='done'&&/^\d+-\d+$/.test(m.s||''))r[matchId(m)]={s:m.s,civ:isCiv(m)};});return r;}
+  function calcPts(scores,res){let pts=0;for(const id in res){const pr=scores&&scores[id];if(!pr)continue;
+    const [rh,ra]=res[id].s.split('-').map(Number),[ph,pa]=pr.split('-').map(Number);
+    if([rh,ra,ph,pa].some(Number.isNaN))continue;const k=res[id].civ?2:1;
+    if(ph===rh&&pa===ra)pts+=10*k;else if(Math.sign(rh-ra)===Math.sign(ph-pa))pts+=3*k;}return pts;}
+  function myScores(){const uid=getUid();const me=LB.find(p=>p.uid===uid);if(me)return me.scores||{};return readLocal().scores||{};}
+
+  // ---- stockage : Firebase ou démo local ----
+  function localStore(){let cb=null;
+    function emit(){const r=readLocal();cb&&cb(r.uid?[{uid:r.uid,pseudo:r.pseudo,scores:r.scores||{}}]:[]);}
+    return{
+      register(uid,pseudo){const r=readLocal();r.uid=uid;r.pseudo=pseudo;r.scores=r.scores||{};writeLocal(r);emit();},
+      saveScore(uid,id,score){const r=readLocal();r.scores=r.scores||{};r.scores[id]=score;writeLocal(r);emit();},
+      onLeaderboard(fn){cb=fn;emit();}
+    };}
+  function firebaseStore(db){const TS=firebase.database.ServerValue.TIMESTAMP;
+    return{
+      register(uid,pseudo){db.ref('pronostics/'+uid+'/pseudo').set(pseudo);db.ref('pronostics/'+uid+'/updatedAt').set(TS);},
+      saveScore(uid,id,score){db.ref(`pronostics/${uid}/scores/${id}`).set(score);db.ref('pronostics/'+uid+'/updatedAt').set(TS);},
+      onLeaderboard(fn){db.ref('pronostics').on('value',snap=>{const a=[];snap.forEach(c=>{const v=c.val()||{};a.push({uid:c.key,pseudo:v.pseudo||'?',scores:v.scores||{}});});fn(a);});}
+    };}
+  function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+  async function initFirebase(){
+    await loadScript("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js");
+    await loadScript("https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js");
+    firebase.initializeApp(FIREBASE_CONFIG); return firebase.database();
+  }
+
+  // ---- rendu ----
+  function setBanner(kind){const b=$('#p-banner');if(!b)return;
+    if(kind==='live'){b.className='pbanner ok';b.textContent='✅ Classement partagé en direct (Firebase).';}
+    else if(kind==='error'){b.className='pbanner';b.textContent='⚠️ Connexion au classement partagé impossible — mode démo local activé.';}
+    else{b.className='pbanner';b.textContent='Mode démo : tes pronostics sont enregistrés sur cet appareil. Le classement partagé s’activera une fois Firebase configuré.';}}
+  function renderRegister(){const box=$('#p-register');const p=getPseudo();if(!box||!p)return;
+    box.innerHTML=`<h3 style="margin-bottom:4px">Salut ${esc(p)} 👋</h3><p class="sub" style="margin:0">Tu peux pronostiquer les matchs ci-dessous — tes points apparaissent au classement.</p>`;}
+  function renderStats(){const uid=getUid();const i=LB.findIndex(p=>p.uid===uid);
+    $('#p-count').textContent=LB.length;$('#p-mypts').textContent=i>=0?LB[i].pts:0;$('#p-myrank').textContent=i>=0?('#'+(i+1)):'—';}
+  function renderLeaderboard(){const box=$('#p-leaderboard');if(!box)return;const uid=getUid();
+    if(!LB.length){box.innerHTML='<div class="pempty">Personne n’a encore joué — sois le/la premier·e ! 🥇</div>';return;}
+    box.innerHTML='<table class="ptable"><thead><tr><th>#</th><th>Pseudo</th><th style="text-align:right">Points</th></tr></thead><tbody>'+
+      LB.map((p,i)=>`<tr class="${p.uid===uid?'is-me':''}"><td><span class="prank">${i+1}</span></td><td>${esc(p.pseudo)}</td><td class="pts">${p.pts}</td></tr>`).join('')+'</tbody></table>';}
+  function renderRecap(){const box=$('#p-recap');if(!box)return;const my=myScores(),res=results();
+    const ids=Object.keys(my).filter(id=>res[id]);
+    if(!ids.length){box.innerHTML='<div class="pempty">Tes pronostics sur les matchs terminés s’afficheront ici.</div>';return;}
+    box.innerHTML='<div class="prono-recap">'+ids.map(id=>{const real=res[id].s,pr=my[id];
+      const [rh,ra]=real.split('-').map(Number),[ph,pa]=pr.split('-').map(Number);
+      let cls='miss',lbl='raté';if(ph===rh&&pa===ra){cls='hit';lbl='exact';}else if(Math.sign(rh-ra)===Math.sign(ph-pa)){cls='partial';lbl='bon résultat';}
+      const m=findMatch(id),nm=m?`${flag(m.home)}${flag(m.away)}`:id;
+      return `<span class="prono-recap-match ${cls}">${nm} ${esc(pr)} / ${esc(real)} · ${lbl}</span>`;}).join('')+'</div>';}
+  function renderMatches(){const box=$('#p-matches');if(!box)return;const reg=!!getPseudo();
+    const today=todayLabel();
+    const todays=allPlayable().filter(m=>m.st!=='done'&&m.d===today).sort((a,b)=>sortKey(a)-sortKey(b));
+    if(!todays.length){const nx=allPlayable().filter(m=>m.st!=='done').sort((a,b)=>sortKey(a)-sortKey(b))[0];
+      box.innerHTML=`<div class="pempty">📅 Aucun match à pronostiquer aujourd’hui — reviens demain !${nx?`<br><br>Prochain : <b>${team(nx.home)} – ${team(nx.away)}</b><br>${nx.d} · ${timeLabel(nx.t)}`:''}</div>`;return;}
+    const my=myScores();
+    box.innerHTML=todays.map(m=>{const id=matchId(m),civ=isCiv(m),ts=getMatchTimestamp(m),locked=isFinite(ts)&&(ts-Date.now()<30*60000);
+      const sc=my[id]?my[id].split('-'):['',''];const dis=locked||!reg?'disabled':'';
+      return `<div class="pmatch ${civ?'civ-m':''} ${locked?'locked':''}" data-mid="${id}">
+        <div class="pm-top"><span class="pm-meta">${m.g?('Groupe '+m.g+' · J'+m.j):(m.id||'')} · ${m.d} · ${timeLabel(m.t)}</span>
+          ${civ?'<span class="badge done">🐘 ×2 points</span>':''}${locked?'<span class="plock">🔒 Verrouillé</span>':''}</div>
+        <div class="pscore"><span class="pteam">${team(m.home)}</span>
+          <input type="number" min="0" max="99" inputmode="numeric" class="p-h" value="${sc[0]}" ${dis} aria-label="buts ${esc(m.home)}">
+          <span class="pdash">–</span>
+          <input type="number" min="0" max="99" inputmode="numeric" class="p-a" value="${sc[1]}" ${dis} aria-label="buts ${esc(m.away)}">
+          <span class="pteam away">${team(m.away)}</span></div>
+        <div style="text-align:center">${locked?'<span class="pm-meta">Pronostic fermé</span>':`<button type="button" class="pbtn green small p-save" ${reg?'':'disabled'}>${reg?'Enregistrer':'Choisis un pseudo'}</button>`}</div>
+      </div>`;}).join('');}
+
+  function onLB(players){const res=results();
+    LB=players.map(p=>({...p,pts:calcPts(p.scores,res)})).sort((a,b)=>b.pts-a.pts||String(a.pseudo).localeCompare(b.pseudo));
+    renderLeaderboard();renderStats();renderRecap();}
+  function toast(msg){const t=$('#p-toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),3000);}
+
+  // ---- événements ----
+  function bindUI(){
+    const join=$('#p-join');
+    join&&join.addEventListener('click',()=>{const v=$('#p-pseudo').value.trim();const err=$('#p-pseudo-err');
+      if(v.length<2){err.textContent='Choisis un pseudo d’au moins 2 caractères.';return;}err.textContent='';
+      let uid=getUid()||(window.crypto&&crypto.randomUUID?crypto.randomUUID():'u'+Date.now()+Math.random().toString(16).slice(2));
+      localStorage.setItem(UID_KEY,uid);localStorage.setItem(PSEUDO_KEY,v);
+      store&&store.register(uid,v);renderRegister();renderMatches();toast('Bienvenue '+v+' ! 🎉');});
+    const mb=$('#p-matches');
+    mb&&mb.addEventListener('click',e=>{const btn=e.target.closest('.p-save');if(!btn)return;
+      const card=btn.closest('.pmatch'),id=card.dataset.mid;
+      const h=card.querySelector('.p-h').value,a=card.querySelector('.p-a').value;
+      if(h===''||a===''){toast('Indique les deux scores');return;}
+      const score=`${Math.min(99,Math.max(0,parseInt(h,10)))}-${Math.min(99,Math.max(0,parseInt(a,10)))}`;
+      store&&store.saveScore(getUid(),id,score);renderMatches();toast('Pronostic enregistré ✅');});
+  }
+
+  function boot(db){store=db?firebaseStore(db):localStore();bindUI();store.onLeaderboard(onLB);
+    if(getPseudo())renderRegister();renderMatches();setBanner(db?'live':'demo');
+    setInterval(()=>{if(!document.querySelector('#p-matches input:focus'))renderMatches();},60000);}
+  function hideTab(){const b=document.querySelector('[data-tab="pronostics"]');if(b)b.style.display='none';const p=document.getElementById('panel-pronostics');if(p)p.style.display='none';}
+  // Onglet masqué tant que Firebase n'est pas configuré (évite une publication prématurée par la tâche quotidienne).
+  // Pour activer un mode démo public sans Firebase, remplacer hideTab() par boot(null).
+  if(FB_READY){initFirebase().then(boot).catch(()=>{setBanner('error');boot(null);});}
+  else{hideTab();}
+})();
 </script>
 <!-- Compteur de visites GoatCounter — tableau de bord : https://mondialodi.goatcounter.com -->
 <script data-goatcounter="https://mondialodi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
