@@ -1003,8 +1003,13 @@ setInterval(fetchLive,POLL_MS);
 (function(){
   // ▼▼▼ À REMPLIR avec la config de TON projet Firebase (console Firebase → Paramètres du projet) ▼▼▼
   const FIREBASE_CONFIG = {
-    apiKey:"", authDomain:"", databaseURL:"", projectId:"",
-    storageBucket:"", messagingSenderId:"", appId:""
+    apiKey:"AIzaSyCK9AUq4jyLR7cD7R32ZxIaKdNz40gFpaM",
+    authDomain:"mondial-2026-a71d5.firebaseapp.com",
+    databaseURL:"https://mondial-2026-a71d5-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId:"mondial-2026-a71d5",
+    storageBucket:"mondial-2026-a71d5.firebasestorage.app",
+    messagingSenderId:"806110353590",
+    appId:"1:806110353590:web:8a3e49e2fd42203ec9ee17"
   };
   // ▲▲▲ Tant que c'est vide → mode démo local. Rempli → classement partagé en direct. ▲▲▲
   const FB_READY = !!(FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.databaseURL);
