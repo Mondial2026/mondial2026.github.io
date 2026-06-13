@@ -62,6 +62,11 @@
   .refresh-btn:active{transform:scale(.95)}
   .refresh-btn.spin span{display:inline-block;animation:spin .8s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
+  .live-flag{display:none;align-items:center;gap:6px;background:#d22;color:#fff;
+    border-radius:999px;padding:3px 11px;font-size:.74rem;font-weight:800;
+    animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.4}}
+  .scorer-rank{font-weight:900;color:var(--orange)}
 
   /* ---------- Hero ---------- */
   .hero{position:relative;overflow:hidden;color:#fff;
@@ -95,10 +100,16 @@
   .stat span{color:var(--muted);font-size:.9rem}
 
   /* ---------- Matches ---------- */
-  .match{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  .match{display:flex;flex-direction:column;gap:9px;
     background:var(--card);border:1px solid var(--line);border-radius:13px;
     padding:13px 18px;margin-bottom:10px;box-shadow:0 3px 14px rgba(17,21,15,.05)}
   .match.civ{border-left:5px solid var(--green);background:linear-gradient(90deg,rgba(0,158,96,.05),transparent 40%)}
+  .m-main{display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .m-goals{display:flex;flex-wrap:wrap;gap:4px 22px;font-size:.82rem;color:var(--muted);
+    border-top:1px dashed var(--line);padding-top:8px}
+  .m-goals span{flex:1;min-width:150px}
+  .m-goals span:empty{display:none}
+  .m-goals b{color:var(--ink);font-weight:700}
   .m-teams{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1rem;flex:1;flex-wrap:wrap}
   .m-score{font-weight:900;font-size:1.1rem;background:var(--bg);border:1px solid var(--line);
     border-radius:8px;padding:3px 11px;min-width:58px;text-align:center}
@@ -115,7 +126,7 @@
   .group-title{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.15rem;margin-bottom:12px}
   .group-title .gl{background:var(--ink);color:#fff;border-radius:9px;padding:3px 11px;font-size:.95rem}
   @media(max-width:640px){
-    .match{flex-wrap:wrap}.m-when{text-align:left;min-width:0;width:100%}
+    .m-main{flex-wrap:wrap}.m-when{text-align:left;min-width:0;width:100%}
   }
 
   /* ---------- Tables ---------- */
@@ -177,12 +188,13 @@
       <button class="tab-btn" data-tab="calendrier">📅 Calendrier</button>
       <button class="tab-btn" data-tab="resultats">⚽ Résultats</button>
       <button class="tab-btn" data-tab="classements">📊 Classements</button>
+      <button class="tab-btn" data-tab="buteurs">👟 Buteurs</button>
     </nav>
   </div>
 </header>
 
 <!-- =================== BANDEAU MAJ =================== -->
-<div class="update-bar"><span>🔄 Mise à jour quotidienne à <b>08h00 GMT</b> — Dernière MAJ : <b id="last-update">—</b></span><button id="refresh-btn" class="refresh-btn" type="button" title="Recharger les dernières données"><span>↻</span> Rafraîchir</button></div>
+<div class="update-bar"><span id="live-flag" class="live-flag">● EN DIRECT</span><span>🔄 Mise à jour quotidienne à <b>08h00 GMT</b> — Dernière MAJ : <b id="last-update">—</b></span><button id="refresh-btn" class="refresh-btn" type="button" title="Recharger les dernières données"><span>↻</span> Rafraîchir</button></div>
 
 <!-- ════════════════════ ONGLET ACCUEIL ════════════════════ -->
 <div class="tab-panel active" id="panel-accueil">
@@ -346,6 +358,17 @@
   </section>
 </div>
 
+<!-- ════════════════════ ONGLET BUTEURS ════════════════════ -->
+<div class="tab-panel" id="panel-buteurs">
+  <section>
+    <div class="wrap">
+      <h2>👟 Classement des buteurs</h2>
+      <p class="sub">Meilleurs buteurs du Mondial, toutes équipes confondues, avec leur sélection (nationalité). Calculé automatiquement à partir des buts des matchs — les buts contre son camp ne sont pas comptabilisés.</p>
+      <div id="scorers"></div>
+    </div>
+  </section>
+</div>
+
 <!-- =================== FOOTER =================== -->
 <footer>
   <div class="wrap">
@@ -402,14 +425,14 @@ const FLAGS = {
 // d = date (juin 2026) · t = heure de Paris · s = score "a-b" · st = "upcoming"|"live"|"done"
 const GROUP_MATCHES = [
  // Groupe A
- {g:"A",j:1,d:"11 juin",home:"Mexique",away:"Afrique du Sud",venue:"Estadio Azteca · Mexico",t:"21h00",s:"2-0",st:"done"},
- {g:"A",j:1,d:"11 juin",home:"Corée du Sud",away:"Tchéquie",venue:"Estadio Akron · Guadalajara",t:"04h00 (+1j)",s:"2-1",st:"done"},
+ {g:"A",j:1,d:"11 juin",home:"Mexique",away:"Afrique du Sud",venue:"Estadio Azteca · Mexico",t:"21h00",s:"2-0",st:"done",goals:[{p:"Quiñones",t:"Mexique",m:"9"},{p:"R. Jiménez",t:"Mexique",m:"67"}]},
+ {g:"A",j:1,d:"11 juin",home:"Corée du Sud",away:"Tchéquie",venue:"Estadio Akron · Guadalajara",t:"04h00 (+1j)",s:"2-1",st:"done",goals:[{p:"Krejčí",t:"Tchéquie",m:"59"},{p:"Hwang In-beom",t:"Corée du Sud",m:"67"},{p:"Oh Hyeon-gyu",t:"Corée du Sud",m:"80"}]},
  {g:"A",j:2,d:"18 juin",home:"Tchéquie",away:"Afrique du Sud",venue:"Mercedes-Benz Stadium · Atlanta",t:"18h00",s:"",st:"upcoming"},
  {g:"A",j:2,d:"18 juin",home:"Mexique",away:"Corée du Sud",venue:"Estadio Akron · Guadalajara",t:"03h00 (+1j)",s:"",st:"upcoming"},
  {g:"A",j:3,d:"24 juin",home:"Tchéquie",away:"Mexique",venue:"Estadio Azteca · Mexico",t:"03h00 (+1j)",s:"",st:"upcoming"},
  {g:"A",j:3,d:"24 juin",home:"Afrique du Sud",away:"Corée du Sud",venue:"Estadio BBVA · Monterrey",t:"03h00 (+1j)",s:"",st:"upcoming"},
  // Groupe B
- {g:"B",j:1,d:"12 juin",home:"Canada",away:"Bosnie-Herzégovine",venue:"BMO Field · Toronto",t:"21h00",s:"1-1",st:"done"},
+ {g:"B",j:1,d:"12 juin",home:"Canada",away:"Bosnie-Herzégovine",venue:"BMO Field · Toronto",t:"21h00",s:"1-1",st:"done",goals:[{p:"Lukić",t:"Bosnie-Herzégovine",m:"21"},{p:"Larin",t:"Canada",m:"78"}]},
  {g:"B",j:1,d:"13 juin",home:"Qatar",away:"Suisse",venue:"Levi's Stadium · San Francisco",t:"21h00",s:"",st:"upcoming"},
  {g:"B",j:2,d:"18 juin",home:"Suisse",away:"Bosnie-Herzégovine",venue:"SoFi Stadium · Los Angeles",t:"21h00",s:"",st:"upcoming"},
  {g:"B",j:2,d:"18 juin",home:"Canada",away:"Qatar",venue:"BC Place · Vancouver",t:"00h00 (+1j)",s:"",st:"upcoming"},
@@ -423,7 +446,7 @@ const GROUP_MATCHES = [
  {g:"C",j:3,d:"24 juin",home:"Écosse",away:"Brésil",venue:"Hard Rock Stadium · Miami",t:"00h00 (+1j)",s:"",st:"upcoming"},
  {g:"C",j:3,d:"24 juin",home:"Maroc",away:"Haïti",venue:"Mercedes-Benz Stadium · Atlanta",t:"00h00 (+1j)",s:"",st:"upcoming"},
  // Groupe D
- {g:"D",j:1,d:"12 juin",home:"États-Unis",away:"Paraguay",venue:"SoFi Stadium · Los Angeles",t:"03h00 (+1j)",s:"4-1",st:"done"},
+ {g:"D",j:1,d:"12 juin",home:"États-Unis",away:"Paraguay",venue:"SoFi Stadium · Los Angeles",t:"03h00 (+1j)",s:"4-1",st:"done",goals:[{p:"Bobadilla",t:"États-Unis",m:"7",og:true},{p:"Balogun",t:"États-Unis",m:"30"},{p:"Balogun",t:"États-Unis",m:"45"},{p:"Maurício",t:"Paraguay",m:"73"},{p:"Reyna",t:"États-Unis",m:"90+2"}]},
  {g:"D",j:1,d:"13 juin",home:"Australie",away:"Türkiye",venue:"BC Place · Vancouver",t:"06h00 (+1j)",s:"",st:"upcoming"},
  {g:"D",j:2,d:"19 juin",home:"États-Unis",away:"Australie",venue:"Lumen Field · Seattle",t:"21h00",s:"",st:"upcoming"},
  {g:"D",j:2,d:"19 juin",home:"Türkiye",away:"Paraguay",venue:"Levi's Stadium · San Francisco",t:"05h00 (+1j)",s:"",st:"upcoming"},
@@ -585,9 +608,9 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
   });
 });
 
-// Bandeau MAJ
+// Bandeau MAJ — STATE = données vivantes (peuvent être actualisées par data.json)
 const fmt=new Intl.DateTimeFormat('fr-FR',{day:'numeric',month:'long',year:'numeric'});
-$("#last-update").textContent=fmt.format(new Date(LAST_UPDATE+"T12:00:00"));
+const STATE={lastUpdate:LAST_UPDATE,nextKickoff:NEXT_KICKOFF};
 
 // ── Rafraîchissement
 // 1) Bouton manuel : recharge la page (récupère le dernier index.html publié)
@@ -604,7 +627,7 @@ document.addEventListener('visibilitychange',()=>{
 
 // Compte à rebours
 function renderCountdown(){
-  const target=new Date(NEXT_KICKOFF.iso).getTime();
+  const target=new Date(STATE.nextKickoff.iso).getTime();
   let diff=target-Date.now();
   const box=$("#countdown"), lbl=$("#cd-label");
   if(diff<=0){ box.innerHTML=`<div class="cd-box"><b>🔥</b><small>C'est parti !</small></div>`;
@@ -615,9 +638,19 @@ function renderCountdown(){
   const s=Math.floor(diff/1e3);
   box.innerHTML=[[d,"Jours"],[h,"Heures"],[m,"Min"],[s,"Sec"]]
     .map(([v,t])=>`<div class="cd-box"><b>${String(v).padStart(2,'0')}</b><small>${t}</small></div>`).join('');
-  lbl.textContent=NEXT_KICKOFF.label;
+  lbl.textContent=STATE.nextKickoff.label;
 }
 renderCountdown(); setInterval(renderCountdown,1000);
+
+// Rendu des buteurs d'un match (sous la ligne de score)
+function goalsHTML(m){
+  if(!m.goals||!m.goals.length) return "";
+  const fmtG=g=>`<b>${g.m}'</b> ${g.p}${g.pen?' (s.p.)':''}${g.og?' (csc)':''}`;
+  const side=tm=>m.goals.filter(g=>g.t===tm).map(fmtG).join(' · ');
+  const h=side(m.home), a=side(m.away);
+  if(!h&&!a) return "";
+  return `<div class="m-goals"><span>${h?'⚽ '+h:''}</span><span>${a?'⚽ '+a:''}</span></div>`;
+}
 
 // Rendu d'un match
 function matchRow(m,opts={}){
@@ -627,53 +660,13 @@ function matchRow(m,opts={}){
     :`<span style="color:var(--muted)">${m.pairing}</span>`;
   const extra=opts.tag?`<span class="badge up" style="background:#eef;color:#449">${opts.tag}</span>`:"";
   return `<div class="match ${isCiv?'civ':''}">
-    <div class="m-teams">${teams}${extra}</div>
-    <div class="m-when"><b>${m.d}${m.t?' · '+timeLabel(m.t):''}</b>${m.venue} ${badge[m.st]||''}</div>
+    <div class="m-main">
+      <div class="m-teams">${teams}${extra}</div>
+      <div class="m-when"><b>${m.d}${m.t?' · '+timeLabel(m.t):''}</b>${m.venue} ${badge[m.st]||''}</div>
+    </div>
+    ${opts.goals?goalsHTML(m):''}
   </div>`;
 }
-
-// ── Accueil : prochains matchs (8 premiers non joués)
-const upcoming=GROUP_MATCHES.filter(m=>m.st!=="done");
-const koFlat=KNOCKOUT.flatMap(p=>p.matches.map(m=>({...m,tag:p.phase})));
-const nextList=[...upcoming.map(m=>({...m,tag:"Groupe "+m.g})),...koFlat.filter(m=>m.st!=="done")]
-  .sort((a,b)=>sortKey(a)-sortKey(b)).slice(0,8);
-$("#next-matches").innerHTML=nextList.map(m=>matchRow(m,{tag:m.tag})).join('')
-  ||'<div class="card" style="text-align:center;color:var(--muted)">Tous les matchs ont été joués — merci pour ce Mondial ! 🏆</div>';
-
-// ── Calendrier : phase de groupes classée par DATE (plus intuitif)
-const calDays={};
-GROUP_MATCHES.forEach(m=>{
-  const {key,label}=dayInfo(m);
-  (calDays[key]=calDays[key]||{label,matches:[]}).matches.push(m);
-});
-$("#cal-groups").innerHTML=Object.keys(calDays).map(Number).sort((a,b)=>a-b).map(k=>{
-  const ms=calDays[k].matches.slice().sort((a,b)=>sortKey(a)-sortKey(b));
-  const hasCiv=ms.some(m=>m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
-  return `<div class="group-block">
-    <div class="group-title"><span class="gl">${calDays[k].label}</span>
-      <span style="font-weight:600;color:var(--muted);font-size:.9rem">${ms.length} match${ms.length>1?'s':''}</span>
-      ${hasCiv?'<span class="badge done">🐘 Match des Éléphants</span>':''}</div>
-    ${ms.map(m=>matchRow(m,{tag:"Gr. "+m.g})).join('')}
-  </div>`;
-}).join('');
-
-// ── Calendrier : phase finale
-$("#cal-knockout").innerHTML=KNOCKOUT.map(p=>`
-  <div class="group-block">
-    <div class="group-title"><span class="gl" style="background:var(--orange)">${p.phase}</span></div>
-    ${p.matches.map(m=>matchRow(m)).join('')}
-  </div>`).join('');
-
-// ── Résultats : tous les matchs joués (groupes + phase finale), plus récents d'abord
-const played=[
-  ...GROUP_MATCHES.filter(m=>m.st==="done").map(m=>({...m,tag:"Groupe "+m.g})),
-  ...koFlat.filter(m=>m.st==="done")
-].reverse();
-$("#results").innerHTML=played.length
-  ? played.map(m=>matchRow(m,{tag:m.tag})).join('')
-  : `<div class="card" style="text-align:center;color:var(--muted)">
-      ⏳ Aucun match joué pour l'instant — coup d'envoi le <b>11 juin 2026</b> avec Mexique 🇲🇽 – Afrique du Sud 🇿🇦 à Mexico.
-      Tous les résultats, du match d'ouverture à la finale, s'afficheront ici.</div>`;
 
 // ── Classements : calcul automatique depuis les scores
 function computeTable(g){
@@ -699,21 +692,156 @@ function tableHTML(g){
   }).join('');
   return `<div class="table-scroll"><table><thead><tr><th>#</th><th>Équipe</th><th>J</th><th>G</th><th>N</th><th>P</th><th>BP</th><th>BC</th><th>±</th><th>Pts</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
-$("#standings").innerHTML=["A","B","C","D","E","F","G","H","I","J","K","L"].map(g=>`
-  <div><div class="group-title" style="margin-bottom:8px"><span class="gl">Groupe ${g}</span>
-    ${g==="E"?'<span class="badge done">🐘</span>':''}</div>${tableHTML(g)}</div>`).join('');
+// ── Buteurs : classement calculé depuis tous les buts (csc exclus)
+function renderScorers(){
+  const all=[...GROUP_MATCHES,...KNOCKOUT.flatMap(p=>p.matches)];
+  const tally={};
+  all.forEach(m=>(m.goals||[]).forEach(g=>{
+    if(g.og) return;                       // but contre son camp non comptabilisé
+    const k=g.p+'|'+g.t;
+    (tally[k]=tally[k]||{p:g.p,t:g.t,n:0}).n++;
+  }));
+  const rows=Object.values(tally).sort((a,b)=>b.n-a.n||a.t.localeCompare(b.t)||a.p.localeCompare(b.p));
+  if(!rows.length){
+    $("#scorers").innerHTML=`<div class="card" style="text-align:center;color:var(--muted)">⏳ Aucun but inscrit pour l'instant — le classement des buteurs s'affichera dès le premier but du Mondial.</div>`;
+    return;
+  }
+  let rank=0,prev=null;
+  const body=rows.map((r,i)=>{
+    if(r.n!==prev){rank=i+1;prev=r.n;}
+    return `<tr class="${r.t==="Côte d'Ivoire"?'civ':''}">
+      <td><span class="scorer-rank">${rank}</span></td>
+      <td class="team">${flag(r.t)} ${r.p}</td>
+      <td>${r.t}</td>
+      <td><b>${r.n}</b></td></tr>`;
+  }).join('');
+  $("#scorers").innerHTML=`<div class="table-scroll"><table><thead><tr><th>#</th><th>Buteur</th><th>Sélection</th><th>Buts</th></tr></thead><tbody>${body}</tbody></table></div>`;
+}
 
-// ── Onglet CIV : matchs (groupes + phase finale si CIV qualifiée) + classement E
-const civGroup=GROUP_MATCHES.filter(m=>m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
-const civKO=koFlat.filter(m=>m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
-$("#civ-matches").innerHTML=
-  civGroup.map(m=>matchRow(m,{tag:"Groupe E · J"+m.j})).join('')+
-  (civKO.length?`<div class="day-head">🏆 Phase finale</div>`+civKO.map(m=>matchRow(m,{tag:m.tag})).join(''):"");
-$("#civ-group-table").innerHTML=tableHTML("E");
+// ── Indicateur "EN DIRECT" si au moins un match est en cours
+function updateLiveBadge(){
+  const live=[...GROUP_MATCHES,...KNOCKOUT.flatMap(p=>p.matches)].some(m=>m.st==="live");
+  const el=$("#live-flag"); if(el) el.style.display=live?"inline-flex":"none";
+}
 
-// ── News
-$("#news").innerHTML=NEWS.map(n=>`
-  <article class="news"><time>${n.date}</time><h3>${n.title}</h3><p>${n.text}</p></article>`).join('');
+// ════════════ RENDU GLOBAL (ré-exécutable après actualisation des données) ════════════
+function renderAll(){
+  const koFlat=KNOCKOUT.flatMap(p=>p.matches.map(m=>({...m,tag:p.phase})));
+
+  // Bandeau MAJ
+  $("#last-update").textContent=fmt.format(new Date(STATE.lastUpdate+"T12:00:00"));
+
+  // Accueil : prochains matchs (8 premiers non joués)
+  const upcoming=GROUP_MATCHES.filter(m=>m.st!=="done");
+  const nextList=[...upcoming.map(m=>({...m,tag:"Groupe "+m.g})),...koFlat.filter(m=>m.st!=="done")]
+    .sort((a,b)=>sortKey(a)-sortKey(b)).slice(0,8);
+  $("#next-matches").innerHTML=nextList.map(m=>matchRow(m,{tag:m.tag,goals:true})).join('')
+    ||'<div class="card" style="text-align:center;color:var(--muted)">Tous les matchs ont été joués — merci pour ce Mondial ! 🏆</div>';
+
+  // Calendrier : phase de groupes classée par DATE
+  const calDays={};
+  GROUP_MATCHES.forEach(m=>{
+    const {key,label}=dayInfo(m);
+    (calDays[key]=calDays[key]||{label,matches:[]}).matches.push(m);
+  });
+  $("#cal-groups").innerHTML=Object.keys(calDays).map(Number).sort((a,b)=>a-b).map(k=>{
+    const ms=calDays[k].matches.slice().sort((a,b)=>sortKey(a)-sortKey(b));
+    const hasCiv=ms.some(m=>m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
+    return `<div class="group-block">
+      <div class="group-title"><span class="gl">${calDays[k].label}</span>
+        <span style="font-weight:600;color:var(--muted);font-size:.9rem">${ms.length} match${ms.length>1?'s':''}</span>
+        ${hasCiv?'<span class="badge done">🐘 Match des Éléphants</span>':''}</div>
+      ${ms.map(m=>matchRow(m,{tag:"Gr. "+m.g,goals:true})).join('')}
+    </div>`;
+  }).join('');
+
+  // Calendrier : phase finale
+  $("#cal-knockout").innerHTML=KNOCKOUT.map(p=>`
+    <div class="group-block">
+      <div class="group-title"><span class="gl" style="background:var(--orange)">${p.phase}</span></div>
+      ${p.matches.map(m=>matchRow(m,{goals:true})).join('')}
+    </div>`).join('');
+
+  // Résultats : tous les matchs joués (groupes + phase finale), plus récents d'abord
+  const played=[
+    ...GROUP_MATCHES.filter(m=>m.st==="done").map(m=>({...m,tag:"Groupe "+m.g})),
+    ...koFlat.filter(m=>m.st==="done")
+  ].reverse();
+  $("#results").innerHTML=played.length
+    ? played.map(m=>matchRow(m,{tag:m.tag,goals:true})).join('')
+    : `<div class="card" style="text-align:center;color:var(--muted)">
+        ⏳ Aucun match joué pour l'instant — coup d'envoi le <b>11 juin 2026</b> avec Mexique 🇲🇽 – Afrique du Sud 🇿🇦 à Mexico.
+        Tous les résultats, du match d'ouverture à la finale, s'afficheront ici.</div>`;
+
+  // Classements des 12 groupes
+  $("#standings").innerHTML=["A","B","C","D","E","F","G","H","I","J","K","L"].map(g=>`
+    <div><div class="group-title" style="margin-bottom:8px"><span class="gl">Groupe ${g}</span>
+      ${g==="E"?'<span class="badge done">🐘</span>':''}</div>${tableHTML(g)}</div>`).join('');
+
+  // Onglet CIV : matchs (groupes + phase finale si CIV qualifiée) + classement E
+  const civGroup=GROUP_MATCHES.filter(m=>m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
+  const civKO=koFlat.filter(m=>m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
+  $("#civ-matches").innerHTML=
+    civGroup.map(m=>matchRow(m,{tag:"Groupe E · J"+m.j,goals:true})).join('')+
+    (civKO.length?`<div class="day-head">🏆 Phase finale</div>`+civKO.map(m=>matchRow(m,{tag:m.tag,goals:true})).join(''):"");
+  $("#civ-group-table").innerHTML=tableHTML("E");
+
+  // News
+  $("#news").innerHTML=NEWS.map(n=>`
+    <article class="news"><time>${n.date}</time><h3>${n.title}</h3><p>${n.text}</p></article>`).join('');
+
+  // Buteurs + indicateur live
+  renderScorers();
+  updateLiveBadge();
+}
+
+/* ════════════════════════════════════════════════════════════
+   ACTUALISATION EN DIRECT — sans recharger la page ni republier
+   La page lit un petit fichier "data.json" (même dossier) toutes les
+   POLL_MS et fusionne les matchs qu'il contient par-dessus les données
+   intégrées, puis ré-affiche tout. Pour montrer un score en direct, il
+   suffit de mettre à jour CE fichier (le routine quotidien, un éditeur,
+   ou une routine "live" toutes les X min) — index.html ne change pas.
+   Format data.json :
+   { "lastUpdate":"2026-06-14",
+     "nextKickoff":{"iso":"...","label":"..."},
+     "matches":[
+       {"g":"E","home":"Côte d'Ivoire","away":"Équateur","s":"1-0","st":"live",
+        "goals":[{"p":"Pépé","t":"Côte d'Ivoire","m":"23"}]},
+       {"id":"M74","home":"...","away":"...","s":"","st":"upcoming"}
+     ] }
+   ════════════════════════════════════════════════════════════ */
+const POLL_MS=60000; // 60 s
+const koAll=()=>KNOCKOUT.flatMap(p=>p.matches);
+// Snapshot des données intégrées : permet de ré-appliquer l'overlay proprement à chaque
+// passage (un match retiré de data.json revient à son état d'origine — pas d'effet « collant »).
+const BASE_UPD=LAST_UPDATE, BASE_KICK=NEXT_KICKOFF, BASE_SNAP=new Map();
+[...GROUP_MATCHES,...koAll()].forEach(m=>BASE_SNAP.set(m,{home:m.home,away:m.away,s:m.s,st:m.st,t:m.t,goals:m.goals}));
+function applyOverlay(data){
+  STATE.lastUpdate=BASE_UPD; STATE.nextKickoff=BASE_KICK;     // repartir de la base...
+  BASE_SNAP.forEach((snap,m)=>Object.assign(m,snap));         // ...puis ré-appliquer l'overlay
+  if(data.lastUpdate) STATE.lastUpdate=data.lastUpdate;
+  if(data.nextKickoff&&data.nextKickoff.iso) STATE.nextKickoff=data.nextKickoff;
+  (data.matches||[]).forEach(o=>{
+    const m=o.id ? koAll().find(x=>x.id===o.id)
+                 : GROUP_MATCHES.find(x=>x.g===o.g&&x.home===o.home&&x.away===o.away);
+    if(!m) return;
+    ["home","away","s","st","t","goals"].forEach(k=>{ if(k in o) m[k]=o[k]; });
+  });
+}
+async function fetchLive(){
+  try{
+    const r=await fetch("data.json?ts="+Date.now(),{cache:"no-store"});
+    if(!r.ok) return;
+    applyOverlay(await r.json());
+    renderAll();
+  }catch(e){ /* hors-ligne, file:// ou data.json absent : on garde les données intégrées */ }
+}
+
+// Premier rendu (données intégrées) puis actualisation live périodique
+renderAll();
+fetchLive();
+setInterval(fetchLive,POLL_MS);
 </script>
 <!-- Compteur de visites GoatCounter — tableau de bord : https://mondialodi.goatcounter.com -->
 <script data-goatcounter="https://mondialodi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
