@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- Sécurité : politique de contenu (limite les sources de scripts/styles au strict nécessaire) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://gc.zgo.at; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://mondialodi.goatcounter.com; connect-src 'self' https://mondialodi.goatcounter.com; font-src 'self'; frame-src https://www.sportbusy.com; base-uri 'self'; form-action 'none'; object-src 'none'" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://gc.zgo.at https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://mondialodi.goatcounter.com; connect-src 'self' https://mondialodi.goatcounter.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebasedatabase.app https://*.googleapis.com; font-src 'self'; frame-src https://www.sportbusy.com; base-uri 'self'; form-action 'none'; object-src 'none'" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <title>Coupe du Monde 2026 · Calendrier, Résultats, Classements · Focus Côte d'Ivoire 🇨🇮</title>
 <meta name="description" content="Suivi quotidien (MAJ 08h GMT) de la Coupe du Monde FIFA 2026 : calendrier complet des 104 matchs, résultats, classements des 12 groupes, phase finale et onglet dédié aux Éléphants de Côte d'Ivoire." />
@@ -174,6 +174,57 @@
   .src{font-size:.77rem;color:#8a8f86;margin-top:10px}
   .src a{color:#b9bdb4}
   .alt-bg{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  /* ===== ONGLET PRONOSTICS ===== */
+  .pbanner{background:#fff3e6;border:1px solid #ffd9ad;color:var(--orange-dark);
+    border-radius:12px;padding:10px 14px;font-size:.9rem;font-weight:600;margin-bottom:18px}
+  .pbanner.ok{background:#e6f6ee;border-color:#bfe6d2;color:var(--green-dark)}
+  .pstats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+  .pstat{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:12px 18px;box-shadow:var(--shadow)}
+  .pstat b{display:block;font-size:1.6rem;color:var(--orange);line-height:1.1}
+  .pstat span{font-size:.8rem;color:var(--muted)}
+  .pform{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start;margin:6px 0 4px}
+  .pform input[type=text]{font-size:16px;padding:11px 14px;border:1px solid var(--line);
+    border-radius:12px;font-family:var(--font);min-width:200px;flex:1}
+  .perr{color:#d22;font-size:.82rem;margin-top:4px;min-height:1em}
+  .pmatch{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:14px 16px;margin-bottom:12px;display:flex;flex-direction:column;gap:10px}
+  .pmatch.civ-m{border-left:5px solid var(--green);background:linear-gradient(90deg,rgba(0,158,96,.06),transparent 45%)}
+  .pmatch.locked{opacity:.55;cursor:not-allowed}
+  .pmatch .pm-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+  .pmatch .pm-meta{font-size:.78rem;color:var(--muted)}
+  .pscore{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+  .pscore .pteam{flex:1;min-width:90px;font-weight:700;font-size:.95rem}
+  .pscore .pteam.away{text-align:right}
+  .pscore input[type=number]{width:54px;height:46px;font-size:18px;text-align:center;
+    border:1px solid var(--line);border-radius:10px;font-family:var(--font);-moz-appearance:textfield}
+  .pscore input::-webkit-outer-spin-button,.pscore input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .pscore .pdash{font-weight:800;color:var(--muted)}
+  .pbtn{border:none;border-radius:12px;padding:11px 20px;font-family:var(--font);font-weight:800;
+    font-size:.92rem;color:#fff;cursor:pointer;background:linear-gradient(90deg,var(--orange),var(--orange-dark))}
+  .pbtn.green{background:linear-gradient(90deg,var(--green),var(--green-dark))}
+  .pbtn:disabled{background:#9ca3af;cursor:not-allowed}
+  .pbtn.small{padding:8px 14px;font-size:.82rem}
+  .plock{font-size:.74rem;font-weight:800;text-transform:uppercase;color:#9ca3af;
+    background:#f1f1ee;border-radius:7px;padding:3px 9px}
+  table.ptable{width:100%;border-collapse:collapse;margin-top:6px}
+  table.ptable th,table.ptable td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);font-size:.92rem}
+  table.ptable th{font-size:.72rem;text-transform:uppercase;color:var(--muted);font-weight:800}
+  table.ptable td.pts{text-align:right;font-weight:800;color:var(--orange-dark)}
+  table.ptable tr.is-me{background:#fff6ec}
+  table.ptable tr.is-me td:first-child{border-left:4px solid var(--orange)}
+  .prank{display:inline-block;width:24px;font-weight:800;color:var(--muted)}
+  .prono-recap{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .prono-recap-match{font-size:.82rem;border-radius:9px;padding:6px 10px;border:1px solid var(--line)}
+  .prono-recap-match.hit{background:#e6f6ee;border-color:#bfe6d2;color:var(--green-dark)}
+  .prono-recap-match.partial{background:#fff7e0;border-color:#ffe7a3;color:#8a6d00}
+  .prono-recap-match.miss{background:#fdeaea;border-color:#f4c9c9;color:#b03030}
+  .ptoast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:#fff;padding:12px 22px;border-radius:14px;font-weight:700;font-size:.9rem;
+    box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:999}
+  .ptoast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .pempty{background:var(--card);border:1px dashed var(--line);border-radius:14px;
+    padding:22px;text-align:center;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -189,6 +240,7 @@
       <button class="tab-btn" data-tab="resultats">⚽ Résultats</button>
       <button class="tab-btn" data-tab="classements">📊 Classements</button>
       <button class="tab-btn" data-tab="buteurs">👟 Buteurs</button>
+      <button class="tab-btn" data-tab="pronostics">🎯 Pronostics</button>
     </nav>
   </div>
 </header>
@@ -385,6 +437,62 @@
   </section>
 </div>
 
+<!-- ════════════════════ ONGLET PRONOSTICS ════════════════════ -->
+<div class="tab-panel" id="panel-pronostics">
+  <section>
+    <div class="wrap">
+      <h2>🎯 Jeu des pronostics</h2>
+      <p class="sub">Pronostique le score des matchs du jour et grimpe au classement.
+        Barème : <b>10 pts</b> pour le score exact, <b>3 pts</b> pour le bon résultat —
+        et <b>×2 sur les matchs de la Côte d'Ivoire</b> 🐘. Pseudo uniquement, aucune donnée personnelle.</p>
+
+      <div id="p-banner" class="pbanner">Mode démo : tes pronostics sont enregistrés sur cet appareil.</div>
+
+      <div class="pstats">
+        <div class="pstat"><b id="p-count">0</b><span>participant·e·s</span></div>
+        <div class="pstat"><b id="p-mypts">0</b><span>tes points</span></div>
+        <div class="pstat"><b id="p-myrank">—</b><span>ton rang</span></div>
+      </div>
+
+      <div id="p-register" class="card" style="margin-bottom:22px">
+        <h3 style="margin-bottom:6px">Choisis ton pseudo pour jouer</h3>
+        <div class="pform">
+          <input type="text" id="p-pseudo" maxlength="20" placeholder="Ex. ÉléphantDor225" autocomplete="off">
+          <button type="button" class="pbtn" id="p-join">C'est parti !</button>
+        </div>
+        <div class="perr" id="p-pseudo-err"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt-bg">
+    <div class="wrap">
+      <h2>⚽ Les matchs à pronostiquer</h2>
+      <p class="sub">Matchs du jour (heure d'Abidjan). Les pronostics se verrouillent 30 min avant le coup d'envoi.</p>
+      <div id="p-matches"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>📊 Classement des pronostiqueurs</h2>
+      <p class="sub">Mis à jour en temps réel. Ta ligne est surlignée.</p>
+      <div id="p-leaderboard"></div>
+    </div>
+  </section>
+
+  <section class="alt-bg">
+    <div class="wrap">
+      <h2>🧾 Mes pronostics passés</h2>
+      <p class="sub">Récapitulatif de tes scores joués : <span style="color:var(--green-dark)">exact</span> ·
+        <span style="color:#8a6d00">bon résultat</span> · <span style="color:#b03030">raté</span>.</p>
+      <div id="p-recap"></div>
+    </div>
+  </section>
+</div>
+
+<div id="p-toast" class="ptoast"></div>
+
 <!-- =================== FOOTER =================== -->
 <footer>
   <div class="wrap">
@@ -449,7 +557,7 @@ const GROUP_MATCHES = [
  {g:"A",j:3,d:"24 juin",home:"Afrique du Sud",away:"Corée du Sud",venue:"Estadio BBVA · Monterrey",t:"03h00 (+1j)",s:"",st:"upcoming"},
  // Groupe B
  {g:"B",j:1,d:"12 juin",home:"Canada",away:"Bosnie-Herzégovine",venue:"BMO Field · Toronto",t:"21h00",s:"1-1",st:"done",goals:[{p:"Lukić",t:"Bosnie-Herzégovine",m:"21"},{p:"Larin",t:"Canada",m:"78"}]},
- {g:"B",j:1,d:"13 juin",home:"Qatar",away:"Suisse",venue:"Levi's Stadium · San Francisco",t:"21h00",s:"",st:"upcoming"},
+ {g:"B",j:1,d:"13 juin",home:"Qatar",away:"Suisse",venue:"Levi's Stadium · San Francisco",t:"21h00",s:"1-1",st:"done",goals:[{p:"Embolo",t:"Suisse",m:"17",pen:true},{p:"Muheim",t:"Qatar",m:"90+4",og:true}]},
  {g:"B",j:2,d:"18 juin",home:"Suisse",away:"Bosnie-Herzégovine",venue:"SoFi Stadium · Los Angeles",t:"21h00",s:"",st:"upcoming"},
  {g:"B",j:2,d:"18 juin",home:"Canada",away:"Qatar",venue:"BC Place · Vancouver",t:"00h00 (+1j)",s:"",st:"upcoming"},
  {g:"B",j:3,d:"24 juin",home:"Suisse",away:"Canada",venue:"BC Place · Vancouver",t:"21h00",s:"",st:"upcoming"},
@@ -571,11 +679,11 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
+  { date:"13 juin 2026", title:"Groupe B : la Suisse accrochée par le Qatar (1-1) sur un csc à la 90ᵉ+4", text:"À San Francisco, la Suisse pensait tenir sa victoire après le penalty transformé par Breel Embolo (17ᵉ), mais le Qatar a arraché le nul dans le temps additionnel : un but contre son camp malheureux de Miro Muheim (90ᵉ+4) offre un point inattendu aux Qataris pour leur première sortie. La Suisse rejoint la Bosnie en embuscade dans un groupe B très ouvert." },
   { date:"13 juin 2026", title:"J-1 avant Côte d'Ivoire – Équateur : les Éléphants entrent en scène demain", text:"À la veille de leur entrée dans le tournoi, les champions d'Afrique d'Emerse Faé peaufinent les derniers réglages à Philadelphie. Coup d'envoi le 14 juin à 23h00 GMT (01h00 Paris) au Lincoln Financial Field face à l'Équateur, pour viser une première sortie de groupe après les éliminations au 1ᵉʳ tour en 2006, 2010 et 2014. Plus tôt dans la journée, l'Allemagne lance le groupe E face au Curaçao." },
   { date:"13 juin 2026", title:"Carton des États-Unis, le Canada accroche la Bosnie", text:"Le pays hôte a frappé fort à Los Angeles : États-Unis 4-1 Paraguay, avec un doublé de Folarin Balogun en première période et un but de Giovanni Reyna ; Maurício a sauvé l'honneur paraguayen. Plus tôt à Toronto, le Canada a arraché le nul 1-1 face à la Bosnie-Herzégovine — premier point de son histoire en Coupe du monde — Cyle Larin égalisant (78ᵉ) après l'ouverture de Jovo Lukić (21ᵉ)." },
   { date:"12 juin 2026", title:"La Corée du Sud renverse la Tchéquie 2-1 et complète la 1ʳᵉ journée du groupe A", text:"À Guadalajara, les Tchèques ouvrent le score par leur capitaine Ladislav Krejčí d'une tête (59ᵉ), mais la Corée du Sud répond par Hwang In-beom (67ᵉ) puis Oh Hyeon-gyu (80ᵉ) pour un succès mérité. La Corée rejoint le Mexique en tête du groupe A ; la Tchéquie sera le prochain test de l'Afrique du Sud." },
   { date:"9 juin 2026", title:"Préparation parfaite : les Éléphants battent la France puis Philadelphie", text:"Après leur victoire de prestige 2-1 contre la France à Nantes, les hommes d'Emerse Faé ont conclu par un succès 2-0 face à Philadelphia Union II : premier but de Bonny en sélection et un Lafont brillant." },
-  { date:"15 mai 2026", title:"La liste officielle des 26 Éléphants", text:"Emerse Faé a retenu 26 joueurs, dont le néo-international Ange-Yoan Bonny et le retour de Nicolas Pépé. Sébastien Haller, freiné par les blessures, est réserviste." },
 ];
 
 /* ════════════════════════════════════════════════════════════
