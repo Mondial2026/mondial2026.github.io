@@ -330,6 +330,7 @@
         <p style="color:var(--muted);margin-bottom:6px">⚡ <b style="color:var(--ink)">Attaquants :</b> Simon Adingra, Ange-Yoan Bonny, Amad Diallo, Oumar Diakhité, Yann Diomandé, Evann Guessand, Nicolas Pépé, Bazoumana Touré, Elye Wahi.</p>
         <p style="color:var(--muted)"><em>Sébastien Haller, freiné par les blessures, figure parmi les réservistes.</em></p>
       </div>
+      <div id="civ-lineup"></div>
     </div>
   </section>
 
@@ -697,6 +698,22 @@ const NEWS = [
   { date:"13 juin 2026", title:"Carton des États-Unis, le Canada accroche la Bosnie", text:"Le pays hôte a frappé fort à Los Angeles : États-Unis 4-1 Paraguay, avec un doublé de Folarin Balogun en première période et un but de Giovanni Reyna. Plus tôt à Toronto, le Canada a arraché le nul 1-1 face à la Bosnie-Herzégovine — premier point de son histoire en Coupe du monde — Cyle Larin égalisant (78ᵉ) après l'ouverture de Jovo Lukić (21ᵉ)." },
 ];
 
+// ───────── COMPOSITION DE DÉPART DE LA CÔTE D'IVOIRE ─────────
+// Mettre à jour avant chaque match (onze annoncé). Mettre lines:[] (ou
+// CIV_LINEUP=null) pour masquer le bloc entre deux matchs.
+const CIV_LINEUP = {
+  match:"Côte d'Ivoire 🇨🇮 – Équateur 🇪🇨 · 1ʳᵉ journée (groupe E)",
+  formation:"4-4-2",
+  coach:"Emerse Faé",
+  lines:[
+    { role:"Gardien",  players:["Yahia Fofana"] },
+    { role:"Défense",  players:["Ghislain Konan","Emmanuel Agbadou","Wilfried Singo","Guéla Doué"] },
+    { role:"Milieu",   players:["Yann Diomandé","Franck Kessié","Seko Fofana","Bazoumana Touré"] },
+    { role:"Attaque",  players:["Elye Wahi","Nicolas Pépé"] },
+  ],
+  note:"Onze de départ officiel communiqué avant le coup d'envoi."
+};
+
 /* ════════════════════════════════════════════════════════════
    MOTEUR DE RENDU — ne pas modifier pour la MAJ quotidienne
    ════════════════════════════════════════════════════════════ */
@@ -866,6 +883,23 @@ function renderScorers(){
   $("#scorers").innerHTML=`<div class="table-scroll"><table><thead><tr><th>#</th><th>Buteur</th><th>Sélection</th><th>Buts</th></tr></thead><tbody>${body}</tbody></table></div>`;
 }
 
+// ── Composition de départ de la Côte d'Ivoire (onglet CIV)
+function renderLineup(){
+  const el=$("#civ-lineup"); if(!el) return;
+  const L=typeof CIV_LINEUP!=="undefined"?CIV_LINEUP:null;
+  if(!L||!L.lines||!L.lines.length){ el.innerHTML=""; return; }
+  const lineRow=ln=>`<div style="display:flex;gap:10px;align-items:baseline;padding:9px 0;border-top:1px dashed var(--line)">
+      <span style="min-width:78px;font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--green-dark)">${ln.role}</span>
+      <span style="display:flex;flex-wrap:wrap;gap:7px">${ln.players.map(p=>`<span style="background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:700;font-size:.9rem">${p}</span>`).join('')}</span>
+    </div>`;
+  el.innerHTML=`<div class="card" style="border-top:5px solid var(--green);margin-top:16px">
+    <h3 style="margin-bottom:4px">🟢 Le onze de départ${L.formation?' — '+L.formation:''}</h3>
+    <p style="color:var(--muted);margin-bottom:6px">${L.match||''}${L.coach?' · Sélectionneur : <b style="color:var(--ink)">'+L.coach+'</b>':''}</p>
+    ${L.lines.map(lineRow).join('')}
+    ${L.note?`<p style="color:var(--muted);font-size:.85rem;margin-top:10px"><em>${L.note}</em></p>`:''}
+  </div>`;
+}
+
 // ── Indicateur "EN DIRECT" si au moins un match est en cours
 function updateLiveBadge(){
   const live=[...GROUP_MATCHES,...KNOCKOUT.flatMap(p=>p.matches)].some(m=>m.st==="live");
@@ -938,7 +972,8 @@ function renderAll(){
   $("#news").innerHTML=NEWS.map(n=>`
     <article class="news"><time>${n.date}</time><h3>${n.title}</h3><p>${n.text}</p></article>`).join('');
 
-  // Buteurs + indicateur live
+  // Composition CIV + buteurs + indicateur live
+  renderLineup();
   renderScorers();
   updateLiveBadge();
 }
