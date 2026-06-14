@@ -534,7 +534,7 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-06-13";
+const LAST_UPDATE = "2026-06-14";
 
 // Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
 const NEXT_KICKOFF = { iso:"2026-06-14T23:00:00Z", label:"⏳ avant Côte d'Ivoire 🇨🇮 – Équateur 🇪🇨 (1ʳᵉ journée)" };
@@ -573,15 +573,15 @@ const GROUP_MATCHES = [
  {g:"B",j:3,d:"24 juin",home:"Suisse",away:"Canada",venue:"BC Place · Vancouver",t:"21h00",s:"",st:"upcoming"},
  {g:"B",j:3,d:"24 juin",home:"Bosnie-Herzégovine",away:"Qatar",venue:"Lumen Field · Seattle",t:"21h00",s:"",st:"upcoming"},
  // Groupe C
- {g:"C",j:1,d:"13 juin",home:"Brésil",away:"Maroc",venue:"MetLife Stadium · New York/NJ",t:"00h00 (+1j)",s:"",st:"upcoming"},
- {g:"C",j:1,d:"13 juin",home:"Haïti",away:"Écosse",venue:"Gillette Stadium · Boston",t:"03h00 (+1j)",s:"",st:"upcoming"},
+ {g:"C",j:1,d:"13 juin",home:"Brésil",away:"Maroc",venue:"MetLife Stadium · New York/NJ",t:"00h00 (+1j)",s:"1-1",st:"done",goals:[{p:"Saibari",t:"Maroc",m:"21"},{p:"Vinícius Jr",t:"Brésil",m:"32"}]},
+ {g:"C",j:1,d:"13 juin",home:"Haïti",away:"Écosse",venue:"Gillette Stadium · Boston",t:"03h00 (+1j)",s:"0-1",st:"done",goals:[{p:"McGinn",t:"Écosse",m:"28"}]},
  {g:"C",j:2,d:"19 juin",home:"Écosse",away:"Maroc",venue:"Gillette Stadium · Boston",t:"00h00 (+1j)",s:"",st:"upcoming"},
  {g:"C",j:2,d:"19 juin",home:"Brésil",away:"Haïti",venue:"Lincoln Financial Field · Philadelphie",t:"02h30 (+1j)",s:"",st:"upcoming"},
  {g:"C",j:3,d:"24 juin",home:"Écosse",away:"Brésil",venue:"Hard Rock Stadium · Miami",t:"00h00 (+1j)",s:"",st:"upcoming"},
  {g:"C",j:3,d:"24 juin",home:"Maroc",away:"Haïti",venue:"Mercedes-Benz Stadium · Atlanta",t:"00h00 (+1j)",s:"",st:"upcoming"},
  // Groupe D
  {g:"D",j:1,d:"12 juin",home:"États-Unis",away:"Paraguay",venue:"SoFi Stadium · Los Angeles",t:"03h00 (+1j)",s:"4-1",st:"done",goals:[{p:"Bobadilla",t:"États-Unis",m:"7",og:true},{p:"Balogun",t:"États-Unis",m:"30"},{p:"Balogun",t:"États-Unis",m:"45"},{p:"Maurício",t:"Paraguay",m:"73"},{p:"Reyna",t:"États-Unis",m:"90+2"}]},
- {g:"D",j:1,d:"13 juin",home:"Australie",away:"Türkiye",venue:"BC Place · Vancouver",t:"06h00 (+1j)",s:"",st:"upcoming"},
+ {g:"D",j:1,d:"13 juin",home:"Australie",away:"Türkiye",venue:"BC Place · Vancouver",t:"06h00 (+1j)",s:"2-0",st:"done",goals:[{p:"Irankunda",t:"Australie",m:"27"},{p:"Metcalfe",t:"Australie",m:"75"}]},
  {g:"D",j:2,d:"19 juin",home:"États-Unis",away:"Australie",venue:"Lumen Field · Seattle",t:"21h00",s:"",st:"upcoming"},
  {g:"D",j:2,d:"19 juin",home:"Türkiye",away:"Paraguay",venue:"Levi's Stadium · San Francisco",t:"05h00 (+1j)",s:"",st:"upcoming"},
  {g:"D",j:3,d:"25 juin",home:"Türkiye",away:"États-Unis",venue:"SoFi Stadium · Los Angeles",t:"04h00 (+1j)",s:"",st:"upcoming"},
@@ -689,11 +689,11 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"13 juin 2026", title:"Groupe B : la Suisse accrochée par le Qatar (1-1) sur un csc à la 90ᵉ+4", text:"À San Francisco, la Suisse pensait tenir sa victoire après le penalty transformé par Breel Embolo (17ᵉ), mais le Qatar a arraché le nul dans le temps additionnel : un but contre son camp malheureux de Miro Muheim (90ᵉ+4) offre un point inattendu aux Qataris pour leur première sortie. La Suisse rejoint la Bosnie en embuscade dans un groupe B très ouvert." },
-  { date:"13 juin 2026", title:"J-1 avant Côte d'Ivoire – Équateur : les Éléphants entrent en scène demain", text:"À la veille de leur entrée dans le tournoi, les champions d'Afrique d'Emerse Faé peaufinent les derniers réglages à Philadelphie. Coup d'envoi le 14 juin à 23h00 GMT (01h00 Paris) au Lincoln Financial Field face à l'Équateur, pour viser une première sortie de groupe après les éliminations au 1ᵉʳ tour en 2006, 2010 et 2014. Plus tôt dans la journée, l'Allemagne lance le groupe E face au Curaçao." },
-  { date:"13 juin 2026", title:"Carton des États-Unis, le Canada accroche la Bosnie", text:"Le pays hôte a frappé fort à Los Angeles : États-Unis 4-1 Paraguay, avec un doublé de Folarin Balogun en première période et un but de Giovanni Reyna ; Maurício a sauvé l'honneur paraguayen. Plus tôt à Toronto, le Canada a arraché le nul 1-1 face à la Bosnie-Herzégovine — premier point de son histoire en Coupe du monde — Cyle Larin égalisant (78ᵉ) après l'ouverture de Jovo Lukić (21ᵉ)." },
-  { date:"12 juin 2026", title:"La Corée du Sud renverse la Tchéquie 2-1 et complète la 1ʳᵉ journée du groupe A", text:"À Guadalajara, les Tchèques ouvrent le score par leur capitaine Ladislav Krejčí d'une tête (59ᵉ), mais la Corée du Sud répond par Hwang In-beom (67ᵉ) puis Oh Hyeon-gyu (80ᵉ) pour un succès mérité. La Corée rejoint le Mexique en tête du groupe A ; la Tchéquie sera le prochain test de l'Afrique du Sud." },
-  { date:"9 juin 2026", title:"Préparation parfaite : les Éléphants battent la France puis Philadelphie", text:"Après leur victoire de prestige 2-1 contre la France à Nantes, les hommes d'Emerse Faé ont conclu par un succès 2-0 face à Philadelphia Union II : premier but de Bonny en sélection et un Lafont brillant." },
+  { date:"14 juin 2026", title:"Demain, les Éléphants entrent en lice face à l'Équateur (lundi 15 juin, 01h00 Paris)", text:"Champions d'Afrique en titre et absents du Mondial depuis 2014, les Éléphants d'Emerse Faé lancent leur Coupe du monde lundi 15 juin à 01h00 (Paris) au Lincoln Financial Field de Philadelphie face à l'Équateur. Le sélectionneur table sur un 4-3-3 articulé autour d'un milieu Kessié–Seko Fofana–Sangaré, avec Amad Diallo et Adingra sur les ailes et Guessand en pointe. Deux victoires de préparation (2-1 contre la France, 2-0 contre la réserve de Philadelphia Union) ont rassuré avant ce premier rendez-vous du groupe E." },
+  { date:"14 juin 2026", title:"Groupe C : le Brésil tenu en échec par un Maroc séduisant (1-1)", text:"Au MetLife Stadium, le Maroc a longtemps fait douter la Seleção : Ismael Saibari a ouvert le score d'un lob somptueux sur une passe de Brahim Díaz (21ᵉ), avant que Vinícius Júnior n'égalise d'une frappe enroulée (32ᵉ). Le Brésil, sauvé par une double parade tardive d'Alisson, évite une première défaite en match d'ouverture depuis 1934. Groupe C très ouvert avant la suite." },
+  { date:"14 juin 2026", title:"L'Écosse maîtrise Haïti (1-0), l'Australie crée la surprise face à la Türkiye (2-0)", text:"À Boston, l'Écosse a fait le minimum face à Haïti grâce à John McGinn, buteur sur un rebond (28ᵉ). Dans la nuit à Vancouver, l'Australie a signé le coup du jour en dominant la Türkiye 2-0 : un bijou de Nestory Irankunda (27ᵉ) puis un but de Connor Metcalfe (75ᵉ) lancent idéalement les Socceroos dans le groupe D." },
+  { date:"13 juin 2026", title:"Groupe B : la Suisse accrochée par le Qatar (1-1) sur un csc à la 90ᵉ+4", text:"À San Francisco, la Suisse pensait tenir sa victoire après le penalty transformé par Breel Embolo (17ᵉ), mais le Qatar a arraché le nul dans le temps additionnel : un but contre son camp malheureux de Miro Muheim (90ᵉ+4) offre un point inattendu aux Qataris pour leur première sortie." },
+  { date:"13 juin 2026", title:"Carton des États-Unis, le Canada accroche la Bosnie", text:"Le pays hôte a frappé fort à Los Angeles : États-Unis 4-1 Paraguay, avec un doublé de Folarin Balogun en première période et un but de Giovanni Reyna. Plus tôt à Toronto, le Canada a arraché le nul 1-1 face à la Bosnie-Herzégovine — premier point de son histoire en Coupe du monde — Cyle Larin égalisant (78ᵉ) après l'ouverture de Jovo Lukić (21ᵉ)." },
 ];
 
 /* ════════════════════════════════════════════════════════════
