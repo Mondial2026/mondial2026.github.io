@@ -535,10 +535,10 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-06-14";
+const LAST_UPDATE = "2026-06-15";
 
 // Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
-const NEXT_KICKOFF = { iso:"2026-06-14T23:00:00Z", label:"⏳ avant Côte d'Ivoire 🇨🇮 – Équateur 🇪🇨 (1ʳᵉ journée)" };
+const NEXT_KICKOFF = { iso:"2026-06-20T20:00:00Z", label:"⏳ avant Allemagne 🇩🇪 – Côte d'Ivoire 🇨🇮 (2ᵉ journée)" };
 
 // Drapeaux des 48 équipes
 const FLAGS = {
@@ -589,14 +589,14 @@ const GROUP_MATCHES = [
  {g:"D",j:3,d:"25 juin",home:"Paraguay",away:"Australie",venue:"Levi's Stadium · San Francisco",t:"04h00 (+1j)",s:"",st:"upcoming"},
  // Groupe E (Côte d'Ivoire 🇨🇮)
  {g:"E",j:1,d:"14 juin",home:"Allemagne",away:"Curaçao",venue:"NRG Stadium · Houston",t:"19h00",s:"7-1",st:"done",goals:[{p:"Nmecha",t:"Allemagne",m:"6"},{p:"Comenencia",t:"Curaçao",m:"21"},{p:"Schlotterbeck",t:"Allemagne",m:"38"},{p:"Havertz",t:"Allemagne",m:"45+5",pen:true},{p:"Musiala",t:"Allemagne",m:"47"},{p:"Brown",t:"Allemagne",m:"68"},{p:"Undav",t:"Allemagne",m:"78"},{p:"Havertz",t:"Allemagne",m:"88"}]},
- {g:"E",j:1,d:"14 juin",home:"Côte d'Ivoire",away:"Équateur",venue:"Lincoln Financial Field · Philadelphie",t:"01h00 (+1j)",s:"",st:"upcoming"},
+ {g:"E",j:1,d:"14 juin",home:"Côte d'Ivoire",away:"Équateur",venue:"Lincoln Financial Field · Philadelphie",t:"01h00 (+1j)",s:"1-0",st:"done",goals:[{p:"Amad Diallo",t:"Côte d'Ivoire",m:"90"}]},
  {g:"E",j:2,d:"20 juin",home:"Allemagne",away:"Côte d'Ivoire",venue:"BMO Field · Toronto",t:"22h00",s:"",st:"upcoming"},
  {g:"E",j:2,d:"20 juin",home:"Équateur",away:"Curaçao",venue:"Arrowhead Stadium · Kansas City",t:"02h00 (+1j)",s:"",st:"upcoming"},
  {g:"E",j:3,d:"25 juin",home:"Curaçao",away:"Côte d'Ivoire",venue:"Lincoln Financial Field · Philadelphie",t:"22h00",s:"",st:"upcoming"},
  {g:"E",j:3,d:"25 juin",home:"Équateur",away:"Allemagne",venue:"MetLife Stadium · New York/NJ",t:"22h00",s:"",st:"upcoming"},
  // Groupe F
  {g:"F",j:1,d:"14 juin",home:"Pays-Bas",away:"Japon",venue:"AT&T Stadium · Dallas",t:"22h00",s:"2-2",st:"done",goals:[{p:"Van Dijk",t:"Pays-Bas",m:"51"},{p:"Nakamura",t:"Japon",m:"57"},{p:"Summerville",t:"Pays-Bas",m:"64"},{p:"Kamada",t:"Japon",m:"88"}]},
- {g:"F",j:1,d:"14 juin",home:"Suède",away:"Tunisie",venue:"Estadio BBVA · Monterrey",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ {g:"F",j:1,d:"14 juin",home:"Suède",away:"Tunisie",venue:"Estadio BBVA · Monterrey",t:"04h00 (+1j)",s:"5-1",st:"done",goals:[{p:"Ayari",t:"Suède",m:"7"},{p:"Isak",t:"Suède",m:"30"},{p:"Rekik",t:"Tunisie",m:"43"},{p:"Gyökeres",t:"Suède",m:"59"},{p:"Svanberg",t:"Suède",m:"84"},{p:"Ayari",t:"Suède",m:"90+6"}]},
  {g:"F",j:2,d:"20 juin",home:"Pays-Bas",away:"Suède",venue:"NRG Stadium · Houston",t:"19h00",s:"",st:"upcoming"},
  {g:"F",j:2,d:"20 juin",home:"Tunisie",away:"Japon",venue:"Estadio BBVA · Monterrey",t:"06h00 (+1j)",s:"",st:"upcoming"},
  {g:"F",j:3,d:"25 juin",home:"Japon",away:"Suède",venue:"AT&T Stadium · Dallas",t:"01h00 (+1j)",s:"",st:"upcoming"},
@@ -690,6 +690,8 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
+  { date:"15 juin 2026", title:"🐘 Les Éléphants frappent fort : Côte d'Ivoire 1-0 Équateur, Amad Diallo héros à la 90ᵉ", text:"Pour leur retour en Coupe du monde après douze ans d'absence, les Éléphants d'Emerse Faé ont battu l'Équateur 1-0 au Lincoln Financial Field de Philadelphie. Entré en jeu, Amad Diallo a crucifié les Équatoriens à la 90ᵉ minute, ajustant le poteau opposé après un débordement et un centre de Wilfried Singo. Dans une rencontre très serrée — l'Équateur a touché trois fois les montants, la Côte d'Ivoire une fois — les champions d'Afrique en titre signent une entrée idéale et rejoignent l'Allemagne en tête du groupe E. Prochain rendez-vous : l'Allemagne, le 20 juin." },
+  { date:"15 juin 2026", title:"Groupe F : la Suède étrille la Tunisie (5-1) et prend la tête", text:"À Monterrey, la Suède a lancé son Mondial en fanfare. Yasin Ayari a signé un doublé (7ᵉ, 90ᵉ+6), encadrant les réalisations d'Alexander Isak (30ᵉ), Viktor Gyökeres (59ᵉ) et Mattias Svanberg (84ᵉ). La Tunisie a sauvé l'honneur par Omar Rekik (43ᵉ). Les Scandinaves prennent seuls la tête du groupe F, devant le Japon et les Pays-Bas (2-2)." },
   { date:"14 juin 2026", title:"Groupe E : l'Allemagne écrase Curaçao (7-1) et prend la tête avant l'entrée des Éléphants", text:"À Houston, la Mannschaft n'a fait qu'une bouchée du petit Poucet Curaçao pour sa première au Mondial. Kai Havertz a signé un doublé (45+5ᵉ s.p., 88ᵉ), Felix Nmecha (6ᵉ), Nico Schlotterbeck (38ᵉ), Jamal Musiala (47ᵉ), Nathaniel Brown (68ᵉ) et Deniz Undav (78ᵉ) complétant la démonstration. Curaçao a tout de même inscrit son tout premier but en Coupe du monde par Livano Comenencia (21ᵉ). L'Allemagne prend la tête du groupe E avant l'entrée en lice des Éléphants cette nuit." },
   { date:"14 juin 2026", title:"Groupe F : le Japon arrache le nul face aux Pays-Bas (2-2)", text:"À Dallas, les Oranje ont cru tenir leur victoire : Virgil van Dijk a inscrit son tout premier but en Coupe du monde (51ᵉ), puis Crysencio Summerville a redonné l'avantage (64ᵉ) après l'égalisation de Keito Nakamura (57ᵉ). Mais Daichi Kamada a surgi de la tête à la 88ᵉ pour offrir au Japon un match nul 2-2, déjà précieux pour son entrée dans le groupe F." },
   { date:"14 juin 2026", title:"Cette nuit, les Éléphants entrent en lice face à l'Équateur (01h00 Paris)", text:"Champions d'Afrique en titre et absents du Mondial depuis 2014, les Éléphants d'Emerse Faé lancent leur Coupe du monde dans la nuit de dimanche à lundi, à 01h00 (Paris), au Lincoln Financial Field de Philadelphie face à l'Équateur. Le sélectionneur table sur un 4-3-3 articulé autour d'un milieu Kessié–Seko Fofana–Sangaré, avec Amad Diallo et Adingra sur les ailes et Guessand en pointe. Objectif clair : franchir pour la première fois le premier tour, après les éliminations de 2006, 2010 et 2014." },
