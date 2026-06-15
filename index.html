@@ -1270,9 +1270,17 @@ setInterval(fetchLive,POLL_MS);
           : `${has?`<div class="pm-meta" style="color:var(--green-dark);margin-bottom:6px">✓ Ton pronostic : <b>${sc[0]}–${sc[1]}</b> enregistré</div>`:''}<button type="button" class="pbtn green small p-save" ${reg?'':'disabled'}>${reg?(has?'Modifier mon pronostic':'Enregistrer'):'Choisis un pseudo'}</button>`}</div>
       </div>`;}).join('');}
 
-  function onLB(players){const res=results();connecting=false;
+  let lbLoaded=false;
+  function onLB(players){const res=results();connecting=false;lbLoaded=true;
     LB=players.map(p=>({...p,pts:calcPts(p.scores,res)})).sort((a,b)=>b.pts-a.pts||String(a.pseudo).localeCompare(b.pseudo));
     renderLeaderboard();renderStats();renderRecap();renderPodium();renderAdmin();}
+  // Repli REST : si la connexion temps réel (WebSocket) ne s'établit pas (proxy, mobile, cold-start europe-west1),
+  // on charge le classement via l'API REST publique — ce qui marche partout. Réutilisé par les boutons « Actualiser ».
+  function fetchLBRest(){const u=(FIREBASE_CONFIG.databaseURL||'').replace(/\/$/,'');if(!u)return Promise.resolve();
+    return fetch(u+'/pronostics.json?print=pretty',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(obj=>{
+      if(obj===null||obj===undefined){if(!lbLoaded){connecting=false;renderLeaderboard();renderStats();}return;}
+      const a=Object.keys(obj).map(k=>{const v=obj[k]||{};return{uid:k,pseudo:v.pseudo||'?',scores:v.scores||{}};});
+      onLB(a);}).catch(()=>{if(!lbLoaded){connecting=false;renderLeaderboard();renderStats();}});}
   function toast(msg){const t=$('#p-toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),3000);}
 
   // ---- événements ----
@@ -1297,9 +1305,9 @@ setInterval(fetchLive,POLL_MS);
       if(h===''||a===''){toast('Indique les deux scores');return;}
       const score=`${Math.min(99,Math.max(0,parseInt(h,10)))}-${Math.min(99,Math.max(0,parseInt(a,10)))}`;
       setMyScoreLocal(id,score);store&&store.saveScore(getUid(),id,score);renderMatches();renderRecap();toast('Pronostic enregistré ✅');});
-    const aref=$('#p-admin-refresh');aref&&aref.addEventListener('click',()=>location.reload());
+    const aref=$('#p-admin-refresh');aref&&aref.addEventListener('click',()=>{toast('Actualisation…');fetchLBRest().then(()=>toast('Classement à jour ✅'));});
     const aex=$('#p-admin-exit');aex&&aex.addEventListener('click',()=>{localStorage.removeItem(ADMIN_KEY);const s=document.getElementById('p-admin-section');if(s)s.style.display='none';toast('Mode admin désactivé');});
-    const ref=$('#p-refresh');ref&&ref.addEventListener('click',()=>location.reload());
+    const ref=$('#p-refresh');ref&&ref.addEventListener('click',()=>{toast('Actualisation…');fetchLBRest().then(()=>toast('Résultats à jour ✅'));});
   }
 
   function checkAdminLink(){const h=(location.hash||'').toLowerCase();
@@ -1309,6 +1317,9 @@ setInterval(fetchLive,POLL_MS);
   function boot(db){store=db?firebaseStore(db):localStore();bindUI();connecting=!!db;renderStats();renderLeaderboard();renderAdmin();store.onLeaderboard(onLB);
     if(getPseudo())renderRegister();renderMatches();setBanner(db?'live':'demo');
     checkAdminLink();window.addEventListener('hashchange',checkAdminLink);
+    // Filet de sécurité : si le temps réel n'a rien renvoyé après 6 s, on bascule sur le REST, puis on réessaie toutes les 20 s jusqu'au succès.
+    if(db){setTimeout(()=>{if(!lbLoaded)fetchLBRest();},6000);
+      const iv=setInterval(()=>{if(lbLoaded){clearInterval(iv);return;}fetchLBRest();},20000);}
     setInterval(()=>{if(!document.querySelector('#p-matches input:focus'))renderMatches();},60000);}
   function hideTab(){const b=document.querySelector('[data-tab="pronostics"]');if(b)b.style.display='none';const p=document.getElementById('panel-pronostics');if(p)p.style.display='none';}
   // Onglet masqué tant que Firebase n'est pas configuré (évite une publication prématurée par la tâche quotidienne).
