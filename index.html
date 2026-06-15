@@ -225,6 +225,33 @@
   .ptoast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   .pempty{background:var(--card);border:1px dashed var(--line);border-radius:14px;
     padding:22px;text-align:center;color:var(--muted)}
+  .pbtn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  /* Lucarne podium gagnants */
+  .podium-box{background:linear-gradient(135deg,#fff7ec,#fff);border:1px solid #ffe2bd;border-radius:var(--radius);
+    padding:20px 22px;box-shadow:var(--shadow)}
+  .podium-box h3{margin:0 0 4px;font-size:1.25rem}
+  .podium-msg{color:var(--muted);margin:0 0 16px;font-size:.92rem}
+  .podium-row{display:flex;gap:12px;justify-content:center;align-items:flex-end;flex-wrap:wrap}
+  .podium-step{flex:1;min-width:90px;max-width:160px;text-align:center;background:var(--card);
+    border:1px solid var(--line);border-radius:14px;padding:14px 10px}
+  .podium-step .pmedal{font-size:1.9rem;line-height:1}
+  .podium-step .pname{font-weight:800;margin-top:6px;word-break:break-word}
+  .podium-step .ppts{color:var(--orange-dark);font-weight:800;font-size:.9rem}
+  .podium-step.gold{order:2;transform:translateY(-10px);border-color:#ffd877;background:linear-gradient(180deg,#fffaf0,#fff)}
+  .podium-step.silver{order:1}
+  .podium-step.bronze{order:3}
+  /* Espace admin */
+  .padmin-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .padmin-head h2{margin:0;flex:1 1 auto}
+  .padmin-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+  .padmin-card .pa-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .padmin-card .pa-name{font-weight:800}
+  .padmin-card .pa-pts{color:var(--orange-dark);font-weight:800;white-space:nowrap}
+  .padmin-card .pa-picks{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .pa-chip{font-size:.8rem;border:1px solid var(--line);border-radius:8px;padding:4px 8px;background:#fbfbf7}
+  .pa-chip.hit{background:#e6f6ee;border-color:#bfe6d2}
+  .pa-chip.partial{background:#fff7e0;border-color:#ffe7a3}
+  .pa-chip.miss{background:#fdeaea;border-color:#f4c9c9}
   .dl-card{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between;
     background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
     padding:20px 22px;box-shadow:var(--shadow)}
@@ -464,6 +491,7 @@
         <div class="pstat"><b id="p-mypts">0</b><span>tes points</span></div>
         <div class="pstat"><b id="p-myrank">—</b><span>ton rang</span></div>
       </div>
+      <div style="text-align:center;margin:-6px 0 18px"><button type="button" id="p-refresh" class="pbtn small ghost">🔄 Actualiser les résultats</button></div>
 
       <div id="p-register" class="card" style="margin-bottom:22px">
         <h3 style="margin-bottom:6px">Choisis ton pseudo pour jouer</h3>
@@ -473,6 +501,12 @@
         </div>
         <div class="perr" id="p-pseudo-err"></div>
       </div>
+    </div>
+  </section>
+
+  <section id="p-podium-section" style="display:none">
+    <div class="wrap">
+      <div id="p-podium"></div>
     </div>
   </section>
 
@@ -498,6 +532,18 @@
       <p class="sub">Récapitulatif de tes scores joués : <span style="color:var(--green-dark)">exact</span> ·
         <span style="color:#8a6d00">bon résultat</span> · <span style="color:#b03030">raté</span>.</p>
       <div id="p-recap"></div>
+    </div>
+  </section>
+
+  <section id="p-admin-section" class="alt-bg" style="display:none">
+    <div class="wrap">
+      <div class="padmin-head">
+        <h2>🔐 Espace administrateur</h2>
+        <button type="button" id="p-admin-refresh" class="pbtn small">🔄 Rafraîchir</button>
+        <button type="button" id="p-admin-exit" class="pbtn small ghost">Quitter l'admin</button>
+      </div>
+      <p class="sub">Vue privée : tous les pronostics des participant·e·s. <span id="p-admin-count"></span></p>
+      <div id="p-admin"></div>
     </div>
   </section>
 </div>
@@ -1101,7 +1147,9 @@ setInterval(fetchLive,POLL_MS);
 
   const $=s=>document.querySelector(s);
   const CIV="Côte d'Ivoire";
-  const UID_KEY="mondial2026_uid", PSEUDO_KEY="mondial2026_pseudo", LOCAL_PRONO="mondial2026_prono";
+  const UID_KEY="mondial2026_uid", PSEUDO_KEY="mondial2026_pseudo", LOCAL_PRONO="mondial2026_prono", ADMIN_KEY="mondial2026_admin";
+  // Code d'accès admin : ouvre l'espace privé via le lien  …github.io/#admin-elephants-225  (mémorisé ensuite sur l'appareil). À changer ici si besoin.
+  const ADMIN_CODE="elephants-225";
   const MNAMES=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
   const MONTHS={'janvier':1,'février':2,'mars':3,'avril':4,'mai':5,'juin':6,'juillet':7,'août':8,'septembre':9,'octobre':10,'novembre':11,'décembre':12};
   let store=null, LB=[], toastT=null, connecting=false;
@@ -1171,6 +1219,28 @@ setInterval(fetchLive,POLL_MS);
     if(!LB.length){box.innerHTML='<div class="pempty">'+(connecting?'⏳ Connexion au classement en direct…':'Personne n’a encore joué — sois le/la premier·e ! 🥇')+'</div>';return;}
     box.innerHTML='<table class="ptable"><thead><tr><th>#</th><th>Pseudo</th><th style="text-align:right">Points</th></tr></thead><tbody>'+
       LB.map((p,i)=>`<tr class="${p.uid===uid?'is-me':''}"><td><span class="prank">${i+1}</span></td><td>${esc(p.pseudo)}</td><td class="pts">${p.pts}</td></tr>`).join('')+'</tbody></table>';}
+  const isAdmin=()=>localStorage.getItem(ADMIN_KEY)==='1';
+  function outcomeClass(pred,realObj){if(!realObj||!pred)return '';
+    const [rh,ra]=realObj.s.split('-').map(Number),[ph,pa]=String(pred).split('-').map(Number);
+    if([rh,ra,ph,pa].some(Number.isNaN))return '';
+    if(ph===rh&&pa===ra)return 'hit';if(Math.sign(rh-ra)===Math.sign(ph-pa))return 'partial';return 'miss';}
+  function renderPodium(){const sec=document.getElementById('p-podium-section'),box=$('#p-podium');if(!box||!sec)return;
+    const scored=LB.filter(p=>p.pts>0);
+    if(!scored.length){sec.style.display='none';return;}
+    sec.style.display='';const top=LB.slice(0,3);const medal=['🥇','🥈','🥉'],cls=['gold','silver','bronze'];
+    const steps=top.map((p,i)=>`<div class="podium-step ${cls[i]}"><div class="pmedal">${medal[i]}</div><div class="pname">${esc(p.pseudo)}</div><div class="ppts">${p.pts} pts</div></div>`).join('');
+    box.innerHTML=`<div class="podium-box"><h3>🏆 Au sommet du classement</h3><p class="podium-msg">Bravo aux meilleur·e·s pronostiqueur·euse·s du moment ! 🎉</p><div class="podium-row">${steps}</div></div>`;}
+  function renderAdmin(){const sec=document.getElementById('p-admin-section'),box=$('#p-admin');if(!box||!sec)return;
+    if(!isAdmin()){sec.style.display='none';return;}
+    sec.style.display='';const res=results();
+    const cnt=$('#p-admin-count');if(cnt)cnt.textContent=LB.length+' participant·e·s · '+Object.keys(res).length+' match(s) avec résultat.';
+    box.innerHTML=LB.map((p,i)=>{const ids=Object.keys(p.scores||{});
+      const chips=ids.map(id=>{const m=findMatch(id);const nm=m?`${flag(m.home)}${flag(m.away)}`:id;
+        const c=outcomeClass(p.scores[id],res[id]);
+        return `<span class="pa-chip ${c}">${nm} <b>${esc(p.scores[id])}</b>${res[id]?(' · réel '+res[id].s):''}</span>`;}).join('')
+        ||'<span class="pa-chip">aucun pronostic</span>';
+      return `<div class="padmin-card"><div class="pa-top"><span class="pa-name">${i+1}. ${esc(p.pseudo)}</span><span class="pa-pts">${p.pts} pts · ${ids.length} prono${ids.length>1?'s':''}</span></div><div class="pa-picks">${chips}</div></div>`;}).join('')
+      ||'<div class="pempty">Aucun participant pour le moment.</div>';}
   function renderRecap(){const box=$('#p-recap');if(!box)return;const my=myScores(),res=results();
     const ids=Object.keys(my).filter(id=>res[id]);
     if(!ids.length){box.innerHTML='<div class="pempty">Tes pronostics sur les matchs terminés s’afficheront ici.</div>';return;}
@@ -1202,7 +1272,7 @@ setInterval(fetchLive,POLL_MS);
 
   function onLB(players){const res=results();connecting=false;
     LB=players.map(p=>({...p,pts:calcPts(p.scores,res)})).sort((a,b)=>b.pts-a.pts||String(a.pseudo).localeCompare(b.pseudo));
-    renderLeaderboard();renderStats();renderRecap();}
+    renderLeaderboard();renderStats();renderRecap();renderPodium();renderAdmin();}
   function toast(msg){const t=$('#p-toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),3000);}
 
   // ---- événements ----
@@ -1227,10 +1297,18 @@ setInterval(fetchLive,POLL_MS);
       if(h===''||a===''){toast('Indique les deux scores');return;}
       const score=`${Math.min(99,Math.max(0,parseInt(h,10)))}-${Math.min(99,Math.max(0,parseInt(a,10)))}`;
       setMyScoreLocal(id,score);store&&store.saveScore(getUid(),id,score);renderMatches();renderRecap();toast('Pronostic enregistré ✅');});
+    const aref=$('#p-admin-refresh');aref&&aref.addEventListener('click',()=>location.reload());
+    const aex=$('#p-admin-exit');aex&&aex.addEventListener('click',()=>{localStorage.removeItem(ADMIN_KEY);const s=document.getElementById('p-admin-section');if(s)s.style.display='none';toast('Mode admin désactivé');});
+    const ref=$('#p-refresh');ref&&ref.addEventListener('click',()=>location.reload());
   }
 
-  function boot(db){store=db?firebaseStore(db):localStore();bindUI();connecting=!!db;renderStats();renderLeaderboard();store.onLeaderboard(onLB);
+  function checkAdminLink(){const h=(location.hash||'').toLowerCase();
+    if(h==='#admin-'+ADMIN_CODE.toLowerCase()){localStorage.setItem(ADMIN_KEY,'1');
+      const b=document.querySelector('.tab-btn[data-tab="pronostics"]');if(b)b.click();
+      renderAdmin();toast('🔐 Mode admin activé');}}
+  function boot(db){store=db?firebaseStore(db):localStore();bindUI();connecting=!!db;renderStats();renderLeaderboard();renderAdmin();store.onLeaderboard(onLB);
     if(getPseudo())renderRegister();renderMatches();setBanner(db?'live':'demo');
+    checkAdminLink();window.addEventListener('hashchange',checkAdminLink);
     setInterval(()=>{if(!document.querySelector('#p-matches input:focus'))renderMatches();},60000);}
   function hideTab(){const b=document.querySelector('[data-tab="pronostics"]');if(b)b.style.display='none';const p=document.getElementById('panel-pronostics');if(p)p.style.display='none';}
   // Onglet masqué tant que Firebase n'est pas configuré (évite une publication prématurée par la tâche quotidienne).
