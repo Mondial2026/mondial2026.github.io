@@ -1253,7 +1253,7 @@ setInterval(fetchLive,POLL_MS);
       box.innerHTML=`<div class="pempty">📅 Aucun match à pronostiquer aujourd’hui — reviens demain !${nx?`<br><br>Prochain : <b>${team(nx.home)} – ${team(nx.away)}</b><br>${nx.d} · ${timeLabel(nx.t)}`:''}</div>`;return;}
     const my=myScores();
     box.innerHTML=todays.map(m=>{const id=matchId(m),civ=isCiv(m),ts=getMatchTimestamp(m),locked=isFinite(ts)&&(ts-Date.now()<30*60000);
-      const has=!!my[id];const sc=has?my[id].split('-'):['',''];const dis=locked||!reg?'disabled':'';
+      const has=!!my[id];const sc=has?my[id].split('-'):['',''];const dis=locked?'disabled':'';
       return `<div class="pmatch ${civ?'civ-m':''} ${locked?'locked':''}" data-mid="${id}">
         <div class="pm-top"><span class="pm-meta">${m.g?('Groupe '+m.g+' · J'+m.j):(m.id||'')} · ${m.d} · ${timeLabel(m.t)}</span>
           ${civ?'<span class="badge done">🐘 ×2 points</span>':''}${locked?'<span class="plock">🔒 Verrouillé</span>':''}</div>
@@ -1264,7 +1264,7 @@ setInterval(fetchLive,POLL_MS);
           <span class="pteam away">${team(m.away)}</span></div>
         <div style="text-align:center">${locked
           ? (has?`<span class="pm-meta" style="color:var(--green-dark)">✓ Ton pronostic : <b>${sc[0]}–${sc[1]}</b> (fermé)</span>`:'<span class="pm-meta">Pronostic fermé</span>')
-          : `${has?`<div class="pm-meta" style="color:var(--green-dark);margin-bottom:6px">✓ Ton pronostic : <b>${sc[0]}–${sc[1]}</b> enregistré</div>`:''}<button type="button" class="pbtn green small p-save" ${reg?'':'disabled'}>${reg?(has?'Modifier mon pronostic':'Enregistrer'):'Choisis un pseudo'}</button>`}</div>
+          : `${has?`<div class="pm-meta" style="color:var(--green-dark);margin-bottom:6px">✓ Ton pronostic : <b>${sc[0]}–${sc[1]}</b> enregistré</div>`:''}<button type="button" class="pbtn green small p-save">${reg?(has?'Modifier mon pronostic':'Enregistrer'):'Enregistrer (pseudo requis)'}</button>`}</div>
       </div>`;}).join('');}
 
   let lbLoaded=false;
@@ -1291,7 +1291,10 @@ setInterval(fetchLive,POLL_MS);
       let uid=(existing&&existing.uid)||getUid()||(window.crypto&&crypto.randomUUID?crypto.randomUUID():'u'+Date.now()+Math.random().toString(16).slice(2));
       localStorage.setItem(UID_KEY,uid);localStorage.setItem(PSEUDO_KEY,v);
       const r=readLocal();r.uid=uid;r.pseudo=v;r.scores=Object.assign({},existing&&existing.scores||{},r.scores||{});writeLocal(r);
-      store&&store.register(uid,v);join.disabled=false;join.textContent=lbl;
+      store&&store.register(uid,v);
+      // Envoi des pronostics saisis avant l'inscription (sinon ils resteraient locaux)
+      if(store&&store.saveScore){Object.keys(r.scores||{}).forEach(id=>store.saveScore(uid,id,r.scores[id]));}
+      join.disabled=false;join.textContent=lbl;
       renderRegister();renderMatches();renderRecap();renderStats();
       const recalled=existing&&Object.keys(existing.scores||{}).length;
       toast(recalled?('Re-bonjour '+v+' ! Tes pronostics sont là 🎉'):('Bienvenue '+v+' ! 🎉'));});
@@ -1301,7 +1304,11 @@ setInterval(fetchLive,POLL_MS);
       const h=card.querySelector('.p-h').value,a=card.querySelector('.p-a').value;
       if(h===''||a===''){toast('Indique les deux scores');return;}
       const score=`${Math.min(99,Math.max(0,parseInt(h,10)))}-${Math.min(99,Math.max(0,parseInt(a,10)))}`;
-      setMyScoreLocal(id,score);store&&store.saveScore(getUid(),id,score);renderMatches();renderRecap();toast('Pronostic enregistré ✅');});
+      setMyScoreLocal(id,score); // on garde toujours le score saisi (même sans pseudo)
+      if(!getPseudo()){renderMatches();renderRecap();const pi=$('#p-pseudo');
+        if(pi){pi.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>pi.focus(),300);}
+        toast('Score noté ! Choisis un pseudo en haut pour valider 🎯');return;}
+      store&&store.saveScore(getUid(),id,score);renderMatches();renderRecap();toast('Pronostic enregistré ✅');});
     const aref=$('#p-admin-refresh');aref&&aref.addEventListener('click',()=>{toast('Actualisation…');fetchLBRest().then(()=>toast('Classement à jour ✅'));});
     const aex=$('#p-admin-exit');aex&&aex.addEventListener('click',()=>{localStorage.removeItem(ADMIN_KEY);const s=document.getElementById('p-admin-section');if(s)s.style.display='none';toast('Mode admin désactivé');});
     const ref=$('#p-refresh');ref&&ref.addEventListener('click',()=>{toast('Actualisation…');fetchLBRest().then(()=>toast('Résultats à jour ✅'));});
