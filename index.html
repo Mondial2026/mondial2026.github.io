@@ -581,7 +581,7 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-06-16";
+const LAST_UPDATE = "2026-06-17";
 
 // Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
 const NEXT_KICKOFF = { iso:"2026-06-20T20:00:00Z", label:"⏳ avant Allemagne 🇩🇪 – Côte d'Ivoire 🇨🇮 (2ᵉ journée)" };
@@ -662,15 +662,15 @@ const GROUP_MATCHES = [
  {g:"H",j:3,d:"26 juin",home:"Cap-Vert",away:"Arabie saoudite",venue:"NRG Stadium · Houston",t:"02h00 (+1j)",s:"",st:"upcoming"},
  {g:"H",j:3,d:"26 juin",home:"Uruguay",away:"Espagne",venue:"Estadio Akron · Guadalajara",t:"02h00 (+1j)",s:"",st:"upcoming"},
  // Groupe I
- {g:"I",j:1,d:"16 juin",home:"France",away:"Sénégal",venue:"MetLife Stadium · New York/NJ",t:"21h00",s:"",st:"upcoming"},
- {g:"I",j:1,d:"16 juin",home:"Irak",away:"Norvège",venue:"Gillette Stadium · Boston",t:"00h00 (+1j)",s:"",st:"upcoming"},
+ {g:"I",j:1,d:"16 juin",home:"France",away:"Sénégal",venue:"MetLife Stadium · New York/NJ",t:"21h00",s:"3-1",st:"done",goals:[{p:"Mbappé",t:"France",m:"66"},{p:"Barcola",t:"France",m:"82"},{p:"Mbaye",t:"Sénégal",m:"90+5"},{p:"Mbappé",t:"France",m:"90+6"}]},
+ {g:"I",j:1,d:"16 juin",home:"Irak",away:"Norvège",venue:"Gillette Stadium · Boston",t:"00h00 (+1j)",s:"1-4",st:"done",goals:[{p:"Haaland",t:"Norvège",m:"29"},{p:"Hussein",t:"Irak",m:"39"},{p:"Haaland",t:"Norvège",m:"43"},{p:"Østigård",t:"Norvège",m:"76"},{p:"Hussein",t:"Norvège",m:"90+6",og:true}]},
  {g:"I",j:2,d:"22 juin",home:"France",away:"Irak",venue:"Lincoln Financial Field · Philadelphie",t:"23h00",s:"",st:"upcoming"},
  {g:"I",j:2,d:"22 juin",home:"Norvège",away:"Sénégal",venue:"MetLife Stadium · New York/NJ",t:"02h00 (+1j)",s:"",st:"upcoming"},
  {g:"I",j:3,d:"26 juin",home:"Norvège",away:"France",venue:"Gillette Stadium · Boston",t:"21h00",s:"",st:"upcoming"},
  {g:"I",j:3,d:"26 juin",home:"Sénégal",away:"Irak",venue:"BMO Field · Toronto",t:"21h00",s:"",st:"upcoming"},
  // Groupe J
- {g:"J",j:1,d:"16 juin",home:"Argentine",away:"Algérie",venue:"Arrowhead Stadium · Kansas City",t:"03h00 (+1j)",s:"",st:"upcoming"},
- {g:"J",j:1,d:"16 juin",home:"Autriche",away:"Jordanie",venue:"Levi's Stadium · San Francisco",t:"06h00 (+1j)",s:"",st:"upcoming"},
+ {g:"J",j:1,d:"16 juin",home:"Argentine",away:"Algérie",venue:"Arrowhead Stadium · Kansas City",t:"03h00 (+1j)",s:"3-0",st:"done",goals:[{p:"Messi",t:"Argentine",m:"17"},{p:"Messi",t:"Argentine",m:"60"},{p:"Messi",t:"Argentine",m:"76"}]},
+ {g:"J",j:1,d:"16 juin",home:"Autriche",away:"Jordanie",venue:"Levi's Stadium · San Francisco",t:"06h00 (+1j)",s:"3-1",st:"done",goals:[{p:"Schmid",t:"Autriche",m:"20"},{p:"Olwan",t:"Jordanie",m:"50"},{p:"Al-Arab",t:"Autriche",m:"76",og:true},{p:"Arnautović",t:"Autriche",m:"90+12",pen:true}]},
  {g:"J",j:2,d:"22 juin",home:"Argentine",away:"Autriche",venue:"AT&T Stadium · Dallas",t:"19h00",s:"",st:"upcoming"},
  {g:"J",j:2,d:"22 juin",home:"Jordanie",away:"Algérie",venue:"Levi's Stadium · San Francisco",t:"05h00 (+1j)",s:"",st:"upcoming"},
  {g:"J",j:3,d:"27 juin",home:"Algérie",away:"Autriche",venue:"Arrowhead Stadium · Kansas City",t:"04h00 (+1j)",s:"",st:"upcoming"},
@@ -736,11 +736,11 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"16 juin 2026", title:"🐘 Cap sur l'Allemagne : les Éléphants promettent de monter en puissance", text:"Leaders du groupe E à égalité avec l'Allemagne après leur victoire face à l'Équateur, les Éléphants d'Emerse Faé préparent désormais le choc du 20 juin à Toronto face à la Mannschaft, quadruple championne du monde. Le sélectionneur, qui a vu son équipe souffrir avant de l'emporter dans les dernières secondes, attend une montée en régime collective face à un adversaire d'un tout autre calibre. Un résultat positif rapprocherait la Côte d'Ivoire d'une qualification historique pour les 16ᵉˢ de finale." },
-  { date:"16 juin 2026", title:"Groupe H : Cap-Vert tient tête à l'Espagne (0-0), l'Uruguay accroché par l'Arabie saoudite (1-1)", text:"Pour ses grands débuts en Coupe du monde, le Cap-Vert a réalisé l'exploit du jour en tenant l'Espagne, championne d'Europe, en échec (0-0) à Atlanta : malgré 27 tirs, la Roja a buté sur un Vozinha étincelant, Ferran Torres trouvant même la barre. À Miami, l'Uruguay a été tenu en échec par l'Arabie saoudite (1-1) : Abdulelah Al-Amri a ouvert le score à la 41ᵉ avant l'égalisation de Maximiliano Araújo (80ᵉ). Le groupe H est très indécis." },
-  { date:"16 juin 2026", title:"Groupe G : Belgique et Iran accrochés, quatre équipes à égalité", text:"Journée des matchs nuls dans le groupe G. À Seattle, la Belgique a été accrochée par l'Égypte (1-1) : Emam Ashour a ouvert le score pour les Pharaons (19ᵉ) avant un but contre son camp de Mohamed Hany (66ᵉ). À Los Angeles, l'Iran et la Nouvelle-Zélande se sont quittés dos à dos (2-2) au terme d'un match spectaculaire : un doublé d'Elijah Just (7ᵉ, 54ᵉ) pour les Néo-Zélandais, des buts de Rezaeian (32ᵉ) et Mohebbi (64ᵉ) pour l'Iran. Les quatre équipes du groupe sont à un point." },
-  { date:"15 juin 2026", title:"🐘 Les Éléphants frappent fort : Côte d'Ivoire 1-0 Équateur, Amad Diallo héros à la 90ᵉ", text:"Pour leur retour en Coupe du monde après douze ans d'absence, les Éléphants d'Emerse Faé ont battu l'Équateur 1-0 au Lincoln Financial Field de Philadelphie. Entré en jeu, Amad Diallo a crucifié les Équatoriens à la 90ᵉ minute, ajustant le poteau opposé après un débordement et un centre de Wilfried Singo. Dans une rencontre très serrée — l'Équateur a touché trois fois les montants, la Côte d'Ivoire une fois — les champions d'Afrique en titre signent une entrée idéale et rejoignent l'Allemagne en tête du groupe E. Prochain rendez-vous : l'Allemagne, le 20 juin." },
-  { date:"15 juin 2026", title:"Groupe F : la Suède étrille la Tunisie (5-1) et prend la tête", text:"À Monterrey, la Suède a lancé son Mondial en fanfare. Yasin Ayari a signé un doublé (7ᵉ, 90ᵉ+6), encadrant les réalisations d'Alexander Isak (30ᵉ), Viktor Gyökeres (59ᵉ) et Mattias Svanberg (84ᵉ). La Tunisie a sauvé l'honneur par Omar Rekik (43ᵉ). Les Scandinaves prennent seuls la tête du groupe F, devant le Japon et les Pays-Bas (2-2)." },
+  { date:"17 juin 2026", title:"🐘 J-3 avant l'Allemagne : les Éléphants veulent confirmer à Toronto", text:"Co-leaders du groupe E avec l'Allemagne après leur victoire d'entrée sur l'Équateur (1-0, Amad Diallo à la 90ᵉ), les Éléphants d'Emerse Faé préparent le grand rendez-vous du samedi 20 juin au BMO Field de Toronto face à la Mannschaft, quadruple championne du monde et large vainqueur du Curaçao (7-1). Forte de son succès amical historique sur la France (2-1) début juin à Nantes, la sélection ivoirienne aborde ce choc avec confiance : un résultat positif la rapprocherait nettement d'une qualification pour les 16ᵉˢ de finale, douze ans après sa dernière Coupe du monde." },
+  { date:"17 juin 2026", title:"Groupe I : la France maîtrise le Sénégal (3-1), Mbappé entre dans l'histoire", text:"Pour son entrée en lice au MetLife Stadium de New York, la France a dominé le Sénégal 3-1. Kylian Mbappé a signé un doublé (66ᵉ, 90ᵉ+6) qui fait de lui le meilleur buteur de l'histoire des Bleus, Bradley Barcola ayant corsé l'addition (82ᵉ) ; Ibrahim Mbaye a sauvé l'honneur sénégalais (90ᵉ+5). Dans l'autre match du groupe, la Norvège d'Erling Haaland (doublé, 29ᵉ et 43ᵉ) a écrasé l'Irak 4-1 à Boston. La France et la Norvège prennent la tête du groupe I." },
+  { date:"17 juin 2026", title:"Groupe J : Messi régale, l'Argentine lance sa défense du titre (3-0)", text:"À Kansas City, Lionel Messi a inscrit un triplé (17ᵉ, 60ᵉ, 76ᵉ) pour offrir à l'Argentine, tenante du titre, une victoire 3-0 sur l'Algérie en ouverture du groupe J. À San Francisco, l'Autriche a battu la Jordanie 3-1 (Schmid 20ᵉ, un csc de Yazan Al-Arab 76ᵉ, Arnautović sur penalty 90ᵉ+12 ; Ali Olwan 50ᵉ pour les débutants jordaniens) et signe sa première victoire en Coupe du monde depuis 36 ans." },
+  { date:"15 juin 2026", title:"🐘 Les Éléphants frappent fort : Côte d'Ivoire 1-0 Équateur, Amad Diallo héros à la 90ᵉ", text:"Pour leur retour en Coupe du monde après douze ans d'absence, les Éléphants d'Emerse Faé ont battu l'Équateur 1-0 au Lincoln Financial Field de Philadelphie. Entré en jeu, Amad Diallo a crucifié les Équatoriens à la 90ᵉ minute, ajustant le poteau opposé après un débordement et un centre de Wilfried Singo. Dans une rencontre très serrée — l'Équateur a touché trois fois les montants, la Côte d'Ivoire une fois — les champions d'Afrique en titre signent une entrée idéale et rejoignent l'Allemagne en tête du groupe E." },
+  { date:"15 juin 2026", title:"Groupe H : Cap-Vert tient tête à l'Espagne (0-0), l'Uruguay accroché (1-1)", text:"Pour ses grands débuts en Coupe du monde, le Cap-Vert a réalisé l'exploit du jour en tenant l'Espagne, championne d'Europe, en échec (0-0) à Atlanta. À Miami, l'Uruguay a été tenu en échec par l'Arabie saoudite (1-1) : Abdulelah Al-Amri a ouvert le score (41ᵉ) avant l'égalisation de Maximiliano Araújo (80ᵉ). Le groupe H est très indécis." },
 ];
 
 // ───────── COMPOSITION DE DÉPART DE LA CÔTE D'IVOIRE ─────────
@@ -823,16 +823,26 @@ const fmt=new Intl.DateTimeFormat('fr-FR',{day:'numeric',month:'long',year:'nume
 const STATE={lastUpdate:LAST_UPDATE,nextKickoff:NEXT_KICKOFF};
 
 // ── Rafraîchissement
-// 1) Bouton manuel : recharge la page (récupère le dernier index.html publié)
+// Recharge en CONTOURNANT le cache navigateur. GitHub Pages sert l'HTML avec
+// Cache-Control: max-age=600 → un simple location.reload() ressert l'ancienne
+// version pendant 10 min. On ajoute un paramètre anti-cache (?v=…) pour forcer
+// le téléchargement de la dernière version publiée (le hash d'onglet est conservé).
+function hardReload(){
+  const u=new URL(location.href);
+  u.searchParams.set('v',Date.now().toString());
+  u.hash=location.hash;
+  location.replace(u.toString());
+}
+// 1) Bouton manuel
 $("#refresh-btn").addEventListener('click',e=>{
   e.currentTarget.classList.add('spin');
-  location.reload();
+  hardReload();
 });
 // 2) Automatique, sans aucune autorisation : quand l'utilisateur revient sur l'onglet
 //    après plus de 10 min d'absence, on recharge pour afficher les données du jour.
 const LOADED_AT=Date.now();
 document.addEventListener('visibilitychange',()=>{
-  if(document.visibilityState==='visible' && Date.now()-LOADED_AT>600000) location.reload();
+  if(document.visibilityState==='visible' && Date.now()-LOADED_AT>600000) hardReload();
 });
 
 // Compte à rebours
@@ -1324,7 +1334,15 @@ setInterval(fetchLive,POLL_MS);
     // Filet de sécurité : si le temps réel n'a rien renvoyé après 6 s, on bascule sur le REST, puis on réessaie toutes les 20 s jusqu'au succès.
     if(db){setTimeout(()=>{if(!lbLoaded)fetchLBRest();},6000);
       const iv=setInterval(()=>{if(lbLoaded){clearInterval(iv);return;}fetchLBRest();},20000);}
-    setInterval(()=>{if(!document.querySelector('#p-matches input:focus'))renderMatches();},60000);}
+    setInterval(()=>{const box=$('#p-matches');if(!box)return;
+      if(box.querySelector('input:focus'))return; // en pleine saisie : on ne touche à rien
+      const my=myScores();
+      const dirty=[...box.querySelectorAll('.pmatch')].some(card=>{
+        const id=card.dataset.mid,h=card.querySelector('.p-h'),a=card.querySelector('.p-a');
+        if(!h||!a)return false;
+        return (h.value!==''||a.value!=='')&&(h.value+'-'+a.value)!==(my[id]||''); // score tapé mais pas encore enregistré
+      });
+      if(!dirty)renderMatches();},60000);}
   function hideTab(){const b=document.querySelector('[data-tab="pronostics"]');if(b)b.style.display='none';const p=document.getElementById('panel-pronostics');if(p)p.style.display='none';}
   // Onglet masqué tant que Firebase n'est pas configuré (évite une publication prématurée par la tâche quotidienne).
   // Pour activer un mode démo public sans Firebase, remplacer hideTab() par boot(null).
