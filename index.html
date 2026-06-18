@@ -581,7 +581,7 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-06-17";
+const LAST_UPDATE = "2026-06-18";
 
 // Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
 const NEXT_KICKOFF = { iso:"2026-06-20T20:00:00Z", label:"⏳ avant Allemagne 🇩🇪 – Côte d'Ivoire 🇨🇮 (2ᵉ journée)" };
@@ -676,15 +676,15 @@ const GROUP_MATCHES = [
  {g:"J",j:3,d:"27 juin",home:"Algérie",away:"Autriche",venue:"Arrowhead Stadium · Kansas City",t:"04h00 (+1j)",s:"",st:"upcoming"},
  {g:"J",j:3,d:"27 juin",home:"Jordanie",away:"Argentine",venue:"AT&T Stadium · Dallas",t:"04h00 (+1j)",s:"",st:"upcoming"},
  // Groupe K
- {g:"K",j:1,d:"17 juin",home:"Portugal",away:"RD Congo",venue:"NRG Stadium · Houston",t:"19h00",s:"",st:"upcoming"},
- {g:"K",j:1,d:"17 juin",home:"Ouzbékistan",away:"Colombie",venue:"Estadio Azteca · Mexico",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ {g:"K",j:1,d:"17 juin",home:"Portugal",away:"RD Congo",venue:"NRG Stadium · Houston",t:"19h00",s:"1-1",st:"done",goals:[{p:"João Neves",t:"Portugal",m:"6"},{p:"Wissa",t:"RD Congo",m:"45+5"}]},
+ {g:"K",j:1,d:"17 juin",home:"Ouzbékistan",away:"Colombie",venue:"Estadio Azteca · Mexico",t:"04h00 (+1j)",s:"1-3",st:"done",goals:[{p:"Muñoz",t:"Colombie",m:"40"},{p:"Fayzullaev",t:"Ouzbékistan",m:"60"},{p:"Luis Díaz",t:"Colombie",m:"65"},{p:"Campaz",t:"Colombie",m:"90+9"}]},
  {g:"K",j:2,d:"23 juin",home:"Portugal",away:"Ouzbékistan",venue:"NRG Stadium · Houston",t:"19h00",s:"",st:"upcoming"},
  {g:"K",j:2,d:"23 juin",home:"Colombie",away:"RD Congo",venue:"Estadio Akron · Guadalajara",t:"04h00 (+1j)",s:"",st:"upcoming"},
  {g:"K",j:3,d:"27 juin",home:"Colombie",away:"Portugal",venue:"Hard Rock Stadium · Miami",t:"01h30 (+1j)",s:"",st:"upcoming"},
  {g:"K",j:3,d:"27 juin",home:"RD Congo",away:"Ouzbékistan",venue:"Mercedes-Benz Stadium · Atlanta",t:"01h30 (+1j)",s:"",st:"upcoming"},
  // Groupe L
- {g:"L",j:1,d:"17 juin",home:"Angleterre",away:"Croatie",venue:"AT&T Stadium · Dallas",t:"22h00",s:"",st:"upcoming"},
- {g:"L",j:1,d:"17 juin",home:"Ghana",away:"Panama",venue:"BMO Field · Toronto",t:"01h00 (+1j)",s:"",st:"upcoming"},
+ {g:"L",j:1,d:"17 juin",home:"Angleterre",away:"Croatie",venue:"AT&T Stadium · Dallas",t:"22h00",s:"4-2",st:"done",goals:[{p:"Kane",t:"Angleterre",m:"12",pen:true},{p:"Kane",t:"Angleterre",m:"35"},{p:"Baturina",t:"Croatie",m:"36"},{p:"Musa",t:"Croatie",m:"45+5"},{p:"Bellingham",t:"Angleterre",m:"47"},{p:"Rashford",t:"Angleterre",m:"85"}]},
+ {g:"L",j:1,d:"17 juin",home:"Ghana",away:"Panama",venue:"BMO Field · Toronto",t:"01h00 (+1j)",s:"1-0",st:"done",goals:[{p:"Yirenkyi",t:"Ghana",m:"90+5"}]},
  {g:"L",j:2,d:"23 juin",home:"Angleterre",away:"Ghana",venue:"Gillette Stadium · Boston",t:"22h00",s:"",st:"upcoming"},
  {g:"L",j:2,d:"23 juin",home:"Panama",away:"Croatie",venue:"BMO Field · Toronto",t:"01h00 (+1j)",s:"",st:"upcoming"},
  {g:"L",j:3,d:"27 juin",home:"Panama",away:"Angleterre",venue:"MetLife Stadium · New York/NJ",t:"23h00",s:"",st:"upcoming"},
@@ -736,11 +736,11 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"17 juin 2026", title:"🐘 J-3 avant l'Allemagne : les Éléphants veulent confirmer à Toronto", text:"Co-leaders du groupe E avec l'Allemagne après leur victoire d'entrée sur l'Équateur (1-0, Amad Diallo à la 90ᵉ), les Éléphants d'Emerse Faé préparent le grand rendez-vous du samedi 20 juin au BMO Field de Toronto face à la Mannschaft, quadruple championne du monde et large vainqueur du Curaçao (7-1). Forte de son succès amical historique sur la France (2-1) début juin à Nantes, la sélection ivoirienne aborde ce choc avec confiance : un résultat positif la rapprocherait nettement d'une qualification pour les 16ᵉˢ de finale, douze ans après sa dernière Coupe du monde." },
+  { date:"18 juin 2026", title:"🐘 J-2 avant l'Allemagne : Emerse Faé affiche ses ambitions, « on défie l'Allemagne pour gagner »", text:"À deux jours du choc du groupe E au BMO Field de Toronto, le sélectionneur Emerse Faé a balayé tout complexe d'infériorité en conférence de presse : « On défie l'Allemagne pour gagner. » Co-leaders avec la Mannschaft après leur succès d'entrée sur l'Équateur (1-0, Amad Diallo à la 90ᵉ), les Éléphants, lancés par leur victoire amicale historique sur la France (2-1) à Nantes, visent une qualification pour les 16ᵉˢ de finale — un cap jamais franchi après les éliminations au premier tour de 2006, 2010 et 2014. Coup d'envoi samedi 20 juin à 22h00 (Paris)." },
+  { date:"18 juin 2026", title:"Groupe K : le Portugal accroché par la RD Congo (1-1), la Colombie lance bien son Mondial (3-1)", text:"Au NRG Stadium de Houston, le Portugal de Cristiano Ronaldo a été tenu en échec par la RD Congo (1-1) : João Neves avait ouvert le score de la tête dès la 6ᵉ minute, mais Yoane Wissa a égalisé juste avant la pause (45ᵉ+5), offrant aux Léopards leur tout premier point et leur premier but en Coupe du monde. À l'Estadio Azteca de Mexico, la Colombie a dominé l'Ouzbékistan, débutant dans la compétition, 3-1 (Muñoz 40ᵉ, Luis Díaz 65ᵉ, Campaz 90ᵉ+9 ; Fayzullaev 60ᵉ, premier but ouzbek au Mondial)." },
+  { date:"18 juin 2026", title:"Groupe L : l'Angleterre démarre fort face à la Croatie (4-2), le Ghana arrache la victoire dans le temps additionnel", text:"À Dallas, l'Angleterre a lancé son Mondial par un spectaculaire 4-2 sur la Croatie. Harry Kane a signé un doublé (12ᵉ sur penalty, 35ᵉ) ; deux fois rejointe par Martin Baturina (36ᵉ) et Petar Musa (45ᵉ+5), la sélection de Thomas Tuchel a fait la différence après la pause grâce à Jude Bellingham (47ᵉ) et Marcus Rashford (85ᵉ). À Toronto, le Ghana a brisé les cœurs panaméens : Caleb Yirenkyi a inscrit l'unique but à la 90ᵉ+5 pour un succès 1-0." },
   { date:"17 juin 2026", title:"Groupe I : la France maîtrise le Sénégal (3-1), Mbappé entre dans l'histoire", text:"Pour son entrée en lice au MetLife Stadium de New York, la France a dominé le Sénégal 3-1. Kylian Mbappé a signé un doublé (66ᵉ, 90ᵉ+6) qui fait de lui le meilleur buteur de l'histoire des Bleus, Bradley Barcola ayant corsé l'addition (82ᵉ) ; Ibrahim Mbaye a sauvé l'honneur sénégalais (90ᵉ+5). Dans l'autre match du groupe, la Norvège d'Erling Haaland (doublé, 29ᵉ et 43ᵉ) a écrasé l'Irak 4-1 à Boston. La France et la Norvège prennent la tête du groupe I." },
-  { date:"17 juin 2026", title:"Groupe J : Messi régale, l'Argentine lance sa défense du titre (3-0)", text:"À Kansas City, Lionel Messi a inscrit un triplé (17ᵉ, 60ᵉ, 76ᵉ) pour offrir à l'Argentine, tenante du titre, une victoire 3-0 sur l'Algérie en ouverture du groupe J. À San Francisco, l'Autriche a battu la Jordanie 3-1 (Schmid 20ᵉ, un csc de Yazan Al-Arab 76ᵉ, Arnautović sur penalty 90ᵉ+12 ; Ali Olwan 50ᵉ pour les débutants jordaniens) et signe sa première victoire en Coupe du monde depuis 36 ans." },
   { date:"15 juin 2026", title:"🐘 Les Éléphants frappent fort : Côte d'Ivoire 1-0 Équateur, Amad Diallo héros à la 90ᵉ", text:"Pour leur retour en Coupe du monde après douze ans d'absence, les Éléphants d'Emerse Faé ont battu l'Équateur 1-0 au Lincoln Financial Field de Philadelphie. Entré en jeu, Amad Diallo a crucifié les Équatoriens à la 90ᵉ minute, ajustant le poteau opposé après un débordement et un centre de Wilfried Singo. Dans une rencontre très serrée — l'Équateur a touché trois fois les montants, la Côte d'Ivoire une fois — les champions d'Afrique en titre signent une entrée idéale et rejoignent l'Allemagne en tête du groupe E." },
-  { date:"15 juin 2026", title:"Groupe H : Cap-Vert tient tête à l'Espagne (0-0), l'Uruguay accroché (1-1)", text:"Pour ses grands débuts en Coupe du monde, le Cap-Vert a réalisé l'exploit du jour en tenant l'Espagne, championne d'Europe, en échec (0-0) à Atlanta. À Miami, l'Uruguay a été tenu en échec par l'Arabie saoudite (1-1) : Abdulelah Al-Amri a ouvert le score (41ᵉ) avant l'égalisation de Maximiliano Araújo (80ᵉ). Le groupe H est très indécis." },
 ];
 
 // ───────── COMPOSITION DE DÉPART DE LA CÔTE D'IVOIRE ─────────
