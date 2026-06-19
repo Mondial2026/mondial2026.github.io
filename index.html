@@ -269,6 +269,9 @@
   .cb-btn:hover{filter:brightness(1.06)}
   .cb-btn:active{transform:scale(.96)}
   .cb-btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+  .cb-btn.share{background:var(--green)}
+  .cb-flash{animation:cbflash 1.6s ease}
+  @keyframes cbflash{0%,100%{box-shadow:var(--shadow)}25%,55%{box-shadow:0 0 0 4px var(--orange),var(--shadow)}}
   .cb-pitch-wrap{max-width:380px;margin:0 auto}
   .cb-pitch{position:relative;width:100%;aspect-ratio:68/100;border-radius:16px;overflow:hidden;touch-action:none;
     background:repeating-linear-gradient(0deg,#0aa564 0 9%,#079a5b 9% 18%);
@@ -418,6 +421,7 @@
             <button type="button" id="cb-fae" class="cb-btn">⭐ Le XI de Faé</button>
             <button type="button" id="cb-clear" class="cb-btn ghost">♻️ Effacer</button>
             <button type="button" id="cb-copy" class="cb-btn">📋 Copier ma compo</button>
+            <button type="button" id="cb-share" class="cb-btn share">🔗 Défier un ami</button>
           </div>
         </div>
         <div class="cb-pitch-wrap"><div class="cb-pitch" id="cb-pitch"></div></div>
@@ -1564,25 +1568,45 @@ const CIV_PHOTOS = { /* "Amad Diallo":"https://exemple/amad.jpg", … (vide = m�
         if(slot>=0)assign[slot]=id;});});
     selected=null; render(); toast('⭐ XI de Faé chargé ('+formation+')');
   }
+  const SITE='https://mondial2026.github.io', LINK=SITE+'/#composition';
+  function copyText(txt,okMsg){const done=()=>toast(okMsg);
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done,()=>fallbackCopy(txt,done));
+    else fallbackCopy(txt,done);}
+  function fallbackCopy(txt,cb){const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');cb();}catch(e){toast('Copie indisponible');}ta.remove();}
   function copyXI(){
     const slots=FORM[formation], byCat={GK:[],DEF:[],MID:[],FWD:[]};
     slots.forEach((s,i)=>{if(assign[i]!=null)byCat[s[0]].push(ROSTER[assign[i]].n);});
     const op=host.dataset.opp||'';
     let txt="🐘 Ma compo Côte d'Ivoire ("+formation+")"+(op?' '+op:'')+'\n';
     txt+='🧤 '+(byCat.GK.join(', ')||'—')+'\n🛡️ '+(byCat.DEF.join(', ')||'—')+'\n⚙️ '+(byCat.MID.join(', ')||'—')+'\n⚡ '+(byCat.FWD.join(', ')||'—');
-    txt+='\n👉 Faites la vôtre sur https://mondial2026.github.io';
-    const done=()=>toast('📋 Compo copiée !');
-    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done,()=>fallbackCopy(txt,done));
-    else fallbackCopy(txt,done);
+    txt+='\n⚽🐘 Et toi, quel est ton XI ? À toi de jouer 👉 '+LINK;
+    copyText(txt,'📋 Compo copiée !');
   }
-  function fallbackCopy(txt,cb){const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
-    document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');cb();}catch(e){toast('Copie indisponible');}ta.remove();}
+  function shareChallenge(){
+    const title="Défi compo Côte d'Ivoire — Mondial 2026";
+    const text="⚽🐘 Et TOI, quel est ton onze de départ de la Côte d'Ivoire à la Coupe du Monde 2026 ? 🇨🇮 À toi de jouer, compose ton équipe :";
+    if(navigator.share){navigator.share({title,text,url:LINK}).catch(()=>{});return;}
+    copyText(text+'\n👉 '+LINK,'🔗 Lien de défi copié !');
+  }
 
   $('#cb-formation').addEventListener('change',e=>{formation=FORM[e.target.value]?e.target.value:'4-4-2';
     assign=Array(11).fill(null);selected=null;render();toast('Formation : '+formation);});
   $('#cb-clear').addEventListener('click',()=>{assign=Array(11).fill(null);selected=null;render();toast('Terrain effacé');});
   $('#cb-fae').addEventListener('click',fillFae);
   $('#cb-copy').addEventListener('click',copyXI);
+  $('#cb-share').addEventListener('click',shareChallenge);
+
+  // ----- lien d'accès direct au composeur : ...github.io/#composition -----
+  function gotoBuilder(){
+    const tabBtn=document.querySelector('.tab-btn[data-tab="civ"]'); if(tabBtn)tabBtn.click();
+    setTimeout(()=>{host.scrollIntoView({behavior:'smooth',block:'start'});
+      host.classList.remove('cb-flash'); void host.offsetWidth; host.classList.add('cb-flash');},70);
+  }
+  function checkHash(){const h=(location.hash||'').toLowerCase();
+    if(h==='#composition'||h==='#ma-compo'||h==='#civ-builder')gotoBuilder();}
+  window.addEventListener('hashchange',checkHash);
+  checkHash();
 
   // ----- toast -----
   let tEl=null,tTo=null;
