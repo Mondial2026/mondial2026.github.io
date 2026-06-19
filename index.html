@@ -258,6 +258,47 @@
   .dl-btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#fff;font-weight:800;
     background:linear-gradient(90deg,var(--orange),var(--orange-dark));padding:14px 26px;border-radius:14px;white-space:nowrap}
   .dl-btn:hover{filter:brightness(1.06)}
+
+  /* ===== Composeur de XI « À la place de Faé » ===== */
+  .cb-toolbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-bottom:14px}
+  .cb-field{display:flex;flex-direction:column;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);gap:4px}
+  .cb-field select{font:inherit;font-weight:600;text-transform:none;letter-spacing:0;color:var(--ink);padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer}
+  .cb-count{margin-left:auto;font-weight:800;color:var(--green-dark);background:#e9f7f0;border-radius:999px;padding:6px 14px;font-size:.95rem}
+  .cb-actions{display:flex;flex-wrap:wrap;gap:8px;width:100%}
+  .cb-btn{font:inherit;font-weight:700;cursor:pointer;border:none;border-radius:10px;padding:9px 14px;background:var(--orange);color:#fff;box-shadow:var(--shadow);transition:transform .1s,filter .15s}
+  .cb-btn:hover{filter:brightness(1.06)}
+  .cb-btn:active{transform:scale(.96)}
+  .cb-btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+  .cb-pitch-wrap{max-width:380px;margin:0 auto}
+  .cb-pitch{position:relative;width:100%;aspect-ratio:68/100;border-radius:16px;overflow:hidden;touch-action:none;
+    background:repeating-linear-gradient(0deg,#0aa564 0 9%,#079a5b 9% 18%);
+    border:3px solid #fff;box-shadow:var(--shadow)}
+  .cb-pitch::before,.cb-pitch::after{content:"";position:absolute;left:50%;transform:translateX(-50%);width:38%;height:13%;border:2px solid rgba(255,255,255,.7)}
+  .cb-pitch::before{top:-2px;border-top:none;border-radius:0 0 8px 8px}
+  .cb-pitch::after{bottom:-2px;border-bottom:none;border-radius:8px 8px 0 0}
+  .cb-midline{position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(255,255,255,.65)}
+  .cb-circle{position:absolute;left:50%;top:50%;width:28%;aspect-ratio:1;transform:translate(-50%,-50%);border:2px solid rgba(255,255,255,.65);border-radius:50%}
+  .slot{position:absolute;width:21%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;user-select:none}
+  .slot .ph{width:38px;height:38px;border-radius:50%;border:2px dashed #fff;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.58rem;letter-spacing:.02em}
+  .slot.drop-hover{z-index:6}
+  .slot.drop-hover .ph{border-style:solid;transform:scale(1.15);box-shadow:0 0 0 4px rgba(255,255,255,.35)}
+  .pchip{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:grab;user-select:none;touch-action:none;width:100%}
+  .pchip:active{cursor:grabbing}
+  .avatar{width:38px;height:38px;border-radius:50%;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.72rem;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);flex:none}
+  .pchip .nm{font-size:.62rem;font-weight:700;color:#11150f;background:rgba(255,255,255,.94);padding:1px 6px;border-radius:6px;max-width:86px;text-align:center;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .slot .pchip .nm{box-shadow:0 1px 4px rgba(0,0,0,.3)}
+  .cb-bench-title{margin:18px 0 10px;font-size:1rem}
+  .cb-mini{color:var(--muted);font-weight:600;font-size:.8rem}
+  .cb-bench{display:flex;flex-wrap:wrap;gap:10px 8px;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:14px;min-height:60px}
+  .cb-bench .pchip{flex-direction:row;width:auto;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 13px 4px 4px;gap:7px;box-shadow:var(--shadow)}
+  .cb-bench .pchip .nm{background:none;box-shadow:none;padding:0;max-width:none;font-size:.78rem}
+  .cb-bench .pchip .avatar{width:30px;height:30px;font-size:.62rem}
+  .cb-bench .pchip.sel{outline:3px solid var(--orange);outline-offset:1px}
+  .cb-drag-ghost{position:fixed;z-index:9999;pointer-events:none;opacity:.92;transform:translate(-50%,-50%) scale(1.05)}
+  .cb-note{color:var(--muted);font-size:.78rem;margin-top:12px;line-height:1.5}
+  .cb-note code{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:.92em}
+  .cb-toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:12px;font-weight:600;font-size:.9rem;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:10000}
+  .cb-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
@@ -358,6 +399,31 @@
         <p style="color:var(--muted)"><em>Sébastien Haller, freiné par les blessures, figure parmi les réservistes.</em></p>
       </div>
       <div id="civ-lineup"></div>
+
+      <div class="card" id="civ-builder" style="margin-top:16px">
+        <h3 style="margin-bottom:4px">🎮 À la place de Faé — composez votre XI</h3>
+        <p id="cb-sub" style="color:var(--muted);margin-bottom:14px">Glissez les joueurs sur le terrain (ou touchez un joueur puis une case) pour aligner <b>votre</b> onze de départ.</p>
+        <div class="cb-toolbar">
+          <label class="cb-field">Formation
+            <select id="cb-formation">
+              <option value="4-4-2">4-4-2</option>
+              <option value="4-3-3">4-3-3</option>
+              <option value="3-5-2">3-5-2</option>
+              <option value="4-2-3-1">4-2-3-1</option>
+            </select>
+          </label>
+          <span id="cb-count" class="cb-count">0/11</span>
+          <div class="cb-actions">
+            <button type="button" id="cb-fae" class="cb-btn">⭐ Le XI de Faé</button>
+            <button type="button" id="cb-clear" class="cb-btn ghost">♻️ Effacer</button>
+            <button type="button" id="cb-copy" class="cb-btn">📋 Copier ma compo</button>
+          </div>
+        </div>
+        <div class="cb-pitch-wrap"><div class="cb-pitch" id="cb-pitch"></div></div>
+        <h4 class="cb-bench-title">Banc — joueurs disponibles <span id="cb-bench-count" class="cb-mini"></span></h4>
+        <div class="cb-bench" id="cb-bench"></div>
+        <p class="cb-note">📸 Pour afficher les vraies photos, renseignez l'objet <code>CIV_PHOTOS</code> (nom → URL) dans le code ; sinon un médaillon aux couleurs ivoiriennes avec les initiales s'affiche. Votre compo est enregistrée automatiquement sur cet appareil.</p>
+      </div>
     </div>
   </section>
 
@@ -1352,6 +1418,184 @@ setInterval(fetchLive,POLL_MS);
   // Pour activer un mode démo public sans Firebase, remplacer hideTab() par boot(null).
   if(FB_READY){initFirebase().then(boot).catch(()=>{setBanner('error');boot(null);});}
   else{hideTab();}
+})();
+
+/* ════════════════════════════════════════════════════════════
+   COMPOSEUR DE XI — « À la place de Faé »
+   Activité ludique : l'internaute aligne SON onze ivoirien pour le
+   prochain match (glisser-déposer souris + tactile, ou tap-tap).
+   Photos optionnelles via CIV_PHOTOS (nom → URL). N'altère aucune
+   donnée de résultats : lit seulement GROUP_MATCHES/KNOCKOUT/FLAGS/CIV_LINEUP.
+   ════════════════════════════════════════════════════════════ */
+const CIV_PHOTOS = { /* "Amad Diallo":"https://exemple/amad.jpg", … (vide = médaillon à initiales) */ };
+(function(){
+  const host=document.getElementById('civ-builder'); if(!host) return;
+  const $=s=>host.querySelector(s);
+  const ROSTER=[
+    {n:"Yaya Fofana",c:"GK"},{n:"Mohamed Koné",c:"GK"},{n:"Alban Lafont",c:"GK"},
+    {n:"Emmanuel Agbadou",c:"DEF"},{n:"Clément Akpa",c:"DEF"},{n:"Ousmane Diomandé",c:"DEF"},
+    {n:"Guéla Doué",c:"DEF"},{n:"Ghislain Konan",c:"DEF"},{n:"Odilon Kossounou",c:"DEF"},
+    {n:"Évan Ndicka",c:"DEF"},{n:"Wilfried Singo",c:"DEF"},
+    {n:"Seko Fofana",c:"MID"},{n:"Parfait Guiagon",c:"MID"},{n:"Christ Inao Oulaï",c:"MID"},
+    {n:"Franck Kessié",c:"MID"},{n:"Ibrahim Sangaré",c:"MID"},{n:"Jean-Michael Séri",c:"MID"},
+    {n:"Simon Adingra",c:"FWD"},{n:"Ange-Yoan Bonny",c:"FWD"},{n:"Amad Diallo",c:"FWD"},
+    {n:"Oumar Diakhité",c:"FWD"},{n:"Yann Diomandé",c:"FWD"},{n:"Evann Guessand",c:"FWD"},
+    {n:"Nicolas Pépé",c:"FWD"},{n:"Bazoumana Touré",c:"FWD"},{n:"Elye Wahi",c:"FWD"}
+  ];
+  const CAT_COL={GK:'#FF7900',DEF:'#009E60',MID:'#00824f',FWD:'#e56e00'};
+  const CAT_LBL={GK:'GB',DEF:'DÉF',MID:'MIL',FWD:'ATT'};
+  const FORM={
+    '4-4-2':[['GK',50,90],['DEF',15,71],['DEF',38,75],['DEF',62,75],['DEF',85,71],['MID',15,45],['MID',38,49],['MID',62,49],['MID',85,45],['FWD',36,19],['FWD',64,19]],
+    '4-3-3':[['GK',50,90],['DEF',15,71],['DEF',38,75],['DEF',62,75],['DEF',85,71],['MID',28,50],['MID',50,53],['MID',72,50],['FWD',20,22],['FWD',50,16],['FWD',80,22]],
+    '3-5-2':[['GK',50,90],['DEF',26,74],['DEF',50,77],['DEF',74,74],['MID',11,52],['MID',33,55],['MID',50,49],['MID',67,55],['MID',89,52],['FWD',38,20],['FWD',62,20]],
+    '4-2-3-1':[['GK',50,90],['DEF',15,72],['DEF',38,76],['DEF',62,76],['DEF',85,72],['MID',34,57],['MID',66,57],['MID',22,35],['MID',50,33],['MID',78,35],['FWD',50,15]]
+  };
+  const KEY='civ_xi_v1';
+  let formation='4-4-2', assign=Array(11).fill(null), selected=null;
+
+  try{const sv=JSON.parse(localStorage.getItem(KEY)||'null');
+    if(sv&&FORM[sv.formation]){formation=sv.formation;
+      if(Array.isArray(sv.assign)&&sv.assign.length===11)assign=sv.assign.map(v=>Number.isInteger(v)?v:null);}}catch(e){}
+  $('#cb-formation').value=formation;
+
+  const initials=n=>{const p=n.trim().split(/[\s-]+/);return (((p[0]||'')[0]||'')+((p[p.length-1]||'')[0]||'')).toUpperCase();};
+  function save(){try{localStorage.setItem(KEY,JSON.stringify({formation,assign}));}catch(e){}}
+  function avatarHTML(pl){const url=CIV_PHOTOS[pl.n];
+    const st=`background-color:${CAT_COL[pl.c]}`+(url?`;background-image:url('${url}')`:'');
+    return `<span class="avatar" style="${st}">${url?'':initials(pl.n)}</span>`;}
+  function chipHTML(id,inSlot){const pl=ROSTER[id];
+    return `<div class="pchip${(!inSlot&&selected===id)?' sel':''}" data-pid="${id}">${avatarHTML(pl)}<span class="nm">${pl.n}</span></div>`;}
+
+  function render(){
+    const slots=FORM[formation];
+    let pitch='<div class="cb-midline"></div><div class="cb-circle"></div>';
+    slots.forEach((s,i)=>{const [cat,x,y]=s, pid=assign[i];
+      pitch+=`<div class="slot" data-slot="${i}" style="left:${x}%;top:${y}%">`+
+        (pid==null?`<span class="ph" style="background:${CAT_COL[cat]}d9">${CAT_LBL[cat]}</span>`:chipHTML(pid,true))+`</div>`;});
+    $('#cb-pitch').innerHTML=pitch;
+    const used=new Set(assign.filter(v=>v!=null));
+    const ord={GK:0,DEF:1,MID:2,FWD:3};
+    const bench=ROSTER.map((p,i)=>i).filter(i=>!used.has(i)).sort((a,b)=>ord[ROSTER[a].c]-ord[ROSTER[b].c]);
+    $('#cb-bench').innerHTML=bench.map(i=>chipHTML(i,false)).join('')||'<span class="cb-mini">Tous les joueurs sont sur le terrain.</span>';
+    $('#cb-count').textContent=assign.filter(v=>v!=null).length+'/11';
+    $('#cb-bench-count').textContent='('+bench.length+')';
+    save();
+  }
+
+  function findSlotOf(pid){for(let k=0;k<11;k++)if(assign[k]===pid)return k;return null;}
+  function placeInSlot(pid,slot,fromSlot){
+    for(let k=0;k<11;k++)if(assign[k]===pid)assign[k]=null;
+    const prev=assign[slot];
+    assign[slot]=pid;
+    if(prev!=null&&prev!==pid&&fromSlot!=null&&fromSlot!==slot)assign[fromSlot]=prev; // échange
+  }
+
+  // ----- glisser-déposer (Pointer Events : souris + tactile) -----
+  let drag=null, ghost=null;
+  function clearHover(){host.querySelectorAll('.slot.drop-hover').forEach(e=>e.classList.remove('drop-hover'));}
+  function onDown(e){
+    const chip=e.target.closest('.pchip'), slotEl=e.target.closest('.slot');
+    if(chip){const pid=+chip.dataset.pid; drag={type:'chip',pid,fromSlot:findSlotOf(pid),x:e.clientX,y:e.clientY,moved:false};}
+    else if(slotEl){drag={type:'slot',slot:+slotEl.dataset.slot,x:e.clientX,y:e.clientY,moved:false};}
+    else return;
+    window.addEventListener('pointermove',onMove);
+    window.addEventListener('pointerup',onUp,{once:true});
+  }
+  function onMove(e){
+    if(!drag)return;
+    if(!drag.moved&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<7)return;
+    drag.moved=true;
+    if(drag.type!=='chip')return;
+    if(!ghost){const pl=ROSTER[drag.pid];ghost=document.createElement('div');ghost.className='cb-drag-ghost';
+      ghost.innerHTML=`<div class="pchip">${avatarHTML(pl)}<span class="nm">${pl.n}</span></div>`;document.body.appendChild(ghost);}
+    ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px';
+    clearHover();
+    const el=document.elementFromPoint(e.clientX,e.clientY);
+    const s=el&&el.closest&&el.closest('.slot');
+    if(s&&host.contains(s))s.classList.add('drop-hover');
+  }
+  function onUp(e){
+    window.removeEventListener('pointermove',onMove);
+    if(!drag)return;
+    const d=drag; drag=null;
+    if(ghost){ghost.remove();ghost=null;}
+    clearHover();
+    if(d.moved&&d.type==='chip'){
+      const el=document.elementFromPoint(e.clientX,e.clientY);
+      const s=el&&el.closest&&el.closest('.slot');
+      const bench=el&&el.closest&&el.closest('#cb-bench');
+      if(s&&host.contains(s))placeInSlot(d.pid,+s.dataset.slot,d.fromSlot);
+      else if(bench){if(d.fromSlot!=null)assign[d.fromSlot]=null;}
+      selected=null; render();
+    }else{ // simple tap
+      if(d.type==='chip'){
+        if(d.fromSlot!=null){assign[d.fromSlot]=null;selected=null;}
+        else selected=(selected===d.pid)?null:d.pid;
+      }else if(d.type==='slot'&&selected!=null){placeInSlot(selected,d.slot,findSlotOf(selected));selected=null;}
+      render();
+    }
+  }
+  $('#cb-pitch').addEventListener('pointerdown',onDown);
+  $('#cb-bench').addEventListener('pointerdown',onDown);
+
+  // ----- boutons -----
+  const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z]/g,'');
+  function resolveId(name){let id=ROSTER.findIndex(p=>norm(p.n)===norm(name));
+    if(id<0){const last=norm(name.split(/[\s-]+/).pop());id=ROSTER.findIndex(p=>norm(p.n.split(/[\s-]+/).pop())===last);}
+    return id;}
+  function fillFae(){
+    const L=(typeof CIV_LINEUP!=='undefined'&&CIV_LINEUP&&CIV_LINEUP.lines)?CIV_LINEUP:null;
+    if(!L||!L.lines.length){toast('Aucun XI officiel à charger');return;}
+    if(FORM[L.formation]){formation=L.formation;$('#cb-formation').value=formation;}
+    assign=Array(11).fill(null);
+    const slots=FORM[formation];
+    const roleCat={Gardien:'GK','Défense':'DEF',Milieu:'MID',Attaque:'FWD'};
+    L.lines.forEach(line=>{const cat=roleCat[line.role]||'MID';
+      line.players.forEach(pn=>{const id=resolveId(pn);if(id<0)return;
+        let slot=slots.findIndex((s,k)=>s[0]===cat&&assign[k]==null);
+        if(slot<0)slot=assign.findIndex(v=>v==null);
+        if(slot>=0)assign[slot]=id;});});
+    selected=null; render(); toast('⭐ XI de Faé chargé ('+formation+')');
+  }
+  function copyXI(){
+    const slots=FORM[formation], byCat={GK:[],DEF:[],MID:[],FWD:[]};
+    slots.forEach((s,i)=>{if(assign[i]!=null)byCat[s[0]].push(ROSTER[assign[i]].n);});
+    const op=host.dataset.opp||'';
+    let txt="🐘 Ma compo Côte d'Ivoire ("+formation+")"+(op?' '+op:'')+'\n';
+    txt+='🧤 '+(byCat.GK.join(', ')||'—')+'\n🛡️ '+(byCat.DEF.join(', ')||'—')+'\n⚙️ '+(byCat.MID.join(', ')||'—')+'\n⚡ '+(byCat.FWD.join(', ')||'—');
+    txt+='\n👉 Faites la vôtre sur https://mondial2026.github.io';
+    const done=()=>toast('📋 Compo copiée !');
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done,()=>fallbackCopy(txt,done));
+    else fallbackCopy(txt,done);
+  }
+  function fallbackCopy(txt,cb){const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');cb();}catch(e){toast('Copie indisponible');}ta.remove();}
+
+  $('#cb-formation').addEventListener('change',e=>{formation=FORM[e.target.value]?e.target.value:'4-4-2';
+    assign=Array(11).fill(null);selected=null;render();toast('Formation : '+formation);});
+  $('#cb-clear').addEventListener('click',()=>{assign=Array(11).fill(null);selected=null;render();toast('Terrain effacé');});
+  $('#cb-fae').addEventListener('click',fillFae);
+  $('#cb-copy').addEventListener('click',copyXI);
+
+  // ----- toast -----
+  let tEl=null,tTo=null;
+  function toast(m){if(!tEl){tEl=document.createElement('div');tEl.className='cb-toast';document.body.appendChild(tEl);}
+    tEl.textContent=m;tEl.classList.add('show');clearTimeout(tTo);tTo=setTimeout(()=>tEl.classList.remove('show'),1900);}
+
+  // ----- prochain adversaire -----
+  function nextOpp(){try{
+    const civ=[...GROUP_MATCHES,...KNOCKOUT.flatMap(p=>p.matches)]
+      .filter(m=>(m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire")&&m.st!=='done'&&m.home&&m.away)
+      .sort((a,b)=>sortKey(a)-sortKey(b));
+    if(!civ.length)return '';
+    const m=civ[0], opp=m.home==="Côte d'Ivoire"?m.away:m.home;
+    const fl=(typeof FLAGS!=='undefined'&&FLAGS[opp])?FLAGS[opp]+' ':'';
+    return 'vs '+fl+opp;
+  }catch(e){return '';}}
+  const opp=nextOpp(); host.dataset.opp=opp;
+  if(opp)$('#cb-sub').innerHTML='Pour le prochain match <b>'+opp+'</b> : glissez les joueurs sur le terrain (ou touchez un joueur puis une case) pour aligner <b>votre</b> onze de départ.';
+
+  render();
 })();
 </script>
 <!-- Compteur de visites GoatCounter — tableau de bord : https://mondialodi.goatcounter.com -->
