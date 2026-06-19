@@ -1560,8 +1560,12 @@ const CIV_PHOTOS = { /* "Amad Diallo":"https://exemple/amad.jpg", … (vide = m�
       selected=null; render();
     }else{ // simple tap (sans déplacement)
       if(d.type==='chip'){
-        if(d.fromSlot!=null){assign[d.fromSlot]=null;selected=null;}   // retirer du terrain
-        else selected=(selected===d.pid)?null:d.pid;                   // sélectionner / désélectionner
+        if(d.fromSlot!=null){                                  // on a tapé un joueur DÉJÀ sur le terrain
+          if(selected!=null&&selected!==d.pid){                // un joueur est sélectionné → REMPLACEMENT
+            placeInSlot(selected,d.fromSlot,findSlotOf(selected)); // le sélectionné prend la place ; le remplacé repart au banc (ou échange)
+            selected=null;
+          }else{assign[d.fromSlot]=null;selected=null;}         // sinon : on le retire au banc
+        }else selected=(selected===d.pid)?null:d.pid;           // chip du banc : sélectionner / désélectionner
       }else if(d.type==='slot'&&selected!=null){placeInSlot(selected,d.slot,findSlotOf(selected));selected=null;}
       render();
     }
