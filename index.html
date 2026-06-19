@@ -278,15 +278,16 @@
   .cb-pitch::after{bottom:-2px;border-bottom:none;border-radius:8px 8px 0 0}
   .cb-midline{position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(255,255,255,.65)}
   .cb-circle{position:absolute;left:50%;top:50%;width:28%;aspect-ratio:1;transform:translate(-50%,-50%);border:2px solid rgba(255,255,255,.65);border-radius:50%}
-  .slot{position:absolute;width:21%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;user-select:none}
+  .slot{position:absolute;width:22%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;-webkit-user-select:none;user-select:none;touch-action:none}
   .slot .ph{width:38px;height:38px;border-radius:50%;border:2px dashed #fff;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.58rem;letter-spacing:.02em}
   .slot.drop-hover{z-index:6}
   .slot.drop-hover .ph{border-style:solid;transform:scale(1.15);box-shadow:0 0 0 4px rgba(255,255,255,.35)}
-  .pchip{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:grab;user-select:none;touch-action:none;width:100%}
+  .pchip{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:grab;-webkit-user-select:none;user-select:none;touch-action:none;width:100%}
+  .pchip *,.slot .ph{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none;pointer-events:none}
   .pchip:active{cursor:grabbing}
   .avatar{width:38px;height:38px;border-radius:50%;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.72rem;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);flex:none}
   .pchip .nm{font-size:.62rem;font-weight:700;color:#11150f;background:rgba(255,255,255,.94);padding:1px 6px;border-radius:6px;max-width:86px;text-align:center;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .slot .pchip .nm{box-shadow:0 1px 4px rgba(0,0,0,.3)}
+  .slot .pchip .nm{box-shadow:0 1px 4px rgba(0,0,0,.3);white-space:normal;overflow:visible;text-overflow:clip;max-width:88px;font-size:.57rem;line-height:1.12;word-break:break-word}
   .cb-bench-title{margin:18px 0 10px;font-size:1rem}
   .cb-mini{color:var(--muted);font-weight:600;font-size:.8rem}
   .cb-bench{display:flex;flex-wrap:wrap;gap:10px 8px;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:14px;min-height:60px}
@@ -1445,10 +1446,10 @@ const CIV_PHOTOS = { /* "Amad Diallo":"https://exemple/amad.jpg", … (vide = m�
   const CAT_COL={GK:'#FF7900',DEF:'#009E60',MID:'#00824f',FWD:'#e56e00'};
   const CAT_LBL={GK:'GB',DEF:'DÉF',MID:'MIL',FWD:'ATT'};
   const FORM={
-    '4-4-2':[['GK',50,90],['DEF',15,71],['DEF',38,75],['DEF',62,75],['DEF',85,71],['MID',15,45],['MID',38,49],['MID',62,49],['MID',85,45],['FWD',36,19],['FWD',64,19]],
-    '4-3-3':[['GK',50,90],['DEF',15,71],['DEF',38,75],['DEF',62,75],['DEF',85,71],['MID',28,50],['MID',50,53],['MID',72,50],['FWD',20,22],['FWD',50,16],['FWD',80,22]],
-    '3-5-2':[['GK',50,90],['DEF',26,74],['DEF',50,77],['DEF',74,74],['MID',11,52],['MID',33,55],['MID',50,49],['MID',67,55],['MID',89,52],['FWD',38,20],['FWD',62,20]],
-    '4-2-3-1':[['GK',50,90],['DEF',15,72],['DEF',38,76],['DEF',62,76],['DEF',85,72],['MID',34,57],['MID',66,57],['MID',22,35],['MID',50,33],['MID',78,35],['FWD',50,15]]
+    '4-4-2':[['GK',50,85],['DEF',15,71],['DEF',38,75],['DEF',62,75],['DEF',85,71],['MID',15,45],['MID',38,49],['MID',62,49],['MID',85,45],['FWD',36,19],['FWD',64,19]],
+    '4-3-3':[['GK',50,85],['DEF',15,71],['DEF',38,75],['DEF',62,75],['DEF',85,71],['MID',28,50],['MID',50,53],['MID',72,50],['FWD',20,22],['FWD',50,16],['FWD',80,22]],
+    '3-5-2':[['GK',50,85],['DEF',26,74],['DEF',50,77],['DEF',74,74],['MID',11,52],['MID',33,55],['MID',50,49],['MID',67,55],['MID',89,52],['FWD',38,20],['FWD',62,20]],
+    '4-2-3-1':[['GK',50,85],['DEF',15,72],['DEF',38,76],['DEF',62,76],['DEF',85,72],['MID',34,57],['MID',66,57],['MID',22,35],['MID',50,33],['MID',78,35],['FWD',50,15]]
   };
   const KEY='civ_xi_v1';
   let formation='4-4-2', assign=Array(11).fill(null), selected=null;
@@ -1493,44 +1494,50 @@ const CIV_PHOTOS = { /* "Amad Diallo":"https://exemple/amad.jpg", … (vide = m�
   // ----- glisser-déposer (Pointer Events : souris + tactile) -----
   let drag=null, ghost=null;
   function clearHover(){host.querySelectorAll('.slot.drop-hover').forEach(e=>e.classList.remove('drop-hover'));}
+  function dropTarget(x,y){const el=document.elementFromPoint(x,y);if(!el||!el.closest)return null;
+    const s=el.closest('.slot');if(s&&host.contains(s))return {slot:+s.dataset.slot};
+    if(el.closest('#cb-bench'))return {bench:true};return null;}
+  function cleanup(){window.removeEventListener('pointermove',onMove);window.removeEventListener('pointerup',onUp);
+    window.removeEventListener('pointercancel',onCancel);if(ghost){ghost.remove();ghost=null;}clearHover();drag=null;}
   function onDown(e){
+    if(e.button!=null&&e.button>0)return;          // ignore clic droit/milieu
+    if(drag)cleanup();                              // pas d'état résiduel (ex. pointercancel précédent)
     const chip=e.target.closest('.pchip'), slotEl=e.target.closest('.slot');
-    if(chip){const pid=+chip.dataset.pid; drag={type:'chip',pid,fromSlot:findSlotOf(pid),x:e.clientX,y:e.clientY,moved:false};}
+    if(chip){const pid=+chip.dataset.pid; drag={type:'chip',pid,fromSlot:findSlotOf(pid),x:e.clientX,y:e.clientY,moved:false,el:chip};}
     else if(slotEl){drag={type:'slot',slot:+slotEl.dataset.slot,x:e.clientX,y:e.clientY,moved:false};}
     else return;
+    try{if(drag.el&&drag.el.setPointerCapture)drag.el.setPointerCapture(e.pointerId);}catch(_){}
     window.addEventListener('pointermove',onMove);
-    window.addEventListener('pointerup',onUp,{once:true});
+    window.addEventListener('pointerup',onUp);
+    window.addEventListener('pointercancel',onCancel);
   }
   function onMove(e){
     if(!drag)return;
-    if(!drag.moved&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<7)return;
+    if(!drag.moved&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<6)return;
     drag.moved=true;
     if(drag.type!=='chip')return;
     if(!ghost){const pl=ROSTER[drag.pid];ghost=document.createElement('div');ghost.className='cb-drag-ghost';
       ghost.innerHTML=`<div class="pchip">${avatarHTML(pl)}<span class="nm">${pl.n}</span></div>`;document.body.appendChild(ghost);}
     ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px';
     clearHover();
-    const el=document.elementFromPoint(e.clientX,e.clientY);
-    const s=el&&el.closest&&el.closest('.slot');
-    if(s&&host.contains(s))s.classList.add('drop-hover');
+    const t=dropTarget(e.clientX,e.clientY);
+    if(t&&t.slot!=null)host.querySelector(`.slot[data-slot="${t.slot}"]`).classList.add('drop-hover');
   }
+  function onCancel(){if(!drag)return;cleanup();render();}
   function onUp(e){
-    window.removeEventListener('pointermove',onMove);
-    if(!drag)return;
-    const d=drag; drag=null;
-    if(ghost){ghost.remove();ghost=null;}
-    clearHover();
-    if(d.moved&&d.type==='chip'){
-      const el=document.elementFromPoint(e.clientX,e.clientY);
-      const s=el&&el.closest&&el.closest('.slot');
-      const bench=el&&el.closest&&el.closest('#cb-bench');
-      if(s&&host.contains(s))placeInSlot(d.pid,+s.dataset.slot,d.fromSlot);
-      else if(bench){if(d.fromSlot!=null)assign[d.fromSlot]=null;}
+    if(!drag){cleanup();return;}
+    const d=drag, moved=drag.moved;
+    cleanup();
+    if(moved&&d.type==='chip'){
+      const t=dropTarget(e.clientX,e.clientY);
+      if(t&&t.slot!=null)placeInSlot(d.pid,t.slot,d.fromSlot);
+      else if(t&&t.bench&&d.fromSlot!=null)assign[d.fromSlot]=null;
+      // relâché dans le vide → on ne bouge rien
       selected=null; render();
-    }else{ // simple tap
+    }else{ // simple tap (sans déplacement)
       if(d.type==='chip'){
-        if(d.fromSlot!=null){assign[d.fromSlot]=null;selected=null;}
-        else selected=(selected===d.pid)?null:d.pid;
+        if(d.fromSlot!=null){assign[d.fromSlot]=null;selected=null;}   // retirer du terrain
+        else selected=(selected===d.pid)?null:d.pid;                   // sélectionner / désélectionner
       }else if(d.type==='slot'&&selected!=null){placeInSlot(selected,d.slot,findSlotOf(selected));selected=null;}
       render();
     }
