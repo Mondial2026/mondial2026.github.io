@@ -285,6 +285,7 @@
   .slot .ph{width:38px;height:38px;border-radius:50%;border:2px dashed #fff;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.58rem;letter-spacing:.02em}
   .slot.drop-hover{z-index:6}
   .slot.drop-hover .ph{border-style:solid;transform:scale(1.15);box-shadow:0 0 0 4px rgba(255,255,255,.35)}
+  .slot.drop-hover .pchip .avatar{box-shadow:0 0 0 4px var(--orange),0 2px 6px rgba(0,0,0,.3)}
   .pchip{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:grab;-webkit-user-select:none;user-select:none;touch-action:none;width:100%}
   .pchip *,.slot .ph{touch-action:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none;pointer-events:none}
   .pchip:active{cursor:grabbing}
@@ -298,7 +299,11 @@
   .cb-bench .pchip .nm{background:none;box-shadow:none;padding:0;max-width:none;font-size:.78rem}
   .cb-bench .pchip .avatar{width:30px;height:30px;font-size:.62rem}
   .cb-bench .pchip.sel{outline:3px solid var(--orange);outline-offset:1px}
-  .cb-drag-ghost{position:fixed;z-index:9999;pointer-events:none;opacity:.92;transform:translate(-50%,-50%) scale(1.05)}
+  .cb-drag-ghost{position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%) scale(1.18) rotate(-3deg);filter:drop-shadow(0 8px 14px rgba(0,0,0,.4))}
+  .cb-drag-ghost .avatar{box-shadow:0 0 0 3px var(--orange),0 2px 6px rgba(0,0,0,.35)}
+  .pchip.dragging{opacity:.3;filter:grayscale(.5)}
+  .cb-pitch.cb-aim .slot .ph{animation:cbpulse 1.1s ease-in-out infinite}
+  @keyframes cbpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,121,0,0)}50%{box-shadow:0 0 0 6px rgba(255,121,0,.5)}}
   .cb-note{color:var(--muted);font-size:.78rem;margin-top:12px;line-height:1.5}
   .cb-note code{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:.92em}
   .cb-toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:12px;font-weight:600;font-size:.9rem;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:10000}
@@ -406,7 +411,7 @@
 
       <div class="card" id="civ-builder" style="margin-top:16px">
         <h3 style="margin-bottom:4px">🎮 À la place de Faé — composez votre XI</h3>
-        <p id="cb-sub" style="color:var(--muted);margin-bottom:14px">Glissez les joueurs sur le terrain (ou touchez un joueur puis une case) pour aligner <b>votre</b> onze de départ.</p>
+        <p id="cb-sub" style="color:var(--muted);margin-bottom:14px"><b>Touchez un joueur puis une case</b> du terrain — ou glissez-le directement — pour aligner <b>votre</b> onze de départ.</p>
         <div class="cb-toolbar">
           <label class="cb-field">Formation
             <select id="cb-formation">
@@ -1478,6 +1483,7 @@ const CIV_PHOTOS = { /* "Amad Diallo":"https://exemple/amad.jpg", … (vide = m�
       pitch+=`<div class="slot" data-slot="${i}" style="left:${x}%;top:${y}%">`+
         (pid==null?`<span class="ph" style="background:${CAT_COL[cat]}d9">${CAT_LBL[cat]}</span>`:chipHTML(pid,true))+`</div>`;});
     $('#cb-pitch').innerHTML=pitch;
+    $('#cb-pitch').classList.toggle('cb-aim', selected!=null);   // joueur choisi : les cases vides pulsent
     const used=new Set(assign.filter(v=>v!=null));
     const ord={GK:0,DEF:1,MID:2,FWD:3};
     const bench=ROSTER.map((p,i)=>i).filter(i=>!used.has(i)).sort((a,b)=>ord[ROSTER[a].c]-ord[ROSTER[b].c]);
@@ -1496,13 +1502,25 @@ const CIV_PHOTOS = { /* "Amad Diallo":"https://exemple/amad.jpg", … (vide = m�
   }
 
   // ----- glisser-déposer (Pointer Events : souris + tactile) -----
-  let drag=null, ghost=null;
+  let drag=null, ghost=null, scrollDir=0, scrollRAF=null;
   function clearHover(){host.querySelectorAll('.slot.drop-hover').forEach(e=>e.classList.remove('drop-hover'));}
   function dropTarget(x,y){const el=document.elementFromPoint(x,y);if(!el||!el.closest)return null;
     const s=el.closest('.slot');if(s&&host.contains(s))return {slot:+s.dataset.slot};
     if(el.closest('#cb-bench'))return {bench:true};return null;}
+  function updateHover(x,y){clearHover();const t=dropTarget(x,y);
+    if(t&&t.slot!=null)host.querySelector(`.slot[data-slot="${t.slot}"]`)?.classList.add('drop-hover');}
+  // défilement auto quand le doigt approche le haut/bas de l'écran : permet d'atteindre
+  // le terrain depuis le banc même quand tout ne tient pas sur l'écran du mobile.
+  function autoTick(){ if(!drag||!scrollDir){scrollRAF=null;return;}
+    window.scrollBy(0,scrollDir*14);
+    if(drag.lastY!=null)updateHover(drag.lastX,drag.lastY);   // la page glisse sous le doigt → la cible change
+    scrollRAF=requestAnimationFrame(autoTick); }
+  function setScroll(d){scrollDir=d; if(d&&!scrollRAF)scrollRAF=requestAnimationFrame(autoTick);}
   function cleanup(){window.removeEventListener('pointermove',onMove);window.removeEventListener('pointerup',onUp);
-    window.removeEventListener('pointercancel',onCancel);if(ghost){ghost.remove();ghost=null;}clearHover();drag=null;}
+    window.removeEventListener('pointercancel',onCancel);setScroll(0);
+    if(ghost){ghost.remove();ghost=null;}
+    host.querySelectorAll('.pchip.dragging').forEach(e=>e.classList.remove('dragging'));
+    clearHover();drag=null;}
   function onDown(e){
     if(e.button!=null&&e.button>0)return;          // ignore clic droit/milieu
     if(drag)cleanup();                              // pas d'état résiduel (ex. pointercancel précédent)
@@ -1518,14 +1536,15 @@ const CIV_PHOTOS = { /* "Amad Diallo":"https://exemple/amad.jpg", … (vide = m�
   function onMove(e){
     if(!drag)return;
     if(!drag.moved&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<6)return;
-    drag.moved=true;
+    if(!drag.moved){drag.moved=true; if(drag.type==='chip'&&drag.el)drag.el.classList.add('dragging');}
     if(drag.type!=='chip')return;
+    drag.lastX=e.clientX; drag.lastY=e.clientY;
     if(!ghost){const pl=ROSTER[drag.pid];ghost=document.createElement('div');ghost.className='cb-drag-ghost';
       ghost.innerHTML=`<div class="pchip">${avatarHTML(pl)}<span class="nm">${pl.n}</span></div>`;document.body.appendChild(ghost);}
     ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px';
-    clearHover();
-    const t=dropTarget(e.clientX,e.clientY);
-    if(t&&t.slot!=null)host.querySelector(`.slot[data-slot="${t.slot}"]`).classList.add('drop-hover');
+    updateHover(e.clientX,e.clientY);
+    const vh=window.innerHeight||document.documentElement.clientHeight||800, EDGE=84;
+    setScroll(e.clientY<EDGE?-1:(e.clientY>vh-EDGE?1:0));
   }
   function onCancel(){if(!drag)return;cleanup();render();}
   function onUp(e){
@@ -1624,7 +1643,7 @@ const CIV_PHOTOS = { /* "Amad Diallo":"https://exemple/amad.jpg", … (vide = m�
     return 'vs '+fl+opp;
   }catch(e){return '';}}
   const opp=nextOpp(); host.dataset.opp=opp;
-  if(opp)$('#cb-sub').innerHTML='Pour le prochain match <b>'+opp+'</b> : glissez les joueurs sur le terrain (ou touchez un joueur puis une case) pour aligner <b>votre</b> onze de départ.';
+  if(opp)$('#cb-sub').innerHTML='Pour le prochain match <b>'+opp+'</b> : <b>touchez un joueur puis une case</b> du terrain — ou glissez-le directement — pour aligner <b>votre</b> onze.';
 
   render();
 })();
