@@ -1365,10 +1365,21 @@ setInterval(fetchLive,POLL_MS);
           : `${has?`<div class="pm-meta" style="color:var(--green-dark);margin-bottom:6px">✓ Ton pronostic : <b>${sc[0]}–${sc[1]}</b> enregistré</div>`:''}<button type="button" class="pbtn green small p-save">${reg?(has?'Modifier mon pronostic':'Enregistrer'):'Enregistrer (pseudo requis)'}</button>`}</div>
       </div>`;}).join('');}
 
-  let lbLoaded=false;
+  let lbLoaded=false,synced=false;
   function onLB(players){const res=results();connecting=false;lbLoaded=true;
     LB=players.map(p=>({...p,pts:calcPts(p.scores,res)})).sort((a,b)=>b.pts-a.pts||String(a.pseudo).localeCompare(b.pseudo));
-    renderLeaderboard();renderStats();renderRecap();renderPodium();renderAdmin();}
+    renderLeaderboard();renderStats();renderRecap();renderPodium();renderAdmin();
+    syncLocalToServer();}
+  // Récupération automatique : si des pronostics saisis sur cet appareil (cache local) n'ont jamais
+  // atteint le serveur (ancien bug d'écriture WebSocket), on les y renvoie par REST. Ne touche jamais
+  // un pronostic déjà présent côté serveur (pas d'écrasement). S'exécute une seule fois par session.
+  function syncLocalToServer(){
+    if(synced)return;const uid=getUid();if(!uid||!getPseudo()||!store||!store.saveScore)return;synced=true;
+    const me=LB.find(p=>p.uid===uid),server=(me&&me.scores)||{},local=(readLocal().scores)||{};
+    const missing=Object.keys(local).filter(id=>!(id in server)&&/^[0-9]{1,2}-[0-9]{1,2}$/.test(local[id]));
+    if(!missing.length)return;
+    Promise.all(missing.map(id=>store.saveScore(uid,id,local[id]))).then(()=>fetchLBRest()).catch(()=>{});
+    toast('🔁 '+missing.length+' pronostic(s) restauré(s) sur le serveur');}
   // Repli REST : si la connexion temps réel (WebSocket) ne s'établit pas (proxy, mobile, cold-start europe-west1),
   // on charge le classement via l'API REST publique — ce qui marche partout. Réutilisé par les boutons « Actualiser ».
   function fetchLBRest(){const u=(FIREBASE_CONFIG.databaseURL||'').replace(/\/$/,'');if(!u)return Promise.resolve();
