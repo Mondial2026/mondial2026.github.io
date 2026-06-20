@@ -1152,6 +1152,7 @@ async function fetchLive(){
     if(!r.ok) return;
     applyOverlay(await r.json());
     renderAll();
+    if(window.refreshPronoScores)window.refreshPronoScores();  // un score passé en "done" via l'overlay → recalcule les points pronos
   }catch(e){ /* hors-ligne, file:// ou data.json absent : on garde les données intégrées */ }
 }
 
@@ -1421,7 +1422,13 @@ setInterval(fetchLive,POLL_MS);
         if(!h||!a)return false;
         return (h.value!==''||a.value!=='')&&(h.value+'-'+a.value)!==(my[id]||''); // score tapé mais pas encore enregistré
       });
-      if(!dirty)renderMatches();},60000);}
+      if(!dirty)renderMatches();},60000);
+    // Recalcule les points dès qu'un RÉSULTAT change (score passé en "done" via la MAJ intégrée ou l'overlay live data.json).
+    // Sans ça, onLB n'est déclenché que par un changement Firebase : le classement restait figé quand un match se terminait.
+    let lastResSig='';
+    function syncWithResults(){if(!lbLoaded)return;const sig=JSON.stringify(results());if(sig===lastResSig)return;lastResSig=sig;onLB(LB);}
+    window.refreshPronoScores=syncWithResults;
+    setInterval(syncWithResults,15000);}
   function hideTab(){const b=document.querySelector('[data-tab="pronostics"]');if(b)b.style.display='none';const p=document.getElementById('panel-pronostics');if(p)p.style.display='none';}
   // Onglet masqué tant que Firebase n'est pas configuré (évite une publication prématurée par la tâche quotidienne).
   // Pour activer un mode démo public sans Firebase, remplacer hideTab() par boot(null).
