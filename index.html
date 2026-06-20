@@ -1082,7 +1082,7 @@ function renderAll(){
   const played=[
     ...GROUP_MATCHES.filter(m=>m.st==="done").map(m=>({...m,tag:"Groupe "+m.g})),
     ...koFlat.filter(m=>m.st==="done")
-  ].reverse();
+  ].sort((a,b)=>sortKey(b)-sortKey(a)); // ordre chronologique réel : les plus récents d'abord
   $("#results").innerHTML=played.length
     ? played.map(m=>matchRow(m,{tag:m.tag,goals:true})).join('')
     : `<div class="card" style="text-align:center;color:var(--muted)">
