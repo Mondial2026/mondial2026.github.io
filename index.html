@@ -300,6 +300,8 @@
   .cb-bench .pchip .nm{background:none;box-shadow:none;padding:0;max-width:none;font-size:.78rem}
   .cb-bench .pchip .avatar{width:30px;height:30px;font-size:.62rem}
   .cb-bench .pchip.sel{outline:3px solid var(--orange);outline-offset:1px}
+  /* Tactile : on laisse la page défiler verticalement au-dessus du banc (la sélection se fait par simple touche) */
+  .cb-bench,.cb-bench .pchip,.cb-bench .pchip *{touch-action:pan-y}
   .cb-drag-ghost{position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%) scale(1.18) rotate(-3deg);filter:drop-shadow(0 8px 14px rgba(0,0,0,.4))}
   .cb-drag-ghost .avatar{box-shadow:0 0 0 3px var(--orange),0 2px 6px rgba(0,0,0,.35)}
   .pchip.dragging{opacity:.3;filter:grayscale(.5)}
@@ -412,7 +414,7 @@
 
       <div class="card" id="civ-builder" style="margin-top:16px">
         <h3 style="margin-bottom:4px">🎮 À la place de Faé — composez votre XI</h3>
-        <p id="cb-sub" style="color:var(--muted);margin-bottom:14px"><b>Touchez un joueur puis une case</b> du terrain — ou glissez-le directement — pour aligner <b>votre</b> onze de départ.</p>
+        <p id="cb-sub" style="color:var(--muted);margin-bottom:14px"><b>Touchez un joueur du banc, puis une case</b> du terrain pour l'aligner ; touchez un titulaire pour le renvoyer au banc. Sur ordinateur, le <b>glisser-déposer</b> fonctionne aussi.</p>
         <div class="cb-toolbar">
           <label class="cb-field">Formation
             <select id="cb-formation">
@@ -1522,16 +1524,22 @@ const CIV_PHOTOS = { /* "Amad Diallo":"https://exemple/amad.jpg", … (vide = m�
     if(e.button!=null&&e.button>0)return;          // ignore clic droit/milieu
     if(drag)cleanup();                              // pas d'état résiduel (ex. pointercancel précédent)
     const chip=e.target.closest('.pchip'), slotEl=e.target.closest('.slot');
-    if(chip){const pid=+chip.dataset.pid; drag={type:'chip',pid,fromSlot:findSlotOf(pid),x:e.clientX,y:e.clientY,moved:false,el:chip};}
-    else if(slotEl){drag={type:'slot',slot:+slotEl.dataset.slot,x:e.clientX,y:e.clientY,moved:false};}
+    const touch=(e.pointerType==='touch'), fromBench=!!(chip&&e.target.closest('#cb-bench'));
+    if(chip){const pid=+chip.dataset.pid; drag={type:'chip',pid,fromSlot:findSlotOf(pid),x:e.clientX,y:e.clientY,moved:false,el:chip,touch,fromBench};}
+    else if(slotEl){drag={type:'slot',slot:+slotEl.dataset.slot,x:e.clientX,y:e.clientY,moved:false,touch,fromBench:false};}
     else return;
-    try{if(drag.el&&drag.el.setPointerCapture)drag.el.setPointerCapture(e.pointerId);}catch(_){}
+    // Tactile depuis le banc : on n'accapare pas le pointeur, la page peut défiler (l'ajout se fait par simple touche).
+    if(!(touch&&fromBench)){try{if(drag.el&&drag.el.setPointerCapture)drag.el.setPointerCapture(e.pointerId);}catch(_){}}
     window.addEventListener('pointermove',onMove);
     window.addEventListener('pointerup',onUp);
     window.addEventListener('pointercancel',onCancel);
   }
   function onMove(e){
     if(!drag)return;
+    if(drag.touch&&drag.fromBench){                       // banc en tactile : le geste est un défilement, jamais un glisser
+      if(Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>8)drag.scrolling=true;
+      return;
+    }
     if(!drag.moved&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<6)return;
     if(!drag.moved){drag.moved=true; if(drag.type==='chip'&&drag.el)drag.el.classList.add('dragging');}
     if(drag.type!=='chip')return;
@@ -1548,6 +1556,7 @@ const CIV_PHOTOS = { /* "Amad Diallo":"https://exemple/amad.jpg", … (vide = m�
     if(!drag){cleanup();return;}
     const d=drag, moved=drag.moved;
     cleanup();
+    if(d.scrolling){return;}                              // c'était un défilement de la page : aucune sélection
     if(moved&&d.type==='chip'){
       const t=dropTarget(e.clientX,e.clientY);
       if(t&&t.slot!=null)placeInSlot(d.pid,t.slot,d.fromSlot);
