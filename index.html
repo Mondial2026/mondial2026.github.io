@@ -1279,12 +1279,20 @@ setInterval(fetchLive,POLL_MS);
       findByPseudo(pseudo){const r=readLocal();return Promise.resolve(r.uid&&norm(r.pseudo)===norm(pseudo)?{uid:r.uid,scores:r.scores||{}}:null);},
       onLeaderboard(fn){cb=fn;emit();}
     };}
-  function firebaseStore(db){const TS=firebase.database.ServerValue.TIMESTAMP;
+  function firebaseStore(db){const base=(FIREBASE_CONFIG.databaseURL||'').replace(/\/$/,'');
+    // Écritures par REST (HTTP) : fiables même quand le temps réel (WebSocket) ne se connecte pas
+    // (proxy, mobile, cold-start europe-west1). Avec le SDK, une écriture hors-ligne reste en file
+    // d'attente et n'atteint jamais le serveur (sans erreur) → le pronostic semblait « perdu ».
+    function patch(uid,body){return fetch(base+'/pronostics/'+uid+'.json',{method:'PATCH',
+      headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return true;});}
     return{
-      register(uid,pseudo){db.ref('pronostics/'+uid+'/pseudo').set(pseudo).catch(()=>toast('Connexion impossible'));db.ref('pronostics/'+uid+'/updatedAt').set(TS);},
-      saveScore(uid,id,score){db.ref(`pronostics/${uid}/scores/${id}`).set(score).catch(()=>toast('Échec de l’enregistrement (réseau ?)'));db.ref('pronostics/'+uid+'/updatedAt').set(TS);},
-      findByPseudo(pseudo){return db.ref('pronostics').once('value').then(snap=>{let r=null;snap.forEach(c=>{const v=c.val()||{};if(v.pseudo&&norm(v.pseudo)===norm(pseudo))r={uid:c.key,scores:v.scores||{}};});return r;}).catch(()=>null);},
-      onLeaderboard(fn){db.ref('pronostics').on('value',snap=>{const a=[];snap.forEach(c=>{const v=c.val()||{};a.push({uid:c.key,pseudo:v.pseudo||'?',scores:v.scores||{}});});fn(a);});}
+      register(uid,pseudo){return patch(uid,{pseudo:pseudo,updatedAt:{'.sv':'timestamp'}}).catch(()=>{toast('Connexion impossible — réessaie');});},
+      saveScore(uid,id,score){const ps=getPseudo()||'?';return patch(uid,{pseudo:ps,['scores/'+id]:score,updatedAt:{'.sv':'timestamp'}})
+        .then(()=>true)
+        .catch(()=>{toast('⚠️ Échec de l’enregistrement (réseau ?) — réessaie');return false;});},
+      findByPseudo(pseudo){return fetch(base+'/pronostics.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(obj=>{
+        if(!obj)return null;let r=null;Object.keys(obj).forEach(k=>{const v=obj[k]||{};if(v.pseudo&&norm(v.pseudo)===norm(pseudo))r={uid:k,scores:v.scores||{}};});return r;}).catch(()=>null);},
+      onLeaderboard(fn){db.ref('pronostics').on('value',snap=>{const a=[];snap.forEach(c=>{const v=c.val()||{};a.push({uid:c.key,pseudo:v.pseudo||'?',scores:v.scores||{}});});fn(a);},()=>{});}
     };}
   function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
   async function initFirebase(){
@@ -1381,9 +1389,11 @@ setInterval(fetchLive,POLL_MS);
       let uid=(existing&&existing.uid)||getUid()||(window.crypto&&crypto.randomUUID?crypto.randomUUID():'u'+Date.now()+Math.random().toString(16).slice(2));
       localStorage.setItem(UID_KEY,uid);localStorage.setItem(PSEUDO_KEY,v);
       const r=readLocal();r.uid=uid;r.pseudo=v;r.scores=Object.assign({},existing&&existing.scores||{},r.scores||{});writeLocal(r);
-      store&&store.register(uid,v);
+      const reg=store&&store.register(uid,v);
       // Envoi des pronostics saisis avant l'inscription (sinon ils resteraient locaux)
-      if(store&&store.saveScore){Object.keys(r.scores||{}).forEach(id=>store.saveScore(uid,id,r.scores[id]));}
+      const saves=(store&&store.saveScore)?Object.keys(r.scores||{}).map(id=>store.saveScore(uid,id,r.scores[id])):[];
+      // Une fois tout envoyé au serveur, on rafraîchit le classement (le nouveau participant apparaît)
+      Promise.all([reg,...saves].filter(p=>p&&p.then)).then(()=>fetchLBRest()).catch(()=>{});
       join.disabled=false;join.textContent=lbl;
       renderRegister();renderMatches();renderRecap();renderStats();
       const recalled=existing&&Object.keys(existing.scores||{}).length;
@@ -1398,7 +1408,8 @@ setInterval(fetchLive,POLL_MS);
       if(!getPseudo()){renderMatches();renderRecap();const pi=$('#p-pseudo');
         if(pi){pi.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>pi.focus(),300);}
         toast('Score noté ! Choisis un pseudo en haut pour valider 🎯');return;}
-      store&&store.saveScore(getUid(),id,score);renderMatches();renderRecap();toast('Pronostic enregistré ✅');});
+      renderMatches();renderRecap();toast('Pronostic enregistré ✅');
+      const r2=store&&store.saveScore(getUid(),id,score);if(r2&&r2.then)r2.then(ok=>{if(ok)fetchLBRest();});});
     const aref=$('#p-admin-refresh');aref&&aref.addEventListener('click',()=>{toast('Actualisation…');fetchLBRest().then(()=>toast('Classement à jour ✅'));});
     const aex=$('#p-admin-exit');aex&&aex.addEventListener('click',()=>{localStorage.removeItem(ADMIN_KEY);const s=document.getElementById('p-admin-section');if(s)s.style.display='none';toast('Mode admin désactivé');});
     const ref=$('#p-refresh');ref&&ref.addEventListener('click',()=>{toast('Actualisation…');fetchLBRest().then(()=>toast('Résultats à jour ✅'));});
