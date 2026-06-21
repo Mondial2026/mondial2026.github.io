@@ -354,9 +354,12 @@
 
   <section class="alt-bg">
     <div class="wrap">
-      <h2>⚽ Scores du jour</h2>
-      <p class="sub">Les matchs d'aujourd'hui avec leur score, mis à jour automatiquement — heure d'Abidjan (GMT) puis heure de Paris.</p>
-      <div id="today-scores"></div>
+      <h2>⚽ Les scores de la veille</h2>
+      <p class="sub">Tous les matchs de la veille avec leur score final, mis à jour automatiquement — heure d'Abidjan (GMT) puis heure de Paris.</p>
+      <div id="yesterday-scores"></div>
+      <div style="margin-top:14px;text-align:center">
+        <button type="button" id="share-veille" class="pbtn green">🔗 Partager les scores à un ami</button>
+      </div>
     </div>
   </section>
 
@@ -1157,27 +1160,56 @@ fetchLive();
 setInterval(fetchLive,POLL_MS);
 
 /* ════════════════════════════════════════════════════════════
-   SCORES DU JOUR (panneau maison, fiable, heure d'Abidjan)
+   SCORES DE LA VEILLE (panneau maison, fiable, heure d'Abidjan)
    Remplace l'ancien widget tiers. Lit GROUP_MATCHES/KNOCKOUT (déjà
    actualisés par la MAJ quotidienne + l'overlay live data.json).
+   + bouton « Partager les scores à un ami ».
    ════════════════════════════════════════════════════════════ */
 (function(){
+  const SITE='https://mondial2026.github.io';
   const MN=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
-  function todayLabel(){const n=new Date();const d=n.getUTCDate();return (d===1?'1ᵉʳ':d)+' '+MN[n.getUTCMonth()];}
-  function renderToday(){
-    const box=document.querySelector('#today-scores'); if(!box) return;
-    const today=todayLabel();
+  function dayLabel(n){const d=n.getUTCDate();return (d===1?'1ᵉʳ':d)+' '+MN[n.getUTCMonth()];}
+  function yesterdayLabel(){const n=new Date();n.setUTCDate(n.getUTCDate()-1);return dayLabel(n);}
+  let lastList=[], lastDay='';
+
+  // Toast léger réutilisable
+  let tEl,tT;
+  function toast(m){if(!tEl){tEl=document.createElement('div');tEl.className='cb-toast';document.body.appendChild(tEl);}tEl.textContent=m;tEl.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>tEl.classList.remove('show'),2800);}
+
+  function shareText(){
+    const lines=lastList.map(m=>`${team(m.home)} ${m.s} ${team(m.away)}`).join('\n');
+    return `⚽ Coupe du Monde 2026 — Scores du ${lastDay} :\n${lines}\n\n📲 Tous les résultats, classements & focus 🐘 Côte d'Ivoire 👉 ${SITE}`;
+  }
+  function fallbackCopy(txt){const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');toast('📋 Scores copiés — colle-les à un ami !');}catch(e){toast('Copie indisponible sur cet appareil');}ta.remove();}
+  function doShare(){
+    if(!lastList.length){toast('Aucun score de la veille à partager');return;}
+    const txt=shareText();
+    if(navigator.share){navigator.share({title:'Scores du Mondial 2026',text:txt,url:SITE}).catch(()=>{});return;}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(()=>toast('📋 Scores copiés — colle-les à un ami !'),()=>fallbackCopy(txt));
+    } else fallbackCopy(txt);
+  }
+
+  function renderYesterday(){
+    const box=document.querySelector('#yesterday-scores'); if(!box) return;
+    const btn=document.querySelector('#share-veille');
+    const yday=yesterdayLabel();
     const all=[...GROUP_MATCHES,...koAll()].filter(m=>m.home&&m.away);
-    const list=all.filter(m=>m.d===today).sort((a,b)=>sortKey(a)-sortKey(b));
+    const list=all.filter(m=>m.d===yday&&m.st==='done').sort((a,b)=>sortKey(a)-sortKey(b));
+    lastList=list; lastDay=yday;
     if(!list.length){
-      const nx=all.filter(m=>m.st!=='done').sort((a,b)=>sortKey(a)-sortKey(b))[0];
-      box.innerHTML=`<div class="card" style="text-align:center;color:var(--muted)">📅 Aucun match aujourd'hui (${today}).${nx?`<br>Prochain : <b>${team(nx.home)} – ${team(nx.away)}</b> · ${nx.d} · ${timeLabel(nx.t)}`:''}</div>`;
+      box.innerHTML=`<div class="card" style="text-align:center;color:var(--muted)">📅 Aucun match terminé hier (${yday}).</div>`;
+      if(btn) btn.style.display='none';
       return;
     }
     box.innerHTML=list.map(m=>matchRow(m)).join('');
+    if(btn) btn.style.display='';
   }
-  renderToday();
-  setInterval(renderToday,POLL_MS);
+
+  const sb=document.querySelector('#share-veille');
+  if(sb) sb.addEventListener('click',doShare);
+  renderYesterday();
+  setInterval(renderYesterday,POLL_MS);
 })();
 
 /* ════════════════════════════════════════════════════════════
