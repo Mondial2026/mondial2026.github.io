@@ -1202,7 +1202,7 @@ setInterval(fetchLive,POLL_MS);
       if(btn) btn.style.display='none';
       return;
     }
-    box.innerHTML=list.map(m=>matchRow(m)).join('');
+    box.innerHTML=list.map(m=>matchRow(m,{goals:true})).join('');
     if(btn) btn.style.display='';
   }
 
