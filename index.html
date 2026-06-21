@@ -660,10 +660,10 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-06-20";
+const LAST_UPDATE = "2026-06-21";
 
 // Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
-const NEXT_KICKOFF = { iso:"2026-06-20T20:00:00Z", label:"⏳ avant Allemagne 🇩🇪 – Côte d'Ivoire 🇨🇮 (2ᵉ journée)" };
+const NEXT_KICKOFF = { iso:"2026-06-25T20:00:00Z", label:"⏳ avant Curaçao 🇨🇼 – Côte d'Ivoire 🇨🇮 (3ᵉ journée · qualification en jeu)" };
 
 // Drapeaux des 48 équipes
 const FLAGS = {
@@ -715,15 +715,15 @@ const GROUP_MATCHES = [
  // Groupe E (Côte d'Ivoire 🇨🇮)
  {g:"E",j:1,d:"14 juin",home:"Allemagne",away:"Curaçao",venue:"NRG Stadium · Houston",t:"19h00",s:"7-1",st:"done",goals:[{p:"Nmecha",t:"Allemagne",m:"6"},{p:"Comenencia",t:"Curaçao",m:"21"},{p:"Schlotterbeck",t:"Allemagne",m:"38"},{p:"Havertz",t:"Allemagne",m:"45+5",pen:true},{p:"Musiala",t:"Allemagne",m:"47"},{p:"Brown",t:"Allemagne",m:"68"},{p:"Undav",t:"Allemagne",m:"78"},{p:"Havertz",t:"Allemagne",m:"88"}]},
  {g:"E",j:1,d:"14 juin",home:"Côte d'Ivoire",away:"Équateur",venue:"Lincoln Financial Field · Philadelphie",t:"01h00 (+1j)",s:"1-0",st:"done",goals:[{p:"Amad Diallo",t:"Côte d'Ivoire",m:"90"}]},
- {g:"E",j:2,d:"20 juin",home:"Allemagne",away:"Côte d'Ivoire",venue:"BMO Field · Toronto",t:"22h00",s:"",st:"upcoming"},
- {g:"E",j:2,d:"20 juin",home:"Équateur",away:"Curaçao",venue:"Arrowhead Stadium · Kansas City",t:"02h00 (+1j)",s:"",st:"upcoming"},
+ {g:"E",j:2,d:"20 juin",home:"Allemagne",away:"Côte d'Ivoire",venue:"BMO Field · Toronto",t:"22h00",s:"2-1",st:"done",goals:[{p:"Kessié",t:"Côte d'Ivoire",m:"30"},{p:"Undav",t:"Allemagne",m:"68"},{p:"Undav",t:"Allemagne",m:"90+4"}]},
+ {g:"E",j:2,d:"20 juin",home:"Équateur",away:"Curaçao",venue:"Arrowhead Stadium · Kansas City",t:"02h00 (+1j)",s:"0-0",st:"done",goals:[]},
  {g:"E",j:3,d:"25 juin",home:"Curaçao",away:"Côte d'Ivoire",venue:"Lincoln Financial Field · Philadelphie",t:"22h00",s:"",st:"upcoming"},
  {g:"E",j:3,d:"25 juin",home:"Équateur",away:"Allemagne",venue:"MetLife Stadium · New York/NJ",t:"22h00",s:"",st:"upcoming"},
  // Groupe F
  {g:"F",j:1,d:"14 juin",home:"Pays-Bas",away:"Japon",venue:"AT&T Stadium · Dallas",t:"22h00",s:"2-2",st:"done",goals:[{p:"Van Dijk",t:"Pays-Bas",m:"51"},{p:"Nakamura",t:"Japon",m:"57"},{p:"Summerville",t:"Pays-Bas",m:"64"},{p:"Kamada",t:"Japon",m:"88"}]},
  {g:"F",j:1,d:"14 juin",home:"Suède",away:"Tunisie",venue:"Estadio BBVA · Monterrey",t:"04h00 (+1j)",s:"5-1",st:"done",goals:[{p:"Ayari",t:"Suède",m:"7"},{p:"Isak",t:"Suède",m:"30"},{p:"Rekik",t:"Tunisie",m:"43"},{p:"Gyökeres",t:"Suède",m:"59"},{p:"Svanberg",t:"Suède",m:"84"},{p:"Ayari",t:"Suède",m:"90+6"}]},
- {g:"F",j:2,d:"20 juin",home:"Pays-Bas",away:"Suède",venue:"NRG Stadium · Houston",t:"19h00",s:"",st:"upcoming"},
- {g:"F",j:2,d:"20 juin",home:"Tunisie",away:"Japon",venue:"Estadio BBVA · Monterrey",t:"06h00 (+1j)",s:"",st:"upcoming"},
+ {g:"F",j:2,d:"20 juin",home:"Pays-Bas",away:"Suède",venue:"NRG Stadium · Houston",t:"19h00",s:"5-1",st:"done",goals:[{p:"Brobbey",t:"Pays-Bas",m:"5"},{p:"Brobbey",t:"Pays-Bas",m:"17"},{p:"Gakpo",t:"Pays-Bas",m:"47"},{p:"Gakpo",t:"Pays-Bas",m:"54"},{p:"Elanga",t:"Suède",m:"59"},{p:"Summerville",t:"Pays-Bas",m:"89"}]},
+ {g:"F",j:2,d:"20 juin",home:"Tunisie",away:"Japon",venue:"Estadio BBVA · Monterrey",t:"06h00 (+1j)",s:"0-4",st:"done",goals:[{p:"Kamada",t:"Japon",m:"4"},{p:"Ueda",t:"Japon",m:"31"},{p:"Itō",t:"Japon",m:"69"},{p:"Ueda",t:"Japon",m:"83"}]},
  {g:"F",j:3,d:"25 juin",home:"Japon",away:"Suède",venue:"AT&T Stadium · Dallas",t:"01h00 (+1j)",s:"",st:"upcoming"},
  {g:"F",j:3,d:"25 juin",home:"Tunisie",away:"Pays-Bas",venue:"Arrowhead Stadium · Kansas City",t:"01h00 (+1j)",s:"",st:"upcoming"},
  // Groupe G
@@ -815,27 +815,22 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"20 juin 2026", title:"🐘 Ce soir, le choc : Allemagne – Côte d'Ivoire à Toronto (22h00 Paris / 20h00 GMT)", text:"Les Éléphants d'Emerse Faé défient l'Allemagne ce samedi au BMO Field de Toronto pour la 2ᵉ journée du groupe E. Co-leaders après leur succès d'entrée sur l'Équateur (1-0, Amad Diallo 90ᵉ), les Ivoiriens visent un résultat qui les rapprocherait d'une qualification en 16ᵉˢ — un cap jamais franchi (éliminés au 1ᵉʳ tour en 2006, 2010 et 2014). Bonne nouvelle pour Faé : il dispose de l'intégralité de son groupe, Elye Wahi ayant finalement obtenu son visa pour le Canada. Le sélectionneur pourrait reconduire son 4-4-2, avec l'axe Kessié–Seko Fofana au milieu. En face, la Mannschaft reste sur un carton 7-1 face à Curaçao." },
-  { date:"19 juin 2026", title:"Groupe C : le Maroc et le Brésil prennent la tête, Haïti déjà éliminé", text:"Le Maroc a battu l'Écosse 1-0 grâce à Ismael Saibari, buteur dès la 2ᵉ minute (l'un des plus rapides du tournoi). Plus tard, le Brésil de Carlo Ancelotti a déroulé face à Haïti (3-0) : doublé de Matheus Cunha (23ᵉ, 36ᵉ) et but de Vinícius Jr (45ᵉ+3). Le Maroc et le Brésil, désormais en tête du groupe C, filent vers les 16ᵉˢ, tandis qu'Haïti, battu deux fois, est officiellement éliminé." },
-  { date:"19 juin 2026", title:"Groupe D : les États-Unis qualifiés, la Türkiye sortie par un Paraguay record", text:"Co-organisateurs, les États-Unis ont validé leur billet pour les 16ᵉˢ en battant l'Australie 2-0 (csc de Cameron Burgess 11ᵉ, Alex Freeman 43ᵉ), une 2ᵉ victoire en phase de groupes inédite depuis 1930. Dans l'autre match, le Paraguay, pourtant réduit à dix (carton rouge à Almirón), a renversé la Türkiye 1-0 : Matías Galarza a marqué après seulement 64 secondes, le but le plus rapide du Mondial 2026. La Türkiye, battue deux fois, est éliminée." },
-  { date:"19 juin 2026", title:"Groupe B : la Suisse étrille la Bosnie (4-1), le Canada s'offre sa 1ʳᵉ victoire en Coupe du monde (6-0)", text:"Au SoFi Stadium de Los Angeles, la Suisse a déroulé face à une Bosnie réduite à dix (expulsion de Muharemovic) : Johan Manzambi, entré en jeu, a signé un doublé (74ᵉ, 90ᵉ), Ruben Vargas (84ᵉ) et le capitaine Granit Xhaka (90ᵉ+7, s.p.) complétant le 4-1, Ermin Mahmic sauvant l'honneur (90ᵉ+3). À Vancouver, le Canada a fêté sa toute première victoire en Coupe du monde par un éclatant 6-0 contre un Qatar fini à neuf : triplé de Jonathan David (29ᵉ, 45ᵉ+3, 90ᵉ+2), Cyle Larin (16ᵉ), Nathan Saliba (64ᵉ) et un csc (75ᵉ)." },
-  { date:"18 juin 2026", title:"🐘 Emerse Faé affiche ses ambitions : « on défie l'Allemagne pour gagner »", text:"En conférence de presse, le sélectionneur Emerse Faé a balayé tout complexe d'infériorité avant le choc du groupe E : « On défie l'Allemagne pour gagner. » Les Éléphants, lancés par leur succès d'entrée sur l'Équateur (1-0, Amad Diallo à la 90ᵉ) et par leur victoire amicale historique sur la France (2-1) à Nantes, visent une qualification pour les 16ᵉˢ de finale, jamais atteinte par la Côte d'Ivoire." },
+  { date:"21 juin 2026", title:"🐘 Cruelle désillusion : la Côte d'Ivoire s'incline 2-1 face à l'Allemagne dans les arrêts de jeu", text:"Les Éléphants ont longtemps rêvé d'un exploit au BMO Field de Toronto. Franck Kessié, d'une frappe puissante (30ᵉ), avait ouvert le score et donné l'avantage à la Côte d'Ivoire face à l'Allemagne. Mais la Mannschaft, dominatrice, a fini par renverser le match grâce au remplaçant Deniz Undav, auteur d'un doublé décisif : égalisation à la 68ᵉ puis but vainqueur à la 90ᵉ+4, sur un service de Felix Nmecha. Une défaite 2-1 d'autant plus rageante qu'elle se joue dans les ultimes secondes. L'Allemagne valide son billet pour les 16ᵉˢ ; la Côte d'Ivoire, 2ᵉ du groupe E avec 3 points, garde son sort en main avant le dernier match." },
+  { date:"21 juin 2026", title:"🐘 Une finale pour les Éléphants : Curaçao le 25 juin pour entrer dans l'histoire", text:"Tout se jouera le 25 juin (22h00 Paris / 20h00 GMT) à Philadelphie face à Curaçao. Avec 3 points, la Côte d'Ivoire devance l'Équateur et Curaçao (1 pt chacun) et tient sa qualification entre ses pieds : une victoire enverrait quasi certainement les Éléphants en 16ᵉˢ de finale — un cap que la sélection n'a jamais franchi (éliminée au 1ᵉʳ tour en 2006, 2010 et 2014). Emerse Faé devra remobiliser un groupe déçu mais qui a tenu tête à l'un des favoris du tournoi pendant près d'une heure." },
+  { date:"21 juin 2026", title:"Groupe E : l'Allemagne qualifiée, Équateur et Curaçao se neutralisent (0-0)", text:"Dans l'autre match du groupe, l'Équateur et Curaçao se sont quittés sur un score nul et vierge à Kansas City. Le gardien de Curaçao, Eloy Room, héroïque, a multiplié les arrêts pour offrir au plus petit pays jamais qualifié à un Mondial son premier point dans la compétition. À l'issue de la 2ᵉ journée : Allemagne 6 pts (qualifiée), Côte d'Ivoire 3, Équateur 1, Curaçao 1 — tout reste ouvert pour la 2ᵉ place." },
+  { date:"20 juin 2026", title:"Groupe F : les Pays-Bas (5-1) et le Japon (4-0) frappent fort", text:"Les Pays-Bas ont étrillé la Suède 5-1 au NRG Stadium de Houston : doublés de Brian Brobbey (5ᵉ, 17ᵉ) et de Cody Gakpo (47ᵉ, 54ᵉ), but de Crysencio Summerville (89ᵉ), Anthony Elanga sauvant l'honneur (59ᵉ). Plus tard, le Japon est devenu la première nation asiatique à inscrire quatre buts dans un match de Coupe du monde en balayant la Tunisie 4-0 (Kamada 4ᵉ, doublé d'Ayase Ueda 31ᵉ et 83ᵉ, Junya Itō 69ᵉ). Pays-Bas et Japon prennent les commandes du groupe F." },
+  { date:"20 juin 2026", title:"🐘 Avant le choc, Faé affichait ses ambitions : « on défie l'Allemagne pour gagner »", text:"En conférence de presse, le sélectionneur Emerse Faé avait balayé tout complexe d'infériorité : « On défie l'Allemagne pour gagner. » Portés par leur succès d'entrée sur l'Équateur (1-0, Amad Diallo à la 90ᵉ) et par leur victoire amicale historique sur la France (2-1) à Nantes, les Éléphants ont tenu leur rang une heure durant avant de céder dans les arrêts de jeu. De quoi nourrir des regrets, mais aussi la confiance avant le rendez-vous décisif face à Curaçao." },
 ];
 
 // ───────── COMPOSITION DE DÉPART DE LA CÔTE D'IVOIRE ─────────
 // Mettre à jour avant chaque match (onze annoncé). Mettre lines:[] (ou
 // CIV_LINEUP=null) pour masquer le bloc entre deux matchs.
 const CIV_LINEUP = {
-  match:"Allemagne 🇩🇪 – Côte d'Ivoire 🇨🇮 · 2ᵉ journée (groupe E)",
+  match:"Curaçao 🇨🇼 – Côte d'Ivoire 🇨🇮 · 3ᵉ journée (groupe E)",
   formation:"4-3-3",
   coach:"Emerse Faé",
-  lines:[
-    { role:"Gardien",  players:["Yahia Fofana"] },
-    { role:"Défense",  players:["Odilon Kossounou","Wilfried Singo","Emmanuel Agbadou","Ghislain Konan"] },
-    { role:"Milieu",   players:["Franck Kessié","Ibrahim Sangaré","Christ Inao Oulaï"] },
-    { role:"Attaque",  players:["Yann Diomandé","Ange-Yoan Bonny","Amad Diallo"] },
-  ],
-  note:"Onze de départ officiel, confirmé ~1h avant le coup d'envoi. Faé bascule en 4-3-3 : Kossounou, Sangaré, Oulaï et Bonny entrent dans le onze."
+  lines:[],
+  note:"Le onze de départ pour le match décisif face à Curaçao (25 juin) sera affiché ici dès l'annonce officielle, environ 1h avant le coup d'envoi."
 };
 
 /* ════════════════════════════════════════════════════════════
