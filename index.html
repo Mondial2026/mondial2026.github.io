@@ -663,7 +663,7 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-06-21";
+const LAST_UPDATE = "2026-06-22";
 
 // Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
 const NEXT_KICKOFF = { iso:"2026-06-25T20:00:00Z", label:"⏳ avant Curaçao 🇨🇼 – Côte d'Ivoire 🇨🇮 (3ᵉ journée · qualification en jeu)" };
@@ -732,15 +732,15 @@ const GROUP_MATCHES = [
  // Groupe G
  {g:"G",j:1,d:"15 juin",home:"Belgique",away:"Égypte",venue:"Lumen Field · Seattle",t:"21h00",s:"1-1",st:"done",goals:[{p:"Ashour",t:"Égypte",m:"19"},{p:"Hany",t:"Belgique",m:"66",og:true}]},
  {g:"G",j:1,d:"15 juin",home:"Iran",away:"Nouvelle-Zélande",venue:"SoFi Stadium · Los Angeles",t:"03h00 (+1j)",s:"2-2",st:"done",goals:[{p:"Just",t:"Nouvelle-Zélande",m:"7"},{p:"Rezaeian",t:"Iran",m:"32"},{p:"Just",t:"Nouvelle-Zélande",m:"54"},{p:"Mohebbi",t:"Iran",m:"64"}]},
- {g:"G",j:2,d:"21 juin",home:"Belgique",away:"Iran",venue:"SoFi Stadium · Los Angeles",t:"21h00",s:"",st:"upcoming"},
- {g:"G",j:2,d:"21 juin",home:"Nouvelle-Zélande",away:"Égypte",venue:"BC Place · Vancouver",t:"03h00 (+1j)",s:"",st:"upcoming"},
+ {g:"G",j:2,d:"21 juin",home:"Belgique",away:"Iran",venue:"SoFi Stadium · Los Angeles",t:"21h00",s:"0-0",st:"done",goals:[]},
+ {g:"G",j:2,d:"21 juin",home:"Nouvelle-Zélande",away:"Égypte",venue:"BC Place · Vancouver",t:"03h00 (+1j)",s:"1-3",st:"done",goals:[{p:"Surman",t:"Nouvelle-Zélande",m:"15"},{p:"Zico",t:"Égypte",m:"58"},{p:"Salah",t:"Égypte",m:"67"},{p:"Trezeguet",t:"Égypte",m:"82"}]},
  {g:"G",j:3,d:"26 juin",home:"Égypte",away:"Iran",venue:"Lumen Field · Seattle",t:"05h00 (+1j)",s:"",st:"upcoming"},
  {g:"G",j:3,d:"26 juin",home:"Nouvelle-Zélande",away:"Belgique",venue:"BC Place · Vancouver",t:"05h00 (+1j)",s:"",st:"upcoming"},
  // Groupe H
  {g:"H",j:1,d:"15 juin",home:"Espagne",away:"Cap-Vert",venue:"Mercedes-Benz Stadium · Atlanta",t:"18h00",s:"0-0",st:"done",goals:[]},
  {g:"H",j:1,d:"15 juin",home:"Arabie saoudite",away:"Uruguay",venue:"Hard Rock Stadium · Miami",t:"00h00 (+1j)",s:"1-1",st:"done",goals:[{p:"Al-Amri",t:"Arabie saoudite",m:"41"},{p:"M. Araújo",t:"Uruguay",m:"80"}]},
- {g:"H",j:2,d:"21 juin",home:"Espagne",away:"Arabie saoudite",venue:"Mercedes-Benz Stadium · Atlanta",t:"18h00",s:"",st:"upcoming"},
- {g:"H",j:2,d:"21 juin",home:"Uruguay",away:"Cap-Vert",venue:"Hard Rock Stadium · Miami",t:"00h00 (+1j)",s:"",st:"upcoming"},
+ {g:"H",j:2,d:"21 juin",home:"Espagne",away:"Arabie saoudite",venue:"Mercedes-Benz Stadium · Atlanta",t:"18h00",s:"4-0",st:"done",goals:[{p:"L. Yamal",t:"Espagne",m:"10"},{p:"Oyarzabal",t:"Espagne",m:"21"},{p:"Oyarzabal",t:"Espagne",m:"24"},{p:"Al-Tambakti",t:"Espagne",m:"49",og:true}]},
+ {g:"H",j:2,d:"21 juin",home:"Uruguay",away:"Cap-Vert",venue:"Hard Rock Stadium · Miami",t:"00h00 (+1j)",s:"2-2",st:"done",goals:[{p:"Pina",t:"Cap-Vert",m:"21"},{p:"M. Araújo",t:"Uruguay",m:"44"},{p:"Canobbio",t:"Uruguay",m:"45+6"},{p:"Varela",t:"Cap-Vert",m:"61"}]},
  {g:"H",j:3,d:"26 juin",home:"Cap-Vert",away:"Arabie saoudite",venue:"NRG Stadium · Houston",t:"02h00 (+1j)",s:"",st:"upcoming"},
  {g:"H",j:3,d:"26 juin",home:"Uruguay",away:"Espagne",venue:"Estadio Akron · Guadalajara",t:"02h00 (+1j)",s:"",st:"upcoming"},
  // Groupe I
@@ -818,11 +818,11 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
+  { date:"22 juin 2026", title:"🐘 J-3 avant Curaçao : les Éléphants face à leur destin", text:"À trois jours du rendez-vous décisif (jeudi 25 juin, 22h00 Paris / 20h00 GMT, à Philadelphie), la Côte d'Ivoire prépare le match le plus important de sa génération. 2ᵉ du groupe E avec 3 points devant l'Équateur et Curaçao (1 pt), les Éléphants tiennent leur sort en main : une victoire face à Curaçao les enverrait en 16ᵉˢ de finale, un cap jamais franchi en trois participations (éliminés au 1ᵉʳ tour en 2006, 2010 et 2014). Emerse Faé remobilise un groupe meurtri par la défaite face à l'Allemagne mais qui a prouvé sa valeur. Même en cas de faux pas, une place parmi les 8 meilleurs 3ᵉˢ reste jouable — mais les Éléphants veulent assurer eux-mêmes." },
+  { date:"22 juin 2026", title:"Groupe H : l'Espagne se relance (4-0), le Cap-Vert encore héroïque (2-2)", text:"L'Espagne a répondu présent à Atlanta en dominant l'Arabie saoudite 4-0 : Lamine Yamal a inscrit son premier but en Coupe du monde (10ᵉ), avant un doublé express de Mikel Oyarzabal (21ᵉ, 24ᵉ) et un csc d'Al-Tambakti (49ᵉ). La Roja prend la tête du groupe H. Plus tôt à Miami, le Cap-Vert a décroché un deuxième nul retentissant : mené puis revenu, l'Uruguay (Araújo 44ᵉ, Canobbio 45ᵉ+6) a été rejoint par les Requins Bleus grâce à Pina (21ᵉ) et Varela (61ᵉ), 2-2 final." },
+  { date:"22 juin 2026", title:"Groupe G : l'Égypte signe sa première victoire (3-1), la Belgique cale encore (0-0)", text:"À Vancouver, la Nouvelle-Zélande a cru à l'exploit après l'ouverture du score de Finn Surman (15ᵉ), mais l'Égypte a renversé la rencontre en seconde période : Zico (58ᵉ), Mohamed Salah d'un geste de classe (67ᵉ) puis Trezeguet (82ᵉ) offrent aux Pharaons leur première victoire dans le tournoi (3-1). Plus tôt, la Belgique a été tenue en échec par l'Iran (0-0), réduite à dix après l'expulsion de Nathan Ngoy ; le gardien iranien Beiranvand, auteur de sept arrêts, a été élu homme du match." },
   { date:"21 juin 2026", title:"🐘 Cruelle désillusion : la Côte d'Ivoire s'incline 2-1 face à l'Allemagne dans les arrêts de jeu", text:"Les Éléphants ont longtemps rêvé d'un exploit au BMO Field de Toronto. Franck Kessié, d'une frappe puissante (30ᵉ), avait ouvert le score et donné l'avantage à la Côte d'Ivoire face à l'Allemagne. Mais la Mannschaft, dominatrice, a fini par renverser le match grâce au remplaçant Deniz Undav, auteur d'un doublé décisif : égalisation à la 68ᵉ puis but vainqueur à la 90ᵉ+4, sur un service de Felix Nmecha. Une défaite 2-1 d'autant plus rageante qu'elle se joue dans les ultimes secondes. L'Allemagne valide son billet pour les 16ᵉˢ ; la Côte d'Ivoire, 2ᵉ du groupe E avec 3 points, garde son sort en main avant le dernier match." },
-  { date:"21 juin 2026", title:"🐘 Une finale pour les Éléphants : Curaçao le 25 juin pour entrer dans l'histoire", text:"Tout se jouera le 25 juin (22h00 Paris / 20h00 GMT) à Philadelphie face à Curaçao. Avec 3 points, la Côte d'Ivoire devance l'Équateur et Curaçao (1 pt chacun) et tient sa qualification entre ses pieds : une victoire enverrait quasi certainement les Éléphants en 16ᵉˢ de finale — un cap que la sélection n'a jamais franchi (éliminée au 1ᵉʳ tour en 2006, 2010 et 2014). Emerse Faé devra remobiliser un groupe déçu mais qui a tenu tête à l'un des favoris du tournoi pendant près d'une heure." },
   { date:"21 juin 2026", title:"Groupe E : l'Allemagne qualifiée, Équateur et Curaçao se neutralisent (0-0)", text:"Dans l'autre match du groupe, l'Équateur et Curaçao se sont quittés sur un score nul et vierge à Kansas City. Le gardien de Curaçao, Eloy Room, héroïque, a multiplié les arrêts pour offrir au plus petit pays jamais qualifié à un Mondial son premier point dans la compétition. À l'issue de la 2ᵉ journée : Allemagne 6 pts (qualifiée), Côte d'Ivoire 3, Équateur 1, Curaçao 1 — tout reste ouvert pour la 2ᵉ place." },
-  { date:"20 juin 2026", title:"Groupe F : les Pays-Bas (5-1) et le Japon (4-0) frappent fort", text:"Les Pays-Bas ont étrillé la Suède 5-1 au NRG Stadium de Houston : doublés de Brian Brobbey (5ᵉ, 17ᵉ) et de Cody Gakpo (47ᵉ, 54ᵉ), but de Crysencio Summerville (89ᵉ), Anthony Elanga sauvant l'honneur (59ᵉ). Plus tard, le Japon est devenu la première nation asiatique à inscrire quatre buts dans un match de Coupe du monde en balayant la Tunisie 4-0 (Kamada 4ᵉ, doublé d'Ayase Ueda 31ᵉ et 83ᵉ, Junya Itō 69ᵉ). Pays-Bas et Japon prennent les commandes du groupe F." },
-  { date:"20 juin 2026", title:"🐘 Avant le choc, Faé affichait ses ambitions : « on défie l'Allemagne pour gagner »", text:"En conférence de presse, le sélectionneur Emerse Faé avait balayé tout complexe d'infériorité : « On défie l'Allemagne pour gagner. » Portés par leur succès d'entrée sur l'Équateur (1-0, Amad Diallo à la 90ᵉ) et par leur victoire amicale historique sur la France (2-1) à Nantes, les Éléphants ont tenu leur rang une heure durant avant de céder dans les arrêts de jeu. De quoi nourrir des regrets, mais aussi la confiance avant le rendez-vous décisif face à Curaçao." },
 ];
 
 // ───────── COMPOSITION DE DÉPART DE LA CÔTE D'IVOIRE ─────────
