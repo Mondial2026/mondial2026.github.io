@@ -663,7 +663,7 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-06-23";
+const LAST_UPDATE = "2026-06-24";
 
 // Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
 const NEXT_KICKOFF = { iso:"2026-06-25T20:00:00Z", label:"⏳ avant Curaçao 🇨🇼 – Côte d'Ivoire 🇨🇮 (3ᵉ journée · qualification en jeu)" };
@@ -760,15 +760,15 @@ const GROUP_MATCHES = [
  // Groupe K
  {g:"K",j:1,d:"17 juin",home:"Portugal",away:"RD Congo",venue:"NRG Stadium · Houston",t:"19h00",s:"1-1",st:"done",goals:[{p:"João Neves",t:"Portugal",m:"6"},{p:"Wissa",t:"RD Congo",m:"45+5"}]},
  {g:"K",j:1,d:"17 juin",home:"Ouzbékistan",away:"Colombie",venue:"Estadio Azteca · Mexico",t:"04h00 (+1j)",s:"1-3",st:"done",goals:[{p:"Muñoz",t:"Colombie",m:"40"},{p:"Fayzullaev",t:"Ouzbékistan",m:"60"},{p:"Luis Díaz",t:"Colombie",m:"65"},{p:"Campaz",t:"Colombie",m:"90+9"}]},
- {g:"K",j:2,d:"23 juin",home:"Portugal",away:"Ouzbékistan",venue:"NRG Stadium · Houston",t:"19h00",s:"",st:"upcoming"},
- {g:"K",j:2,d:"23 juin",home:"Colombie",away:"RD Congo",venue:"Estadio Akron · Guadalajara",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ {g:"K",j:2,d:"23 juin",home:"Portugal",away:"Ouzbékistan",venue:"NRG Stadium · Houston",t:"19h00",s:"5-0",st:"done",goals:[{p:"Ronaldo",t:"Portugal",m:"6"},{p:"Nuno Mendes",t:"Portugal",m:"17"},{p:"Ronaldo",t:"Portugal",m:"39"},{p:"Nematov",t:"Portugal",m:"60",og:true},{p:"Rafael Leão",t:"Portugal",m:"87"}]},
+ {g:"K",j:2,d:"23 juin",home:"Colombie",away:"RD Congo",venue:"Estadio Akron · Guadalajara",t:"04h00 (+1j)",s:"1-0",st:"done",goals:[{p:"Muñoz",t:"Colombie",m:"76"}]},
  {g:"K",j:3,d:"27 juin",home:"Colombie",away:"Portugal",venue:"Hard Rock Stadium · Miami",t:"01h30 (+1j)",s:"",st:"upcoming"},
  {g:"K",j:3,d:"27 juin",home:"RD Congo",away:"Ouzbékistan",venue:"Mercedes-Benz Stadium · Atlanta",t:"01h30 (+1j)",s:"",st:"upcoming"},
  // Groupe L
  {g:"L",j:1,d:"17 juin",home:"Angleterre",away:"Croatie",venue:"AT&T Stadium · Dallas",t:"22h00",s:"4-2",st:"done",goals:[{p:"Kane",t:"Angleterre",m:"12",pen:true},{p:"Kane",t:"Angleterre",m:"35"},{p:"Baturina",t:"Croatie",m:"36"},{p:"Musa",t:"Croatie",m:"45+5"},{p:"Bellingham",t:"Angleterre",m:"47"},{p:"Rashford",t:"Angleterre",m:"85"}]},
  {g:"L",j:1,d:"17 juin",home:"Ghana",away:"Panama",venue:"BMO Field · Toronto",t:"01h00 (+1j)",s:"1-0",st:"done",goals:[{p:"Yirenkyi",t:"Ghana",m:"90+5"}]},
- {g:"L",j:2,d:"23 juin",home:"Angleterre",away:"Ghana",venue:"Gillette Stadium · Boston",t:"22h00",s:"",st:"upcoming"},
- {g:"L",j:2,d:"23 juin",home:"Panama",away:"Croatie",venue:"BMO Field · Toronto",t:"01h00 (+1j)",s:"",st:"upcoming"},
+ {g:"L",j:2,d:"23 juin",home:"Angleterre",away:"Ghana",venue:"Gillette Stadium · Boston",t:"22h00",s:"0-0",st:"done",goals:[]},
+ {g:"L",j:2,d:"23 juin",home:"Panama",away:"Croatie",venue:"BMO Field · Toronto",t:"01h00 (+1j)",s:"0-1",st:"done",goals:[{p:"Budimir",t:"Croatie",m:"54"}]},
  {g:"L",j:3,d:"27 juin",home:"Panama",away:"Angleterre",venue:"MetLife Stadium · New York/NJ",t:"23h00",s:"",st:"upcoming"},
  {g:"L",j:3,d:"27 juin",home:"Croatie",away:"Ghana",venue:"Lincoln Financial Field · Philadelphie",t:"23h00",s:"",st:"upcoming"},
 ];
@@ -818,11 +818,11 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"23 juin 2026", title:"🐘 J-2 avant Curaçao : la qualification au bout des crampons", text:"Plus que deux jours avant le match couperet (jeudi 25 juin, 22h00 Paris / 20h00 GMT, à Philadelphie). La Côte d'Ivoire, 2ᵉ du groupe E avec 3 points, garde son destin entre ses mains : battre Curaçao (1 pt) suffirait à décrocher la première qualification en 16ᵉˢ de finale de son histoire, après trois éliminations au 1ᵉʳ tour (2006, 2010, 2014). Dans le même temps, l'Équateur (1 pt) défie l'Allemagne déjà qualifiée. Emerse Faé prépare ses Éléphants pour ce rendez-vous historique ; la compo de départ sera affichée dans l'onglet « CIV » dès l'annonce officielle, environ une heure avant le coup d'envoi." },
+  { date:"24 juin 2026", title:"🐘 J-1 avant Curaçao : les Éléphants à un pas de l'histoire", text:"Demain (jeudi 25 juin, 22h00 Paris / 20h00 GMT, à Philadelphie), la Côte d'Ivoire joue sa qualification face à Curaçao. 2ᵉ du groupe E avec 3 points, les hommes d'Emerse Faé tiennent leur destin : une victoire les enverrait en 16ᵉˢ de finale pour la première fois de leur histoire (après trois sorties au 1ᵉʳ tour en 2006, 2010 et 2014). Un nul pourrait aussi suffire selon le résultat parallèle d'Équateur–Allemagne. Curaçao (1 pt) reste mathématiquement vivant et n'a rien à perdre. La compo de départ sera affichée dans l'onglet « CIV » dès l'annonce officielle, environ une heure avant le coup d'envoi." },
+  { date:"24 juin 2026", title:"🇵🇹 Ronaldo réveille le Portugal : carton 5-0 face à l'Ouzbékistan", text:"Au NRG Stadium de Houston, le Portugal a soigné son retour après le nul initial face à la RD Congo. Cristiano Ronaldo a frappé deux fois (6ᵉ, 39ᵉ), encadrant un coup franc de Nuno Mendes (17ᵉ). Un but contre son camp de Nematov (60ᵉ) puis un dernier coup de patte de Rafael Leão (87ᵉ) ont scellé un 5-0 sans appel. Les Lusitaniens font un grand pas vers les 16ᵉˢ avant le choc décisif face à la Colombie le 27 juin." },
+  { date:"24 juin 2026", title:"Groupe K : la Colombie qualifiée (1-0 contre la RD Congo)", text:"À Guadalajara, la Colombie a fait le travail face à une vaillante RD Congo, malgré huit arrêts du gardien Lionel Mpasi. Daniel Muñoz a inscrit l'unique but (76ᵉ) d'une frappe déviée au premier poteau. Avec 6 points, les Cafeteros valident leur billet pour les 16ᵉˢ et prendront la tête du groupe K face au Portugal le 27 juin. La RD Congo jouera sa survie contre l'Ouzbékistan le même jour." },
+  { date:"24 juin 2026", title:"Groupe L : l'Angleterre calée (0-0 contre le Ghana), la Croatie relancée", text:"Au Gillette Stadium de Boston, l'Angleterre a buté sur un Ghana héroïque (0-0) ; Harry Kane a gâché la balle de match dans le money-time. Les Three Lions restent en tête du groupe L mais laissent le Ghana à leur hauteur. Dans l'autre rencontre, la Croatie d'Ante Budimir (but à la 54ᵉ) s'est imposée 1-0 à Toronto et élimine le Panama, tout en relançant ses propres chances de qualification." },
   { date:"22 juin 2026", title:"🇫🇷 La France assure (3-0) : Mbappé en feu, les Bleus en 16ᵉˢ", text:"Au Lincoln Financial Field de Philadelphie, après un coup d'envoi retardé de plus de deux heures pour cause d'orage, la France a maîtrisé l'Irak 3-0. Kylian Mbappé a ouvert le score d'une frappe limpide (14ᵉ) puis doublé la mise (54ᵉ), avant qu'Ousmane Dembélé ne scelle le succès (66ᵉ). Avec deux victoires en deux matchs, les Bleus valident leur billet pour les 16ᵉˢ de finale et prennent la tête du groupe I avant le choc face à la Norvège." },
-  { date:"22 juin 2026", title:"🐐 Messi entre dans l'histoire : l'Argentine bat l'Autriche (2-0)", text:"À l'AT&T Stadium de Dallas, Lionel Messi a signé un doublé décisif (38ᵉ, 90ᵉ+5) — malgré un penalty manqué à la 9ᵉ — pour offrir à l'Argentine une victoire 2-0 sur l'Autriche et une qualification pour le tour suivant. La Pulga devient le meilleur buteur de l'histoire de la Coupe du monde, un record de plus pour le capitaine de l'Albiceleste. L'Autriche, battue, voit sa qualification s'éloigner." },
-  { date:"22 juin 2026", title:"Groupe I : la Norvège de Haaland qualifiée après un duel fou face au Sénégal (3-2)", text:"Au MetLife Stadium, la Norvège a remporté un match spectaculaire 3-2 face au Sénégal. Marcus Holmgren Pedersen a lancé les Scandinaves (43ᵉ) avant qu'Erling Haaland ne signe un doublé (48ᵉ, 58ᵉ). Ismaïla Sarr a maintenu le suspense avec ses deux buts (53ᵉ, 90ᵉ+3) mais la Norvège a tenu pour valider sa qualification en 16ᵉˢ. Le Sénégal, battu, devra impérativement s'imposer lors de la dernière journée." },
-  { date:"22 juin 2026", title:"Groupe J : l'Algérie renverse la Jordanie (2-1) et reste en vie", text:"À Santa Clara, l'Algérie a renversé une Jordanie surprenante pour s'imposer 2-1. Menés après l'ouverture du score de Nizar Al-Rashdan (36ᵉ), les Fennecs ont réagi sur coups de pied arrêtés : Benbouali a égalisé de la tête sur corner de Mahrez (69ᵉ) puis Amine Gouiri a inscrit le but de la victoire (82ᵉ). L'Algérie garde ses chances de qualification intactes ; la Jordanie, pour sa première Coupe du monde, est éliminée." },
 ];
 
 // ───────── COMPOSITION DE DÉPART DE LA CÔTE D'IVOIRE ─────────
