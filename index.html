@@ -144,17 +144,33 @@
   .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;font-size:.83rem;color:var(--muted)}
   .legend span{display:flex;align-items:center;gap:7px}
   .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
-  .qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px}
-  .qcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-  .qhead{display:flex;align-items:center;justify-content:space-between;font-weight:800;margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--line)}
   .qprov{font-size:.72rem;font-weight:700;color:var(--muted);background:#f1f1ee;border-radius:20px;padding:2px 9px}
-  .qrow{display:grid;grid-template-columns:24px 1fr auto auto;align-items:center;gap:8px;padding:5px 0}
-  .qrow+.qrow{border-top:1px dashed var(--line)}
-  .qrow.civ{background:#fff6ec;border-radius:8px;margin:0 -6px;padding:5px 6px}
-  .qmed{font-size:1.05rem;text-align:center}
-  .qteam{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .qpts{font-weight:800;color:var(--orange-dark);font-size:.9rem}
-  .qtag{font-size:.66rem;font-weight:800;color:#fff;border-radius:20px;padding:3px 8px;white-space:nowrap;text-transform:uppercase;letter-spacing:.3px}
+  /* Arbre des 16ᵉˢ */
+  .brk{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:6px 0 12px}
+  .brk-inner{display:flex;flex-direction:column;gap:30px;min-width:560px}
+  .brk-q{display:flex;align-items:center}
+  .brk-hs{display:flex;flex-direction:column;gap:34px}
+  .brk-h{display:flex;align-items:center}
+  .brk-ms{display:flex;flex-direction:column;gap:12px}
+  .brk-m{display:flex;justify-content:space-between;align-items:center;gap:8px;width:172px;
+    background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:.8rem;
+    box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .bm-s{font-weight:800;letter-spacing:.3px;white-space:nowrap;color:var(--ink)}
+  .bm-s.right{text-align:right}
+  .bm-s.prov{color:#9aa4b2;font-weight:700}
+  .bm-s.civ{color:var(--orange-dark)}
+  .bm-s.prov::after{content:' ✦';font-size:.7em;color:var(--orange)}
+  .brk-conn{align-self:stretch;width:22px;flex:none;position:relative}
+  .brk-conn::before{content:'';position:absolute;left:0;top:25%;bottom:25%;border-left:2px solid #d9dbe0}
+  .brk-conn::after{content:'';position:absolute;left:0;right:0;top:50%;border-top:2px solid #d9dbe0}
+  .brk-box{display:flex;flex-wrap:wrap;align-content:center;gap:6px;background:#f3f4f6;border-radius:12px;padding:10px;align-self:center}
+  .brk-box.box-h{width:104px;min-height:54px}
+  .brk-box.box-q{width:104px;min-height:54px}
+  .bchip{font-size:1.15rem;line-height:1}
+  .bchip.none{color:#c4c7cc;font-weight:800}
+  .bchip.third{filter:grayscale(.1)}
+  .bchip.prov{opacity:.85}
+  .bchip.civ{outline:2px solid var(--orange);outline-offset:1px;border-radius:4px}
   .standings-grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
 
   /* ---------- Chemin des Éléphants ---------- */
@@ -384,20 +400,17 @@
 
   <section class="alt-bg">
     <div class="wrap">
-      <h2>🎟️ En route vers les 16ᵉˢ de finale</h2>
-      <p class="sub">Les <b>2 premiers</b> de chaque groupe + les <b>8 meilleurs 3ᵉˢ</b> se qualifient. Calculé automatiquement à partir des résultats — <b>provisoire</b> tant que la phase de groupes n'est pas terminée.</p>
-      <div id="qualified-board"></div>
+      <h2>🎟️ Le tableau des 16ᵉˢ de finale</h2>
+      <p class="sub">Les <b>2 premiers</b> de chaque groupe + les <b>8 meilleurs 3ᵉˢ</b> se qualifient. Positions calculées automatiquement — <b>provisoires</b> tant que la phase de groupes n'est pas terminée ; 🥉 = place de meilleur 3ᵉ encore à attribuer. Faites glisser pour voir tout l'arbre →</p>
+      <div id="qualified-bracket"></div>
       <div class="legend">
-        <span><i class="dot" style="background:var(--green)"></i> Qualifié</span>
-        <span><i class="dot" style="background:var(--orange)"></i> 3ᵉ · repêchage (8 meilleurs)</span>
-        <span><i class="dot" style="background:#bbb"></i> position provisoire (groupe en cours)</span>
+        <span><i class="dot" style="background:var(--orange)"></i> 16ᵉˢ de finale (matchs)</span>
+        <span><i class="dot" style="background:#9aa4b2"></i> regroupés par 8ᵉ puis par quart</span>
+        <span>🥉 = meilleur 3ᵉ à déterminer · ✦ = position provisoire</span>
       </div>
       <h3 style="margin-top:30px">🥉 La course aux 8 meilleurs 3ᵉˢ</h3>
       <p class="sub">Classement des 3ᵉˢ des 12 groupes : les 8 premiers sont repêchés pour les 16ᵉˢ.</p>
       <div id="thirds-race"></div>
-      <h3 style="margin-top:30px">🆚 Les 16ᵉˢ de finale — futures rencontres</h3>
-      <p class="sub">Du 28 juin au 3 juillet. Les affiches se complètent automatiquement dès qu'un groupe est terminé.</p>
-      <div id="ko16-fixtures"></div>
     </div>
   </section>
 
@@ -713,6 +726,19 @@ const FLAGS = {
   "Portugal":"🇵🇹","Colombie":"🇨🇴","Ouzbékistan":"🇺🇿","RD Congo":"🇨🇩",
   "Angleterre":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Croatie":"🇭🇷","Ghana":"🇬🇭","Panama":"🇵🇦"
 };
+// Codes 3 lettres (style FR) pour l'arbre des 16ᵉˢ
+const CODES = {
+  "Mexique":"MEX","Afrique du Sud":"AFS","Corée du Sud":"CDS","Tchéquie":"TCH","Canada":"CAN",
+  "Suisse":"SUI","Qatar":"QAT","Bosnie-Herzégovine":"BOS","Brésil":"BRE","Maroc":"MAR","Écosse":"ECO",
+  "Haïti":"HAI","États-Unis":"USA","Paraguay":"PAR","Türkiye":"TUR","Australie":"AUS","Allemagne":"ALL",
+  "Équateur":"EQU","Côte d'Ivoire":"CIV","Curaçao":"CUR","Pays-Bas":"HOL","Japon":"JAP","Suède":"SUE",
+  "Tunisie":"TUN","Belgique":"BEL","Égypte":"EGY","Iran":"IRN","Nouvelle-Zélande":"NZL","Espagne":"ESP",
+  "Uruguay":"URU","Arabie saoudite":"ARS","Cap-Vert":"CPV","France":"FRA","Sénégal":"SEN","Norvège":"NOR",
+  "Irak":"IRK","Argentine":"ARG","Algérie":"ALG","Autriche":"AUT","Jordanie":"JOR","Portugal":"POR",
+  "Colombie":"COL","Ouzbékistan":"OUZ","RD Congo":"RDC","Angleterre":"ANG","Croatie":"CRO","Ghana":"GHA","Panama":"PAN"
+};
+const code=t=>CODES[t]||(t||'').slice(0,3).toUpperCase();
+const escG=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 // ───────── 72 MATCHS DE GROUPES ─────────
 // d = date (juin 2026) · t = heure de Paris · s = score "a-b" · st = "upcoming"|"live"|"done"
@@ -1027,22 +1053,49 @@ function bestThirds(){
   return GROUP_LETTERS.map(g=>{const t=computeTable(g);return t[2]?{...t[2],grp:g,done:groupDone(g)}:null;}).filter(Boolean)
     .sort((x,y)=>y.pts-x.pts||y.diff-x.diff||y.bp-x.bp||x.team.localeCompare(y.team));
 }
-function renderQualified(){
-  const box=$("#qualified-board"); if(!box) return;
-  const top8=new Set(bestThirds().slice(0,8).map(t=>t.grp+'|'+t.team));
-  box.innerHTML='<div class="qgrid">'+GROUP_LETTERS.map(g=>{
-    const t=computeTable(g), done=groupDone(g), played=t.reduce((s,x)=>Math.max(s,x.j),0);
-    const slot=(rank,medal)=>{const x=t[rank]; if(!x) return '';
-      const qualif=rank<2, rep=rank===2&&top8.has(g+'|'+x.team);
-      const col=qualif?'var(--green)':rep?'var(--orange)':'#bbb';
-      const tag=qualif?(done?'qualifié':'en passe'):rep?(done?'repêché':'repêchage'):(done?'éliminé':'hors top 8');
-      return `<div class="qrow${x.team==="Côte d'Ivoire"?' civ':''}"><span class="qmed">${medal}</span>
-        <span class="qteam">${team(x.team)}</span><span class="qpts">${x.pts}</span>
-        <span class="qtag" style="background:${col}">${tag}</span></div>`;};
-    return `<div class="qcard">
-      <div class="qhead">Groupe ${g} ${done?'<span class="badge done">terminé</span>':'<span class="qprov">J'+played+'/3</span>'}</div>
-      ${slot(0,'🥇')}${slot(1,'🥈')}${slot(2,'🥉')}</div>`;
-  }).join('')+'</div>';
+// ── Arbre des 16ᵉˢ de finale (style bracket) : résout chaque slot (1ᵉʳ/2ᵉ de groupe) depuis le classement,
+//    laisse 🥉 pour les places de meilleur 3ᵉ encore à attribuer ; regroupe par 8ᵉ puis par quart.
+function resolveSlot(part, fixed){
+  if(fixed) return {team:fixed,prov:false};
+  const s=(part||'').trim();
+  if(s.charAt(0)==='3') return {third:true};
+  const rank=s.charAt(0)==='1'?0:s.charAt(0)==='2'?1:-1;
+  if(rank>=0){const gm=s.match(/\b([A-L])\b/); if(gm){const t=computeTable(gm[1]); if(t[rank])return {team:t[rank].team,prov:!groupDone(gm[1])};}}
+  return {label:s};
+}
+function slot16(m){const parts=(m.pairing||'').split('–');
+  return [resolveSlot(parts[0],m.home), resolveSlot(parts[1],m.away)];}
+function chip(e){const cl=e&&e.prov?' prov':'';
+  if(e&&e.team) return `<span class="bchip${cl}${e.team==="Côte d'Ivoire"?' civ':''}" title="${escG(e.team)}">${flag(e.team)}</span>`;
+  if(e&&e.third) return `<span class="bchip third" title="meilleur 3ᵉ à déterminer">🥉</span>`;
+  return `<span class="bchip none">·</span>`;}
+// Redescend récursivement jusqu'aux 16ᵉˢ : un 8ᵉ/quart pointe vers des M-id, un 16ᵉ vers des positions de groupe
+function teamsOf(ids,map){return ids.flatMap(id=>{const m=map[id]; if(!m) return [];
+  const fe=(m.pairing||'').match(/M\d+/g); return fe?teamsOf(fe,map):slot16(m);});}
+function renderBracket(){
+  const box=$("#qualified-bracket"); if(!box) return;
+  const all=KNOCKOUT.flatMap(p=>p.matches), idMap={}; all.forEach(m=>idMap[m.id]=m);
+  const r16=KNOCKOUT[0]?KNOCKOUT[0].matches:[], r8=KNOCKOUT[1]?KNOCKOUT[1].matches:[], r4=KNOCKOUT[2]?KNOCKOUT[2].matches:[];
+  const feeders=m=>(m.pairing||'').match(/M\d+/g)||[];
+  // pill d'un 16ᵉ : CODE drapeau – drapeau CODE
+  const pill=m=>{const [l,r]=slot16(m);
+    const side=(e,right)=>{const cd=e.team?code(e.team):e.third?'3ᵉ':escG(e.label||'?');
+      const fl=e.team?flag(e.team):e.third?'🥉':'⬜';
+      return right?`<span class="bm-s right${e.prov?' prov':''}${e.team==="Côte d'Ivoire"?' civ':''}">${fl} ${cd}</span>`
+                  :`<span class="bm-s${e.prov?' prov':''}${e.team==="Côte d'Ivoire"?' civ':''}">${cd} ${fl}</span>`;};
+    return `<div class="brk-m" title="${escG(m.d)} · ${escG(m.venue)}">${side(l,false)}${side(r,true)}</div>`;};
+  const boxHTML=(ids,cls)=>`<div class="brk-box ${cls}">${teamsOf(ids,idMap).map(chip).join('')}</div>`;
+  const conn='<div class="brk-conn"></div>';
+  // 4 quarts (top→bas) ; chaque quart = 2 huitièmes ; chaque huitième = 2 seizièmes
+  const html=r4.map(q=>{
+    const eights=feeders(q).map(id=>idMap[id]).filter(Boolean);
+    const hs=eights.map(e=>{
+      const sixteenths=feeders(e).map(id=>idMap[id]).filter(Boolean);
+      return `<div class="brk-h"><div class="brk-ms">${sixteenths.map(pill).join('')}</div>${conn}${boxHTML(feeders(e),'box-h')}</div>`;
+    }).join('');
+    return `<div class="brk-q"><div class="brk-hs">${hs}</div>${conn}${boxHTML(feeders(q),'box-q')}</div>`;
+  }).join('');
+  box.innerHTML=`<div class="brk"><div class="brk-inner">${html}</div></div>`;
 }
 function renderThirdsRace(){
   const box=$("#thirds-race"); if(!box) return;
@@ -1117,10 +1170,8 @@ function renderAll(){
   $("#next-matches").innerHTML=nextList.map(m=>matchRow(m,{tag:m.tag,goals:true})).join('')
     ||'<div class="card" style="text-align:center;color:var(--muted)">Tous les matchs ont été joués — merci pour ce Mondial ! 🏆</div>';
 
-  // Accueil : qualifiés pour les 16ᵉˢ + course aux 3ᵉˢ + affiches des 16ᵉˢ de finale
-  renderQualified(); renderThirdsRace();
-  const ko16=KNOCKOUT[0]?KNOCKOUT[0].matches:[];
-  $("#ko16-fixtures").innerHTML=ko16.map(m=>matchRow(m,{goals:false})).join('');
+  // Accueil : arbre des 16ᵉˢ de finale + course aux 8 meilleurs 3ᵉˢ
+  renderBracket(); renderThirdsRace();
 
   // Calendrier : phase de groupes classée par DATE
   const calDays={};
