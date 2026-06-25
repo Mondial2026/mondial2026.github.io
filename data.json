@@ -1,4 +1,44 @@
 {
   "lastUpdate": "2026-06-25",
-  "matches": []
+  "matches": [],
+  "civLineup": {
+    "match": "Côte d'Ivoire – Curaçao · groupe E (Mondial 2026)",
+    "formation": "4-4-2",
+    "coach": "Emerse Faé",
+    "probable": false,
+    "lines": [
+      {
+        "role": "Gardien",
+        "players": [
+          "Yahia Fofana"
+        ]
+      },
+      {
+        "role": "Défenseurs",
+        "players": [
+          "Guela Doué",
+          "Christopher Operi",
+          "Ousmane Diomande",
+          "Odilon Kossounou"
+        ]
+      },
+      {
+        "role": "Milieux",
+        "players": [
+          "Franck Kessié",
+          "Amad Diallo",
+          "Ibrahim Sangaré",
+          "Yan Diomande"
+        ]
+      },
+      {
+        "role": "Attaquants",
+        "players": [
+          "Ange-Yoan Bonny",
+          "Nicolas Pépé"
+        ]
+      }
+    ],
+    "note": "🟢 Onze officiel — mis à jour automatiquement (source ESPN)."
+  }
 }
