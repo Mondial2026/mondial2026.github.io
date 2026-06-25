@@ -157,9 +157,8 @@
     box-shadow:0 1px 2px rgba(0,0,0,.04)}
   .bm-s{font-weight:800;letter-spacing:.3px;white-space:nowrap;color:var(--ink)}
   .bm-s.right{text-align:right}
-  .bm-s.prov{color:#9aa4b2;font-weight:700}
+  .bm-s.ph{color:#aab0ba;font-weight:700;font-size:.72rem}
   .bm-s.civ{color:var(--orange-dark)}
-  .bm-s.prov::after{content:' ✦';font-size:.7em;color:var(--orange)}
   .brk-conn{align-self:stretch;width:22px;flex:none;position:relative}
   .brk-conn::before{content:'';position:absolute;left:0;top:25%;bottom:25%;border-left:2px solid #d9dbe0}
   .brk-conn::after{content:'';position:absolute;left:0;right:0;top:50%;border-top:2px solid #d9dbe0}
@@ -401,12 +400,12 @@
   <section class="alt-bg">
     <div class="wrap">
       <h2>🎟️ Le tableau des 16ᵉˢ de finale</h2>
-      <p class="sub">Les <b>2 premiers</b> de chaque groupe + les <b>8 meilleurs 3ᵉˢ</b> se qualifient. Positions calculées automatiquement — <b>provisoires</b> tant que la phase de groupes n'est pas terminée ; 🥉 = place de meilleur 3ᵉ encore à attribuer. Faites glisser pour voir tout l'arbre →</p>
+      <p class="sub">Seules les équipes <b>déjà qualifiées</b> sont affichées (groupes terminés). Les autres places se remplissent automatiquement dès qu'un groupe est fini ; 🥉 = place de meilleur 3ᵉ encore à attribuer. Faites glisser pour voir tout l'arbre →</p>
       <div id="qualified-bracket"></div>
       <div class="legend">
         <span><i class="dot" style="background:var(--orange)"></i> 16ᵉˢ de finale (matchs)</span>
         <span><i class="dot" style="background:#9aa4b2"></i> regroupés par 8ᵉ puis par quart</span>
-        <span>🥉 = meilleur 3ᵉ à déterminer · ✦ = position provisoire</span>
+        <span>⬜ place en attente · 🥉 meilleur 3ᵉ à déterminer</span>
       </div>
       <h3 style="margin-top:30px">🥉 La course aux 8 meilleurs 3ᵉˢ</h3>
       <p class="sub">Classement des 3ᵉˢ des 12 groupes : les 8 premiers sont repêchés pour les 16ᵉˢ.</p>
@@ -1056,11 +1055,13 @@ function bestThirds(){
 // ── Arbre des 16ᵉˢ de finale (style bracket) : résout chaque slot (1ᵉʳ/2ᵉ de groupe) depuis le classement,
 //    laisse 🥉 pour les places de meilleur 3ᵉ encore à attribuer ; regroupe par 8ᵉ puis par quart.
 function resolveSlot(part, fixed){
-  if(fixed) return {team:fixed,prov:false};
+  if(fixed) return {team:fixed};                 // équipe officielle déjà remplie
   const s=(part||'').trim();
-  if(s.charAt(0)==='3') return {third:true};
+  if(s.charAt(0)==='3') return {third:true};      // meilleur 3ᵉ : jamais validé d'avance
   const rank=s.charAt(0)==='1'?0:s.charAt(0)==='2'?1:-1;
-  if(rank>=0){const gm=s.match(/\b([A-L])\b/); if(gm){const t=computeTable(gm[1]); if(t[rank])return {team:t[rank].team,prov:!groupDone(gm[1])};}}
+  // On ne valide une place que si le groupe est TERMINÉ (sinon : place en attente, pas de pronostic provisoire)
+  if(rank>=0){const gm=s.match(/\b([A-L])\b/);
+    if(gm&&groupDone(gm[1])){const t=computeTable(gm[1]); if(t[rank])return {team:t[rank].team};}}
   return {label:s};
 }
 function slot16(m){const parts=(m.pairing||'').split('–');
@@ -1081,8 +1082,9 @@ function renderBracket(){
   const pill=m=>{const [l,r]=slot16(m);
     const side=(e,right)=>{const cd=e.team?code(e.team):e.third?'3ᵉ':escG(e.label||'?');
       const fl=e.team?flag(e.team):e.third?'🥉':'⬜';
-      return right?`<span class="bm-s right${e.prov?' prov':''}${e.team==="Côte d'Ivoire"?' civ':''}">${fl} ${cd}</span>`
-                  :`<span class="bm-s${e.prov?' prov':''}${e.team==="Côte d'Ivoire"?' civ':''}">${cd} ${fl}</span>`;};
+      const ph=e.team?'':' ph';
+      return right?`<span class="bm-s right${ph}${e.team==="Côte d'Ivoire"?' civ':''}">${fl} ${cd}</span>`
+                  :`<span class="bm-s${ph}${e.team==="Côte d'Ivoire"?' civ':''}">${cd} ${fl}</span>`;};
     return `<div class="brk-m" title="${escG(m.d)} · ${escG(m.venue)}">${side(l,false)}${side(r,true)}</div>`;};
   const boxHTML=(ids,cls)=>`<div class="brk-box ${cls}">${teamsOf(ids,idMap).map(chip).join('')}</div>`;
   const conn='<div class="brk-conn"></div>';
