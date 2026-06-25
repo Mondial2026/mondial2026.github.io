@@ -884,11 +884,17 @@ const NEWS = [
 // Mettre à jour avant chaque match (onze annoncé). Mettre lines:[] (ou
 // CIV_LINEUP=null) pour masquer le bloc entre deux matchs.
 const CIV_LINEUP = {
-  match:"Curaçao 🇨🇼 – Côte d'Ivoire 🇨🇮 · 3ᵉ journée (groupe E)",
+  match:"Curaçao 🇨🇼 – Côte d'Ivoire 🇨🇮 · 3ᵉ journée (groupe E) · 25 juin, Philadelphie",
   formation:"4-3-3",
   coach:"Emerse Faé",
-  lines:[],
-  note:"Le onze de départ pour le match décisif face à Curaçao (25 juin) sera affiché ici dès l'annonce officielle, environ 1h avant le coup d'envoi."
+  probable:true,
+  lines:[
+    {role:"Gardien", players:["Yahia Fofana"]},
+    {role:"Défenseurs", players:["Guéla Doué","Emmanuel Agbadou","Odilon Kossounou","Ghislain Konan"]},
+    {role:"Milieux", players:["Ibrahim Sangaré","Franck Kessié","Christ Inao Oulai"]},
+    {role:"Attaquants", players:["Amad Diallo","Ange-Yoan Bonny","Yan Diomandé"]}
+  ],
+  note:"⚠️ Composition probable (presse) — le onze officiel sera confirmé environ 1h avant le coup d'envoi. La Côte d'Ivoire (3 pts) vise au moins le nul pour se qualifier."
 };
 
 /* ════════════════════════════════════════════════════════════
@@ -1145,7 +1151,7 @@ function renderLineup(){
       <span style="display:flex;flex-wrap:wrap;gap:7px">${ln.players.map(p=>`<span style="background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:700;font-size:.9rem">${p}</span>`).join('')}</span>
     </div>`;
   el.innerHTML=`<div class="card" style="border-top:5px solid var(--green);margin-top:16px">
-    <h3 style="margin-bottom:4px">🟢 Le onze de départ${L.formation?' — '+L.formation:''}</h3>
+    <h3 style="margin-bottom:4px">🟢 ${L.probable?'Composition probable':'Le onze de départ'}${L.formation?' — '+L.formation:''}</h3>
     <p style="color:var(--muted);margin-bottom:6px">${L.match||''}${L.coach?' · Sélectionneur : <b style="color:var(--ink)">'+L.coach+'</b>':''}</p>
     ${L.lines.map(lineRow).join('')}
     ${L.note?`<p style="color:var(--muted);font-size:.85rem;margin-top:10px"><em>${L.note}</em></p>`:''}
