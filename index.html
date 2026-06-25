@@ -896,6 +896,9 @@ const CIV_LINEUP = {
   ],
   note:"⚠️ Composition probable (presse) — le onze officiel sera confirmé environ 1h avant le coup d'envoi. La Côte d'Ivoire (3 pts) vise au moins le nul pour se qualifier."
 };
+// Overlay live du onze officiel : alimenté par data.json.civLineup (écrit par la GitHub Action
+// dès l'annonce officielle ~1h avant le match). Null ⇒ on retombe sur CIV_LINEUP figé ci-dessus.
+let LINEUP_OVERLAY = null;
 
 /* ════════════════════════════════════════════════════════════
    MOTEUR DE RENDU — ne pas modifier pour la MAJ quotidienne
@@ -1144,7 +1147,8 @@ function renderScorers(){
 // ── Composition de départ de la Côte d'Ivoire (onglet CIV)
 function renderLineup(){
   const el=$("#civ-lineup"); if(!el) return;
-  const L=typeof CIV_LINEUP!=="undefined"?CIV_LINEUP:null;
+  const L=(typeof LINEUP_OVERLAY!=="undefined"&&LINEUP_OVERLAY&&LINEUP_OVERLAY.lines&&LINEUP_OVERLAY.lines.length)
+    ?LINEUP_OVERLAY:(typeof CIV_LINEUP!=="undefined"?CIV_LINEUP:null);
   if(!L||!L.lines||!L.lines.length){ el.innerHTML=""; return; }
   const lineRow=ln=>`<div style="display:flex;gap:10px;align-items:baseline;padding:9px 0;border-top:1px dashed var(--line)">
       <span style="min-width:78px;font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--green-dark)">${ln.role}</span>
@@ -1272,6 +1276,7 @@ function applyOverlay(data){
     if(!m) return;
     ["home","away","s","st","t","goals"].forEach(k=>{ if(k in o) m[k]=o[k]; });
   });
+  LINEUP_OVERLAY=(data.civLineup&&data.civLineup.lines&&data.civLineup.lines.length)?data.civLineup:null;
 }
 async function fetchLive(){
   try{

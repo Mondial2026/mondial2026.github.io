@@ -208,6 +208,78 @@ async function collectForDate(dateStr) {
   return out;
 }
 
+/* ---- Composition de départ de la Côte d'Ivoire (overlay civLineup) ----
+   Source : API publique ESPN (le scoreboard FotMob ci-dessus ne porte pas les compos).
+   Renvoie l'objet attendu par renderLineup() dans index.html, ou null si le onze
+   officiel n'est pas encore publié (~1h avant le coup d'envoi). */
+const ESPN = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world";
+
+function roleIndex(pos) {
+  const p = (pos || "").toUpperCase();
+  if (p === "G" || p.startsWith("GK")) return 0;        // Gardien
+  if (p.includes("M")) return 2;                         // Milieux (DM/CM/AM/LM/RM)
+  if (p.includes("B") || p.includes("D")) return 1;     // Défenseurs (RB/LB/CB/CD/WB)
+  return 3;                                              // Attaquants (F/ST/CF/W)
+}
+
+async function civLineupESPN() {
+  const now = new Date();
+  const yest = new Date(now.getTime() - 24 * 3600e3);
+  let eventId = null, oppName = null, kickoff = null;
+  for (const d of [yyyymmdd(now), yyyymmdd(yest)]) {
+    let sb;
+    try { sb = await getJSON(`${ESPN}/scoreboard?dates=${d}`); }
+    catch (e) { log("ESPN scoreboard échec", d, e.message); continue; }
+    for (const ev of (sb?.events || [])) {
+      const comp = ev?.competitions?.[0];
+      const cs = comp?.competitors || [];
+      const civ = cs.find(c => (c.team?.displayName || c.team?.name) === "Ivory Coast");
+      if (civ) {
+        eventId = String(ev.id);
+        kickoff = ev.date || null;
+        const other = cs.find(c => c !== civ);
+        oppName = other?.team?.displayName || other?.team?.name || null;
+        break;
+      }
+    }
+    if (eventId) break;
+  }
+  if (!eventId) { log("Aucun match CIV trouvé sur ESPN (today/yesterday)"); return null; }
+
+  // Fenêtre : ne publier la compo qu'à partir de ~90 min avant le coup d'envoi
+  // (ESPN peut exposer un XI « probable » bien plus tôt — on évite de le figer).
+  const kickMs = kickoff ? Date.parse(kickoff) : 0;
+  if (kickMs && Date.now() < kickMs - 90 * 60000) { log("Compo trop tôt avant le coup d'envoi — ignorée"); return null; }
+
+  let sum;
+  try { sum = await getJSON(`${ESPN}/summary?event=${eventId}`); }
+  catch (e) { log("ESPN summary échec", eventId, e.message); return null; }
+
+  const civR = (sum?.rosters || []).find(t => (t.team?.displayName || t.team?.name) === "Ivory Coast");
+  const starters = (civR?.roster || [])
+    .filter(p => p.starter === true)
+    .sort((a, b) => Number(a.formationPlace || 0) - Number(b.formationPlace || 0));
+  if (!civR || starters.length < 11) { log("Onze officiel CIV pas encore publié"); return null; }
+
+  const buckets = [[], [], [], []];
+  for (const p of starters) {
+    const name = p.athlete?.displayName || "?";
+    buckets[roleIndex(p.position?.abbreviation)].push(name);
+  }
+  const roles = ["Gardien", "Défenseurs", "Milieux", "Attaquants"];
+  const lines = buckets.map((players, i) => ({ role: roles[i], players })).filter(l => l.players.length);
+  const oppFr = toFr(oppName) || oppName || "";
+
+  return {
+    match: "Côte d'Ivoire" + (oppFr ? " – " + oppFr : "") + " · groupe E (Mondial 2026)",
+    formation: civR.formation || "",
+    coach: "Emerse Faé",
+    probable: false,
+    lines,
+    note: "🟢 Onze officiel — mis à jour automatiquement (source ESPN)."
+  };
+}
+
 async function main() {
   const now = new Date();
   const yesterday = new Date(now.getTime() - 24 * 3600e3);
@@ -227,6 +299,12 @@ async function main() {
 
   const lastUpdate = yyyymmdd(now).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
   const data = { lastUpdate, matches };
+
+  // Onze officiel de la Côte d'Ivoire (overlay compo, dès publication ~1h avant le match)
+  try {
+    const lineup = await civLineupESPN();
+    if (lineup) { data.civLineup = lineup; log("civLineup ajouté", lineup.formation); }
+  } catch (e) { log("civLineup échec", e.message); }
 
   // N'écrire que si le contenu a changé (évite les commits vides)
   let prev = "";
