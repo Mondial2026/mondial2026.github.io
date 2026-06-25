@@ -144,6 +144,17 @@
   .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;font-size:.83rem;color:var(--muted)}
   .legend span{display:flex;align-items:center;gap:7px}
   .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+  .qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px}
+  .qcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .qhead{display:flex;align-items:center;justify-content:space-between;font-weight:800;margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+  .qprov{font-size:.72rem;font-weight:700;color:var(--muted);background:#f1f1ee;border-radius:20px;padding:2px 9px}
+  .qrow{display:grid;grid-template-columns:24px 1fr auto auto;align-items:center;gap:8px;padding:5px 0}
+  .qrow+.qrow{border-top:1px dashed var(--line)}
+  .qrow.civ{background:#fff6ec;border-radius:8px;margin:0 -6px;padding:5px 6px}
+  .qmed{font-size:1.05rem;text-align:center}
+  .qteam{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .qpts{font-weight:800;color:var(--orange-dark);font-size:.9rem}
+  .qtag{font-size:.66rem;font-weight:800;color:#fff;border-radius:20px;padding:3px 8px;white-space:nowrap;text-transform:uppercase;letter-spacing:.3px}
   .standings-grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
 
   /* ---------- Chemin des Éléphants ---------- */
@@ -373,13 +384,32 @@
 
   <section class="alt-bg">
     <div class="wrap">
+      <h2>🎟️ En route vers les 16ᵉˢ de finale</h2>
+      <p class="sub">Les <b>2 premiers</b> de chaque groupe + les <b>8 meilleurs 3ᵉˢ</b> se qualifient. Calculé automatiquement à partir des résultats — <b>provisoire</b> tant que la phase de groupes n'est pas terminée.</p>
+      <div id="qualified-board"></div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--green)"></i> Qualifié</span>
+        <span><i class="dot" style="background:var(--orange)"></i> 3ᵉ · repêchage (8 meilleurs)</span>
+        <span><i class="dot" style="background:#bbb"></i> position provisoire (groupe en cours)</span>
+      </div>
+      <h3 style="margin-top:30px">🥉 La course aux 8 meilleurs 3ᵉˢ</h3>
+      <p class="sub">Classement des 3ᵉˢ des 12 groupes : les 8 premiers sont repêchés pour les 16ᵉˢ.</p>
+      <div id="thirds-race"></div>
+      <h3 style="margin-top:30px">🆚 Les 16ᵉˢ de finale — futures rencontres</h3>
+      <p class="sub">Du 28 juin au 3 juillet. Les affiches se complètent automatiquement dès qu'un groupe est terminé.</p>
+      <div id="ko16-fixtures"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
       <h2>📰 Dernières informations</h2>
       <p class="sub">L'actu du jour autour du Mondial et des Éléphants.</p>
       <div class="grid news-grid" id="news"></div>
     </div>
   </section>
 
-  <section>
+  <section class="alt-bg">
     <div class="wrap">
       <h2>📔 Le carnet du Mondial</h2>
       <p class="sub">Calendrier complet, fiches des Éléphants 🐘 et pages de pronostics à remplir — en PDF imprimable A4, à garder en souvenir.</p>
@@ -989,6 +1019,41 @@ function tableHTML(g){
   }).join('');
   return `<div class="table-scroll"><table><thead><tr><th>#</th><th>Équipe</th><th>J</th><th>G</th><th>N</th><th>P</th><th>BP</th><th>BC</th><th>±</th><th>Pts</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
+// ── Qualifiés pour les 16ᵉˢ : 1ᵉʳ + 2ᵉ de chaque groupe + 8 meilleurs 3ᵉˢ (calcul auto, provisoire si groupe en cours)
+const GROUP_LETTERS="ABCDEFGHIJKL".split('');
+function groupDone(g){const ms=GROUP_MATCHES.filter(m=>m.g===g);return ms.length>0&&ms.every(m=>m.st==="done");}
+function bestThirds(){
+  // NB : l'objet de computeTable a déjà une clé `g` (matchs gagnés) → on stocke la lettre de groupe sous `grp`
+  return GROUP_LETTERS.map(g=>{const t=computeTable(g);return t[2]?{...t[2],grp:g,done:groupDone(g)}:null;}).filter(Boolean)
+    .sort((x,y)=>y.pts-x.pts||y.diff-x.diff||y.bp-x.bp||x.team.localeCompare(y.team));
+}
+function renderQualified(){
+  const box=$("#qualified-board"); if(!box) return;
+  const top8=new Set(bestThirds().slice(0,8).map(t=>t.grp+'|'+t.team));
+  box.innerHTML='<div class="qgrid">'+GROUP_LETTERS.map(g=>{
+    const t=computeTable(g), done=groupDone(g), played=t.reduce((s,x)=>Math.max(s,x.j),0);
+    const slot=(rank,medal)=>{const x=t[rank]; if(!x) return '';
+      const qualif=rank<2, rep=rank===2&&top8.has(g+'|'+x.team);
+      const col=qualif?'var(--green)':rep?'var(--orange)':'#bbb';
+      const tag=qualif?(done?'qualifié':'en passe'):rep?(done?'repêché':'repêchage'):(done?'éliminé':'hors top 8');
+      return `<div class="qrow${x.team==="Côte d'Ivoire"?' civ':''}"><span class="qmed">${medal}</span>
+        <span class="qteam">${team(x.team)}</span><span class="qpts">${x.pts}</span>
+        <span class="qtag" style="background:${col}">${tag}</span></div>`;};
+    return `<div class="qcard">
+      <div class="qhead">Groupe ${g} ${done?'<span class="badge done">terminé</span>':'<span class="qprov">J'+played+'/3</span>'}</div>
+      ${slot(0,'🥇')}${slot(1,'🥈')}${slot(2,'🥉')}</div>`;
+  }).join('')+'</div>';
+}
+function renderThirdsRace(){
+  const box=$("#thirds-race"); if(!box) return;
+  const th=bestThirds();
+  box.innerHTML='<div class="table-scroll"><table class="ptable"><thead><tr><th>#</th><th>Gr.</th><th>Équipe</th><th>Pts</th><th>±</th><th>BP</th><th></th></tr></thead><tbody>'+
+    th.map((t,i)=>`<tr class="${t.team==="Côte d'Ivoire"?'civ':''}"><td><span class="qual" style="background:${i<8?'var(--green)':'#d22'}"></span> ${i+1}</td>
+      <td>${t.grp}</td><td class="team">${team(t.team)}${t.done?'':' <span class="qprov">prov.</span>'}</td>
+      <td><b>${t.pts}</b></td><td>${t.diff>0?'+':''}${t.diff}</td><td>${t.bp}</td>
+      <td>${i<8?'<span class="badge done">repêché</span>':''}</td></tr>`).join('')+
+    '</tbody></table></div><p class="sub" style="margin-top:8px">Départage des 3ᵉˢ : points, puis différence de buts, puis buts marqués.</p>';
+}
 // ── Buteurs : classement calculé depuis tous les buts (csc exclus)
 function renderScorers(){
   const all=[...GROUP_MATCHES,...KNOCKOUT.flatMap(p=>p.matches)];
@@ -1051,6 +1116,11 @@ function renderAll(){
     .sort((a,b)=>sortKey(a)-sortKey(b)).slice(0,8);
   $("#next-matches").innerHTML=nextList.map(m=>matchRow(m,{tag:m.tag,goals:true})).join('')
     ||'<div class="card" style="text-align:center;color:var(--muted)">Tous les matchs ont été joués — merci pour ce Mondial ! 🏆</div>';
+
+  // Accueil : qualifiés pour les 16ᵉˢ + course aux 3ᵉˢ + affiches des 16ᵉˢ de finale
+  renderQualified(); renderThirdsRace();
+  const ko16=KNOCKOUT[0]?KNOCKOUT[0].matches:[];
+  $("#ko16-fixtures").innerHTML=ko16.map(m=>matchRow(m,{goals:false})).join('');
 
   // Calendrier : phase de groupes classée par DATE
   const calDays={};
