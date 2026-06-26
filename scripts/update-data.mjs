@@ -3,7 +3,7 @@
    update-data.mjs — Mise à jour automatique de data.json (SANS Claude)
    ----------------------------------------------------------------------------
    Récupère les matchs de la Coupe du Monde 2026 du jour (et de la veille pour
-   les matchs de nuit) depuis l'API publique FotMob, les traduit au format de
+   les matchs de nuit) depuis l'API publique ESPN, les traduit au format de
    l'overlay « data.json » lu par index.html, et écrit le fichier.
 
    index.html relit data.json toutes les 60 s et fusionne ces matchs par-dessus
@@ -48,7 +48,7 @@ const GROUP_OF = {
   "Angleterre":"L","Croatie":"L","Ghana":"L","Panama":"L",
 };
 
-/* ---- Alias (nom source FotMob, en anglais) → nom FR ---- */
+/* ---- Alias (nom source ESPN, en anglais) → nom FR ---- */
 const ALIASES = {
   "mexico":"Mexique",
   "south africa":"Afrique du Sud",
@@ -130,86 +130,59 @@ async function getJSON(url, ms = 12000) {
 const yyyymmdd = d =>
   `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, "0")}${String(d.getUTCDate()).padStart(2, "0")}`;
 
-const isWorldCup = lg => {
-  const n = norm(lg?.name);
-  return n.includes("world cup") && !n.includes("women") && !n.includes("qualif");
-};
-
-/* ---- Statut overlay : "live" | "done" | null (ignoré si pas commencé) ---- */
-function statusOf(match) {
-  const st = match.status || {};
-  if (st.finished || st.reason?.short === "FT" || st.scoreStr && st.finished) return "done";
-  if (st.cancelled) return null;
-  if (st.started && !st.finished) return "live";
-  return null; // à venir → on ne pousse rien (l'HTML porte déjà la fiche)
-}
-
-function scoreOf(match) {
-  const h = match.home?.score, a = match.away?.score;
-  if (h == null || a == null) return null;
-  return `${h}-${a}`;
-}
-
-/* ---- Buteurs (best-effort) via matchDetails ---- */
-async function goalsOf(matchId, homeFr, awayFr) {
-  if (!FETCH_GOALS) return null;
-  try {
-    const d = await getJSON(`https://www.fotmob.com/api/matchDetails?matchId=${matchId}`, 12000);
-    const ev = d?.content?.matchFacts?.events?.events
-            || d?.content?.matchFacts?.events
-            || [];
-    const goals = [];
-    for (const e of ev) {
-      if (norm(e.type) !== "goal" && !e.isGoal) continue;
-      const team = e.isHome ? homeFr : awayFr;
-      const min = (e.time != null ? String(e.time) : "") + (e.overloadTime ? "+" + e.overloadTime : "");
-      const name = e.player?.name || e.nameStr || e.fullName || "";
-      if (!name || !min) continue;
-      const g = { p: name.split(" ").slice(-1).join(" "), t: team, m: min };
-      const desc = norm(e.goalDescription || e.type || "");
-      if (e.ownGoal || desc.includes("own")) { g.og = true; g.t = e.isHome ? awayFr : homeFr; }
-      if (desc.includes("penalty")) g.pen = true;
-      goals.push(g);
-    }
-    return goals.length ? goals : null;
-  } catch (err) {
-    log("goalsOf échec", matchId, err.message);
-    return null;
-  }
-}
-
+/* ---- Collecte des matchs de groupe (live/terminés) via ESPN ----
+   Remplace FotMob (dont l'endpoint /api/matches renvoyait 404). ESPN porte le
+   score ET les buteurs (competitions[0].details), donc plus besoin d'un 2e appel. */
 async function collectForDate(dateStr) {
-  let payload;
+  let sb;
   try {
-    payload = await getJSON(`https://www.fotmob.com/api/matches?date=${dateStr}&timezone=UTC`);
+    sb = await getJSON(`${ESPN}/scoreboard?dates=${dateStr}`);
   } catch (err) {
-    log("matches?date échec", dateStr, err.message);
+    log("ESPN scoreboard échec", dateStr, err.message);
     return [];
   }
-  const leagues = (payload?.leagues || []).filter(isWorldCup);
   const out = [];
-  for (const lg of leagues) {
-    for (const m of (lg.matches || [])) {
-      const st = statusOf(m);
-      if (!st) continue;
-      const home = toFr(m.home?.name || m.home?.longName);
-      const away = toFr(m.away?.name || m.away?.longName);
-      if (!home || !away) { log("équipe non mappée", m.home?.name, m.away?.name); continue; }
-      const g = GROUP_OF[home];
-      if (!g || GROUP_OF[away] !== g) { log("hors phase de groupes / groupes incohérents", home, away); continue; }
-      const s = scoreOf(m);
-      const row = { g, home, away, st };
-      if (s) row.s = s;
-      const goals = await goalsOf(m.id, home, away);
-      if (goals) row.goals = goals;
-      out.push(row);
+  for (const ev of (sb?.events || [])) {
+    const comp = ev?.competitions?.[0];
+    const cs = comp?.competitors || [];
+    const h = cs.find(c => c.homeAway === "home");
+    const a = cs.find(c => c.homeAway === "away");
+    if (!h || !a) continue;
+    const home = toFr(h.team?.displayName || h.team?.name);
+    const away = toFr(a.team?.displayName || a.team?.name);
+    if (!home || !away) { log("équipe non mappée", h.team?.displayName, a.team?.displayName); continue; }
+    const g = GROUP_OF[home];
+    if (!g || GROUP_OF[away] !== g) { log("hors phase de groupes", home, away); continue; }
+    const state = comp.status?.type?.state || ev.status?.type?.state || "pre";
+    const st = state === "in" ? "live" : state === "post" ? "done" : null;
+    if (!st) continue; // à venir → rien (l'HTML porte déjà la fiche)
+    const row = { g, home, away, st };
+    const hs = h.score, as = a.score;
+    if (hs != null && hs !== "" && as != null && as !== "") row.s = `${hs}-${as}`;
+    if (FETCH_GOALS) {
+      const idTeam = {};
+      cs.forEach(c => { if (c.team) idTeam[String(c.team.id)] = (c.homeAway === "home") ? home : away; });
+      const goals = [];
+      for (const d of (comp.details || [])) {
+        if (d.scoringPlay !== true) continue;
+        const scored = idTeam[String(d.team?.id)] || home;
+        const min = ((d.clock?.displayValue) || (d.type?.displayValue) || "").replace(/'/g, "");
+        const full = d.athletesInvolved?.[0]?.displayName || "";
+        if (!full || !min) continue;
+        const goal = { p: full.split(" ").slice(-1).join(" "), t: scored, m: min };
+        if (d.ownGoal) { goal.og = true; goal.t = (scored === home) ? away : home; }
+        if (d.penaltyKick) goal.pen = true;
+        goals.push(goal);
+      }
+      if (goals.length) row.goals = goals;
     }
+    out.push(row);
   }
   return out;
 }
 
 /* ---- Composition de départ de la Côte d'Ivoire (overlay civLineup) ----
-   Source : API publique ESPN (le scoreboard FotMob ci-dessus ne porte pas les compos).
+   Source : API publique ESPN summary (le scoreboard ci-dessus ne porte pas les compos).
    Renvoie l'objet attendu par renderLineup() dans index.html, ou null si le onze
    officiel n'est pas encore publié (~1h avant le coup d'envoi). */
 const ESPN = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world";
