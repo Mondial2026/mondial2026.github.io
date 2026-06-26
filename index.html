@@ -410,6 +410,9 @@
       <h3 style="margin-top:30px">🥉 La course aux 8 meilleurs 3ᵉˢ</h3>
       <p class="sub">Classement des 3ᵉˢ des 12 groupes : les 8 premiers sont repêchés pour les 16ᵉˢ.</p>
       <div id="thirds-race"></div>
+      <div style="margin-top:14px;text-align:center">
+        <button type="button" id="share-thirds" class="pbtn green">📤 Publier la course aux 3ᵉˢ</button>
+      </div>
     </div>
   </section>
 
@@ -1339,6 +1342,40 @@ setInterval(fetchLive,POLL_MS);
   if(sb) sb.addEventListener('click',doShare);
   renderYesterday();
   setInterval(renderYesterday,POLL_MS);
+})();
+
+/* ════════════════════════════════════════════════════════════
+   BOUTON « Publier la course aux 8 meilleurs 3ᵉˢ »
+   Génère un texte partageable du classement des 3ᵉˢ (calcul auto
+   via bestThirds()) → navigator.share, sinon copie presse-papiers.
+   ════════════════════════════════════════════════════════════ */
+(function(){
+  const SITE='https://mondial2026.github.io';
+  let tEl,tT;
+  function toast(m){if(!tEl){tEl=document.createElement('div');tEl.className='cb-toast';document.body.appendChild(tEl);}tEl.textContent=m;tEl.classList.add('show');clearTimeout(tT);tT=setTimeout(()=>tEl.classList.remove('show'),2800);}
+  function fallbackCopy(txt){const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');toast('📋 Classement des 3ᵉˢ copié — à publier !');}catch(e){toast('Copie indisponible sur cet appareil');}ta.remove();}
+  function buildText(){
+    const th=(typeof bestThirds==='function')?bestThirds():[];
+    if(!th.length) return '';
+    const rows=th.map((t,i)=>{
+      const mark=i<8?'✅':'❌';
+      const sign=t.diff>0?'+':'';
+      const prov=t.done?'':' (prov.)';
+      return `${mark} ${i+1}. ${team(t.team)} (gr. ${t.grp}) — ${t.pts} pts, ${sign}${t.diff}${prov}`;
+    });
+    if(rows.length>8) rows.splice(8,0,'— — — — — — — —');
+    return `🥉 Course aux 8 meilleurs 3ᵉˢ — Mondial 2026\n(les 8 premiers des 12 groupes sont repêchés pour les 16ᵉˢ)\n\n${rows.join('\n')}\n\n📲 Classements complets & focus 🐘 Côte d'Ivoire 👉 ${SITE}`;
+  }
+  function doPublish(){
+    const txt=buildText();
+    if(!txt){toast('Course aux 3ᵉˢ indisponible pour le moment');return;}
+    if(navigator.share){navigator.share({title:'Course aux 8 meilleurs 3ᵉˢ — Mondial 2026',text:txt,url:SITE}).catch(()=>{});return;}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(()=>toast('📋 Classement des 3ᵉˢ copié — à publier !'),()=>fallbackCopy(txt));
+    } else fallbackCopy(txt);
+  }
+  const btn=document.querySelector('#share-thirds');
+  if(btn) btn.addEventListener('click',doPublish);
 })();
 
 /* ════════════════════════════════════════════════════════════
