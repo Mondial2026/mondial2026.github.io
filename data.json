@@ -1,1 +1,178 @@
-{"lastUpdate":"2026-06-26","matches":[]}
+{
+  "lastUpdate": "2026-06-26",
+  "matches": [
+    {
+      "g": "E",
+      "home": "Curaçao",
+      "away": "Côte d'Ivoire",
+      "st": "done",
+      "s": "0-2",
+      "goals": [
+        {
+          "p": "Pépé",
+          "t": "Côte d'Ivoire",
+          "m": "7"
+        },
+        {
+          "p": "Pépé",
+          "t": "Côte d'Ivoire",
+          "m": "64"
+        }
+      ]
+    },
+    {
+      "g": "E",
+      "home": "Équateur",
+      "away": "Allemagne",
+      "st": "done",
+      "s": "2-1",
+      "goals": [
+        {
+          "p": "Sané",
+          "t": "Allemagne",
+          "m": "2"
+        },
+        {
+          "p": "Angulo",
+          "t": "Équateur",
+          "m": "9"
+        },
+        {
+          "p": "Plata",
+          "t": "Équateur",
+          "m": "77"
+        }
+      ]
+    },
+    {
+      "g": "F",
+      "home": "Japon",
+      "away": "Suède",
+      "st": "done",
+      "s": "1-1",
+      "goals": [
+        {
+          "p": "Maeda",
+          "t": "Japon",
+          "m": "56"
+        },
+        {
+          "p": "Elanga",
+          "t": "Suède",
+          "m": "62"
+        }
+      ]
+    },
+    {
+      "g": "F",
+      "home": "Tunisie",
+      "away": "Pays-Bas",
+      "st": "done",
+      "s": "1-3",
+      "goals": [
+        {
+          "p": "Skhiri",
+          "t": "Tunisie",
+          "m": "3",
+          "og": true
+        },
+        {
+          "p": "Brobbey",
+          "t": "Pays-Bas",
+          "m": "7"
+        },
+        {
+          "p": "Mastouri",
+          "t": "Tunisie",
+          "m": "54"
+        },
+        {
+          "p": "Hecke",
+          "t": "Pays-Bas",
+          "m": "62"
+        }
+      ]
+    },
+    {
+      "g": "D",
+      "home": "Paraguay",
+      "away": "Australie",
+      "st": "done",
+      "s": "0-0"
+    },
+    {
+      "g": "D",
+      "home": "Türkiye",
+      "away": "États-Unis",
+      "st": "done",
+      "s": "3-2",
+      "goals": [
+        {
+          "p": "Trusty",
+          "t": "États-Unis",
+          "m": "3"
+        },
+        {
+          "p": "Güler",
+          "t": "Türkiye",
+          "m": "10"
+        },
+        {
+          "p": "Yilmaz",
+          "t": "Türkiye",
+          "m": "31"
+        },
+        {
+          "p": "Berhalter",
+          "t": "États-Unis",
+          "m": "49"
+        },
+        {
+          "p": "Ayhan",
+          "t": "Türkiye",
+          "m": "90+8"
+        }
+      ]
+    }
+  ],
+  "civLineup": {
+    "match": "Côte d'Ivoire – Curaçao · groupe E (Mondial 2026)",
+    "formation": "4-2-3-1",
+    "coach": "Emerse Faé",
+    "probable": false,
+    "lines": [
+      {
+        "role": "Gardien",
+        "players": [
+          "Yahia Fofana"
+        ]
+      },
+      {
+        "role": "Défenseurs",
+        "players": [
+          "Guela Doué",
+          "Christopher Operi",
+          "Odilon Kossounou",
+          "Ousmane Diomande"
+        ]
+      },
+      {
+        "role": "Milieux",
+        "players": [
+          "Franck Kessié",
+          "Amad Diallo",
+          "Ibrahim Sangaré",
+          "Nicolas Pépé",
+          "Yan Diomande"
+        ]
+      },
+      {
+        "role": "Attaquants",
+        "players": [
+          "Ange-Yoan Bonny"
+        ]
+      }
+    ],
+    "note": "🟢 Onze officiel — mis à jour automatiquement (source ESPN)."
+  }
+}
