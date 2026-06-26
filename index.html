@@ -705,10 +705,10 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-06-25";
+const LAST_UPDATE = "2026-06-26";
 
 // Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
-const NEXT_KICKOFF = { iso:"2026-06-25T20:00:00Z", label:"⏳ avant Curaçao 🇨🇼 – Côte d'Ivoire 🇨🇮 (3ᵉ journée · qualification en jeu)" };
+const NEXT_KICKOFF = { iso:"2026-06-30T17:00:00Z", label:"⏳ avant Côte d'Ivoire 🇨🇮 – 2ᵉ groupe I (16ᵉ de finale · 30 juin, Dallas · adversaire : France 🇫🇷 ou Norvège 🇳🇴, fixé le 26 juin)" };
 
 // Drapeaux des 48 équipes
 const FLAGS = {
@@ -768,22 +768,22 @@ const GROUP_MATCHES = [
  {g:"D",j:1,d:"13 juin",home:"Australie",away:"Türkiye",venue:"BC Place · Vancouver",t:"06h00 (+1j)",s:"2-0",st:"done",goals:[{p:"Irankunda",t:"Australie",m:"27"},{p:"Metcalfe",t:"Australie",m:"75"}]},
  {g:"D",j:2,d:"19 juin",home:"États-Unis",away:"Australie",venue:"Lumen Field · Seattle",t:"21h00",s:"2-0",st:"done",goals:[{p:"Burgess",t:"États-Unis",m:"11",og:true},{p:"Freeman",t:"États-Unis",m:"43"}]},
  {g:"D",j:2,d:"19 juin",home:"Türkiye",away:"Paraguay",venue:"Levi's Stadium · San Francisco",t:"05h00 (+1j)",s:"0-1",st:"done",goals:[{p:"Galarza",t:"Paraguay",m:"2"}]},
- {g:"D",j:3,d:"25 juin",home:"Türkiye",away:"États-Unis",venue:"SoFi Stadium · Los Angeles",t:"04h00 (+1j)",s:"",st:"upcoming"},
- {g:"D",j:3,d:"25 juin",home:"Paraguay",away:"Australie",venue:"Levi's Stadium · San Francisco",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ {g:"D",j:3,d:"25 juin",home:"Türkiye",away:"États-Unis",venue:"SoFi Stadium · Los Angeles",t:"04h00 (+1j)",s:"3-2",st:"done",goals:[{p:"Trusty",t:"États-Unis",m:"3"},{p:"Güler",t:"Türkiye",m:"10"},{p:"Kökçü",t:"Türkiye",m:"31"},{p:"Berhalter",t:"États-Unis",m:"49"},{p:"Ayhan",t:"Türkiye",m:"90+8"}]},
+ {g:"D",j:3,d:"25 juin",home:"Paraguay",away:"Australie",venue:"Levi's Stadium · San Francisco",t:"04h00 (+1j)",s:"0-0",st:"done",goals:[]},
  // Groupe E (Côte d'Ivoire 🇨🇮)
  {g:"E",j:1,d:"14 juin",home:"Allemagne",away:"Curaçao",venue:"NRG Stadium · Houston",t:"19h00",s:"7-1",st:"done",goals:[{p:"Nmecha",t:"Allemagne",m:"6"},{p:"Comenencia",t:"Curaçao",m:"21"},{p:"Schlotterbeck",t:"Allemagne",m:"38"},{p:"Havertz",t:"Allemagne",m:"45+5",pen:true},{p:"Musiala",t:"Allemagne",m:"47"},{p:"Brown",t:"Allemagne",m:"68"},{p:"Undav",t:"Allemagne",m:"78"},{p:"Havertz",t:"Allemagne",m:"88"}]},
  {g:"E",j:1,d:"14 juin",home:"Côte d'Ivoire",away:"Équateur",venue:"Lincoln Financial Field · Philadelphie",t:"01h00 (+1j)",s:"1-0",st:"done",goals:[{p:"Amad Diallo",t:"Côte d'Ivoire",m:"90"}]},
  {g:"E",j:2,d:"20 juin",home:"Allemagne",away:"Côte d'Ivoire",venue:"BMO Field · Toronto",t:"22h00",s:"2-1",st:"done",goals:[{p:"Kessié",t:"Côte d'Ivoire",m:"30"},{p:"Undav",t:"Allemagne",m:"68"},{p:"Undav",t:"Allemagne",m:"90+4"}]},
  {g:"E",j:2,d:"20 juin",home:"Équateur",away:"Curaçao",venue:"Arrowhead Stadium · Kansas City",t:"02h00 (+1j)",s:"0-0",st:"done",goals:[]},
- {g:"E",j:3,d:"25 juin",home:"Curaçao",away:"Côte d'Ivoire",venue:"Lincoln Financial Field · Philadelphie",t:"22h00",s:"",st:"upcoming"},
- {g:"E",j:3,d:"25 juin",home:"Équateur",away:"Allemagne",venue:"MetLife Stadium · New York/NJ",t:"22h00",s:"",st:"upcoming"},
+ {g:"E",j:3,d:"25 juin",home:"Curaçao",away:"Côte d'Ivoire",venue:"Lincoln Financial Field · Philadelphie",t:"22h00",s:"0-2",st:"done",goals:[{p:"Pépé",t:"Côte d'Ivoire",m:"7"},{p:"Pépé",t:"Côte d'Ivoire",m:"64"}]},
+ {g:"E",j:3,d:"25 juin",home:"Équateur",away:"Allemagne",venue:"MetLife Stadium · New York/NJ",t:"22h00",s:"2-1",st:"done",goals:[{p:"Sané",t:"Allemagne",m:"2"},{p:"Angulo",t:"Équateur",m:"9"},{p:"Plata",t:"Équateur",m:"77"}]},
  // Groupe F
  {g:"F",j:1,d:"14 juin",home:"Pays-Bas",away:"Japon",venue:"AT&T Stadium · Dallas",t:"22h00",s:"2-2",st:"done",goals:[{p:"Van Dijk",t:"Pays-Bas",m:"51"},{p:"Nakamura",t:"Japon",m:"57"},{p:"Summerville",t:"Pays-Bas",m:"64"},{p:"Kamada",t:"Japon",m:"88"}]},
  {g:"F",j:1,d:"14 juin",home:"Suède",away:"Tunisie",venue:"Estadio BBVA · Monterrey",t:"04h00 (+1j)",s:"5-1",st:"done",goals:[{p:"Ayari",t:"Suède",m:"7"},{p:"Isak",t:"Suède",m:"30"},{p:"Rekik",t:"Tunisie",m:"43"},{p:"Gyökeres",t:"Suède",m:"59"},{p:"Svanberg",t:"Suède",m:"84"},{p:"Ayari",t:"Suède",m:"90+6"}]},
  {g:"F",j:2,d:"20 juin",home:"Pays-Bas",away:"Suède",venue:"NRG Stadium · Houston",t:"19h00",s:"5-1",st:"done",goals:[{p:"Brobbey",t:"Pays-Bas",m:"5"},{p:"Brobbey",t:"Pays-Bas",m:"17"},{p:"Gakpo",t:"Pays-Bas",m:"47"},{p:"Gakpo",t:"Pays-Bas",m:"54"},{p:"Elanga",t:"Suède",m:"59"},{p:"Summerville",t:"Pays-Bas",m:"89"}]},
  {g:"F",j:2,d:"20 juin",home:"Tunisie",away:"Japon",venue:"Estadio BBVA · Monterrey",t:"06h00 (+1j)",s:"0-4",st:"done",goals:[{p:"Kamada",t:"Japon",m:"4"},{p:"Ueda",t:"Japon",m:"31"},{p:"Itō",t:"Japon",m:"69"},{p:"Ueda",t:"Japon",m:"83"}]},
- {g:"F",j:3,d:"25 juin",home:"Japon",away:"Suède",venue:"AT&T Stadium · Dallas",t:"01h00 (+1j)",s:"",st:"upcoming"},
- {g:"F",j:3,d:"25 juin",home:"Tunisie",away:"Pays-Bas",venue:"Arrowhead Stadium · Kansas City",t:"01h00 (+1j)",s:"",st:"upcoming"},
+ {g:"F",j:3,d:"25 juin",home:"Japon",away:"Suède",venue:"AT&T Stadium · Dallas",t:"01h00 (+1j)",s:"1-1",st:"done",goals:[{p:"Maeda",t:"Japon",m:"56"},{p:"Elanga",t:"Suède",m:"62"}]},
+ {g:"F",j:3,d:"25 juin",home:"Tunisie",away:"Pays-Bas",venue:"Arrowhead Stadium · Kansas City",t:"01h00 (+1j)",s:"1-3",st:"done",goals:[{p:"Skhiri",t:"Pays-Bas",m:"3",og:true},{p:"Brobbey",t:"Pays-Bas",m:"7"},{p:"Mastouri",t:"Tunisie",m:"54"},{p:"van Hecke",t:"Pays-Bas",m:"62"}]},
  // Groupe G
  {g:"G",j:1,d:"15 juin",home:"Belgique",away:"Égypte",venue:"Lumen Field · Seattle",t:"21h00",s:"1-1",st:"done",goals:[{p:"Ashour",t:"Égypte",m:"19"},{p:"Hany",t:"Belgique",m:"66",og:true}]},
  {g:"G",j:1,d:"15 juin",home:"Iran",away:"Nouvelle-Zélande",venue:"SoFi Stadium · Los Angeles",t:"03h00 (+1j)",s:"2-2",st:"done",goals:[{p:"Just",t:"Nouvelle-Zélande",m:"7"},{p:"Rezaeian",t:"Iran",m:"32"},{p:"Just",t:"Nouvelle-Zélande",m:"54"},{p:"Mohebbi",t:"Iran",m:"64"}]},
@@ -834,10 +834,10 @@ const KNOCKOUT = [
  {phase:"16ᵉˢ de finale (28 juin – 3 juillet)", matches:[
   {id:"M73",d:"28 juin",pairing:"2ᵉ A – 2ᵉ B",venue:"SoFi Stadium · Los Angeles",home:"Afrique du Sud",away:"Canada",s:"",st:"upcoming"},
   {id:"M74",d:"29 juin",pairing:"1ᵉʳ E – 3ᵉ (A/B/C/D/F)",venue:"Gillette Stadium · Boston",home:"",away:"",s:"",st:"upcoming"},
-  {id:"M75",d:"29 juin",pairing:"1ᵉʳ F – 2ᵉ C",venue:"Estadio BBVA · Monterrey",home:"",away:"",s:"",st:"upcoming"},
-  {id:"M76",d:"29 juin",pairing:"1ᵉʳ C – 2ᵉ F",venue:"NRG Stadium · Houston",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M75",d:"29 juin",pairing:"1ᵉʳ F – 2ᵉ C",venue:"Estadio BBVA · Monterrey",home:"Pays-Bas",away:"Maroc",s:"",st:"upcoming"},
+  {id:"M76",d:"29 juin",pairing:"1ᵉʳ C – 2ᵉ F",venue:"NRG Stadium · Houston",home:"Brésil",away:"Japon",s:"",st:"upcoming"},
   {id:"M77",d:"30 juin",pairing:"1ᵉʳ I – 3ᵉ (C/D/F/G/H)",venue:"MetLife Stadium · New York/NJ",home:"",away:"",s:"",st:"upcoming"},
-  {id:"M78",d:"30 juin",pairing:"2ᵉ E – 2ᵉ I",venue:"AT&T Stadium · Dallas",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M78",d:"30 juin",pairing:"2ᵉ E – 2ᵉ I",venue:"AT&T Stadium · Dallas",home:"Côte d'Ivoire",away:"",s:"",st:"upcoming"},
   {id:"M79",d:"30 juin",pairing:"1ᵉʳ A – 3ᵉ (C/E/F/H/I)",venue:"Estadio Azteca · Mexico",home:"",away:"",s:"",st:"upcoming"},
   {id:"M80",d:"1ᵉʳ juillet",pairing:"1ᵉʳ L – 3ᵉ (E/H/I/J/K)",venue:"Mercedes-Benz Stadium · Atlanta",home:"",away:"",s:"",st:"upcoming"},
   {id:"M81",d:"1ᵉʳ juillet",pairing:"1ᵉʳ D – 3ᵉ (B/E/F/I/J)",venue:"Levi's Stadium · San Francisco",home:"",away:"",s:"",st:"upcoming"},
@@ -873,28 +873,23 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"25 juin 2026", title:"🐘 Jour J : la Côte d'Ivoire joue sa qualification face à Curaçao", text:"Ce soir (jeudi 25 juin, 22h00 Paris / 20h00 GMT, au Lincoln Financial Field de Philadelphie), les Éléphants disputent le match le plus important de leur histoire récente. 2ᵉ du groupe E avec 3 points, la Côte d'Ivoire d'Emerse Faé tient son destin face à Curaçao (1 pt) : une victoire enverrait les Ivoiriens en 16ᵉˢ de finale pour la première fois (après les sorties au 1ᵉʳ tour en 2006, 2010 et 2014), et un nul pourrait suffire selon le résultat parallèle d'Équateur–Allemagne, joué en même temps. La compo de départ sera affichée dans l'onglet « CIV » dès l'annonce officielle, environ une heure avant le coup d'envoi." },
-  { date:"24 juin 2026", title:"🇿🇦 L'Afrique du Sud écrit l'histoire (1-0) et file en 16ᵉˢ", text:"Au Estadio BBVA de Monterrey, les Bafana Bafana ont battu la Corée du Sud 1-0 grâce à une frappe de Thapelo Maseko (63ᵉ), sur un centre de Tshepang Moremi. L'Afrique du Sud atteint la phase à élimination directe d'un Mondial pour la première fois et finit 2ᵉ du groupe A derrière un Mexique impérial (parcours parfait, 3-0 contre la Tchéquie). En 16ᵉˢ (M73, 28 juin à Los Angeles), les Sud-Africains affronteront le Canada." },
-  { date:"24 juin 2026", title:"Groupe B : la Suisse en tête, le Canada qualifié, la Bosnie out", text:"À Vancouver, la Suisse a dominé le Canada 2-1 (Vargas 46ᵉ, Manzambi 57ᵉ ; David 76ᵉ pour le Canada) et termine 1ᵉʳ du groupe B avec 7 points. Le Canada se qualifie tout de même comme 2ᵉ à la différence de buts. À Seattle, la Bosnie-Herzégovine a battu le Qatar 3-1 (dont un csc) mais est éliminée, devancée par les Canadiens." },
-  { date:"24 juin 2026", title:"Groupe C : le Brésil et le Maroc qualifiés, l'Écosse éliminée", text:"À Miami, le Brésil a balayé l'Écosse 3-0 avec un doublé de Vinícius Júnior (7ᵉ, 45+3) et un but de Matheus Cunha (60ᵉ), s'assurant la 1ᵉʳ place du groupe C. À Atlanta, le Maroc a dominé Haïti 4-2 (Hakimi, Saibari, Rahimi, G. Yassine) et accompagne le Brésil au tour suivant comme 2ᵉ. L'Écosse, battue, quitte la compétition." },
-  { date:"24 juin 2026", title:"🇵🇹 Ronaldo réveille le Portugal : carton 5-0 face à l'Ouzbékistan", text:"Au NRG Stadium de Houston, le Portugal a soigné son retour après le nul initial face à la RD Congo. Cristiano Ronaldo a frappé deux fois (6ᵉ, 39ᵉ), encadrant un coup franc de Nuno Mendes (17ᵉ). Un but contre son camp de Nematov (60ᵉ) puis un dernier coup de patte de Rafael Leão (87ᵉ) ont scellé un 5-0 sans appel, avant le choc décisif face à la Colombie le 27 juin." },
+  { date:"26 juin 2026", title:"🐘🎉 HISTORIQUE : la Côte d'Ivoire en 16ᵉˢ de finale pour la première fois !", text:"Au Lincoln Financial Field de Philadelphie, les Éléphants ont dominé Curaçao 2-0 grâce à un doublé de Nicolas Pépé (7ᵉ, 64ᵉ) et se qualifient pour la phase à élimination directe d'une Coupe du monde pour la première fois de leur histoire (après les sorties au 1ᵉʳ tour en 2006, 2010 et 2014). 2ᵉ du groupe E avec 6 points, la Côte d'Ivoire d'Emerse Faé affrontera le 2ᵉ du groupe I (France ou Norvège) le 30 juin à l'AT&T Stadium de Dallas. « Nous ne sommes pas venus seulement pour passer le premier tour », a prévenu Faé, qui vise désormais un grand parcours." },
+  { date:"25 juin 2026", title:"Groupe E : l'Équateur crée la surprise (2-1) mais l'Allemagne finit 1ʳᵉ", text:"Au MetLife Stadium, l'Équateur a renversé l'Allemagne 2-1 : Sané avait ouvert le score dès la 2ᵉ minute, mais Angulo (9ᵉ) puis Plata (77ᵉ) ont offert la victoire à la Tri, qualifiée comme l'un des meilleurs 3ᵉˢ. La Mannschaft, battue, termine néanmoins 1ʳᵉ du groupe E au bénéfice de sa confrontation directe gagnée contre la Côte d'Ivoire (2-1) et de sa différence de buts." },
+  { date:"25 juin 2026", title:"📅 16ᵉˢ : les Éléphants connaissent leur affiche du 30 juin à Dallas", text:"Vainqueurs de leur groupe sur le fil, les Ivoiriens hériteront du 2ᵉ du groupe I, désigné ce vendredi 26 juin lors du choc Norvège–France. Ce sera donc la France de Mbappé ou la Norvège de Haaland qui se dressera face à la Côte d'Ivoire au tour suivant, à l'AT&T Stadium d'Arlington (Dallas). Coup d'envoi prévu en début d'après-midi local (≈ 17h00 GMT)." },
+  { date:"25 juin 2026", title:"🇹🇷 Coup de théâtre : la Türkiye renverse les États-Unis (3-2) à la 90+8ᵉ", text:"Au SoFi Stadium de Los Angeles, la Türkiye, déjà éliminée, a infligé aux États-Unis leur première défaite du tournoi sur un but de Kaan Ayhan dans le temps additionnel (90+8ᵉ). Trusty (3ᵉ) et Berhalter (49ᵉ) avaient répondu à Güler (10ᵉ) et Kökçü (31ᵉ). Les USA terminent malgré tout 1ᵉʳˢ du groupe D et filent en 16ᵉˢ." },
+  { date:"25 juin 2026", title:"Groupe F : les Pays-Bas en tête, le Japon et la Suède qualifiés", text:"Les Pays-Bas ont validé la 1ʳᵉ place en battant la Tunisie 3-1 (csc Skhiri 3ᵉ, Brobbey 7ᵉ, van Hecke 62ᵉ ; Mastouri 54ᵉ). Dans le même temps, le Japon et la Suède se sont neutralisés 1-1 (Maeda 56ᵉ, Elanga 62ᵉ) : le Japon passe 2ᵉ et la Suède accroche un billet comme meilleur 3ᵉ. La Tunisie est éliminée." },
 ];
 
 // ───────── COMPOSITION DE DÉPART DE LA CÔTE D'IVOIRE ─────────
 // Mettre à jour avant chaque match (onze annoncé). Mettre lines:[] (ou
 // CIV_LINEUP=null) pour masquer le bloc entre deux matchs.
 const CIV_LINEUP = {
-  match:"Curaçao 🇨🇼 – Côte d'Ivoire 🇨🇮 · 3ᵉ journée (groupe E) · 25 juin, Philadelphie",
+  match:"Prochain match : 16ᵉ de finale · Côte d'Ivoire 🇨🇮 – 2ᵉ groupe I · 30 juin, AT&T Stadium (Dallas)",
   formation:"4-3-3",
   coach:"Emerse Faé",
   probable:true,
-  lines:[
-    {role:"Gardien", players:["Yahia Fofana"]},
-    {role:"Défenseurs", players:["Guéla Doué","Emmanuel Agbadou","Odilon Kossounou","Ghislain Konan"]},
-    {role:"Milieux", players:["Ibrahim Sangaré","Franck Kessié","Christ Inao Oulai"]},
-    {role:"Attaquants", players:["Amad Diallo","Ange-Yoan Bonny","Yan Diomandé"]}
-  ],
-  note:"⚠️ Composition probable (presse) — le onze officiel sera confirmé environ 1h avant le coup d'envoi. La Côte d'Ivoire (3 pts) vise au moins le nul pour se qualifier."
+  lines:[],
+  note:"🐘 Qualifiés pour la première fois en 16ᵉˢ ! Le onze de départ pour le 8ᵉ tour sera affiché ici dès l'annonce officielle (≈ 1h avant le coup d'envoi du 30 juin). Adversaire : 2ᵉ du groupe I (France ou Norvège), désigné le 26 juin."
 };
 // Overlay live du onze officiel : alimenté par data.json.civLineup (écrit par la GitHub Action
 // dès l'annonce officielle ~1h avant le match). Null ⇒ on retombe sur CIV_LINEUP figé ci-dessus.
