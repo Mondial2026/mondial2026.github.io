@@ -133,6 +133,49 @@
           "m": "90+8"
         }
       ]
+    },
+    {
+      "g": "I",
+      "home": "Norvège",
+      "away": "France",
+      "st": "live",
+      "s": "1-3",
+      "goals": [
+        {
+          "p": "Dembélé",
+          "t": "France",
+          "m": "7"
+        },
+        {
+          "p": "Dembélé",
+          "t": "France",
+          "m": "20"
+        },
+        {
+          "p": "Aasgaard",
+          "t": "Norvège",
+          "m": "21"
+        },
+        {
+          "p": "Dembélé",
+          "t": "France",
+          "m": "32"
+        }
+      ]
+    },
+    {
+      "g": "I",
+      "home": "Sénégal",
+      "away": "Irak",
+      "st": "live",
+      "s": "1-0",
+      "goals": [
+        {
+          "p": "Diarra",
+          "t": "Sénégal",
+          "m": "4"
+        }
+      ]
     }
   ],
   "civLineup": {
