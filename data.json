@@ -152,7 +152,7 @@
       "g": "L",
       "home": "Croatie",
       "away": "Ghana",
-      "st": "live",
+      "st": "done",
       "s": "2-1",
       "goals": [
         {
@@ -176,7 +176,7 @@
       "g": "L",
       "home": "Panama",
       "away": "Angleterre",
-      "st": "live",
+      "st": "done",
       "s": "0-2",
       "goals": [
         {
@@ -188,6 +188,27 @@
           "p": "Kane",
           "t": "Angleterre",
           "m": "67"
+        }
+      ]
+    },
+    {
+      "g": "K",
+      "home": "Colombie",
+      "away": "Portugal",
+      "st": "live",
+      "s": "0-0"
+    },
+    {
+      "g": "K",
+      "home": "RD Congo",
+      "away": "Ouzbékistan",
+      "st": "live",
+      "s": "0-1",
+      "goals": [
+        {
+          "p": "Shomurodov",
+          "t": "Ouzbékistan",
+          "m": "10"
         }
       ]
     }
