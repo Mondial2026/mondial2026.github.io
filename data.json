@@ -89,6 +89,64 @@
           "m": "42"
         }
       ]
+    },
+    {
+      "g": "G",
+      "home": "Égypte",
+      "away": "Iran",
+      "st": "done",
+      "s": "1-1",
+      "goals": [
+        {
+          "p": "Saber",
+          "t": "Égypte",
+          "m": "5"
+        },
+        {
+          "p": "Rezaeian",
+          "t": "Iran",
+          "m": "14"
+        }
+      ]
+    },
+    {
+      "g": "G",
+      "home": "Nouvelle-Zélande",
+      "away": "Belgique",
+      "st": "done",
+      "s": "1-5",
+      "goals": [
+        {
+          "p": "Trossard",
+          "t": "Belgique",
+          "m": "28"
+        },
+        {
+          "p": "Trossard",
+          "t": "Belgique",
+          "m": "50"
+        },
+        {
+          "p": "Bruyne",
+          "t": "Belgique",
+          "m": "66"
+        },
+        {
+          "p": "Just",
+          "t": "Nouvelle-Zélande",
+          "m": "84"
+        },
+        {
+          "p": "Lukaku",
+          "t": "Belgique",
+          "m": "86"
+        },
+        {
+          "p": "Saelemaekers",
+          "t": "Belgique",
+          "m": "90+4"
+        }
+      ]
     }
   ]
 }
