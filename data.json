@@ -73,15 +73,22 @@
       "g": "H",
       "home": "Cap-Vert",
       "away": "Arabie saoudite",
-      "st": "live",
+      "st": "done",
       "s": "0-0"
     },
     {
       "g": "H",
       "home": "Uruguay",
       "away": "Espagne",
-      "st": "live",
-      "s": "0-0"
+      "st": "done",
+      "s": "0-1",
+      "goals": [
+        {
+          "p": "Baena",
+          "t": "Espagne",
+          "m": "42"
+        }
+      ]
     }
   ]
 }
