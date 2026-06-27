@@ -153,12 +153,22 @@
       "home": "Croatie",
       "away": "Ghana",
       "st": "live",
-      "s": "1-0",
+      "s": "2-1",
       "goals": [
         {
           "p": "Sucic",
           "t": "Croatie",
           "m": "31"
+        },
+        {
+          "p": "Luckassen",
+          "t": "Ghana",
+          "m": "73"
+        },
+        {
+          "p": "Vlasic",
+          "t": "Croatie",
+          "m": "83"
         }
       ]
     },
@@ -167,7 +177,19 @@
       "home": "Panama",
       "away": "Angleterre",
       "st": "live",
-      "s": "0-0"
+      "s": "0-2",
+      "goals": [
+        {
+          "p": "Bellingham",
+          "t": "Angleterre",
+          "m": "62"
+        },
+        {
+          "p": "Kane",
+          "t": "Angleterre",
+          "m": "67"
+        }
+      ]
     }
   ]
 }
