@@ -85,8 +85,8 @@
       "g": "J",
       "home": "Algérie",
       "away": "Autriche",
-      "st": "live",
-      "s": "2-2",
+      "st": "done",
+      "s": "3-3",
       "goals": [
         {
           "p": "Arnautovic",
@@ -107,6 +107,16 @@
           "p": "Mahrez",
           "t": "Algérie",
           "m": "60"
+        },
+        {
+          "p": "Mahrez",
+          "t": "Algérie",
+          "m": "90+3"
+        },
+        {
+          "p": "Kalajdzic",
+          "t": "Autriche",
+          "m": "90+6"
         }
       ]
     },
@@ -114,8 +124,8 @@
       "g": "J",
       "home": "Jordanie",
       "away": "Argentine",
-      "st": "live",
-      "s": "1-2",
+      "st": "done",
+      "s": "1-3",
       "goals": [
         {
           "p": "Celso",
@@ -132,6 +142,11 @@
           "p": "Al-Tamari",
           "t": "Jordanie",
           "m": "55"
+        },
+        {
+          "p": "Messi",
+          "t": "Argentine",
+          "m": "80"
         }
       ]
     }
