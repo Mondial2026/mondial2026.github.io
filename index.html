@@ -580,7 +580,7 @@
   <section>
     <div class="wrap">
       <h2>🌍 Classement général des 48 nations</h2>
-      <p class="sub">Toutes les sélections classées au points de la phase de groupes (puis différence de buts, puis buts marqués), tous groupes confondus. Calculé automatiquement à partir des résultats.</p>
+      <p class="sub">Les 48 sélections, tous groupes confondus : les <b>32 qualifiés</b> pour les 16ᵉˢ d'abord (2 premiers de chaque groupe + 8 meilleurs 3ᵉˢ), puis les éliminés — chaque bloc trié aux points (différence de buts, puis buts marqués). Calculé automatiquement à partir des résultats.</p>
       <div id="all-nations"></div>
     </div>
   </section>
@@ -1072,12 +1072,24 @@ function computeAllNations(){
 }
 function renderAllNations(){
   const box=$("#all-nations"); if(!box) return;
-  const rows=computeAllNations();
-  const body=rows.map((t,i)=>`<tr class="${t.team==="Côte d'Ivoire"?'civ':''}">
-      <td><b>${i+1}</b></td><td class="team">${team(t.team)}</td><td>${t.grp}</td>
+  // Ensemble des qualifiés : 1ᵉʳ + 2ᵉ de chaque groupe + 8 meilleurs 3ᵉˢ (mêmes règles que le bracket)
+  const qualified=new Set();
+  GROUP_LETTERS.forEach(g=>{const t=computeTable(g); if(t[0])qualified.add(t[0].team); if(t[1])qualified.add(t[1].team);});
+  bestThirds().slice(0,8).forEach(t=>qualified.add(t.team));
+  // Tri : les qualifiés d'abord, puis les éliminés ; à l'intérieur de chaque bloc, aux points (diff, buts marqués)
+  const rows=computeAllNations().map(t=>({...t,q:qualified.has(t.team)}))
+    .sort((x,y)=>(x.q===y.q?0:x.q?-1:1)||y.pts-x.pts||y.diff-x.diff||y.bp-x.bp||x.team.localeCompare(y.team));
+  const cut=`<tr><td colspan="11" style="background:#fff3e6;color:var(--orange-dark);font-weight:800;text-align:center;font-size:.78rem;letter-spacing:.02em;padding:7px">✂️ Ligne de qualification — 32 qualifiés pour les 16ᵉˢ · 16 éliminés en dessous</td></tr>`;
+  const body=rows.map((t,i)=>{
+    const sep=(i>0&&!t.q&&rows[i-1].q)?cut:'';
+    return sep+`<tr class="${t.team==="Côte d'Ivoire"?'civ':''}">
+      <td><span class="qual" style="background:${t.q?'var(--green)':'#d22'}"></span> ${i+1}</td>
+      <td class="team">${team(t.team)}</td><td>${t.grp}</td>
       <td>${t.j}</td><td>${t.g}</td><td>${t.n}</td><td>${t.p}</td>
-      <td>${t.bp}</td><td>${t.bc}</td><td>${t.diff>0?'+':''}${t.diff}</td><td><b>${t.pts}</b></td></tr>`).join('');
-  box.innerHTML=`<div class="table-scroll"><table><thead><tr><th>#</th><th>Équipe</th><th>Gr.</th><th>J</th><th>G</th><th>N</th><th>P</th><th>BP</th><th>BC</th><th>±</th><th>Pts</th></tr></thead><tbody>${body}</tbody></table></div>`;
+      <td>${t.bp}</td><td>${t.bc}</td><td>${t.diff>0?'+':''}${t.diff}</td><td><b>${t.pts}</b></td></tr>`;
+  }).join('');
+  box.innerHTML=`<div class="table-scroll"><table><thead><tr><th>#</th><th>Équipe</th><th>Gr.</th><th>J</th><th>G</th><th>N</th><th>P</th><th>BP</th><th>BC</th><th>±</th><th>Pts</th></tr></thead><tbody>${body}</tbody></table></div>
+    <div class="legend"><span><i class="dot" style="background:var(--green)"></i> Qualifié pour les 16ᵉˢ (2 premiers de chaque groupe + 8 meilleurs 3ᵉˢ)</span><span><i class="dot" style="background:#d22"></i> Éliminé</span></div>`;
 }
 // ── Qualifiés pour les 16ᵉˢ : 1ᵉʳ + 2ᵉ de chaque groupe + 8 meilleurs 3ᵉˢ (calcul auto, provisoire si groupe en cours)
 const GROUP_LETTERS="ABCDEFGHIJKL".split('');
