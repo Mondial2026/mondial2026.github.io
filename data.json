@@ -1,153 +1,6 @@
 {
-  "lastUpdate": "2026-06-27",
+  "lastUpdate": "2026-06-28",
   "matches": [
-    {
-      "g": "I",
-      "home": "Norvège",
-      "away": "France",
-      "st": "done",
-      "s": "1-4",
-      "goals": [
-        {
-          "p": "Dembélé",
-          "t": "France",
-          "m": "7"
-        },
-        {
-          "p": "Dembélé",
-          "t": "France",
-          "m": "20"
-        },
-        {
-          "p": "Aasgaard",
-          "t": "Norvège",
-          "m": "21"
-        },
-        {
-          "p": "Dembélé",
-          "t": "France",
-          "m": "32"
-        },
-        {
-          "p": "Doué",
-          "t": "France",
-          "m": "90+4"
-        }
-      ]
-    },
-    {
-      "g": "I",
-      "home": "Sénégal",
-      "away": "Irak",
-      "st": "done",
-      "s": "5-0",
-      "goals": [
-        {
-          "p": "Diarra",
-          "t": "Sénégal",
-          "m": "4"
-        },
-        {
-          "p": "Sarr",
-          "t": "Sénégal",
-          "m": "56"
-        },
-        {
-          "p": "Gueye",
-          "t": "Sénégal",
-          "m": "59"
-        },
-        {
-          "p": "Gueye",
-          "t": "Sénégal",
-          "m": "71"
-        },
-        {
-          "p": "Ndiaye",
-          "t": "Sénégal",
-          "m": "82"
-        }
-      ]
-    },
-    {
-      "g": "H",
-      "home": "Cap-Vert",
-      "away": "Arabie saoudite",
-      "st": "done",
-      "s": "0-0"
-    },
-    {
-      "g": "H",
-      "home": "Uruguay",
-      "away": "Espagne",
-      "st": "done",
-      "s": "0-1",
-      "goals": [
-        {
-          "p": "Baena",
-          "t": "Espagne",
-          "m": "42"
-        }
-      ]
-    },
-    {
-      "g": "G",
-      "home": "Égypte",
-      "away": "Iran",
-      "st": "done",
-      "s": "1-1",
-      "goals": [
-        {
-          "p": "Saber",
-          "t": "Égypte",
-          "m": "5"
-        },
-        {
-          "p": "Rezaeian",
-          "t": "Iran",
-          "m": "14"
-        }
-      ]
-    },
-    {
-      "g": "G",
-      "home": "Nouvelle-Zélande",
-      "away": "Belgique",
-      "st": "done",
-      "s": "1-5",
-      "goals": [
-        {
-          "p": "Trossard",
-          "t": "Belgique",
-          "m": "28"
-        },
-        {
-          "p": "Trossard",
-          "t": "Belgique",
-          "m": "50"
-        },
-        {
-          "p": "Bruyne",
-          "t": "Belgique",
-          "m": "66"
-        },
-        {
-          "p": "Just",
-          "t": "Nouvelle-Zélande",
-          "m": "84"
-        },
-        {
-          "p": "Lukaku",
-          "t": "Belgique",
-          "m": "86"
-        },
-        {
-          "p": "Saelemaekers",
-          "t": "Belgique",
-          "m": "90+4"
-        }
-      ]
-    },
     {
       "g": "L",
       "home": "Croatie",
@@ -195,20 +48,90 @@
       "g": "K",
       "home": "Colombie",
       "away": "Portugal",
-      "st": "live",
+      "st": "done",
       "s": "0-0"
     },
     {
       "g": "K",
       "home": "RD Congo",
       "away": "Ouzbékistan",
-      "st": "live",
-      "s": "0-1",
+      "st": "done",
+      "s": "3-1",
       "goals": [
         {
           "p": "Shomurodov",
           "t": "Ouzbékistan",
           "m": "10"
+        },
+        {
+          "p": "Wissa",
+          "t": "RD Congo",
+          "m": "68",
+          "pen": true
+        },
+        {
+          "p": "Mayele",
+          "t": "RD Congo",
+          "m": "78"
+        },
+        {
+          "p": "Wissa",
+          "t": "RD Congo",
+          "m": "90+1"
+        }
+      ]
+    },
+    {
+      "g": "J",
+      "home": "Algérie",
+      "away": "Autriche",
+      "st": "live",
+      "s": "2-2",
+      "goals": [
+        {
+          "p": "Arnautovic",
+          "t": "Autriche",
+          "m": "28"
+        },
+        {
+          "p": "Belghali",
+          "t": "Algérie",
+          "m": "45"
+        },
+        {
+          "p": "Sabitzer",
+          "t": "Autriche",
+          "m": "55"
+        },
+        {
+          "p": "Mahrez",
+          "t": "Algérie",
+          "m": "60"
+        }
+      ]
+    },
+    {
+      "g": "J",
+      "home": "Jordanie",
+      "away": "Argentine",
+      "st": "live",
+      "s": "1-2",
+      "goals": [
+        {
+          "p": "Celso",
+          "t": "Argentine",
+          "m": "19"
+        },
+        {
+          "p": "Martínez",
+          "t": "Argentine",
+          "m": "31",
+          "pen": true
+        },
+        {
+          "p": "Al-Tamari",
+          "t": "Jordanie",
+          "m": "55"
         }
       ]
     }
