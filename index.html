@@ -349,9 +349,9 @@
       <button class="tab-btn active" data-tab="accueil">🏠 Accueil</button>
       <button class="tab-btn" data-tab="civ">🇨🇮 Côte d'Ivoire</button>
       <button class="tab-btn" data-tab="calendrier">📅 Calendrier</button>
+      <button class="tab-btn" data-tab="buteurs">👟 Buteurs</button>
       <button class="tab-btn" data-tab="resultats">⚽ Résultats</button>
       <button class="tab-btn" data-tab="classements">📊 Classements</button>
-      <button class="tab-btn" data-tab="buteurs">👟 Buteurs</button>
       <button class="tab-btn" data-tab="pronostics">🎯 Pronostics</button>
     </nav>
   </div>
@@ -550,16 +550,16 @@
 <div class="tab-panel" id="panel-calendrier">
   <section>
     <div class="wrap">
-      <h2>📅 Calendrier complet — Phase de groupes</h2>
-      <p class="sub">Les 72 matchs classés jour par jour (11 → 27 juin). Le groupe de chaque match est indiqué par une étiquette. Horaires en heure GMT (Abidjan) puis heure de Paris ; (+1j) = match dans la nuit, date du lendemain.</p>
-      <div id="cal-groups"></div>
+      <h2>🏆 Phase à élimination directe</h2>
+      <p class="sub">Le grand rendez-vous : des 16ᵉˢ de finale (28 juin) à la finale (19 juillet, MetLife Stadium). Les équipes s'affichent au fur et à mesure des qualifications. Horaires en heure GMT (Abidjan) puis heure de Paris.</p>
+      <div id="cal-knockout"></div>
     </div>
   </section>
   <section class="alt-bg">
     <div class="wrap">
-      <h2>🏆 Phase à élimination directe</h2>
-      <p class="sub">Des 16ᵉˢ de finale (28 juin) à la finale (19 juillet, MetLife Stadium). Les équipes s'affichent au fur et à mesure des qualifications.</p>
-      <div id="cal-knockout"></div>
+      <h2>📅 Phase de groupes</h2>
+      <p class="sub">Les 72 matchs classés jour par jour (11 → 27 juin). Le groupe de chaque match est indiqué par une étiquette. Horaires en heure GMT (Abidjan) puis heure de Paris ; (+1j) = match dans la nuit, date du lendemain.</p>
+      <div id="cal-groups"></div>
     </div>
   </section>
 </div>
@@ -578,6 +578,13 @@
 <!-- ════════════════════ ONGLET CLASSEMENTS ════════════════════ -->
 <div class="tab-panel" id="panel-classements">
   <section>
+    <div class="wrap">
+      <h2>🌍 Classement général des 48 nations</h2>
+      <p class="sub">Toutes les sélections classées au points de la phase de groupes (puis différence de buts, puis buts marqués), tous groupes confondus. Calculé automatiquement à partir des résultats.</p>
+      <div id="all-nations"></div>
+    </div>
+  </section>
+  <section class="alt-bg">
     <div class="wrap">
       <h2>📊 Classements des 12 groupes</h2>
       <p class="sub">Calculés automatiquement à partir des résultats. Les 2 premiers de chaque groupe + les 8 meilleurs 3ᵉˢ se qualifient pour les 16ᵉˢ.</p>
@@ -1051,6 +1058,27 @@ function tableHTML(g){
   }).join('');
   return `<div class="table-scroll"><table><thead><tr><th>#</th><th>Équipe</th><th>J</th><th>G</th><th>N</th><th>P</th><th>BP</th><th>BC</th><th>±</th><th>Pts</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
+// ── Classement général : toutes les nations, tous groupes confondus (calcul auto depuis les scores)
+function computeAllNations(){
+  const tbl={};
+  GROUP_MATCHES.forEach(m=>[m.home,m.away].forEach(t=>{ if(t&&!tbl[t])tbl[t]={team:t,grp:m.g,j:0,g:0,n:0,p:0,bp:0,bc:0,pts:0}; }));
+  GROUP_MATCHES.filter(m=>m.st==="done"&&/^\d+-\d+$/.test(m.s)).forEach(m=>{
+    const [a,b]=m.s.split('-').map(Number), H=tbl[m.home], A=tbl[m.away];
+    H.j++;A.j++; H.bp+=a;H.bc+=b; A.bp+=b;A.bc+=a;
+    if(a>b){H.g++;H.pts+=3;A.p++;} else if(a<b){A.g++;A.pts+=3;H.p++;} else {H.n++;A.n++;H.pts++;A.pts++;}
+  });
+  return Object.values(tbl).map(t=>({...t,diff:t.bp-t.bc}))
+    .sort((x,y)=>y.pts-x.pts||y.diff-x.diff||y.bp-x.bp||x.team.localeCompare(y.team));
+}
+function renderAllNations(){
+  const box=$("#all-nations"); if(!box) return;
+  const rows=computeAllNations();
+  const body=rows.map((t,i)=>`<tr class="${t.team==="Côte d'Ivoire"?'civ':''}">
+      <td><b>${i+1}</b></td><td class="team">${team(t.team)}</td><td>${t.grp}</td>
+      <td>${t.j}</td><td>${t.g}</td><td>${t.n}</td><td>${t.p}</td>
+      <td>${t.bp}</td><td>${t.bc}</td><td>${t.diff>0?'+':''}${t.diff}</td><td><b>${t.pts}</b></td></tr>`).join('');
+  box.innerHTML=`<div class="table-scroll"><table><thead><tr><th>#</th><th>Équipe</th><th>Gr.</th><th>J</th><th>G</th><th>N</th><th>P</th><th>BP</th><th>BC</th><th>±</th><th>Pts</th></tr></thead><tbody>${body}</tbody></table></div>`;
+}
 // ── Qualifiés pour les 16ᵉˢ : 1ᵉʳ + 2ᵉ de chaque groupe + 8 meilleurs 3ᵉˢ (calcul auto, provisoire si groupe en cours)
 const GROUP_LETTERS="ABCDEFGHIJKL".split('');
 function groupDone(g){const ms=GROUP_MATCHES.filter(m=>m.g===g);return ms.length>0&&ms.every(m=>m.st==="done");}
@@ -1218,7 +1246,8 @@ function renderAll(){
         ⏳ Aucun match joué pour l'instant — coup d'envoi le <b>11 juin 2026</b> avec Mexique 🇲🇽 – Afrique du Sud 🇿🇦 à Mexico.
         Tous les résultats, du match d'ouverture à la finale, s'afficheront ici.</div>`;
 
-  // Classements des 12 groupes
+  // Classement général de toutes les nations + classements des 12 groupes
+  renderAllNations();
   $("#standings").innerHTML=["A","B","C","D","E","F","G","H","I","J","K","L"].map(g=>`
     <div><div class="group-title" style="margin-bottom:8px"><span class="gl">Groupe ${g}</span>
       ${g==="E"?'<span class="badge done">🐘</span>':''}</div>${tableHTML(g)}</div>`).join('');
