@@ -708,7 +708,7 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-06-27";
+const LAST_UPDATE = "2026-06-28";
 
 // Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
 const NEXT_KICKOFF = { iso:"2026-06-30T17:00:00Z", label:"⏳ avant Côte d'Ivoire 🇨🇮 – Norvège 🇳🇴 · 16ᵉ de finale · 30 juin, AT&T Stadium (Dallas) · 17h00 GMT" };
@@ -813,22 +813,22 @@ const GROUP_MATCHES = [
  {g:"J",j:1,d:"16 juin",home:"Autriche",away:"Jordanie",venue:"Levi's Stadium · San Francisco",t:"06h00 (+1j)",s:"3-1",st:"done",goals:[{p:"Schmid",t:"Autriche",m:"20"},{p:"Olwan",t:"Jordanie",m:"50"},{p:"Al-Arab",t:"Autriche",m:"76",og:true},{p:"Arnautović",t:"Autriche",m:"90+12",pen:true}]},
  {g:"J",j:2,d:"22 juin",home:"Argentine",away:"Autriche",venue:"AT&T Stadium · Dallas",t:"19h00",s:"2-0",st:"done",goals:[{p:"Messi",t:"Argentine",m:"38"},{p:"Messi",t:"Argentine",m:"90+5"}]},
  {g:"J",j:2,d:"22 juin",home:"Jordanie",away:"Algérie",venue:"Levi's Stadium · San Francisco",t:"05h00 (+1j)",s:"1-2",st:"done",goals:[{p:"Al-Rashdan",t:"Jordanie",m:"36"},{p:"Benbouali",t:"Algérie",m:"69"},{p:"Gouiri",t:"Algérie",m:"82"}]},
- {g:"J",j:3,d:"27 juin",home:"Algérie",away:"Autriche",venue:"Arrowhead Stadium · Kansas City",t:"04h00 (+1j)",s:"",st:"upcoming"},
- {g:"J",j:3,d:"27 juin",home:"Jordanie",away:"Argentine",venue:"AT&T Stadium · Dallas",t:"04h00 (+1j)",s:"",st:"upcoming"},
+ {g:"J",j:3,d:"27 juin",home:"Algérie",away:"Autriche",venue:"Arrowhead Stadium · Kansas City",t:"04h00 (+1j)",s:"3-3",st:"done",goals:[{p:"Arnautović",t:"Autriche",m:"28"},{p:"Belghali",t:"Algérie",m:"45"},{p:"Sabitzer",t:"Autriche",m:"55"},{p:"Mahrez",t:"Algérie",m:"60"},{p:"Mahrez",t:"Algérie",m:"90+3"},{p:"Kalajdžić",t:"Autriche",m:"90+6"}]},
+ {g:"J",j:3,d:"27 juin",home:"Jordanie",away:"Argentine",venue:"AT&T Stadium · Dallas",t:"04h00 (+1j)",s:"1-3",st:"done",goals:[{p:"Lo Celso",t:"Argentine",m:"19"},{p:"Lautaro Martínez",t:"Argentine",m:"31",pen:true},{p:"Al-Taamari",t:"Jordanie",m:"55"},{p:"Messi",t:"Argentine",m:"80"}]},
  // Groupe K
  {g:"K",j:1,d:"17 juin",home:"Portugal",away:"RD Congo",venue:"NRG Stadium · Houston",t:"19h00",s:"1-1",st:"done",goals:[{p:"João Neves",t:"Portugal",m:"6"},{p:"Wissa",t:"RD Congo",m:"45+5"}]},
  {g:"K",j:1,d:"17 juin",home:"Ouzbékistan",away:"Colombie",venue:"Estadio Azteca · Mexico",t:"04h00 (+1j)",s:"1-3",st:"done",goals:[{p:"Muñoz",t:"Colombie",m:"40"},{p:"Fayzullaev",t:"Ouzbékistan",m:"60"},{p:"Luis Díaz",t:"Colombie",m:"65"},{p:"Campaz",t:"Colombie",m:"90+9"}]},
  {g:"K",j:2,d:"23 juin",home:"Portugal",away:"Ouzbékistan",venue:"NRG Stadium · Houston",t:"19h00",s:"5-0",st:"done",goals:[{p:"Ronaldo",t:"Portugal",m:"6"},{p:"Nuno Mendes",t:"Portugal",m:"17"},{p:"Ronaldo",t:"Portugal",m:"39"},{p:"Nematov",t:"Portugal",m:"60",og:true},{p:"Rafael Leão",t:"Portugal",m:"87"}]},
  {g:"K",j:2,d:"23 juin",home:"Colombie",away:"RD Congo",venue:"Estadio Akron · Guadalajara",t:"04h00 (+1j)",s:"1-0",st:"done",goals:[{p:"Muñoz",t:"Colombie",m:"76"}]},
- {g:"K",j:3,d:"27 juin",home:"Colombie",away:"Portugal",venue:"Hard Rock Stadium · Miami",t:"01h30 (+1j)",s:"",st:"upcoming"},
- {g:"K",j:3,d:"27 juin",home:"RD Congo",away:"Ouzbékistan",venue:"Mercedes-Benz Stadium · Atlanta",t:"01h30 (+1j)",s:"",st:"upcoming"},
+ {g:"K",j:3,d:"27 juin",home:"Colombie",away:"Portugal",venue:"Hard Rock Stadium · Miami",t:"01h30 (+1j)",s:"0-0",st:"done",goals:[]},
+ {g:"K",j:3,d:"27 juin",home:"RD Congo",away:"Ouzbékistan",venue:"Mercedes-Benz Stadium · Atlanta",t:"01h30 (+1j)",s:"3-1",st:"done",goals:[{p:"Shomurodov",t:"Ouzbékistan",m:"10"},{p:"Wissa",t:"RD Congo",m:"68",pen:true},{p:"Mayele",t:"RD Congo",m:"78"},{p:"Wissa",t:"RD Congo",m:"90+1"}]},
  // Groupe L
  {g:"L",j:1,d:"17 juin",home:"Angleterre",away:"Croatie",venue:"AT&T Stadium · Dallas",t:"22h00",s:"4-2",st:"done",goals:[{p:"Kane",t:"Angleterre",m:"12",pen:true},{p:"Kane",t:"Angleterre",m:"35"},{p:"Baturina",t:"Croatie",m:"36"},{p:"Musa",t:"Croatie",m:"45+5"},{p:"Bellingham",t:"Angleterre",m:"47"},{p:"Rashford",t:"Angleterre",m:"85"}]},
  {g:"L",j:1,d:"17 juin",home:"Ghana",away:"Panama",venue:"BMO Field · Toronto",t:"01h00 (+1j)",s:"1-0",st:"done",goals:[{p:"Yirenkyi",t:"Ghana",m:"90+5"}]},
  {g:"L",j:2,d:"23 juin",home:"Angleterre",away:"Ghana",venue:"Gillette Stadium · Boston",t:"22h00",s:"0-0",st:"done",goals:[]},
  {g:"L",j:2,d:"23 juin",home:"Panama",away:"Croatie",venue:"BMO Field · Toronto",t:"01h00 (+1j)",s:"0-1",st:"done",goals:[{p:"Budimir",t:"Croatie",m:"54"}]},
- {g:"L",j:3,d:"27 juin",home:"Panama",away:"Angleterre",venue:"MetLife Stadium · New York/NJ",t:"23h00",s:"",st:"upcoming"},
- {g:"L",j:3,d:"27 juin",home:"Croatie",away:"Ghana",venue:"Lincoln Financial Field · Philadelphie",t:"23h00",s:"",st:"upcoming"},
+ {g:"L",j:3,d:"27 juin",home:"Panama",away:"Angleterre",venue:"MetLife Stadium · New York/NJ",t:"23h00",s:"0-2",st:"done",goals:[{p:"Bellingham",t:"Angleterre",m:"62"},{p:"Kane",t:"Angleterre",m:"67"}]},
+ {g:"L",j:3,d:"27 juin",home:"Croatie",away:"Ghana",venue:"Lincoln Financial Field · Philadelphie",t:"23h00",s:"2-1",st:"done",goals:[{p:"Sučić",t:"Croatie",m:"31"},{p:"Luckassen",t:"Ghana",m:"73"},{p:"Vlašić",t:"Croatie",m:"83"}]},
 ];
 
 // ───────── PHASE FINALE (32 matchs M73→M104) ─────────
@@ -836,20 +836,20 @@ const GROUP_MATCHES = [
 const KNOCKOUT = [
  {phase:"16ᵉˢ de finale (28 juin – 3 juillet)", matches:[
   {id:"M73",d:"28 juin",pairing:"2ᵉ A – 2ᵉ B",venue:"SoFi Stadium · Los Angeles",home:"Afrique du Sud",away:"Canada",s:"",st:"upcoming"},
-  {id:"M74",d:"29 juin",pairing:"1ᵉʳ E – 3ᵉ (A/B/C/D/F)",venue:"Gillette Stadium · Boston",home:"Allemagne",away:"",s:"",st:"upcoming"},
+  {id:"M74",d:"29 juin",pairing:"1ᵉʳ E – 3ᵉ (A/B/C/D/F)",venue:"Gillette Stadium · Boston",home:"Allemagne",away:"Paraguay",s:"",st:"upcoming"},
   {id:"M75",d:"29 juin",pairing:"1ᵉʳ F – 2ᵉ C",venue:"Estadio BBVA · Monterrey",home:"Pays-Bas",away:"Maroc",s:"",st:"upcoming"},
   {id:"M76",d:"29 juin",pairing:"1ᵉʳ C – 2ᵉ F",venue:"NRG Stadium · Houston",home:"Brésil",away:"Japon",s:"",st:"upcoming"},
   {id:"M77",d:"30 juin",pairing:"1ᵉʳ I – 3ᵉ (C/D/F/G/H)",venue:"MetLife Stadium · New York/NJ",home:"France",away:"Suède",s:"",st:"upcoming"},
   {id:"M78",d:"30 juin",pairing:"2ᵉ E – 2ᵉ I",venue:"AT&T Stadium · Dallas",home:"Côte d'Ivoire",away:"Norvège",s:"",st:"upcoming"},
-  {id:"M79",d:"30 juin",pairing:"1ᵉʳ A – 3ᵉ (C/E/F/H/I)",venue:"Estadio Azteca · Mexico",home:"Mexique",away:"",s:"",st:"upcoming"},
-  {id:"M80",d:"1ᵉʳ juillet",pairing:"1ᵉʳ L – 3ᵉ (E/H/I/J/K)",venue:"Mercedes-Benz Stadium · Atlanta",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M79",d:"30 juin",pairing:"1ᵉʳ A – 3ᵉ (C/E/F/H/I)",venue:"Estadio Azteca · Mexico",home:"Mexique",away:"Équateur",s:"",st:"upcoming"},
+  {id:"M80",d:"1ᵉʳ juillet",pairing:"1ᵉʳ L – 3ᵉ (E/H/I/J/K)",venue:"Mercedes-Benz Stadium · Atlanta",home:"Angleterre",away:"RD Congo",s:"",st:"upcoming"},
   {id:"M81",d:"1ᵉʳ juillet",pairing:"1ᵉʳ D – 3ᵉ (B/E/F/I/J)",venue:"Levi's Stadium · San Francisco",home:"États-Unis",away:"Bosnie-Herzégovine",s:"",st:"upcoming"},
-  {id:"M82",d:"1ᵉʳ juillet",pairing:"1ᵉʳ G – 3ᵉ (A/E/H/I/J)",venue:"Lumen Field · Seattle",home:"Belgique",away:"",s:"",st:"upcoming"},
-  {id:"M83",d:"2 juillet",pairing:"2ᵉ K – 2ᵉ L",venue:"BMO Field · Toronto",home:"",away:"",s:"",st:"upcoming"},
-  {id:"M84",d:"2 juillet",pairing:"1ᵉʳ H – 2ᵉ J",venue:"SoFi Stadium · Los Angeles",home:"Espagne",away:"",s:"",st:"upcoming"},
-  {id:"M85",d:"2 juillet",pairing:"1ᵉʳ B – 3ᵉ (E/F/G/I/J)",venue:"BC Place · Vancouver",home:"Suisse",away:"",s:"",st:"upcoming"},
+  {id:"M82",d:"1ᵉʳ juillet",pairing:"1ᵉʳ G – 3ᵉ (A/E/H/I/J)",venue:"Lumen Field · Seattle",home:"Belgique",away:"Sénégal",s:"",st:"upcoming"},
+  {id:"M83",d:"2 juillet",pairing:"2ᵉ K – 2ᵉ L",venue:"BMO Field · Toronto",home:"Portugal",away:"Croatie",s:"",st:"upcoming"},
+  {id:"M84",d:"2 juillet",pairing:"1ᵉʳ H – 2ᵉ J",venue:"SoFi Stadium · Los Angeles",home:"Espagne",away:"Autriche",s:"",st:"upcoming"},
+  {id:"M85",d:"2 juillet",pairing:"1ᵉʳ B – 3ᵉ (E/F/G/I/J)",venue:"BC Place · Vancouver",home:"Suisse",away:"Algérie",s:"",st:"upcoming"},
   {id:"M86",d:"3 juillet",pairing:"1ᵉʳ J – 2ᵉ H",venue:"Hard Rock Stadium · Miami",home:"Argentine",away:"Cap-Vert",s:"",st:"upcoming"},
-  {id:"M87",d:"3 juillet",pairing:"1ᵉʳ K – 3ᵉ (D/E/I/J/L)",venue:"Arrowhead Stadium · Kansas City",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M87",d:"3 juillet",pairing:"1ᵉʳ K – 3ᵉ (D/E/I/J/L)",venue:"Arrowhead Stadium · Kansas City",home:"Colombie",away:"Ghana",s:"",st:"upcoming"},
   {id:"M88",d:"3 juillet",pairing:"2ᵉ D – 2ᵉ G",venue:"AT&T Stadium · Dallas",home:"Australie",away:"Égypte",s:"",st:"upcoming"}]},
  {phase:"8ᵉˢ de finale (4 – 7 juillet)", matches:[
   {id:"M89",d:"4 juillet",pairing:"V. M74 – V. M77",venue:"Lincoln Financial Field · Philadelphie",home:"",away:"",s:"",st:"upcoming"},
@@ -876,11 +876,11 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"27 juin 2026", title:"🐘🇳🇴 C'est officiel : la Côte d'Ivoire défiera la Norvège en 16ᵉ de finale", text:"L'adversaire des Éléphants est connu : ce sera la Norvège d'Erling Haaland. Battue 4-1 par la France vendredi à Boston, la Norvège a terminé 2ᵉ du groupe I et croisera donc la route de la Côte d'Ivoire (2ᵉ du groupe E) le mardi 30 juin à l'AT&T Stadium de Dallas, coup d'envoi à 17h00 GMT (12h00 local). Premier 16ᵉ de finale de l'histoire ivoirienne : Emerse Faé et ses hommes auront fort à faire face à une Norvège emmenée par Haaland et Ødegaard, mais largement remaniée lors du dernier match (les deux stars étaient au repos)." },
-  { date:"26 juin 2026", title:"🇫🇷 La France finit 1ʳᵉ du groupe I, triplé express de Dembélé contre la Norvège (4-1)", text:"Au Gillette Stadium de Boston, Ousmane Dembélé a inscrit un triplé en première période (7ᵉ, 20ᵉ, 32ᵉ) pour offrir aux Bleus la tête du groupe I (4-1). Aasgaard avait brièvement répondu (21ᵉ) et Strand Larsen a manqué un penalty (50ᵉ, arrêté par Maignan) ; Désiré Doué a salé l'addition dans le temps additionnel (90+4). Les deux équipes étaient déjà qualifiées : la France hérite de la Suède en 16ᵉ, la Norvège de la Côte d'Ivoire." },
-  { date:"26 juin 2026", title:"Groupe G : l'Égypte qualifiée pour la première fois, la Belgique finit en tête", text:"L'Égypte a décroché la première qualification de son histoire pour les 16ᵉˢ de finale d'un Mondial en arrachant le nul face à l'Iran (1-1 : Saber 5ᵉ, Rezaeian 14ᵉ ; un but iranien refusé à la 93ᵉ après VAR). La Belgique, elle, a fini 1ʳᵉ du groupe en écrasant la Nouvelle-Zélande 5-1 (doublé Trossard 28ᵉ-50ᵉ, De Bruyne 66ᵉ, Lukaku 86ᵉ, Saelemaekers 90+4 ; Just 84ᵉ). L'Iran et la Nouvelle-Zélande sont éliminés." },
-  { date:"26 juin 2026", title:"Groupe H : l'Espagne fait le plein, l'Uruguay éliminé", text:"L'Espagne a validé la 1ʳᵉ place du groupe H avec un succès 1-0 sur l'Uruguay (Baena 42ᵉ), une bourde de Muslera offrant l'unique but ; le gardien uruguayen a été remplacé à la pause par Bielsa. L'Uruguay, qui ne termine qu'avec deux nuls et une défaite, est éliminé. Dans l'autre match, le Cap-Vert a obtenu le nul vierge (0-0) contre l'Arabie saoudite suffisant pour accrocher la 2ᵉ place et la qualification — une première historique pour l'archipel." },
-  { date:"26 juin 2026", title:"Groupe I : le Sénégal écrase l'Irak 5-0 et file en 16ᵉˢ comme meilleur 3ᵉ", text:"Porté par un doublé de Pape Gueye (59ᵉ, 71ᵉ), le Sénégal a corrigé l'Irak 5-0 (Diarra 4ᵉ — but le plus précoce de son histoire en Coupe du monde, Sarr 56ᵉ, Ndiaye 82ᵉ), l'Irak réduit à dix après une expulsion. 3ᵉ du groupe I, les Lions de la Teranga se qualifient parmi les meilleurs troisièmes ; l'Irak est éliminé." },
+  { date:"28 juin 2026", title:"🐘 Cap sur les 16ᵉˢ : la Côte d'Ivoire défie la Norvège mardi à Dallas", text:"La phase de groupes est terminée et le tableau des 16ᵉˢ de finale est désormais complet. Les Éléphants, 2ᵉˢ du groupe E, lanceront leur phase finale le mardi 30 juin face à la Norvège d'Erling Haaland (2ᵉ du groupe I), à l'AT&T Stadium de Dallas, coup d'envoi à 17h00 GMT (12h00 local). C'est le tout premier 16ᵉ de finale de l'histoire de la Côte d'Ivoire, qui n'avait jamais franchi le 1ᵉʳ tour d'un Mondial. Emerse Faé devra trouver la parade au duo Haaland-Ødegaard." },
+  { date:"28 juin 2026", title:"🌍 Record africain : 9 nations du continent en 16ᵉˢ de finale", text:"Jamais autant d'équipes africaines n'avaient atteint le tableau final d'une Coupe du monde : elles sont neuf en 2026 — Maroc, Côte d'Ivoire, Égypte, Cap-Vert, Sénégal, Algérie, Ghana, RD Congo et Afrique du Sud. Le Cap-Vert et la RD Congo découvrent même les 16ᵉˢ pour la première fois de leur histoire. Seule la Tunisie n'a pas passé le 1ᵉʳ tour." },
+  { date:"28 juin 2026", title:"⚽ Le bal des 16ᵉˢ s'ouvre aujourd'hui : Afrique du Sud – Canada", text:"La phase à élimination directe démarre ce dimanche 28 juin au SoFi Stadium de Los Angeles avec le duel entre l'Afrique du Sud (2ᵉ du groupe A) et le Canada (2ᵉ du groupe B), pays co-organisateur. Le vainqueur retrouvera en 8ᵉ de finale le gagnant de Pays-Bas – Maroc." },
+  { date:"27 juin 2026", title:"Groupe J : l'Argentine et Messi terminent en tête, l'Algérie repêchée", text:"Porté par un Lionel Messi encore buteur (80ᵉ), l'Argentine a battu la Jordanie 3-1 (Lo Celso 19ᵉ, Lautaro Martínez 31ᵉ s.p., Al-Taamari 55ᵉ) pour finir 1ʳᵉ du groupe J. Dans l'autre match, l'Autriche a arraché la 2ᵉ place en accrochant l'Algérie 3-3 (Kalajdžić 90+6ᵉ) ; les Fennecs, malgré un doublé de Mahrez, passent tout de même parmi les meilleurs 3ᵉˢ." },
+  { date:"27 juin 2026", title:"Groupes K & L : la RD Congo crée l'exploit, l'Angleterre et la Colombie en tête", text:"La RD Congo s'est qualifiée pour la première fois de son histoire en renversant l'Ouzbékistan 3-1 (doublé de Yoane Wissa) et défiera l'Angleterre en 16ᵉ. La Colombie finit 1ʳᵉ du groupe K après un 0-0 face au Portugal (2ᵉ). En L, l'Angleterre domine le Panama 2-0 (Bellingham, Kane) et termine devant la Croatie (2-1 sur le Ghana) ; le Ghana est repêché comme meilleur 3ᵉ." },
 ];
 
 // ───────── COMPOSITION DE DÉPART DE LA CÔTE D'IVOIRE ─────────
