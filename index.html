@@ -715,7 +715,7 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-06-28";
+const LAST_UPDATE = "2026-06-29";
 
 // Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
 const NEXT_KICKOFF = { iso:"2026-06-30T17:00:00Z", label:"⏳ avant Côte d'Ivoire 🇨🇮 – Norvège 🇳🇴 · 16ᵉ de finale · 30 juin, AT&T Stadium (Dallas) · 17h00 GMT" };
@@ -842,7 +842,7 @@ const GROUP_MATCHES = [
 // pairing = affiche théorique · home/away = remplir dès que connu · s = score · st = statut
 const KNOCKOUT = [
  {phase:"16ᵉˢ de finale (28 juin – 3 juillet)", matches:[
-  {id:"M73",d:"28 juin",pairing:"2ᵉ A – 2ᵉ B",venue:"SoFi Stadium · Los Angeles",home:"Afrique du Sud",away:"Canada",s:"",st:"upcoming"},
+  {id:"M73",d:"28 juin",pairing:"2ᵉ A – 2ᵉ B",venue:"SoFi Stadium · Los Angeles",home:"Afrique du Sud",away:"Canada",s:"0-1",st:"done",goals:[{p:"Eustáquio",t:"Canada",m:"90+2"}]},
   {id:"M74",d:"29 juin",pairing:"1ᵉʳ E – 3ᵉ (A/B/C/D/F)",venue:"Gillette Stadium · Boston",home:"Allemagne",away:"Paraguay",s:"",st:"upcoming"},
   {id:"M75",d:"29 juin",pairing:"1ᵉʳ F – 2ᵉ C",venue:"Estadio BBVA · Monterrey",home:"Pays-Bas",away:"Maroc",s:"",st:"upcoming"},
   {id:"M76",d:"29 juin",pairing:"1ᵉʳ C – 2ᵉ F",venue:"NRG Stadium · Houston",home:"Brésil",away:"Japon",s:"",st:"upcoming"},
@@ -883,11 +883,11 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"28 juin 2026", title:"🐘 Cap sur les 16ᵉˢ : la Côte d'Ivoire défie la Norvège mardi à Dallas", text:"La phase de groupes est terminée et le tableau des 16ᵉˢ de finale est désormais complet. Les Éléphants, 2ᵉˢ du groupe E, lanceront leur phase finale le mardi 30 juin face à la Norvège d'Erling Haaland (2ᵉ du groupe I), à l'AT&T Stadium de Dallas, coup d'envoi à 17h00 GMT (12h00 local). C'est le tout premier 16ᵉ de finale de l'histoire de la Côte d'Ivoire, qui n'avait jamais franchi le 1ᵉʳ tour d'un Mondial. Emerse Faé devra trouver la parade au duo Haaland-Ødegaard." },
+  { date:"29 juin 2026", title:"🐘 J-1 avant Côte d'Ivoire – Norvège : les Éléphants face à leur destin à Dallas", text:"À la veille du tout premier 16ᵉ de finale de leur histoire, les hommes d'Emerse Faé peaufinent leur préparation à Arlington. Mardi 30 juin (17h00 GMT, AT&T Stadium), ils défieront une Norvège emmenée par Erling Haaland et Martin Ødegaard — une affiche totalement inédite, les deux nations ne s'étant jamais affrontées. En forme après son doublé décisif contre Curaçao (2-0), Nicolas Pépé sera l'arme offensive n°1 des Ivoiriens. Aucune blessure majeure n'est à signaler dans le groupe." },
+  { date:"29 juin 2026", title:"⚽ Lundi de feu en 16ᵉˢ : Brésil–Japon, Allemagne–Paraguay et Pays-Bas–Maroc", text:"La phase à élimination directe monte en puissance ce lundi 29 juin avec trois affiches : le Brésil de Vinícius Jr face au Japon (NRG Stadium, Houston), l'Allemagne opposée au Paraguay (Gillette Stadium, Boston) et un choc Pays-Bas–Maroc en nocturne (Estadio BBVA, Monterrey). Les vainqueurs se rapprocheront des 8ᵉˢ de finale." },
+  { date:"28 juin 2026", title:"🇨🇦 Le Canada renverse l'Afrique du Sud (1-0) et file en 8ᵉˢ", text:"Pour le tout premier match de l'histoire des 16ᵉˢ de finale élargis, le Canada, pays co-organisateur, a battu l'Afrique du Sud 1-0 au SoFi Stadium grâce à un but de Stephen Eustáquio dans le temps additionnel (90+2ᵉ). C'est la première victoire canadienne en phase finale de Coupe du monde ; les Canadiens affronteront en 8ᵉ le vainqueur de Pays-Bas–Maroc." },
   { date:"28 juin 2026", title:"🌍 Record africain : 9 nations du continent en 16ᵉˢ de finale", text:"Jamais autant d'équipes africaines n'avaient atteint le tableau final d'une Coupe du monde : elles sont neuf en 2026 — Maroc, Côte d'Ivoire, Égypte, Cap-Vert, Sénégal, Algérie, Ghana, RD Congo et Afrique du Sud. Le Cap-Vert et la RD Congo découvrent même les 16ᵉˢ pour la première fois de leur histoire. Seule la Tunisie n'a pas passé le 1ᵉʳ tour." },
-  { date:"28 juin 2026", title:"⚽ Le bal des 16ᵉˢ s'ouvre aujourd'hui : Afrique du Sud – Canada", text:"La phase à élimination directe démarre ce dimanche 28 juin au SoFi Stadium de Los Angeles avec le duel entre l'Afrique du Sud (2ᵉ du groupe A) et le Canada (2ᵉ du groupe B), pays co-organisateur. Le vainqueur retrouvera en 8ᵉ de finale le gagnant de Pays-Bas – Maroc." },
-  { date:"27 juin 2026", title:"Groupe J : l'Argentine et Messi terminent en tête, l'Algérie repêchée", text:"Porté par un Lionel Messi encore buteur (80ᵉ), l'Argentine a battu la Jordanie 3-1 (Lo Celso 19ᵉ, Lautaro Martínez 31ᵉ s.p., Al-Taamari 55ᵉ) pour finir 1ʳᵉ du groupe J. Dans l'autre match, l'Autriche a arraché la 2ᵉ place en accrochant l'Algérie 3-3 (Kalajdžić 90+6ᵉ) ; les Fennecs, malgré un doublé de Mahrez, passent tout de même parmi les meilleurs 3ᵉˢ." },
-  { date:"27 juin 2026", title:"Groupes K & L : la RD Congo crée l'exploit, l'Angleterre et la Colombie en tête", text:"La RD Congo s'est qualifiée pour la première fois de son histoire en renversant l'Ouzbékistan 3-1 (doublé de Yoane Wissa) et défiera l'Angleterre en 16ᵉ. La Colombie finit 1ʳᵉ du groupe K après un 0-0 face au Portugal (2ᵉ). En L, l'Angleterre domine le Panama 2-0 (Bellingham, Kane) et termine devant la Croatie (2-1 sur le Ghana) ; le Ghana est repêché comme meilleur 3ᵉ." },
+  { date:"28 juin 2026", title:"🐘 Cap sur les 16ᵉˢ : la Côte d'Ivoire défie la Norvège mardi à Dallas", text:"Les Éléphants, 2ᵉˢ du groupe E, lanceront leur phase finale le mardi 30 juin face à la Norvège d'Erling Haaland (2ᵉ du groupe I), à l'AT&T Stadium de Dallas, coup d'envoi à 17h00 GMT (12h00 local). C'est le tout premier 16ᵉ de finale de l'histoire de la Côte d'Ivoire, qui n'avait jamais franchi le 1ᵉʳ tour d'un Mondial. Emerse Faé devra trouver la parade au duo Haaland-Ødegaard." },
 ];
 
 // ───────── COMPOSITION DE DÉPART DE LA CÔTE D'IVOIRE ─────────
