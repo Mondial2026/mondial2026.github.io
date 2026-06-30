@@ -113,6 +113,7 @@
   .m-teams{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1rem;flex:1;flex-wrap:wrap}
   .m-score{font-weight:900;font-size:1.1rem;background:var(--bg);border:1px solid var(--line);
     border-radius:8px;padding:3px 11px;min-width:58px;text-align:center}
+  .m-score .pso{display:block;font-size:.6rem;font-weight:800;color:var(--muted);margin-top:1px;letter-spacing:.02em}
   .m-when{text-align:right;font-size:.82rem;color:var(--muted);min-width:175px}
   .m-when b{display:block;color:var(--ink);font-size:.88rem}
   .badge{display:inline-block;font-size:.68rem;font-weight:800;text-transform:uppercase;
@@ -159,6 +160,10 @@
   .bm-s.right{text-align:right}
   .bm-s.ph{color:#aab0ba;font-weight:700;font-size:.72rem}
   .bm-s.civ{color:var(--orange-dark)}
+  .bm-s.win{color:var(--green-dark);font-weight:900}
+  .brk-m.decided{border-color:var(--green);background:#f3fbf6}
+  .bm-r{font-size:.62rem;font-weight:800;color:var(--muted);white-space:nowrap;padding:0 3px;text-align:center}
+  .bm-r em{font-style:normal;color:var(--green-dark)}
   .brk-conn{align-self:stretch;width:22px;flex:none;position:relative}
   .brk-conn::before{content:'';position:absolute;left:0;top:25%;bottom:25%;border-left:2px solid #d9dbe0}
   .brk-conn::after{content:'';position:absolute;left:0;right:0;top:50%;border-top:2px solid #d9dbe0}
@@ -226,6 +231,15 @@
     border:1px solid var(--line);border-radius:10px;font-family:var(--font);-moz-appearance:textfield}
   .pscore input::-webkit-outer-spin-button,.pscore input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
   .pscore .pdash{font-weight:800;color:var(--muted)}
+  .ptab{margin-top:2px;padding-top:10px;border-top:1px dashed var(--line)}
+  .ptab-lbl{display:block;font-size:.8rem;color:var(--muted);margin-bottom:7px;text-align:center}
+  .ptab-lbl b{color:var(--ink)}
+  .ptab-opts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .ptab-opt{font-family:var(--font);font-size:.85rem;font-weight:700;cursor:pointer;border:1px solid var(--line);
+    background:#fff;color:var(--ink);border-radius:999px;padding:7px 14px;transition:background .15s,border-color .15s,color .15s}
+  .ptab-opt:hover{border-color:var(--green)}
+  .ptab-opt.sel{background:var(--green);color:#fff;border-color:var(--green)}
+  .ptab-opt:disabled{opacity:.5;cursor:not-allowed}
   .pbtn{border:none;border-radius:12px;padding:11px 20px;font-family:var(--font);font-weight:800;
     font-size:.92rem;color:#fff;cursor:pointer;background:linear-gradient(90deg,var(--orange),var(--orange-dark))}
   .pbtn.green{background:linear-gradient(90deg,var(--green),var(--green-dark))}
@@ -615,7 +629,8 @@
     <div class="wrap">
       <h2>🎯 Jeu des pronostics</h2>
       <p class="sub">Pronostique le score des matchs du jour et grimpe au classement.
-        Barème : <b>10 pts</b> pour le score exact, <b>3 pts</b> pour le bon résultat —
+        Barème : <b>10 pts</b> pour le score exact, <b>3 pts</b> pour le bon résultat,
+        <b>+5 pts</b> si tu trouves le bon vainqueur aux <b>tirs au but</b> 🥅 (matchs à élimination directe) —
         et <b>×2 sur les matchs de la Côte d'Ivoire</b> 🐘. Pseudo uniquement, aucune donnée personnelle.</p>
 
       <div id="p-banner" class="pbanner">Mode démo : tes pronostics sont enregistrés sur cet appareil.</div>
@@ -843,8 +858,8 @@ const GROUP_MATCHES = [
 const KNOCKOUT = [
  {phase:"16ᵉˢ de finale (28 juin – 3 juillet)", matches:[
   {id:"M73",d:"28 juin",pairing:"2ᵉ A – 2ᵉ B",venue:"SoFi Stadium · Los Angeles",t:"21h00",home:"Afrique du Sud",away:"Canada",s:"0-1",st:"done",goals:[{p:"Eustáquio",t:"Canada",m:"90+2"}]},
-  {id:"M74",d:"29 juin",pairing:"1ᵉʳ E – 3ᵉ (A/B/C/D/F)",venue:"Gillette Stadium · Boston",t:"22h30",home:"Allemagne",away:"Paraguay",s:"1-1",st:"done",goals:[{p:"Enciso",t:"Paraguay",m:"42"},{p:"Havertz",t:"Allemagne",m:"54"}]},
-  {id:"M75",d:"29 juin",pairing:"1ᵉʳ F – 2ᵉ C",venue:"Estadio BBVA · Monterrey",t:"03h00 (+1j)",home:"Pays-Bas",away:"Maroc",s:"1-1",st:"done",goals:[{p:"Gakpo",t:"Pays-Bas",m:"72"},{p:"Issa Diop",t:"Maroc",m:"90+1"}]},
+  {id:"M74",d:"29 juin",pairing:"1ᵉʳ E – 3ᵉ (A/B/C/D/F)",venue:"Gillette Stadium · Boston",t:"22h30",home:"Allemagne",away:"Paraguay",s:"1-1",pso:"3-4",st:"done",goals:[{p:"Enciso",t:"Paraguay",m:"42"},{p:"Havertz",t:"Allemagne",m:"54"}]},
+  {id:"M75",d:"29 juin",pairing:"1ᵉʳ F – 2ᵉ C",venue:"Estadio BBVA · Monterrey",t:"03h00 (+1j)",home:"Pays-Bas",away:"Maroc",s:"1-1",pso:"2-3",st:"done",goals:[{p:"Gakpo",t:"Pays-Bas",m:"72"},{p:"Issa Diop",t:"Maroc",m:"90+1"}]},
   {id:"M76",d:"29 juin",pairing:"1ᵉʳ C – 2ᵉ F",venue:"NRG Stadium · Houston",t:"19h00",home:"Brésil",away:"Japon",s:"2-1",st:"done",goals:[{p:"Sano",t:"Japon",m:"29"},{p:"Casemiro",t:"Brésil",m:"56"},{p:"Martinelli",t:"Brésil",m:"90+5"}]},
   {id:"M77",d:"30 juin",pairing:"1ᵉʳ I – 3ᵉ (C/D/F/G/H)",venue:"MetLife Stadium · New York/NJ",t:"23h00",home:"France",away:"Suède",s:"",st:"upcoming"},
   {id:"M78",d:"30 juin",pairing:"2ᵉ E – 2ᵉ I",venue:"AT&T Stadium · Dallas",t:"19h00",home:"Côte d'Ivoire",away:"Norvège",s:"",st:"upcoming"},
@@ -1018,11 +1033,22 @@ function goalsHTML(m){
   return `<div class="m-goals"><span>${h?'⚽ '+h:''}</span><span>${a?'⚽ '+a:''}</span></div>`;
 }
 
+// Vainqueur d'un match à élimination directe — gère les tirs au but (champ pso "a-b", ordre dom.-ext.)
+function koWinner(m){
+  if(!m||!m.home||!m.away||m.st!=="done"||!/^\d+-\d+$/.test(m.s||"")) return null;
+  const [a,b]=m.s.split('-').map(Number);
+  if(a>b) return m.home; if(b>a) return m.away;
+  if(/^\d+-\d+$/.test(m.pso||"")){const [pa,pb]=m.pso.split('-').map(Number);
+    if(pa>pb) return m.home; if(pb>pa) return m.away;}
+  return null;
+}
+// Score affiché : ajoute « (a-b t.a.b.) » quand le match s'est décidé aux tirs au but (sans nommer les tireurs)
+function scoreLabel(m){return m.s?(/^\d+-\d+$/.test(m.pso||"")?`${m.s}<small class="pso">(${m.pso} t.a.b.)</small>`:m.s):'vs';}
 // Rendu d'un match
 function matchRow(m,opts={}){
   const isCiv=(m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
   const teams=(m.home&&m.away)
-    ?`<span>${team(m.home)}</span><span class="m-score">${m.s||'vs'}</span><span>${team(m.away)}</span>`
+    ?`<span>${team(m.home)}</span><span class="m-score">${scoreLabel(m)}</span><span>${team(m.away)}</span>`
     :`<span style="color:var(--muted)">${m.pairing}</span>`;
   const extra=opts.tag?`<span class="badge up" style="background:#eef;color:#449">${opts.tag}</span>`:"";
   return `<div class="match ${isCiv?'civ':''}">
@@ -1119,20 +1145,23 @@ function chip(e){const cl=e&&e.prov?' prov':'';
   return `<span class="bchip none">·</span>`;}
 // Redescend récursivement jusqu'aux 16ᵉˢ : un 8ᵉ/quart pointe vers des M-id, un 16ᵉ vers des positions de groupe
 function teamsOf(ids,map){return ids.flatMap(id=>{const m=map[id]; if(!m) return [];
-  const fe=(m.pairing||'').match(/M\d+/g); return fe?teamsOf(fe,map):slot16(m);});}
+  const fe=(m.pairing||'').match(/M\d+/g); if(fe) return teamsOf(fe,map);
+  const w=koWinner(m); return w?[{team:w}]:slot16(m);});}
 function renderBracket(){
   const box=$("#qualified-bracket"); if(!box) return;
   const all=KNOCKOUT.flatMap(p=>p.matches), idMap={}; all.forEach(m=>idMap[m.id]=m);
   const r16=KNOCKOUT[0]?KNOCKOUT[0].matches:[], r8=KNOCKOUT[1]?KNOCKOUT[1].matches:[], r4=KNOCKOUT[2]?KNOCKOUT[2].matches:[];
   const feeders=m=>(m.pairing||'').match(/M\d+/g)||[];
-  // pill d'un 16ᵉ : CODE drapeau – drapeau CODE
-  const pill=m=>{const [l,r]=slot16(m);
+  // pill d'un 16ᵉ : CODE drapeau – drapeau CODE (le vainqueur, t.a.b. inclus, est mis en avant)
+  const pill=m=>{const [l,r]=slot16(m); const w=koWinner(m);
     const side=(e,right)=>{const cd=e.team?code(e.team):e.third?'3ᵉ':escG(e.label||'?');
       const fl=e.team?flag(e.team):e.third?'🥉':'⬜';
       const ph=e.team?'':' ph';
-      return right?`<span class="bm-s right${ph}${e.team==="Côte d'Ivoire"?' civ':''}">${fl} ${cd}</span>`
-                  :`<span class="bm-s${ph}${e.team==="Côte d'Ivoire"?' civ':''}">${cd} ${fl}</span>`;};
-    return `<div class="brk-m" title="${escG(m.d)} · ${escG(m.venue)}">${side(l,false)}${side(r,true)}</div>`;};
+      const won=(w&&e.team===w)?' win':'';
+      return right?`<span class="bm-s right${ph}${won}${e.team==="Côte d'Ivoire"?' civ':''}">${fl} ${cd}</span>`
+                  :`<span class="bm-s${ph}${won}${e.team==="Côte d'Ivoire"?' civ':''}">${cd} ${fl}</span>`;};
+    const sc=(m.st==="done"&&m.s)?`<span class="bm-r">${escG(m.s)}${/^\d+-\d+$/.test(m.pso||"")?' <em>t.a.b.</em>':''}</span>`:'';
+    return `<div class="brk-m${w?' decided':''}" title="${escG(m.d)} · ${escG(m.venue)}">${side(l,false)}${sc}${side(r,true)}</div>`;};
   const boxHTML=(ids,cls)=>`<div class="brk-box ${cls}">${teamsOf(ids,idMap).map(chip).join('')}</div>`;
   const conn='<div class="brk-conn"></div>';
   // 4 quarts (top→bas) ; chaque quart = 2 huitièmes ; chaque huitième = 2 seizièmes
@@ -1494,11 +1523,18 @@ setInterval(fetchLive,POLL_MS);
   }
   const allPlayable=()=>[...GROUP_MATCHES,...koAll()].filter(m=>m.home&&m.away);
   const findMatch=id=>allPlayable().find(m=>matchId(m)===id);
-  function results(){const r={};[...GROUP_MATCHES,...koAll()].forEach(m=>{if(m.st==='done'&&/^\d+-\d+$/.test(m.s||''))r[matchId(m)]={s:m.s,civ:isCiv(m)};});return r;}
-  function calcPts(scores,res){let pts=0;for(const id in res){const pr=scores&&scores[id];if(!pr)continue;
-    const [rh,ra]=res[id].s.split('-').map(Number),[ph,pa]=pr.split('-').map(Number);
-    if([rh,ra,ph,pa].some(Number.isNaN))continue;const k=res[id].civ?2:1;
-    if(ph===rh&&pa===ra)pts+=10*k;else if(Math.sign(rh-ra)===Math.sign(ph-pa))pts+=3*k;}return pts;}
+  function results(){const r={};[...GROUP_MATCHES,...koAll()].forEach(m=>{if(m.st==='done'&&/^\d+-\d+$/.test(m.s||'')){
+    const o={s:m.s,civ:isCiv(m)};
+    if(/^\d+-\d+$/.test(m.pso||'')){o.pso=m.pso;const [pa,pb]=m.pso.split('-').map(Number);o.tabWin=pa>pb?'home':pb>pa?'away':null;}
+    r[matchId(m)]=o;}});return r;}
+  function calcPts(scores,res){let pts=0;for(const id in res){const k=res[id].civ?2:1;const pr=scores&&scores[id];
+    if(pr){const [rh,ra]=res[id].s.split('-').map(Number),[ph,pa]=pr.split('-').map(Number);
+      if(![rh,ra,ph,pa].some(Number.isNaN)){
+        if(ph===rh&&pa===ra)pts+=10*k;else if(Math.sign(rh-ra)===Math.sign(ph-pa))pts+=3*k;}}
+    // Bonus tirs au but : match à élimination décidé aux t.a.b. + bon vainqueur pronostiqué
+    if(res[id].tabWin){const tp=scores&&scores[id+'__tab'];
+      if(tp&&((tp==='1-0'&&res[id].tabWin==='home')||(tp==='0-1'&&res[id].tabWin==='away')))pts+=5*k;}
+  }return pts;}
   function mineFromLB(){const me=LB.find(p=>p.uid===getUid());return me?(me.scores||{}):{};}
   function setMyScoreLocal(id,score){const r=readLocal();r.scores=r.scores||{};r.scores[id]=score;writeLocal(r);}
   // Mes scores = ceux du serveur (LB) fusionnés avec le cache local (le local prime → affichage immédiat même avant la réponse Firebase)
@@ -1563,21 +1599,25 @@ setInterval(fetchLive,POLL_MS);
     if(!isAdmin()){sec.style.display='none';return;}
     sec.style.display='';const res=results();
     const cnt=$('#p-admin-count');if(cnt)cnt.textContent=LB.length+' participant·e·s · '+Object.keys(res).length+' match(s) avec résultat.';
-    box.innerHTML=LB.map((p,i)=>{const ids=Object.keys(p.scores||{});
+    box.innerHTML=LB.map((p,i)=>{const ids=Object.keys(p.scores||{}).filter(id=>!id.endsWith('__tab'));
       const chips=ids.map(id=>{const m=findMatch(id);const nm=m?`${flag(m.home)}${flag(m.away)}`:id;
         const c=outcomeClass(p.scores[id],res[id]);
-        return `<span class="pa-chip ${c}">${nm} <b>${esc(p.scores[id])}</b>${res[id]?(' · réel '+res[id].s):''}</span>`;}).join('')
+        const tp=p.scores[id+'__tab'],tabTxt=tp?(' · t.a.b. '+(tp==='1-0'?(m?flag(m.home):'dom.'):(m?flag(m.away):'ext.'))):'';
+        return `<span class="pa-chip ${c}">${nm} <b>${esc(p.scores[id])}</b>${res[id]?(' · réel '+res[id].s+(res[id].pso?(' ['+res[id].pso+' t.a.b.]'):'')):''}${tabTxt}</span>`;}).join('')
         ||'<span class="pa-chip">aucun pronostic</span>';
       return `<div class="padmin-card"><div class="pa-top"><span class="pa-name">${i+1}. ${esc(p.pseudo)}</span><span class="pa-pts">${p.pts} pts · ${ids.length} prono${ids.length>1?'s':''}</span></div><div class="pa-picks">${chips}</div></div>`;}).join('')
       ||'<div class="pempty">Aucun participant pour le moment.</div>';}
   function renderRecap(){const box=$('#p-recap');if(!box)return;const my=myScores(),res=results();
     const ids=Object.keys(my).filter(id=>res[id]);
     if(!ids.length){box.innerHTML='<div class="pempty">Tes pronostics sur les matchs terminés s’afficheront ici.</div>';return;}
-    box.innerHTML='<div class="prono-recap">'+ids.map(id=>{const real=res[id].s,pr=my[id];
-      const [rh,ra]=real.split('-').map(Number),[ph,pa]=pr.split('-').map(Number);
+    box.innerHTML='<div class="prono-recap">'+ids.map(id=>{const pr=my[id];
+      const real=res[id].s+(res[id].pso?` (${res[id].pso} t.a.b.)`:'');
+      const [rh,ra]=res[id].s.split('-').map(Number),[ph,pa]=pr.split('-').map(Number);
       let cls='miss',lbl='raté';if(ph===rh&&pa===ra){cls='hit';lbl='exact';}else if(Math.sign(rh-ra)===Math.sign(ph-pa)){cls='partial';lbl='bon résultat';}
+      let tabNote='';if(res[id].tabWin){const tp=my[id+'__tab'];
+        if(tp)tabNote=((tp==='1-0'&&res[id].tabWin==='home')||(tp==='0-1'&&res[id].tabWin==='away'))?' · t.a.b. ✓':' · t.a.b. ✗';}
       const m=findMatch(id),nm=m?`${flag(m.home)}${flag(m.away)}`:id;
-      return `<span class="prono-recap-match ${cls}">${nm} ${esc(pr)} / ${esc(real)} · ${lbl}</span>`;}).join('')+'</div>';}
+      return `<span class="prono-recap-match ${cls}">${nm} ${esc(pr)} / ${esc(real)} · ${lbl}${tabNote}</span>`;}).join('')+'</div>';}
   function renderMatches(){const box=$('#p-matches');if(!box)return;const reg=!!getPseudo();
     const today=todayLabel();
     const todays=allPlayable().filter(m=>m.st!=='done'&&m.d===today).sort((a,b)=>sortKey(a)-sortKey(b));
@@ -1586,6 +1626,13 @@ setInterval(fetchLive,POLL_MS);
     const my=myScores();
     box.innerHTML=todays.map(m=>{const id=matchId(m),civ=isCiv(m),ts=getMatchTimestamp(m),locked=isFinite(ts)&&(ts-Date.now()<30*60000);
       const has=!!my[id];const sc=has?my[id].split('-'):['',''];const dis=locked?'disabled':'';
+      const ko=!!m.id; const tab=my[id+'__tab']||''; // pronostic du vainqueur aux t.a.b. (matchs à élimination directe)
+      const tabBlock=ko?`<div class="ptab">
+          <span class="ptab-lbl">🥅 En cas d'égalité, qui se qualifie aux <b>tirs au but</b> ?</span>
+          <div class="ptab-opts">
+            <button type="button" class="ptab-opt${tab==='1-0'?' sel':''}" data-tab="1-0" ${dis}>${flag(m.home)} ${esc(m.home)}</button>
+            <button type="button" class="ptab-opt${tab==='0-1'?' sel':''}" data-tab="0-1" ${dis}>${flag(m.away)} ${esc(m.away)}</button>
+          </div></div>`:'';
       return `<div class="pmatch ${civ?'civ-m':''} ${locked?'locked':''}" data-mid="${id}">
         <div class="pm-top"><span class="pm-meta">${m.g?('Groupe '+m.g+' · J'+m.j):(m.id||'')} · ${m.d} · ${timeLabel(m.t)}</span>
           ${civ?'<span class="badge done">🐘 ×2 points</span>':''}${locked?'<span class="plock">🔒 Verrouillé</span>':''}</div>
@@ -1594,6 +1641,7 @@ setInterval(fetchLive,POLL_MS);
           <span class="pdash">–</span>
           <input type="number" min="0" max="99" inputmode="numeric" class="p-a" value="${sc[1]}" ${dis} aria-label="buts ${esc(m.away)}">
           <span class="pteam away">${team(m.away)}</span></div>
+        ${tabBlock}
         <div style="text-align:center">${locked
           ? (has?`<span class="pm-meta" style="color:var(--green-dark)">✓ Ton pronostic : <b>${sc[0]}–${sc[1]}</b> (fermé)</span>`:'<span class="pm-meta">Pronostic fermé</span>')
           : `${has?`<div class="pm-meta" style="color:var(--green-dark);margin-bottom:6px">✓ Ton pronostic : <b>${sc[0]}–${sc[1]}</b> enregistré</div>`:''}<button type="button" class="pbtn green small p-save">${reg?(has?'Modifier mon pronostic':'Enregistrer'):'Enregistrer (pseudo requis)'}</button>`}</div>
@@ -1644,7 +1692,18 @@ setInterval(fetchLive,POLL_MS);
       const recalled=existing&&Object.keys(existing.scores||{}).length;
       toast(recalled?('Re-bonjour '+v+' ! Tes pronostics sont là 🎉'):('Bienvenue '+v+' ! 🎉'));});
     const mb=$('#p-matches');
-    mb&&mb.addEventListener('click',e=>{const btn=e.target.closest('.p-save');if(!btn)return;
+    mb&&mb.addEventListener('click',e=>{
+      // Choix du vainqueur aux tirs au but (matchs à élimination directe)
+      const tbtn=e.target.closest('.ptab-opt');
+      if(tbtn){const card=tbtn.closest('.pmatch');if(!card||card.classList.contains('locked'))return;
+        const id=card.dataset.mid,pick=tbtn.dataset.tab,tid=id+'__tab';
+        setMyScoreLocal(tid,pick);
+        card.querySelectorAll('.ptab-opt').forEach(b=>b.classList.toggle('sel',b===tbtn));
+        if(!getPseudo()){toast('Choix t.a.b. noté ! Choisis un pseudo en haut pour valider 🎯');return;}
+        toast('Vainqueur aux t.a.b. enregistré ✅');
+        const rt=store&&store.saveScore(getUid(),tid,pick);if(rt&&rt.then)rt.then(ok=>{if(ok)fetchLBRest();});
+        return;}
+      const btn=e.target.closest('.p-save');if(!btn)return;
       const card=btn.closest('.pmatch'),id=card.dataset.mid;
       const h=card.querySelector('.p-h').value,a=card.querySelector('.p-a').value;
       if(h===''||a===''){toast('Indique les deux scores');return;}
