@@ -146,35 +146,38 @@
   .legend span{display:flex;align-items:center;gap:7px}
   .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
   .qprov{font-size:.72rem;font-weight:700;color:var(--muted);background:#f1f1ee;border-radius:20px;padding:2px 9px}
-  /* Arbre des 16ᵉˢ */
-  .brk{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:6px 0 12px}
-  .brk-inner{display:flex;flex-direction:column;gap:30px;min-width:560px}
-  .brk-q{display:flex;align-items:center}
-  .brk-hs{display:flex;flex-direction:column;gap:34px}
-  .brk-h{display:flex;align-items:center}
-  .brk-ms{display:flex;flex-direction:column;gap:12px}
-  .brk-m{display:flex;justify-content:space-between;align-items:center;gap:8px;width:172px;
-    background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:.8rem;
-    box-shadow:0 1px 2px rgba(0,0,0,.04)}
-  .bm-s{font-weight:800;letter-spacing:.3px;white-space:nowrap;color:var(--ink)}
-  .bm-s.right{text-align:right}
-  .bm-s.ph{color:#aab0ba;font-weight:700;font-size:.72rem}
-  .bm-s.civ{color:var(--orange-dark)}
-  .bm-s.win{color:var(--green-dark);font-weight:900}
-  .brk-m.decided{border-color:var(--green);background:#f3fbf6}
-  .bm-r{font-size:.62rem;font-weight:800;color:var(--muted);white-space:nowrap;padding:0 3px;text-align:center}
-  .bm-r em{font-style:normal;color:var(--green-dark)}
-  .brk-conn{align-self:stretch;width:22px;flex:none;position:relative}
-  .brk-conn::before{content:'';position:absolute;left:0;top:25%;bottom:25%;border-left:2px solid #d9dbe0}
-  .brk-conn::after{content:'';position:absolute;left:0;right:0;top:50%;border-top:2px solid #d9dbe0}
-  .brk-box{display:flex;flex-wrap:wrap;align-content:center;gap:6px;background:#f3f4f6;border-radius:12px;padding:10px;align-self:center}
-  .brk-box.box-h{width:104px;min-height:54px}
-  .brk-box.box-q{width:104px;min-height:54px}
-  .bchip{font-size:1.15rem;line-height:1}
-  .bchip.none{color:#c4c7cc;font-weight:800}
-  .bchip.third{filter:grayscale(.1)}
-  .bchip.prov{opacity:.85}
-  .bchip.civ{outline:2px solid var(--orange);outline-offset:1px;border-radius:4px}
+  /* ===== Bracket de phase finale (colonnes par tour + coudes) ===== */
+  .kbr{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 0 14px;min-width:100%}
+  .kbr-round{display:flex;flex-direction:column;flex:1 1 0;min-width:158px}
+  .kbr-head{font-weight:900;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+    text-align:center;padding:0 6px 10px}
+  .kbr-body{display:flex;flex-direction:column;flex:1}
+  .kbr-m{flex:1 1 0;display:flex;align-items:center;position:relative;padding:5px 6px}
+  /* espace à droite pour les connecteurs (sauf dernier tour) */
+  .kbr-round:not(:last-child) .kbr-m{padding-right:24px}
+  /* trait horizontal sortant (au centre de la carte) */
+  .kbr-round:not(:last-child) .kbr-m::after{content:"";position:absolute;right:6px;top:50%;width:18px;height:2px;background:#d4d7dd}
+  /* trait vertical reliant chaque paire vers le match du tour suivant */
+  .kbr-round:not(:last-child) .kbr-m:nth-child(odd)::before{content:"";position:absolute;right:6px;top:50%;width:2px;height:50%;background:#d4d7dd}
+  .kbr-round:not(:last-child) .kbr-m:nth-child(even)::before{content:"";position:absolute;right:6px;bottom:50%;width:2px;height:50%;background:#d4d7dd}
+  .kcard{width:100%;background:#fff;border:1px solid var(--line);border-radius:11px;overflow:hidden;
+    box-shadow:0 1px 4px rgba(17,21,15,.06);position:relative;z-index:1}
+  .kcard.decided{border-color:#bfe6d2}
+  .krow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;font-size:.82rem;font-weight:700}
+  .krow+.krow{border-top:1px solid var(--line)}
+  .krow .kteam{display:flex;align-items:center;gap:6px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .krow .kteam b{font-weight:800;overflow:hidden;text-overflow:ellipsis}
+  .krow .ksc{font-weight:900;min-width:16px;text-align:center;color:var(--ink)}
+  .krow.win{background:#f3fbf6}
+  .krow.win .kteam b{color:var(--green-dark)}
+  .krow.win .ksc{color:var(--green-dark)}
+  .krow.lose{opacity:.5}
+  .krow.civ b{color:var(--orange-dark)}
+  .kph{color:#aab0ba;font-weight:700;font-size:.78rem}
+  .kpso{font-size:.62rem;font-weight:800;color:var(--muted);text-align:center;padding:2px 0;
+    border-top:1px dashed var(--line);background:#fafafa}
+  .kbr-3rd{margin-top:8px;max-width:230px}
+  .kbr-3rd-h{display:block;font-weight:900;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
   .standings-grid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
 
   /* ---------- Chemin des Éléphants ---------- */
@@ -413,13 +416,13 @@
 
   <section class="alt-bg">
     <div class="wrap">
-      <h2>🎟️ Le tableau des 16ᵉˢ de finale</h2>
-      <p class="sub">Seules les équipes <b>déjà qualifiées</b> sont affichées (groupes terminés). Les autres places se remplissent automatiquement dès qu'un groupe est fini ; 🥉 = place de meilleur 3ᵉ encore à attribuer. Faites glisser pour voir tout l'arbre →</p>
+      <h2>🎟️ Le tableau final · des 16ᵉˢ à la finale</h2>
+      <p class="sub">Le bracket complet de la phase à élimination directe, tour par tour. Chaque carte se remplit automatiquement : le <b>vainqueur</b> (surligné en vert) avance au tour suivant ; les rencontres encore indécises affichent la position de groupe (« 2ᵉ A »), 🥉 pour un meilleur 3ᵉ, ou « V. M__ » pour le vainqueur attendu. Faites glisser horizontalement pour parcourir tout le tableau →</p>
       <div id="qualified-bracket"></div>
       <div class="legend">
-        <span><i class="dot" style="background:var(--orange)"></i> 16ᵉˢ de finale (matchs)</span>
-        <span><i class="dot" style="background:#9aa4b2"></i> regroupés par 8ᵉ puis par quart</span>
-        <span>⬜ place en attente · 🥉 meilleur 3ᵉ à déterminer</span>
+        <span><i class="dot" style="background:var(--green)"></i> Vainqueur qualifié</span>
+        <span><i class="dot" style="background:#d4d7dd"></i> Lignes de progression vers le tour suivant</span>
+        <span>🥅 score aux tirs au but · 🥉 meilleur 3ᵉ · « V. M__ » vainqueur à venir</span>
       </div>
       <h3 style="margin-top:30px">🥉 La course aux 8 meilleurs 3ᵉˢ</h3>
       <p class="sub">Classement des 3ᵉˢ des 12 groupes : les 8 premiers sont repêchés pour les 16ᵉˢ.</p>
@@ -1139,41 +1142,31 @@ function resolveSlot(part, fixed){
 }
 function slot16(m){const parts=(m.pairing||'').split('–');
   return [resolveSlot(parts[0],m.home), resolveSlot(parts[1],m.away)];}
-function chip(e){const cl=e&&e.prov?' prov':'';
-  if(e&&e.team) return `<span class="bchip${cl}${e.team==="Côte d'Ivoire"?' civ':''}" title="${escG(e.team)}">${flag(e.team)}</span>`;
-  if(e&&e.third) return `<span class="bchip third" title="meilleur 3ᵉ à déterminer">🥉</span>`;
-  return `<span class="bchip none">·</span>`;}
-// Redescend récursivement jusqu'aux 16ᵉˢ : un 8ᵉ/quart pointe vers des M-id, un 16ᵉ vers des positions de groupe
-function teamsOf(ids,map){return ids.flatMap(id=>{const m=map[id]; if(!m) return [];
-  const fe=(m.pairing||'').match(/M\d+/g); if(fe) return teamsOf(fe,map);
-  const w=koWinner(m); return w?[{team:w}]:slot16(m);});}
+// ── Bracket de phase finale, style « grands sites » : colonnes par tour (16ᵉˢ→finale),
+//    cartes à 2 équipes, vainqueur surligné, lignes de connexion en coude entre les tours.
 function renderBracket(){
   const box=$("#qualified-bracket"); if(!box) return;
-  const all=KNOCKOUT.flatMap(p=>p.matches), idMap={}; all.forEach(m=>idMap[m.id]=m);
-  const r16=KNOCKOUT[0]?KNOCKOUT[0].matches:[], r8=KNOCKOUT[1]?KNOCKOUT[1].matches:[], r4=KNOCKOUT[2]?KNOCKOUT[2].matches:[];
-  const feeders=m=>(m.pairing||'').match(/M\d+/g)||[];
-  // pill d'un 16ᵉ : CODE drapeau – drapeau CODE (le vainqueur, t.a.b. inclus, est mis en avant)
-  const pill=m=>{const [l,r]=slot16(m); const w=koWinner(m);
-    const side=(e,right)=>{const cd=e.team?code(e.team):e.third?'3ᵉ':escG(e.label||'?');
-      const fl=e.team?flag(e.team):e.third?'🥉':'⬜';
-      const ph=e.team?'':' ph';
-      const won=(w&&e.team===w)?' win':'';
-      return right?`<span class="bm-s right${ph}${won}${e.team==="Côte d'Ivoire"?' civ':''}">${fl} ${cd}</span>`
-                  :`<span class="bm-s${ph}${won}${e.team==="Côte d'Ivoire"?' civ':''}">${cd} ${fl}</span>`;};
-    const sc=(m.st==="done"&&m.s)?`<span class="bm-r">${escG(m.s)}${/^\d+-\d+$/.test(m.pso||"")?' <em>t.a.b.</em>':''}</span>`:'';
-    return `<div class="brk-m${w?' decided':''}" title="${escG(m.d)} · ${escG(m.venue)}">${side(l,false)}${sc}${side(r,true)}</div>`;};
-  const boxHTML=(ids,cls)=>`<div class="brk-box ${cls}">${teamsOf(ids,idMap).map(chip).join('')}</div>`;
-  const conn='<div class="brk-conn"></div>';
-  // 4 quarts (top→bas) ; chaque quart = 2 huitièmes ; chaque huitième = 2 seizièmes
-  const html=r4.map(q=>{
-    const eights=feeders(q).map(id=>idMap[id]).filter(Boolean);
-    const hs=eights.map(e=>{
-      const sixteenths=feeders(e).map(id=>idMap[id]).filter(Boolean);
-      return `<div class="brk-h"><div class="brk-ms">${sixteenths.map(pill).join('')}</div>${conn}${boxHTML(feeders(e),'box-h')}</div>`;
-    }).join('');
-    return `<div class="brk-q"><div class="brk-hs">${hs}</div>${conn}${boxHTML(feeders(q),'box-q')}</div>`;
-  }).join('');
-  box.innerHTML=`<div class="brk"><div class="brk-inner">${html}</div></div>`;
+  const idMap={}; KNOCKOUT.flatMap(p=>p.matches).forEach(m=>idMap[m.id]=m);
+  // Participants d'un match : 16ᵉˢ → positions de groupe ; tours suivants → vainqueur du match nourricier (ou « V. Mxx »)
+  const parts=m=>{const fe=(m.pairing||'').match(/M\d+/g);
+    if(!fe) return slot16(m);
+    return fe.map((fid,i)=>{const fixed=i===0?m.home:m.away; if(fixed) return {team:fixed};
+      const w=idMap[fid]?koWinner(idMap[fid]):null; return w?{team:w}:{label:'V. '+fid};});};
+  // Carte d'un match : 2 lignes équipe/score, vainqueur en vert, perdant atténué, t.a.b. le cas échéant
+  const card=m=>{const ps=parts(m), w=koWinner(m), done=m.st==="done"&&/^\d+-\d+$/.test(m.s||""), sc=done?m.s.split('-'):null;
+    const row=(e,i)=>{const t=e.team, isCiv=t==="Côte d'Ivoire", isW=t&&w&&t===w, isL=done&&w&&t&&t!==w;
+      const lbl=t?`${flag(t)} <b>${escG(t)}</b>`:(e.third?'🥉 <span class="kph">meilleur 3ᵉ</span>':`<span class="kph">${escG(e.label||'à venir')}</span>`);
+      return `<div class="krow${isW?' win':''}${isL?' lose':''}${isCiv?' civ':''}"><span class="kteam">${lbl}</span><span class="ksc">${sc?escG(sc[i]):''}</span></div>`;};
+    const pso=done&&/^\d+-\d+$/.test(m.pso||"")?`<div class="kpso">🥅 ${escG(m.pso)} t.a.b.</div>`:'';
+    return `<div class="kcard${w?' decided':''}" title="${escG(m.id||'')} · ${escG(m.d)} · ${escG(m.venue)}">${row(ps[0],0)}${row(ps[1],1)}${pso}</div>`;};
+  // Ordre arborescent (DFS depuis la finale) → les colonnes s'alignent en entonnoir et les coudes tombent juste
+  const depthCols=[[],[],[],[],[]];
+  (function visit(id,d){const m=idMap[id]; if(!m||d>4) return; depthCols[d].push(m);
+    const fe=(m.pairing||'').match(/M\d+/g); if(fe) fe.forEach(f=>visit(f,d+1));})('M104',0);
+  const rounds=[['16ᵉˢ de finale',depthCols[4]],['8ᵉˢ de finale',depthCols[3]],['Quarts',depthCols[2]],['Demies',depthCols[1]],['Finale',depthCols[0]]];
+  const cols=rounds.map(([h,ms])=>`<div class="kbr-round"><div class="kbr-head">${h}</div><div class="kbr-body">${ms.map(m=>`<div class="kbr-m">${card(m)}</div>`).join('')}</div></div>`).join('');
+  const tp=idMap['M103'], tpHtml=tp?`<div class="kbr-3rd"><span class="kbr-3rd-h">🥉 Match pour la 3ᵉ place</span>${card(tp)}</div>`:'';
+  box.innerHTML=`<div class="kbr">${cols}</div>${tpHtml}`;
 }
 function renderThirdsRace(){
   const box=$("#thirds-race"); if(!box) return;
