@@ -733,10 +733,10 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-06-30";
+const LAST_UPDATE = "2026-07-01";
 
-// Compte à rebours : prochain rendez-vous des Éléphants (ISO UTC)
-const NEXT_KICKOFF = { iso:"2026-06-30T17:00:00Z", label:"⏳ avant Côte d'Ivoire 🇨🇮 – Norvège 🇳🇴 · 16ᵉ de finale · 30 juin, AT&T Stadium (Dallas) · 17h00 GMT" };
+// Compte à rebours : Éléphants éliminés en 16ᵉ → on pointe le prochain grand rendez-vous (ISO UTC)
+const NEXT_KICKOFF = { iso:"2026-07-05T20:00:00Z", label:"⏳ avant Brésil 🇧🇷 – Norvège 🇳🇴 · 8ᵉ de finale · 5 juillet, MetLife Stadium (New York/NJ) · 20h00 GMT — le bourreau des Éléphants défie la Seleção" };
 
 // Drapeaux des 48 équipes
 const FLAGS = {
@@ -864,9 +864,9 @@ const KNOCKOUT = [
   {id:"M74",d:"29 juin",pairing:"1ᵉʳ E – 3ᵉ (A/B/C/D/F)",venue:"Gillette Stadium · Boston",t:"22h30",home:"Allemagne",away:"Paraguay",s:"1-1",pso:"3-4",st:"done",goals:[{p:"Enciso",t:"Paraguay",m:"42"},{p:"Havertz",t:"Allemagne",m:"54"}]},
   {id:"M75",d:"29 juin",pairing:"1ᵉʳ F – 2ᵉ C",venue:"Estadio BBVA · Monterrey",t:"03h00 (+1j)",home:"Pays-Bas",away:"Maroc",s:"1-1",pso:"2-3",st:"done",goals:[{p:"Gakpo",t:"Pays-Bas",m:"72"},{p:"Issa Diop",t:"Maroc",m:"90+1"}]},
   {id:"M76",d:"29 juin",pairing:"1ᵉʳ C – 2ᵉ F",venue:"NRG Stadium · Houston",t:"19h00",home:"Brésil",away:"Japon",s:"2-1",st:"done",goals:[{p:"Sano",t:"Japon",m:"29"},{p:"Casemiro",t:"Brésil",m:"56"},{p:"Martinelli",t:"Brésil",m:"90+5"}]},
-  {id:"M77",d:"30 juin",pairing:"1ᵉʳ I – 3ᵉ (C/D/F/G/H)",venue:"MetLife Stadium · New York/NJ",t:"23h00",home:"France",away:"Suède",s:"",st:"upcoming"},
-  {id:"M78",d:"30 juin",pairing:"2ᵉ E – 2ᵉ I",venue:"AT&T Stadium · Dallas",t:"19h00",home:"Côte d'Ivoire",away:"Norvège",s:"",st:"upcoming"},
-  {id:"M79",d:"30 juin",pairing:"1ᵉʳ A – 3ᵉ (C/E/F/H/I)",venue:"Estadio Azteca · Mexico",t:"03h00 (+1j)",home:"Mexique",away:"Équateur",s:"",st:"upcoming"},
+  {id:"M77",d:"30 juin",pairing:"1ᵉʳ I – 3ᵉ (C/D/F/G/H)",venue:"MetLife Stadium · New York/NJ",t:"23h00",home:"France",away:"Suède",s:"3-0",st:"done",goals:[{p:"Mbappé",t:"France",m:"45"},{p:"Barcola",t:"France",m:"63"},{p:"Mbappé",t:"France",m:"78"}]},
+  {id:"M78",d:"30 juin",pairing:"2ᵉ E – 2ᵉ I",venue:"AT&T Stadium · Dallas",t:"19h00",home:"Côte d'Ivoire",away:"Norvège",s:"1-2",st:"done",goals:[{p:"Nusa",t:"Norvège",m:"39"},{p:"Amad Diallo",t:"Côte d'Ivoire",m:"74"},{p:"Haaland",t:"Norvège",m:"86"}]},
+  {id:"M79",d:"30 juin",pairing:"1ᵉʳ A – 3ᵉ (C/E/F/H/I)",venue:"Estadio Azteca · Mexico",t:"03h00 (+1j)",home:"Mexique",away:"Équateur",s:"2-0",st:"done",goals:[{p:"Quiñones",t:"Mexique",m:"22"},{p:"R. Jiménez",t:"Mexique",m:"31"}]},
   {id:"M80",d:"1ᵉʳ juillet",pairing:"1ᵉʳ L – 3ᵉ (E/H/I/J/K)",venue:"Mercedes-Benz Stadium · Atlanta",t:"18h00",home:"Angleterre",away:"RD Congo",s:"",st:"upcoming"},
   {id:"M81",d:"1ᵉʳ juillet",pairing:"1ᵉʳ D – 3ᵉ (B/E/F/I/J)",venue:"Levi's Stadium · San Francisco",t:"02h00 (+1j)",home:"États-Unis",away:"Bosnie-Herzégovine",s:"",st:"upcoming"},
   {id:"M82",d:"1ᵉʳ juillet",pairing:"1ᵉʳ G – 3ᵉ (A/E/H/I/J)",venue:"Lumen Field · Seattle",t:"22h00",home:"Belgique",away:"Sénégal",s:"",st:"upcoming"},
@@ -877,10 +877,10 @@ const KNOCKOUT = [
   {id:"M87",d:"3 juillet",pairing:"1ᵉʳ K – 3ᵉ (D/E/I/J/L)",venue:"Arrowhead Stadium · Kansas City",t:"03h30 (+1j)",home:"Colombie",away:"Ghana",s:"",st:"upcoming"},
   {id:"M88",d:"3 juillet",pairing:"2ᵉ D – 2ᵉ G",venue:"AT&T Stadium · Dallas",t:"20h00",home:"Australie",away:"Égypte",s:"",st:"upcoming"}]},
  {phase:"8ᵉˢ de finale (4 – 7 juillet)", matches:[
-  {id:"M89",d:"4 juillet",pairing:"V. M74 – V. M77",venue:"Lincoln Financial Field · Philadelphie",home:"Paraguay",away:"",s:"",st:"upcoming"},
+  {id:"M89",d:"4 juillet",pairing:"V. M74 – V. M77",venue:"Lincoln Financial Field · Philadelphie",home:"Paraguay",away:"France",s:"",st:"upcoming"},
   {id:"M90",d:"4 juillet",pairing:"V. M73 – V. M75",venue:"NRG Stadium · Houston",home:"Canada",away:"Maroc",s:"",st:"upcoming"},
-  {id:"M91",d:"5 juillet",pairing:"V. M76 – V. M78",venue:"MetLife Stadium · New York/NJ",home:"Brésil",away:"",s:"",st:"upcoming"},
-  {id:"M92",d:"5 juillet",pairing:"V. M79 – V. M80",venue:"Estadio Azteca · Mexico",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M91",d:"5 juillet",pairing:"V. M76 – V. M78",venue:"MetLife Stadium · New York/NJ",home:"Brésil",away:"Norvège",s:"",st:"upcoming"},
+  {id:"M92",d:"5 juillet",pairing:"V. M79 – V. M80",venue:"Estadio Azteca · Mexico",home:"Mexique",away:"",s:"",st:"upcoming"},
   {id:"M93",d:"6 juillet",pairing:"V. M83 – V. M84",venue:"AT&T Stadium · Dallas",home:"",away:"",s:"",st:"upcoming"},
   {id:"M94",d:"6 juillet",pairing:"V. M81 – V. M82",venue:"Lumen Field · Seattle",home:"",away:"",s:"",st:"upcoming"},
   {id:"M95",d:"7 juillet",pairing:"V. M86 – V. M88",venue:"Mercedes-Benz Stadium · Atlanta",home:"",away:"",s:"",st:"upcoming"},
@@ -901,23 +901,23 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"30 juin 2026", title:"🐘 C'est le grand jour : Côte d'Ivoire – Norvège ce soir à Dallas (17h00 GMT)", text:"Les Éléphants disputent ce mardi 30 juin le tout premier 16ᵉ de finale de leur histoire face à la Norvège d'Erling Haaland et Martin Ødegaard, à l'AT&T Stadium d'Arlington (Dallas), coup d'envoi à 17h00 GMT (12h00 local). Aucune blessure majeure dans le groupe d'Emerse Faé, qui s'appuiera sur un Nicolas Pépé étincelant (doublé contre Curaçao). En cas de qualification, la Côte d'Ivoire défierait le Brésil en 8ᵉ de finale (5 juillet, MetLife Stadium). Le onze de départ sera dévoilé ≈ 1h avant le coup d'envoi." },
-  { date:"30 juin 2026", title:"😱 Séisme à Boston : l'Allemagne éliminée par le Paraguay (1-1, 4-3 t.a.b.)", text:"Énorme surprise en 16ᵉ de finale : la Mannschaft, quadruple championne du monde, est sortie par le Paraguay au terme d'une séance de tirs au but cruelle (4-3), après un 1-1 au bout des prolongations. Julio Enciso avait ouvert le score (42ᵉ), Kai Havertz égalisé (54ᵉ). Le gardien Orlando Gill a repoussé les tentatives de Havertz et Woltemade avant que Jonathan Tah n'expédie la sienne au-dessus. Le Paraguay rejoint les 8ᵉˢ et y attend le vainqueur de France–Suède." },
-  { date:"30 juin 2026", title:"🇲🇦 Le Maroc sort les Pays-Bas aux tirs au but (1-1, 3-2 t.a.b.)", text:"Autre coup de tonnerre : le Maroc a éliminé les Pays-Bas après un scénario fou. Cody Gakpo avait donné l'avantage aux Néerlandais (72ᵉ), mais Issa Diop a égalisé d'une tête dans le temps additionnel (90+1) pour arracher la prolongation, puis Ismael Saibari a transformé le penalty décisif (3-2). Les Lions de l'Atlas filent en 8ᵉ de finale, où ils affronteront le Canada (4 juillet, NRG Stadium de Houston)." },
-  { date:"29 juin 2026", title:"⚽ Le Brésil écarte le Japon au bout du suspense (2-1)", text:"Le Brésil a dû s'employer pour se défaire d'un Japon accrocheur au NRG Stadium de Houston. Kaishu Sano avait surpris la Seleção (29ᵉ) avant que Casemiro n'égalise juste après la pause (56ᵉ) ; Gabriel Martinelli a délivré les siens dans le temps additionnel (90+5). Le Brésil attend désormais en 8ᵉ le vainqueur de Côte d'Ivoire–Norvège." },
-  { date:"28 juin 2026", title:"🌍 Record africain : 9 nations du continent en 16ᵉˢ de finale", text:"Jamais autant d'équipes africaines n'avaient atteint le tableau final d'une Coupe du monde : elles sont neuf en 2026 — Maroc, Côte d'Ivoire, Égypte, Cap-Vert, Sénégal, Algérie, Ghana, RD Congo et Afrique du Sud. Le Cap-Vert et la RD Congo découvrent même les 16ᵉˢ pour la première fois de leur histoire. Seule la Tunisie n'a pas passé le 1ᵉʳ tour." },
+  { date:"1ᵉʳ juillet 2026", title:"💔 Fin du rêve : Haaland crucifie la Côte d'Ivoire (1-2), les Éléphants éliminés", text:"Le parcours des Éléphants s'arrête en 16ᵉ de finale. À l'AT&T Stadium de Dallas, la Côte d'Ivoire s'est inclinée 2-1 face à la Norvège au terme d'un scénario cruel. Antonio Nusa avait ouvert le score (39ᵉ) ; entré en jeu, Amad Diallo a égalisé et redonné espoir (74ᵉ), avant qu'Erling Haaland ne fasse la différence en fin de match (86ᵉ). Emerse Faé, digne : « Les joueurs ont tout donné. On est tombé sur une équipe valeureuse. On va travailler et revenir. » Malgré la déception, la Côte d'Ivoire quitte le tournoi la tête haute." },
+  { date:"1ᵉʳ juillet 2026", title:"🐘 Une première historique : les Éléphants avaient franchi la phase de groupes", text:"Même éliminée, cette Côte d'Ivoire 2026 restera dans l'histoire : c'est la toute première fois que les Éléphants passaient le 1ᵉʳ tour d'une Coupe du monde et atteignaient la phase à élimination directe. Portés par un Nicolas Pépé retrouvé et un Amad Diallo décisif (buteur à l'aller comme au 16ᵉ), les hommes d'Emerse Faé sortis 2ᵉˢ d'un groupe E relevé (Allemagne, Équateur, Curaçao) ont posé une nouvelle référence pour le football ivoirien." },
+  { date:"1ᵉʳ juillet 2026", title:"🇧🇷 Le bourreau des Éléphants file défier le Brésil en 8ᵉ", text:"La Norvège d'Erling Haaland, qui a éliminé la Côte d'Ivoire, disputera son premier 8ᵉ de finale de Coupe du monde face au Brésil, dimanche 5 juillet au MetLife Stadium (New York/NJ). La Seleção, tombeuse du Japon (2-1), reste le grand favori — mais les Scandinaves, invaincus depuis le début du tournoi, arrivent avec l'appétit des néophytes." },
+  { date:"1ᵉʳ juillet 2026", title:"🇫🇷 Mbappé et la France déroulent face à la Suède (3-0)", text:"Au MetLife Stadium, les Bleus ont validé leur billet pour les 8ᵉˢ avec la manière : doublé de Kylian Mbappé (45ᵉ, 78ᵉ) et une réalisation d'Aurélien Barcola (63ᵉ). La France affrontera le Paraguay — tombeur surprise de l'Allemagne aux tirs au but — le 4 juillet à Philadelphie." },
+  { date:"1ᵉʳ juillet 2026", title:"🇲🇽 Le Mexique brise 40 ans d'attente en écartant l'Équateur (2-0)", text:"Devant son public de l'Estadio Azteca, le Mexique a signé sa première victoire à élimination directe en Coupe du monde depuis 40 ans. Julián Quiñones (22ᵉ) puis Raúl Jiménez (31ᵉ) ont fait la différence avant la pause ; l'Équateur a fini à dix après l'expulsion de Piero Hincapié dans le temps additionnel. Le Mexique attend en 8ᵉ le vainqueur d'Angleterre–RD Congo." },
 ];
 
 // ───────── COMPOSITION DE DÉPART DE LA CÔTE D'IVOIRE ─────────
 // Mettre à jour avant chaque match (onze annoncé). Mettre lines:[] (ou
 // CIV_LINEUP=null) pour masquer le bloc entre deux matchs.
 const CIV_LINEUP = {
-  match:"Prochain match : 16ᵉ de finale · Côte d'Ivoire 🇨🇮 – Norvège 🇳🇴 · 30 juin, AT&T Stadium (Dallas) · 17h00 GMT",
+  match:"Parcours terminé — Côte d'Ivoire 🇨🇮 1-2 Norvège 🇳🇴 · 16ᵉ de finale · 30 juin, AT&T Stadium (Dallas)",
   formation:"4-3-3",
   coach:"Emerse Faé",
-  probable:true,
+  probable:false,
   lines:[],
-  note:"🐘 Premier 16ᵉ de finale de l'histoire ! Adversaire désormais connu : la Norvège d'Erling Haaland (2ᵉ du groupe I). Le onze de départ sera affiché ici dès l'annonce officielle (≈ 1h avant le coup d'envoi du 30 juin)."
+  note:"🐘 Merci les Éléphants ! Éliminés en 16ᵉ de finale par la Norvège (1-2), les hommes d'Emerse Faé quittent le Mondial avec les honneurs après avoir écrit l'histoire : pour la première fois, la Côte d'Ivoire avait franchi la phase de groupes d'une Coupe du monde. Rendez-vous pour la suite de l'aventure ivoirienne."
 };
 // Overlay live du onze officiel : alimenté par data.json.civLineup (écrit par la GitHub Action
 // dès l'annonce officielle ~1h avant le match). Null ⇒ on retombe sur CIV_LINEUP figé ci-dessus.
