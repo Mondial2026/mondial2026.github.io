@@ -1,1 +1,44 @@
-{"lastUpdate":"2026-07-01","matches":[]}
+{
+  "lastUpdate": "2026-07-01",
+  "matches": [],
+  "civLineup": {
+    "match": "Côte d'Ivoire – Norvège · groupe E (Mondial 2026)",
+    "formation": "4-1-4-1",
+    "coach": "Emerse Faé",
+    "probable": false,
+    "lines": [
+      {
+        "role": "Gardien",
+        "players": [
+          "Yahia Fofana"
+        ]
+      },
+      {
+        "role": "Défenseurs",
+        "players": [
+          "Guela Doué",
+          "Ghislain Konan",
+          "Odilon Kossounou",
+          "Emmanuel Agbadou"
+        ]
+      },
+      {
+        "role": "Milieux",
+        "players": [
+          "Ibrahim Sangaré",
+          "Nicolas Pépé",
+          "Franck Kessié",
+          "Christ Inao Oulaï",
+          "Yan Diomande"
+        ]
+      },
+      {
+        "role": "Attaquants",
+        "players": [
+          "Ange-Yoan Bonny"
+        ]
+      }
+    ],
+    "note": "🟢 Onze officiel — mis à jour automatiquement (source ESPN)."
+  }
+}
