@@ -733,7 +733,7 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-07-01";
+const LAST_UPDATE = "2026-07-02";
 
 // Compte à rebours : Éléphants éliminés en 16ᵉ → on pointe le prochain grand rendez-vous (ISO UTC)
 const NEXT_KICKOFF = { iso:"2026-07-05T20:00:00Z", label:"⏳ avant Brésil 🇧🇷 – Norvège 🇳🇴 · 8ᵉ de finale · 5 juillet, MetLife Stadium (New York/NJ) · 20h00 GMT — le bourreau des Éléphants défie la Seleção" };
@@ -867,9 +867,9 @@ const KNOCKOUT = [
   {id:"M77",d:"30 juin",pairing:"1ᵉʳ I – 3ᵉ (C/D/F/G/H)",venue:"MetLife Stadium · New York/NJ",t:"23h00",home:"France",away:"Suède",s:"3-0",st:"done",goals:[{p:"Mbappé",t:"France",m:"45"},{p:"Barcola",t:"France",m:"63"},{p:"Mbappé",t:"France",m:"78"}]},
   {id:"M78",d:"30 juin",pairing:"2ᵉ E – 2ᵉ I",venue:"AT&T Stadium · Dallas",t:"19h00",home:"Côte d'Ivoire",away:"Norvège",s:"1-2",st:"done",goals:[{p:"Nusa",t:"Norvège",m:"39"},{p:"Amad Diallo",t:"Côte d'Ivoire",m:"74"},{p:"Haaland",t:"Norvège",m:"86"}]},
   {id:"M79",d:"30 juin",pairing:"1ᵉʳ A – 3ᵉ (C/E/F/H/I)",venue:"Estadio Azteca · Mexico",t:"03h00 (+1j)",home:"Mexique",away:"Équateur",s:"2-0",st:"done",goals:[{p:"Quiñones",t:"Mexique",m:"22"},{p:"R. Jiménez",t:"Mexique",m:"31"}]},
-  {id:"M80",d:"1ᵉʳ juillet",pairing:"1ᵉʳ L – 3ᵉ (E/H/I/J/K)",venue:"Mercedes-Benz Stadium · Atlanta",t:"18h00",home:"Angleterre",away:"RD Congo",s:"",st:"upcoming"},
-  {id:"M81",d:"1ᵉʳ juillet",pairing:"1ᵉʳ D – 3ᵉ (B/E/F/I/J)",venue:"Levi's Stadium · San Francisco",t:"02h00 (+1j)",home:"États-Unis",away:"Bosnie-Herzégovine",s:"",st:"upcoming"},
-  {id:"M82",d:"1ᵉʳ juillet",pairing:"1ᵉʳ G – 3ᵉ (A/E/H/I/J)",venue:"Lumen Field · Seattle",t:"22h00",home:"Belgique",away:"Sénégal",s:"",st:"upcoming"},
+  {id:"M80",d:"1ᵉʳ juillet",pairing:"1ᵉʳ L – 3ᵉ (E/H/I/J/K)",venue:"Mercedes-Benz Stadium · Atlanta",t:"18h00",home:"Angleterre",away:"RD Congo",s:"2-1",st:"done",goals:[{p:"Cipenga",t:"RD Congo",m:"7"},{p:"Kane",t:"Angleterre",m:"75"},{p:"Kane",t:"Angleterre",m:"86"}]},
+  {id:"M81",d:"1ᵉʳ juillet",pairing:"1ᵉʳ D – 3ᵉ (B/E/F/I/J)",venue:"Levi's Stadium · San Francisco",t:"02h00 (+1j)",home:"États-Unis",away:"Bosnie-Herzégovine",s:"2-0",st:"done",goals:[{p:"Balogun",t:"États-Unis",m:"45"},{p:"Tillman",t:"États-Unis",m:"82"}]},
+  {id:"M82",d:"1ᵉʳ juillet",pairing:"1ᵉʳ G – 3ᵉ (A/E/H/I/J)",venue:"Lumen Field · Seattle",t:"22h00",home:"Belgique",away:"Sénégal",s:"3-2",st:"done",goals:[{p:"Diarra",t:"Sénégal",m:"24"},{p:"Sarr",t:"Sénégal",m:"51"},{p:"Lukaku",t:"Belgique",m:"86"},{p:"Tielemans",t:"Belgique",m:"89"},{p:"Tielemans",t:"Belgique",m:"125",pen:true}]},
   {id:"M83",d:"2 juillet",pairing:"2ᵉ K – 2ᵉ L",venue:"BMO Field · Toronto",t:"01h00 (+1j)",home:"Portugal",away:"Croatie",s:"",st:"upcoming"},
   {id:"M84",d:"2 juillet",pairing:"1ᵉʳ H – 2ᵉ J",venue:"SoFi Stadium · Los Angeles",t:"21h00",home:"Espagne",away:"Autriche",s:"",st:"upcoming"},
   {id:"M85",d:"2 juillet",pairing:"1ᵉʳ B – 3ᵉ (E/F/G/I/J)",venue:"BC Place · Vancouver",t:"05h00 (+1j)",home:"Suisse",away:"Algérie",s:"",st:"upcoming"},
@@ -880,9 +880,9 @@ const KNOCKOUT = [
   {id:"M89",d:"4 juillet",pairing:"V. M74 – V. M77",venue:"Lincoln Financial Field · Philadelphie",home:"Paraguay",away:"France",s:"",st:"upcoming"},
   {id:"M90",d:"4 juillet",pairing:"V. M73 – V. M75",venue:"NRG Stadium · Houston",home:"Canada",away:"Maroc",s:"",st:"upcoming"},
   {id:"M91",d:"5 juillet",pairing:"V. M76 – V. M78",venue:"MetLife Stadium · New York/NJ",home:"Brésil",away:"Norvège",s:"",st:"upcoming"},
-  {id:"M92",d:"5 juillet",pairing:"V. M79 – V. M80",venue:"Estadio Azteca · Mexico",home:"Mexique",away:"",s:"",st:"upcoming"},
+  {id:"M92",d:"5 juillet",pairing:"V. M79 – V. M80",venue:"Estadio Azteca · Mexico",home:"Mexique",away:"Angleterre",s:"",st:"upcoming"},
   {id:"M93",d:"6 juillet",pairing:"V. M83 – V. M84",venue:"AT&T Stadium · Dallas",home:"",away:"",s:"",st:"upcoming"},
-  {id:"M94",d:"6 juillet",pairing:"V. M81 – V. M82",venue:"Lumen Field · Seattle",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M94",d:"6 juillet",pairing:"V. M81 – V. M82",venue:"Lumen Field · Seattle",home:"États-Unis",away:"Belgique",s:"",st:"upcoming"},
   {id:"M95",d:"7 juillet",pairing:"V. M86 – V. M88",venue:"Mercedes-Benz Stadium · Atlanta",home:"",away:"",s:"",st:"upcoming"},
   {id:"M96",d:"7 juillet",pairing:"V. M85 – V. M87",venue:"BC Place · Vancouver",home:"",away:"",s:"",st:"upcoming"}]},
  {phase:"Quarts de finale (9 – 11 juillet)", matches:[
@@ -901,11 +901,11 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"30 juin 2026", title:"💔 Fin du rêve : Haaland crucifie la Côte d'Ivoire (1-2), les Éléphants éliminés", text:"Le parcours des Éléphants s'arrête en 16ᵉ de finale. À l'AT&T Stadium de Dallas, la Côte d'Ivoire s'est inclinée 2-1 face à la Norvège au terme d'un scénario cruel. Antonio Nusa avait ouvert le score (39ᵉ) ; entré en jeu, Amad Diallo a égalisé et redonné espoir (74ᵉ), avant qu'Erling Haaland ne fasse la différence en fin de match (86ᵉ). Emerse Faé, digne : « Les joueurs ont tout donné. On est tombé sur une équipe valeureuse. On va travailler et revenir. » Malgré la déception, la Côte d'Ivoire quitte le tournoi la tête haute." },
-  { date:"30 juin 2026", title:"🐘 Une première historique : les Éléphants avaient franchi la phase de groupes", text:"Même éliminée, cette Côte d'Ivoire 2026 restera dans l'histoire : c'est la toute première fois que les Éléphants passaient le 1ᵉʳ tour d'une Coupe du monde et atteignaient la phase à élimination directe. Portés par un Nicolas Pépé retrouvé et un Amad Diallo décisif (buteur à l'aller comme au 16ᵉ), les hommes d'Emerse Faé sortis 2ᵉˢ d'un groupe E relevé (Allemagne, Équateur, Curaçao) ont posé une nouvelle référence pour le football ivoirien." },
-  { date:"30 juin 2026", title:"🇧🇷 Le bourreau des Éléphants file défier le Brésil en 8ᵉ", text:"La Norvège d'Erling Haaland, qui a éliminé la Côte d'Ivoire, disputera son premier 8ᵉ de finale de Coupe du monde face au Brésil, dimanche 5 juillet au MetLife Stadium (New York/NJ). La Seleção, tombeuse du Japon (2-1), reste le grand favori — mais les Scandinaves, invaincus depuis le début du tournoi, arrivent avec l'appétit des néophytes." },
-  { date:"30 juin 2026", title:"🇫🇷 Mbappé et la France déroulent face à la Suède (3-0)", text:"Au MetLife Stadium, les Bleus ont validé leur billet pour les 8ᵉˢ avec la manière : doublé de Kylian Mbappé (45ᵉ, 78ᵉ) et une réalisation d'Aurélien Barcola (63ᵉ). La France affrontera le Paraguay — tombeur surprise de l'Allemagne aux tirs au but — le 4 juillet à Philadelphie." },
-  { date:"30 juin 2026", title:"🇲🇽 Le Mexique brise 40 ans d'attente en écartant l'Équateur (2-0)", text:"Devant son public de l'Estadio Azteca, le Mexique a signé sa première victoire à élimination directe en Coupe du monde depuis 40 ans. Julián Quiñones (22ᵉ) puis Raúl Jiménez (31ᵉ) ont fait la différence avant la pause ; l'Équateur a fini à dix après l'expulsion de Piero Hincapié dans le temps additionnel. Le Mexique attend en 8ᵉ le vainqueur d'Angleterre–RD Congo." },
+  { date:"2 juillet 2026", title:"🌍 8ᵉˢ : trois billets en jeu ce jeudi, l'Algérie porte le drapeau africain", text:"Après la qualification du Maroc, l'Afrique garde des chances : ce jeudi 2 juillet, l'Algérie de Riyad Mahrez affronte la Suisse à Vancouver (23h GMT) pour rejoindre les 8ᵉˢ de finale. Au programme aussi, deux chocs européens — Espagne–Autriche à Los Angeles (18h GMT) et Portugal–Croatie à Toronto (22h GMT). L'Égypte et le Ghana joueront leur 16ᵉ de finale vendredi." },
+  { date:"1ᵉʳ juillet 2026", title:"🇺🇸 Les États-Unis en 8ᵉˢ, la Belgique en récompense", text:"Portés par leur public au Levi's Stadium, les États-Unis ont dominé la Bosnie-Herzégovine 2-0. Folarin Balogun a ouvert le score juste avant la pause (45ᵉ) avant d'être exclu (64ᵉ) ; Malik Tillman a scellé la victoire d'un coup franc (82ᵉ). Les Américains défieront la Belgique lundi 6 juillet à Seattle pour une place en quarts." },
+  { date:"1ᵉʳ juillet 2026", title:"🔴 Belgique 3-2 Sénégal (a.p.) : le but le plus tardif de l'histoire élimine les Lions", text:"Scénario fou à Seattle. Menés 2-0 (Diarra 24ᵉ, Sarr 51ᵉ), les Diables Rouges ont égalisé dans les ultimes minutes par Romelu Lukaku (86ᵉ) puis Youri Tielemans (89ᵉ), avant que Tielemans ne transforme un penalty à la 125ᵉ minute — le but le plus tardif de l'histoire de la Coupe du monde. Le Sénégal est éliminé ; côté africain, le Maroc reste qualifié et l'Algérie, l'Égypte et le Ghana sont encore en lice." },
+  { date:"1ᵉʳ juillet 2026", title:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Doublé de Kane : l'Angleterre renverse la RD Congo (2-1) et file au Mexique", text:"Surprise d'entrée par Brian Cipenga (7ᵉ), premier buteur de l'histoire de la RD Congo en phase finale de Mondial, l'Angleterre a fait parler son capitaine : Harry Kane a égalisé de la tête (75ᵉ) puis délivré les siens d'une frappe splendide (86ᵉ). Les Three Lions affronteront le pays hôte mexicain en 8ᵉ de finale à l'Estadio Azteca." },
+  { date:"30 juin 2026", title:"🐘 Éliminés mais dans l'histoire : les Éléphants ont franchi un cap", text:"Battue par la Norvège d'Erling Haaland (1-2) en 16ᵉ de finale, la Côte d'Ivoire d'Emerse Faé quitte le Mondial la tête haute : pour la première fois, les Éléphants avaient passé la phase de groupes d'une Coupe du monde. Amad Diallo, buteur au 1ᵉʳ tour comme au 16ᵉ, et un Nicolas Pépé retrouvé auront marqué ce parcours qui pose une nouvelle référence pour le football ivoirien." },
 ];
 
 // ───────── COMPOSITION DE DÉPART DE LA CÔTE D'IVOIRE ─────────
