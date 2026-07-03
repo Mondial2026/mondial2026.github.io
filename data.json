@@ -65,8 +65,9 @@
     },
     {
       "id": "M88",
-      "st": "live",
+      "st": "done",
       "s": "1-1",
+      "pso": "2-4",
       "goals": [
         {
           "p": "Ashour",
@@ -78,8 +79,48 @@
           "t": "Égypte",
           "m": "55",
           "og": true
+        },
+        {
+          "p": "Saber",
+          "t": "Égypte",
+          "m": "120",
+          "pen": true
+        },
+        {
+          "p": "Irvine",
+          "t": "Australie",
+          "m": "120",
+          "pen": true
+        },
+        {
+          "p": "Rabia",
+          "t": "Égypte",
+          "m": "120",
+          "pen": true
+        },
+        {
+          "p": "Mabil",
+          "t": "Australie",
+          "m": "120",
+          "pen": true
+        },
+        {
+          "p": "Salah",
+          "t": "Égypte",
+          "m": "120",
+          "pen": true
+        },
+        {
+          "p": "Abdelmaguid",
+          "t": "Égypte",
+          "m": "120",
+          "pen": true
         }
       ]
+    },
+    {
+      "id": "M95",
+      "away": "Égypte"
     }
   ]
 }
