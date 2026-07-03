@@ -303,6 +303,7 @@ async function main() {
 
   // Affiches de phase finale connues (lues depuis index.html, matching par équipes)
   const knockout = await loadKnockout();
+  const koById = new Map(knockout.map(k => [k.id, k]));
   log(`KNOCKOUT chargé : ${knockout.length} matchs, ${knockout.filter(k => k.home && k.away).length} affiches connues`);
 
   // Matchs d'aujourd'hui + ceux d'hier (les matchs de nuit débordent sur la veille UTC)
@@ -316,6 +317,57 @@ async function main() {
       seen.add(k);
       matches.push(row);
     }
+  }
+
+  // Persistance : reprendre du data.json précédent les lignes KO encore utiles
+  // (résultat ou affiche que l'HTML n'a pas encore intégré et qui est sorti de
+  // la fenêtre ESPN hier/aujourd'hui — ex. MAJ quotidienne en retard de 2 jours).
+  let prevData = null;
+  try { prevData = JSON.parse(await readFile(DATA_PATH, "utf8")); } catch {}
+  for (const o of (prevData?.matches || [])) {
+    if (!o.id || seen.has(o.id)) continue; // lignes de groupe : historique déjà dans l'HTML
+    const base = koById.get(o.id);
+    if (!base) continue;
+    const brings = (o.st === "done" && base.st !== "done")
+                || (o.home && !base.home) || (o.away && !base.away);
+    if (brings) { seen.add(o.id); matches.push(o); log("persisté depuis data.json précédent :", o.id); }
+  }
+
+  // Auto-progression du tableau : résultats connus par id (HTML + lignes fraîches)
+  const resById = {};
+  for (const k of knockout) if (k.st === "done" && /^\d+-\d+$/.test(k.s || "")) resById[k.id] = k;
+  for (const r of matches) {
+    if (!r.id || r.st !== "done" || !/^\d+-\d+$/.test(r.s || "")) continue;
+    resById[r.id] = { ...(koById.get(r.id) || {}), ...r }; // home/away de l'HTML + score frais
+  }
+  const winner = m => {
+    const [a, b] = m.s.split("-").map(Number);
+    if (a !== b) return a > b ? m.home : m.away;
+    if (m.pso) { const [pa, pb] = m.pso.split("-").map(Number); if (pa !== pb) return pa > pb ? m.home : m.away; }
+    return null;
+  };
+  const loserOf = m => { const w = winner(m); return w ? (w === m.home ? m.away : m.home) : null; };
+
+  // Affiches du tour suivant déduites des vainqueurs — pairing « V. M83 – V. M84 »
+  // ou « Perdant M101 – Perdant M102 » (3ᵉ place). Émises comme lignes {id, home, away}.
+  for (const k of knockout) {
+    if (k.home && k.away) continue; // affiche déjà connue dans l'HTML
+    const pm = /(V\.|Perdant)\s*(M\d+)\s*–\s*(V\.|Perdant)\s*(M\d+)/.exec(k.pairing || "");
+    if (!pm) continue;
+    const side = (kind, id) => {
+      const m = resById[id];
+      if (!m || !m.home || !m.away) return null;
+      return kind === "Perdant" ? loserOf(m) : winner(m);
+    };
+    const fill = {};
+    const h = side(pm[1], pm[2]), a = side(pm[3], pm[4]);
+    if (h && !k.home) fill.home = h;
+    if (a && !k.away) fill.away = a;
+    if (!Object.keys(fill).length) continue;
+    const existing = matches.find(x => x.id === k.id);
+    if (existing) Object.assign(existing, fill);
+    else { matches.push({ id: k.id, ...fill }); seen.add(k.id); }
+    log("affiche auto-remplie :", k.id, fill.home || "(connu)", "-", fill.away || "(connu)");
   }
 
   const lastUpdate = yyyymmdd(now).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
