@@ -1,0 +1,52 @@
+name: Carnet PDF (Coupe du Monde 2026)
+
+# Régénère carnet-mondial-2026.pdf dès qu'index.html (les données) ou le
+# gabarit du carnet change. Remplace la génération locale sur le Mac :
+# le PDF téléchargeable reste à jour même machine éteinte.
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - carnet/**
+  workflow_dispatch: {}
+
+concurrency:
+  group: build-carnet
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+
+      - name: Générer le PDF (Chrome headless préinstallé sur ubuntu-latest)
+        run: bash carnet/build-carnet.sh
+
+      - name: Commit si le PDF a changé
+        run: |
+          if git diff --quiet -- carnet-mondial-2026.pdf; then
+            echo "PDF inchangé — rien à committer."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add carnet-mondial-2026.pdf
+          git commit -m "Regénère le carnet PDF [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin main || { git rebase --abort 2>/dev/null || true; }
+            if git push origin HEAD:main; then
+              echo "Push OK"; exit 0
+            fi
+            echo "Push refusé (course), nouvelle tentative $i…"; sleep 5
+          done
+          echo "Échec du push après 3 tentatives."
+          exit 1

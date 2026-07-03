@@ -1325,7 +1325,7 @@ const koAll=()=>KNOCKOUT.flatMap(p=>p.matches);
 // Snapshot des données intégrées : permet de ré-appliquer l'overlay proprement à chaque
 // passage (un match retiré de data.json revient à son état d'origine — pas d'effet « collant »).
 const BASE_UPD=LAST_UPDATE, BASE_KICK=NEXT_KICKOFF, BASE_SNAP=new Map();
-[...GROUP_MATCHES,...koAll()].forEach(m=>BASE_SNAP.set(m,{home:m.home,away:m.away,s:m.s,st:m.st,t:m.t,goals:m.goals}));
+[...GROUP_MATCHES,...koAll()].forEach(m=>BASE_SNAP.set(m,{home:m.home,away:m.away,s:m.s,st:m.st,t:m.t,goals:m.goals,pso:m.pso}));
 function applyOverlay(data){
   STATE.lastUpdate=BASE_UPD; STATE.nextKickoff=BASE_KICK;     // repartir de la base...
   BASE_SNAP.forEach((snap,m)=>Object.assign(m,snap));         // ...puis ré-appliquer l'overlay
@@ -1335,7 +1335,7 @@ function applyOverlay(data){
     const m=o.id ? koAll().find(x=>x.id===o.id)
                  : GROUP_MATCHES.find(x=>x.g===o.g&&x.home===o.home&&x.away===o.away);
     if(!m) return;
-    ["home","away","s","st","t","goals"].forEach(k=>{ if(k in o) m[k]=o[k]; });
+    ["home","away","s","st","t","goals","pso"].forEach(k=>{ if(k in o) m[k]=o[k]; });
   });
   LINEUP_OVERLAY=(data.civLineup&&data.civLineup.lines&&data.civLineup.lines.length)?data.civLineup:null;
 }

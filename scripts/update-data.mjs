@@ -10,20 +10,25 @@
    les données intégrées : il suffit donc de garder ce fichier à jour pour que
    les scores live/terminés s'affichent, SANS republier la page.
 
-   Ce script ne couvre QUE la phase de groupes (mapping équipe→groupe
-   déterministe). La phase finale et les actus/buteurs « propres » restent
-   gérées par la tâche Claude quotidienne.
+   Couvre la phase de groupes (mapping équipe→groupe déterministe) ET la
+   phase finale : les affiches M73–M104 sont lues depuis le bloc KNOCKOUT
+   d'index.html (rempli par la MAJ quotidienne), puis rapprochées des matchs
+   ESPN par paire d'équipes. Les actus/buteurs « propres » et les affiches
+   restent gérés par la tâche Claude quotidienne.
 
    Usage : node scripts/update-data.mjs
    Variables d'env optionnelles :
      DATA_PATH   chemin du data.json à écrire (défaut: ./data.json)
+     INDEX_PATH  chemin d'index.html pour lire KNOCKOUT (défaut: ./index.html)
      FETCH_GOALS "0" pour désactiver la récupération des buteurs (défaut: actif)
      DEBUG       "1" pour des logs détaillés
    ============================================================================ */
 
 import { readFile, writeFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 
-const DATA_PATH = process.env.DATA_PATH || new URL("../data.json", import.meta.url).pathname;
+const DATA_PATH = process.env.DATA_PATH || fileURLToPath(new URL("../data.json", import.meta.url));
+const INDEX_PATH = process.env.INDEX_PATH || fileURLToPath(new URL("../index.html", import.meta.url));
 const FETCH_GOALS = process.env.FETCH_GOALS !== "0";
 const DEBUG = process.env.DEBUG === "1";
 const UA =
@@ -130,10 +135,32 @@ async function getJSON(url, ms = 12000) {
 const yyyymmdd = d =>
   `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, "0")}${String(d.getUTCDate()).padStart(2, "0")}`;
 
-/* ---- Collecte des matchs de groupe (live/terminés) via ESPN ----
+/* ---- Affiches de la phase finale (M73–M104) lues depuis index.html ----
+   Le bloc « const KNOCKOUT = [...] » est extrait par comptage de crochets puis
+   évalué (fichier de confiance, même dépôt). Renvoie la liste à plat des
+   matchs {id, d, home, away, ...}. index.html sait fusionner un overlay par id. */
+async function loadKnockout() {
+  let src = "";
+  try { src = await readFile(INDEX_PATH, "utf8"); }
+  catch (e) { log("index.html illisible", e.message); return []; }
+  const i = src.indexOf("const KNOCKOUT = [");
+  if (i < 0) { log("bloc KNOCKOUT introuvable dans index.html"); return []; }
+  const s = src.indexOf("[", i);
+  let depth = 0, j = s;
+  for (; j < src.length; j++) {
+    if (src[j] === "[") depth++;
+    else if (src[j] === "]") { depth--; if (depth === 0) { j++; break; } }
+  }
+  try {
+    const phases = (0, eval)(src.slice(s, j));
+    return phases.flatMap(p => p.matches || []);
+  } catch (e) { log("parse KNOCKOUT échec", e.message); return []; }
+}
+
+/* ---- Collecte des matchs live/terminés (groupes + phase finale) via ESPN ----
    Remplace FotMob (dont l'endpoint /api/matches renvoyait 404). ESPN porte le
    score ET les buteurs (competitions[0].details), donc plus besoin d'un 2e appel. */
-async function collectForDate(dateStr) {
+async function collectForDate(dateStr, knockout) {
   let sb;
   try {
     sb = await getJSON(`${ESPN}/scoreboard?dates=${dateStr}`);
@@ -151,14 +178,31 @@ async function collectForDate(dateStr) {
     const home = toFr(h.team?.displayName || h.team?.name);
     const away = toFr(a.team?.displayName || a.team?.name);
     if (!home || !away) { log("équipe non mappée", h.team?.displayName, a.team?.displayName); continue; }
-    const g = GROUP_OF[home];
-    if (!g || GROUP_OF[away] !== g) { log("hors phase de groupes", home, away); continue; }
     const state = comp.status?.type?.state || ev.status?.type?.state || "pre";
     const st = state === "in" ? "live" : state === "post" ? "done" : null;
     if (!st) continue; // à venir → rien (l'HTML porte déjà la fiche)
-    const row = { g, home, away, st };
-    const hs = h.score, as = a.score;
+
+    // Phase finale D'ABORD (deux équipes d'un même groupe peuvent se recroiser
+    // en élimination directe — ex. quart Allemagne-Équateur, tous deux groupe E).
+    const ko = (knockout || []).find(k =>
+      (k.home === home && k.away === away) || (k.home === away && k.away === home));
+    const g = GROUP_OF[home];
+    let row, reversed = false;
+    if (ko) {
+      reversed = ko.home === away; // orientation ESPN ≠ orientation HTML
+      row = { id: ko.id, st };
+    } else if (g && GROUP_OF[away] === g) {
+      row = { g, home, away, st };
+    } else {
+      log("match KO sans affiche correspondante dans index.html", home, away);
+      continue;
+    }
+    const hs = reversed ? a.score : h.score, as = reversed ? h.score : a.score;
     if (hs != null && hs !== "" && as != null && as !== "") row.s = `${hs}-${as}`;
+    // Tirs au but (phase finale) : ESPN porte shootoutScore sur chaque équipe
+    const hp = h.shootoutScore, ap = a.shootoutScore;
+    if (ko && hp != null && ap != null && hp !== "" && ap !== "")
+      row.pso = reversed ? `${ap}-${hp}` : `${hp}-${ap}`;
     if (FETCH_GOALS) {
       const idTeam = {};
       cs.forEach(c => { if (c.team) idTeam[String(c.team.id)] = (c.homeAway === "home") ? home : away; });
@@ -257,13 +301,17 @@ async function main() {
   const now = new Date();
   const yesterday = new Date(now.getTime() - 24 * 3600e3);
 
+  // Affiches de phase finale connues (lues depuis index.html, matching par équipes)
+  const knockout = await loadKnockout();
+  log(`KNOCKOUT chargé : ${knockout.length} matchs, ${knockout.filter(k => k.home && k.away).length} affiches connues`);
+
   // Matchs d'aujourd'hui + ceux d'hier (les matchs de nuit débordent sur la veille UTC)
   const dates = [yyyymmdd(yesterday), yyyymmdd(now)];
   const seen = new Set();
   const matches = [];
   for (const d of dates) {
-    for (const row of await collectForDate(d)) {
-      const k = row.g + "|" + row.home + "|" + row.away;
+    for (const row of await collectForDate(d, knockout)) {
+      const k = row.id || (row.g + "|" + row.home + "|" + row.away);
       if (seen.has(k)) continue;
       seen.add(k);
       matches.push(row);

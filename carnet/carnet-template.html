@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Carnet du Mondial 2026 · Spécial Éléphants</title>
+<!--
+  GABARIT DU CARNET — ne pas éditer les données ici.
+  Les données sont injectées depuis coupe-du-monde-2026-cote-ivoire.html
+  par build-carnet.sh (marqueur __DONNEES__ dans le bloc script ci-dessous).
+  Générer le PDF : ./build-carnet.sh
+-->
+<style>
+  :root{
+    --orange:#FF7900; --green:#009E60; --ink:#11150f; --muted:#6b7165;
+    --paper:#ffffff; --soft:#fdf6ee; --line:#e3ddd2;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box;
+     -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  @page{ size:A4; margin:0; }
+  body{ font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; color:var(--ink); background:var(--paper); }
+  .page{ width:210mm; min-height:297mm; padding:14mm 14mm 16mm; page-break-after:always; position:relative; }
+  .page:last-child{ page-break-after:auto; }
+
+  /* ── pied de page ── */
+  .pfoot{ position:absolute; bottom:7mm; left:14mm; right:14mm; display:flex;
+          justify-content:space-between; font-size:7.5pt; color:var(--muted);
+          border-top:1px solid var(--line); padding-top:2mm; }
+
+  /* ── couverture ── */
+  .cover{ background:linear-gradient(160deg,#FF7900 0%,#ff9233 34%,#fdf6ee 34.5%,#fdf6ee 65.5%,#00b36d 66%,#009E60 100%);
+          display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+  .cover .ball{ font-size:46pt; }
+  .cover h1{ font-size:34pt; letter-spacing:1px; margin:8mm 0 3mm; text-transform:uppercase; }
+  .cover h2{ font-size:15pt; color:var(--green); font-weight:600; }
+  .cover .dates{ margin-top:6mm; font-size:11pt; color:var(--muted); }
+  .cover .edition{ margin-top:14mm; background:var(--ink); color:#fff; padding:3mm 8mm;
+                   border-radius:20px; font-size:10pt; }
+  .cover .stats{ margin-top:10mm; display:flex; gap:10mm; font-size:9pt; color:var(--ink); }
+  .cover .stats b{ display:block; font-size:16pt; color:var(--orange); }
+  .cover .legal{ position:absolute; bottom:8mm; font-size:7pt; color:var(--muted); width:100%; text-align:center; left:0; }
+
+  /* ── titres de page ── */
+  h3.ptitle{ font-size:16pt; border-bottom:3px solid var(--orange); padding-bottom:2mm; margin-bottom:5mm; }
+  h3.ptitle small{ color:var(--muted); font-size:9pt; font-weight:400; float:right; margin-top:3mm; }
+
+  /* ── blocs de groupe ── */
+  .gblock{ border:1px solid var(--line); border-radius:3mm; margin-bottom:5mm; overflow:hidden;
+           page-break-inside:avoid; }
+  .gblock .ghead{ background:var(--soft); padding:2mm 4mm; font-weight:700; font-size:11pt;
+                  border-bottom:1px solid var(--line); display:flex; justify-content:space-between; }
+  .gblock.civ .ghead{ background:linear-gradient(90deg,#FF7900 0%,#fff 50%,#009E60 100%); }
+  .grow{ display:flex; align-items:center; gap:2mm; padding:1.2mm 4mm; font-size:8.5pt;
+         border-bottom:1px dotted var(--line); }
+  .grow:last-of-type{ border-bottom:none; }
+  .grow .gd{ width:20mm; color:var(--muted); font-size:7.5pt; }
+  .grow .gt{ flex:1; text-align:right; }
+  .grow .ga{ flex:1; text-align:left; }
+  .grow .gsc{ width:14mm; text-align:center; border:1px solid var(--ink); border-radius:1.5mm;
+              padding:1mm 0; font-weight:700; font-size:9pt; background:#fff; min-height:5.5mm; }
+  .grow .gsc.empty{ border-style:dashed; color:#bbb; }
+  .grow .gv{ width:34mm; color:var(--muted); font-size:6.8pt; text-align:right; }
+  .grow.hl{ background:#fff6ec; }
+
+  table.standings{ width:100%; border-collapse:collapse; font-size:8pt; }
+  table.standings th{ background:var(--ink); color:#fff; padding:1.2mm 2mm; font-size:7pt; text-align:center; }
+  table.standings th:nth-child(2){ text-align:left; }
+  table.standings td{ padding:1.2mm 2mm; border-bottom:1px solid var(--line); text-align:center; }
+  table.standings td:nth-child(2){ text-align:left; }
+  table.standings tr.q td{ background:#eaf7f0; }
+  table.standings tr.civ td{ background:#fff1e2; font-weight:700; }
+
+  .prono{ padding:2mm 4mm; font-size:8.5pt; background:var(--soft); border-top:1px solid var(--line); }
+  .blank{ display:inline-block; border-bottom:1.5px dotted var(--ink); min-width:30mm; height:4mm; vertical-align:bottom; }
+  .blank.s{ min-width:14mm; }
+
+  /* ── phase finale ── */
+  .kophase{ margin-bottom:5mm; page-break-inside:avoid; }
+  .kophase h4{ font-size:11pt; color:var(--green); border-left:4px solid var(--orange);
+               padding-left:3mm; margin-bottom:2mm; }
+  .korow{ display:flex; align-items:center; gap:3mm; padding:1.8mm 3mm; font-size:8.5pt;
+          border:1px solid var(--line); border-radius:2mm; margin-bottom:1.5mm; }
+  .korow .kid{ width:11mm; font-weight:700; color:var(--orange); }
+  .korow .kd{ width:18mm; color:var(--muted); font-size:7.5pt; }
+  .korow .kp{ flex:1; }
+  .korow .kp .pair{ color:var(--muted); font-size:7.5pt; }
+  .korow .kv{ width:40mm; color:var(--muted); font-size:6.8pt; text-align:right; }
+  .korow.finale{ border:2px solid var(--orange); background:#fff6ec; padding:3mm; font-size:10pt; }
+
+  /* ── page CIV ── */
+  .civcard{ border:2px solid var(--green); border-radius:3mm; padding:4mm; margin-bottom:5mm;
+            page-break-inside:avoid; }
+  .civcard h4{ color:var(--green); font-size:11pt; margin-bottom:2mm; }
+  .path{ font-size:8.5pt; line-height:1.7; }
+  .path b{ color:var(--orange); }
+  .stepchain{ font-size:8.5pt; line-height:2; }
+  .step{ display:inline-block; background:var(--soft); border:1px solid var(--line);
+         border-radius:2mm; padding:1mm 2.5mm; margin:0.5mm; }
+
+  /* ── page pronostics ── */
+  .bigprono{ border:1px solid var(--line); border-radius:3mm; padding:5mm; margin-bottom:5mm; font-size:10pt; line-height:2.4; }
+  .bigprono h4{ color:var(--orange); font-size:12pt; margin-bottom:2mm; }
+  .checks span{ display:inline-block; border:1.5px solid var(--ink); width:4.5mm; height:4.5mm;
+                border-radius:1mm; vertical-align:middle; margin-right:1.5mm; }
+  .checks label{ margin-right:7mm; font-size:9.5pt; }
+
+  /* ── dos ── */
+  .back{ display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+         background:linear-gradient(180deg,#fff 60%,var(--soft) 100%); }
+  .back .url{ font-size:13pt; font-weight:700; color:var(--green); margin:5mm 0; }
+  .back p{ font-size:10pt; color:var(--muted); max-width:120mm; line-height:1.7; }
+</style>
+</head>
+<body>
+<div id="doc"></div>
+
+<script>
+/*__DONNEES__*/
+
+/* ════════ MOTEUR DE RENDU DU CARNET (impression A4) ════════ */
+const flag=t=>FLAGS[t]||"🏳️";
+const team=t=>`${flag(t)} ${t}`;
+
+function timeLabel(t){
+  const m=/^(\d{1,2})h(\d{2})(\s*\(\+1j\))?$/.exec(t||"");
+  if(!m) return t||"";
+  let mins=(+m[1])*60+(+m[2])-120, day=m[3]?1:0;
+  if(mins<0){mins+=1440;day-=1;}
+  return `${String(Math.floor(mins/60)).padStart(2,'0')}h${String(mins%60).padStart(2,'0')}${day===1?' (+1j)':''} GMT`;
+}
+
+function computeTable(g){
+  const teams={};
+  GROUP_MATCHES.filter(m=>m.g===g).forEach(m=>{
+    [m.home,m.away].forEach(t=>{ if(!teams[t]) teams[t]={t,j:0,pts:0,bp:0,bc:0}; });
+    if(m.st==="done"&&/^\d+-\d+$/.test(m.s)){
+      const [a,b]=m.s.split("-").map(Number);
+      const H=teams[m.home],A=teams[m.away];
+      H.j++;A.j++;H.bp+=a;H.bc+=b;A.bp+=b;A.bc+=a;
+      if(a>b)H.pts+=3; else if(b>a)A.pts+=3; else {H.pts++;A.pts++;}
+    }
+  });
+  return Object.values(teams).sort((x,y)=>y.pts-x.pts||(y.bp-y.bc)-(x.bp-x.bc)||y.bp-x.bp);
+}
+
+function scoreBox(m){
+  return m.st==="done"&&m.s ? `<span class="gsc">${m.s}</span>` : `<span class="gsc empty">–</span>`;
+}
+
+function groupBlock(g){
+  const ms=GROUP_MATCHES.filter(m=>m.g===g);
+  const tbl=computeTable(g);
+  const isCiv=ms.some(m=>m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire");
+  const rows=ms.map(m=>{
+    const hl=(m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire")?" hl":"";
+    return `<div class="grow${hl}">
+      <span class="gd">J${m.j} · ${m.d}<br>${timeLabel(m.t)}</span>
+      <span class="gt">${team(m.home)}</span>${scoreBox(m)}<span class="ga">${team(m.away)}</span>
+      <span class="gv">${m.venue}</span></div>`;
+  }).join("");
+  const trs=tbl.map((r,i)=>{
+    const cls=r.t==="Côte d'Ivoire"?"civ":(i<2?"q":"");
+    return `<tr class="${cls}"><td>${i+1}</td><td>${team(r.t)}</td><td>${r.j}</td><td>${r.pts}</td><td>${r.bp}-${r.bc}</td><td>${r.bp-r.bc>0?"+":""}${r.bp-r.bc}</td></tr>`;
+  }).join("");
+  return `<div class="gblock${isCiv?" civ":""}">
+    <div class="ghead"><span>Groupe ${g}${isCiv?" 🇨🇮":""}</span><span style="font-weight:400;font-size:8pt">${tbl.map(r=>flag(r.t)).join(" ")}</span></div>
+    ${rows}
+    <table class="standings"><tr><th>#</th><th>Équipe</th><th>J</th><th>Pts</th><th>Buts</th><th>Diff</th></tr>${trs}</table>
+    <div class="prono">✏️ Mes qualifiés : 1ᵉʳ <span class="blank"></span> &nbsp; 2ᵉ <span class="blank"></span></div>
+  </div>`;
+}
+
+function koRow(m,finale){
+  const affiche = m.home&&m.away
+    ? `<b>${team(m.home)}</b> – <b>${team(m.away)}</b>`
+    : `<span class="pair">${m.pairing}</span><br><span class="blank"></span> – <span class="blank"></span>`;
+  return `<div class="korow${finale?" finale":""}">
+    <span class="kid">${m.id}</span><span class="kd">${m.d}</span>
+    <span class="kp">${affiche}</span>${scoreBox(m)}
+    <span class="kv">${m.venue}</span></div>`;
+}
+
+function koPhase(p){
+  const fin=p.phase.includes("FINALE");
+  return `<div class="kophase"><h4>${p.phase}</h4>${p.matches.map(m=>koRow(m,fin)).join("")}</div>`;
+}
+
+const editionDate=(()=>{ const [y,mo,d]=LAST_UPDATE.split("-");
+  const mois=["","janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+  return `${+d} ${mois[+mo]} ${y}`; })();
+
+function pfoot(n,total){
+  return `<div class="pfoot"><span>Carnet du Mondial 2026 · Spécial Éléphants 🇨🇮</span><span>Édition du ${editionDate} — page ${n}/${total}</span></div>`;
+}
+
+/* ── assemblage des pages ── */
+const GROUPS=["A","B","C","D","E","F","G","H","I","J","K","L"];
+const pages=[];
+
+/* Couverture */
+pages.push(`<div class="page cover">
+  <div class="ball">⚽🐘</div>
+  <h1>Carnet du<br>Mondial 2026</h1>
+  <h2>Spécial Éléphants de Côte d'Ivoire 🇨🇮</h2>
+  <div class="dates">11 juin – 19 juillet 2026 · États-Unis 🇺🇸 · Canada 🇨🇦 · Mexique 🇲🇽</div>
+  <div class="stats"><div><b>48</b>équipes</div><div><b>104</b>matchs</div><div><b>16</b>villes hôtes</div><div><b>12</b>groupes</div></div>
+  <div class="edition">📔 Édition du ${editionDate} — calendrier, scores &amp; pronostics</div>
+  <div class="legal">Publication indépendante, non affiliée à la FIFA. Horaires en heure GMT (Abidjan).</div>
+</div>`);
+
+/* Mode d'emploi + sommaire */
+pages.push(`<div class="page">
+  <h3 class="ptitle">📔 Votre carnet, mode d'emploi</h3>
+  <div class="civcard"><h4>Comment l'utiliser</h4><div class="path">
+    Ce carnet rassemble <b>les 104 matchs</b> de la Coupe du Monde 2026 avec un focus sur les
+    <b>Éléphants de Côte d'Ivoire</b>, de retour au Mondial après 12 ans d'absence, champions d'Afrique en titre.<br><br>
+    • Les scores des matchs déjà joués à la date d'édition sont <b>imprimés dans les cases pleines</b>.<br>
+    • Les cases en pointillés sont à <b>remplir au fil de la compétition</b> — votre carnet devient un souvenir unique.<br>
+    • Chaque groupe a sa zone <b>« Mes qualifiés »</b> et la dernière page rassemble vos <b>grands pronostics</b>.<br>
+    • Tous les horaires sont en <b>heure GMT (Abidjan)</b> ; (+1j) = match dans la nuit, le lendemain à l'aube.
+  </div></div>
+  <div class="civcard" style="border-color:var(--orange)"><h4 style="color:var(--orange)">Sommaire</h4><div class="path">
+    🇨🇮 La Côte d'Ivoire au Mondial &amp; le chemin vers la finale ……… p. 3<br>
+    📅 Les 12 groupes : calendrier, scores &amp; classements ……… p. 4 – 9<br>
+    🏁 Phase finale : 16ᵉˢ de finale ……… p. 10<br>
+    🏁 Phase finale : 8ᵉˢ &amp; quarts ……… p. 11<br>
+    🏆 Demi-finales, 3ᵉ place &amp; Finale ……… p. 12<br>
+    ✏️ Mes grands pronostics ……… p. 13
+  </div></div>
+  ${pfoot(2,14)}
+</div>`);
+
+/* Page Côte d'Ivoire */
+const civMatches=GROUP_MATCHES.filter(m=>m.home==="Côte d'Ivoire"||m.away==="Côte d'Ivoire")
+  .map(m=>`<div class="step">J${m.j} · ${m.d} · ${timeLabel(m.t)} — <b>${team(m.home)} ${m.st==="done"&&m.s?m.s:"–"} ${team(m.away)}</b><br><span style="color:var(--muted);font-size:7.5pt">${m.venue}</span></div>`).join(" ");
+pages.push(`<div class="page">
+  <h3 class="ptitle">🇨🇮 Les Éléphants au Mondial <small>Groupe E</small></h3>
+  <div class="civcard"><h4>Les 3 matchs du groupe E</h4><div class="stepchain">${civMatches}</div></div>
+  <div class="civcard"><h4>🛤️ Le chemin vers la finale</h4><div class="path">
+    <b>Si 1ᵉʳ du groupe E :</b> 16ᵉ M74 (29 juin · Boston) → 8ᵉ M89 (4 juil. · Philadelphie) → ¼ M97 (9 juil. · Boston) → ½ M101 (14 juil. · Dallas) → 🏆 Finale M104 (19 juil. · MetLife Stadium).<br><br>
+    <b>Si 2ᵉ du groupe E :</b> 16ᵉ M78 (30 juin · Dallas) → 8ᵉ M91 (5 juil. · New York/NJ) → ¼ M99 (11 juil. · Miami) → ½ M102 (15 juil. · Atlanta) → 🏆 Finale.<br><br>
+    <b>Si parmi les 8 meilleurs 3ᵉˢ :</b> l'un des matchs M80, M81, M82, M85 ou M87, selon le classement final des troisièmes.
+  </div></div>
+  <div class="civcard" style="border-color:var(--orange)"><h4 style="color:var(--orange)">✏️ Mon pronostic pour les Éléphants</h4>
+    <div class="checks" style="line-height:2.6">
+      <label><span></span>Sortie de groupe</label><label><span></span>8ᵉˢ de finale</label><label><span></span>Quarts</label><br>
+      <label><span></span>Demi-finales</label><label><span></span>Finale</label><label><span></span>🏆 Champions du monde !</label>
+    </div></div>
+  ${pfoot(3,14)}
+</div>`);
+
+/* 6 pages de groupes (2 par page) */
+for(let i=0;i<GROUPS.length;i+=2){
+  pages.push(`<div class="page">
+    <h3 class="ptitle">📅 Groupes ${GROUPS[i]} &amp; ${GROUPS[i+1]}</h3>
+    ${groupBlock(GROUPS[i])}${groupBlock(GROUPS[i+1])}
+    ${pfoot(4+i/2,14)}
+  </div>`);
+}
+
+/* Phase finale */
+pages.push(`<div class="page">
+  <h3 class="ptitle">🏁 ${KNOCKOUT[0].phase}</h3>
+  ${KNOCKOUT[0].matches.map(m=>koRow(m,false)).join("")}
+  ${pfoot(10,14)}
+</div>`);
+pages.push(`<div class="page">
+  <h3 class="ptitle">🏁 8ᵉˢ de finale &amp; quarts</h3>
+  ${koPhase(KNOCKOUT[1])}${koPhase(KNOCKOUT[2])}
+  ${pfoot(11,14)}
+</div>`);
+pages.push(`<div class="page">
+  <h3 class="ptitle">🏆 Le dernier carré</h3>
+  ${koPhase(KNOCKOUT[3])}${koPhase(KNOCKOUT[4])}${koPhase(KNOCKOUT[5])}
+  <div class="bigprono"><h4>🏆 Le champion du monde 2026</h4>
+    Vainqueur : <span class="blank" style="min-width:60mm"></span> &nbsp; Score de la finale : <span class="blank s"></span></div>
+  ${pfoot(12,14)}
+</div>`);
+
+/* Pronostics */
+pages.push(`<div class="page">
+  <h3 class="ptitle">✏️ Mes grands pronostics</h3>
+  <div class="bigprono"><h4>Le podium</h4>
+    🥇 Champion : <span class="blank" style="min-width:55mm"></span><br>
+    🥈 Finaliste : <span class="blank" style="min-width:55mm"></span><br>
+    🥉 Troisième : <span class="blank" style="min-width:55mm"></span></div>
+  <div class="bigprono"><h4>Les individualités</h4>
+    ⚽ Meilleur buteur : <span class="blank" style="min-width:50mm"></span> avec <span class="blank s"></span> buts<br>
+    🌟 Meilleur joueur du tournoi : <span class="blank" style="min-width:50mm"></span><br>
+    🧤 Meilleur gardien : <span class="blank" style="min-width:50mm"></span><br>
+    🇨🇮 Meilleur Éléphant : <span class="blank" style="min-width:50mm"></span></div>
+  <div class="bigprono"><h4>Les surprises</h4>
+    😮 L'équipe surprise du tournoi : <span class="blank" style="min-width:50mm"></span><br>
+    😢 La grosse déception : <span class="blank" style="min-width:50mm"></span><br>
+    🔥 Le match le plus mémorable : <span class="blank" style="min-width:70mm"></span></div>
+  ${pfoot(13,14)}
+</div>`);
+
+/* Dos */
+pages.push(`<div class="page back">
+  <div class="ball" style="font-size:34pt">🐘🧡💚</div>
+  <h2 style="font-size:16pt;margin-top:5mm">Suivez les scores en direct</h2>
+  <div class="url">mondial2026.github.io</div>
+  <p>Calendrier complet, résultats, classements des 12 groupes et actualités des Éléphants,
+     mis à jour chaque matin à 08h00 GMT pendant toute la compétition.</p>
+  <p style="margin-top:10mm;font-size:8pt">Carnet du Mondial 2026 · Édition du ${editionDate}<br>
+     Publication indépendante, non affiliée à la FIFA ni à ses partenaires.<br>
+     Sources : FIFA, Wikipédia, Flashscore. Allez les Éléphants ! 🐘</p>
+</div>`);
+
+document.getElementById("doc").innerHTML=pages.join("");
+</script>
+</body>
+</html>

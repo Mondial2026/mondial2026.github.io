@@ -43,9 +43,19 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data.json
           git commit -m "MAJ live data.json [skip ci]"
-          # Rebase sur l'éventuel push de la tâche Claude pour éviter les conflits
+          # Rebase sur l'éventuel push de la tâche Claude pour éviter les conflits.
+          # En cas de conflit sur data.json (course avec la MAJ quotidienne), on
+          # garde NOTRE version (la plus fraîche) puis on continue le rebase ;
+          # sinon on abandonne le rebase pour ne jamais rester bloqué au milieu.
           for i in 1 2 3; do
-            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            if ! git pull --rebase --autostash origin "${GITHUB_REF_NAME}"; then
+              if git status --porcelain | grep -q "^UU data.json"; then
+                git checkout --theirs data.json && git add data.json
+                GIT_EDITOR=true git rebase --continue || { git rebase --abort 2>/dev/null || true; }
+              else
+                git rebase --abort 2>/dev/null || true
+              fi
+            fi
             if git push origin "HEAD:${GITHUB_REF_NAME}"; then
               echo "Push OK"; exit 0
             fi
