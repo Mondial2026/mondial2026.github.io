@@ -90,6 +90,18 @@
       ]
     },
     {
+      "id": "M87",
+      "st": "live",
+      "s": "1-0",
+      "goals": [
+        {
+          "p": "Arias",
+          "t": "Colombie",
+          "m": "14"
+        }
+      ]
+    },
+    {
       "id": "M95",
       "away": "Égypte",
       "home": "Argentine"
