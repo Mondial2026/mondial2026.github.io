@@ -733,7 +733,7 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-07-03";
+const LAST_UPDATE = "2026-07-04";
 
 // Compte à rebours : Éléphants éliminés en 16ᵉ → on pointe le prochain grand rendez-vous (ISO UTC)
 const NEXT_KICKOFF = { iso:"2026-07-05T20:00:00Z", label:"⏳ avant Brésil 🇧🇷 – Norvège 🇳🇴 · 8ᵉ de finale · 5 juillet, MetLife Stadium (New York/NJ) · 20h00 GMT — le bourreau des Éléphants défie la Seleção" };
@@ -873,9 +873,9 @@ const KNOCKOUT = [
   {id:"M83",d:"2 juillet",pairing:"2ᵉ K – 2ᵉ L",venue:"BMO Field · Toronto",t:"01h00 (+1j)",home:"Portugal",away:"Croatie",s:"2-1",st:"done",goals:[{p:"Perišić",t:"Croatie",m:"53"},{p:"Ronaldo",t:"Portugal",m:"68",pen:true},{p:"Gonçalo Ramos",t:"Portugal",m:"90+4"}]},
   {id:"M84",d:"2 juillet",pairing:"1ᵉʳ H – 2ᵉ J",venue:"SoFi Stadium · Los Angeles",t:"21h00",home:"Espagne",away:"Autriche",s:"3-0",st:"done",goals:[{p:"Oyarzabal",t:"Espagne",m:"36"},{p:"Pedro Porro",t:"Espagne",m:"66"},{p:"Oyarzabal",t:"Espagne",m:"89"}]},
   {id:"M85",d:"2 juillet",pairing:"1ᵉʳ B – 3ᵉ (E/F/G/I/J)",venue:"BC Place · Vancouver",t:"05h00 (+1j)",home:"Suisse",away:"Algérie",s:"2-0",st:"done",goals:[{p:"Embolo",t:"Suisse",m:"10"},{p:"Ndoye",t:"Suisse",m:"46"}]},
-  {id:"M86",d:"3 juillet",pairing:"1ᵉʳ J – 2ᵉ H",venue:"Hard Rock Stadium · Miami",t:"00h00 (+1j)",home:"Argentine",away:"Cap-Vert",s:"",st:"upcoming"},
-  {id:"M87",d:"3 juillet",pairing:"1ᵉʳ K – 3ᵉ (D/E/I/J/L)",venue:"Arrowhead Stadium · Kansas City",t:"03h30 (+1j)",home:"Colombie",away:"Ghana",s:"",st:"upcoming"},
-  {id:"M88",d:"3 juillet",pairing:"2ᵉ D – 2ᵉ G",venue:"AT&T Stadium · Dallas",t:"20h00",home:"Australie",away:"Égypte",s:"",st:"upcoming"}]},
+  {id:"M86",d:"3 juillet",pairing:"1ᵉʳ J – 2ᵉ H",venue:"Hard Rock Stadium · Miami",t:"00h00 (+1j)",home:"Argentine",away:"Cap-Vert",s:"3-2",st:"done",goals:[{p:"Messi",t:"Argentine",m:"29"},{p:"Duarte",t:"Cap-Vert",m:"59"},{p:"Martínez",t:"Argentine",m:"92"},{p:"Cabral",t:"Cap-Vert",m:"103"},{p:"Borges",t:"Cap-Vert",m:"111",og:true}]},
+  {id:"M87",d:"3 juillet",pairing:"1ᵉʳ K – 3ᵉ (D/E/I/J/L)",venue:"Arrowhead Stadium · Kansas City",t:"03h30 (+1j)",home:"Colombie",away:"Ghana",s:"1-0",st:"done",goals:[{p:"Arias",t:"Colombie",m:"14"}]},
+  {id:"M88",d:"3 juillet",pairing:"2ᵉ D – 2ᵉ G",venue:"AT&T Stadium · Dallas",t:"20h00",home:"Australie",away:"Égypte",s:"1-1",pso:"2-4",st:"done",goals:[{p:"Ashour",t:"Égypte",m:"13"},{p:"Hany",t:"Égypte",m:"55",og:true}]}]},
  {phase:"8ᵉˢ de finale (4 – 7 juillet)", matches:[
   {id:"M89",d:"4 juillet",pairing:"V. M74 – V. M77",venue:"Lincoln Financial Field · Philadelphie",home:"Paraguay",away:"France",s:"",st:"upcoming"},
   {id:"M90",d:"4 juillet",pairing:"V. M73 – V. M75",venue:"NRG Stadium · Houston",home:"Canada",away:"Maroc",s:"",st:"upcoming"},
@@ -883,8 +883,8 @@ const KNOCKOUT = [
   {id:"M92",d:"5 juillet",pairing:"V. M79 – V. M80",venue:"Estadio Azteca · Mexico",home:"Mexique",away:"Angleterre",s:"",st:"upcoming"},
   {id:"M93",d:"6 juillet",pairing:"V. M83 – V. M84",venue:"AT&T Stadium · Dallas",home:"Portugal",away:"Espagne",s:"",st:"upcoming"},
   {id:"M94",d:"6 juillet",pairing:"V. M81 – V. M82",venue:"Lumen Field · Seattle",home:"États-Unis",away:"Belgique",s:"",st:"upcoming"},
-  {id:"M95",d:"7 juillet",pairing:"V. M86 – V. M88",venue:"Mercedes-Benz Stadium · Atlanta",home:"",away:"",s:"",st:"upcoming"},
-  {id:"M96",d:"7 juillet",pairing:"V. M85 – V. M87",venue:"BC Place · Vancouver",home:"Suisse",away:"",s:"",st:"upcoming"}]},
+  {id:"M95",d:"7 juillet",pairing:"V. M86 – V. M88",venue:"Mercedes-Benz Stadium · Atlanta",home:"Argentine",away:"Égypte",s:"",st:"upcoming"},
+  {id:"M96",d:"7 juillet",pairing:"V. M85 – V. M87",venue:"BC Place · Vancouver",home:"Suisse",away:"Colombie",s:"",st:"upcoming"}]},
  {phase:"Quarts de finale (9 – 11 juillet)", matches:[
   {id:"M97",d:"9 juillet",pairing:"V. M89 – V. M90",venue:"Gillette Stadium · Boston",home:"",away:"",s:"",st:"upcoming"},
   {id:"M98",d:"10 juillet",pairing:"V. M93 – V. M94",venue:"SoFi Stadium · Los Angeles",home:"",away:"",s:"",st:"upcoming"},
@@ -901,10 +901,11 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"3 juillet 2026", title:"🌍 Dernier jour des 16ᵉˢ : Messi et l'Argentine en scène, le Ghana porte les derniers espoirs africains", text:"Trois derniers 16ᵉˢ de finale ce vendredi 3 juillet pour boucler le tableau : Australie–Égypte à Dallas (18h GMT), Argentine–Cap-Vert et son Lionel Messi à Miami (22h GMT), puis Colombie–Ghana à Kansas City (01h30 GMT). Après l'élimination de l'Algérie, l'Égypte et le Ghana sont les derniers Africains à pouvoir rejoindre le Maroc en 8ᵉˢ. Résultats intégrés dès confirmation." },
-  { date:"3 juillet 2026", title:"🇨🇭 La Suisse bat l'Algérie 2-0 et met fin à 88 ans d'attente", text:"À Vancouver, la Suisse s'est imposée 2-0 face à l'Algérie de Riyad Mahrez : Breel Embolo a frappé tôt (10ᵉ) et Dan Ndoye a doublé la mise dès le retour des vestiaires (46ᵉ). C'est la première victoire helvète en phase à élimination directe d'un Mondial depuis 1938. L'Algérie, dernier porte-drapeau maghrébin, quitte le tournoi ; la Suisse défiera le vainqueur de Colombie–Ghana en 8ᵉ de finale." },
-  { date:"2 juillet 2026", title:"🇵🇹 Ronaldo et Ramos prolongent le rêve portugais, Modrić tire sa révérence", text:"Match à suspense à Toronto : menés par Ivan Perišić (53ᵉ), les Portugais ont égalisé sur un penalty de Cristiano Ronaldo (68ᵉ) avant que Gonçalo Ramos n'arrache la victoire de la tête dans le temps additionnel (90+4ᵉ), sur un centre de Rafael Leão. La Croatie, qui a cru égaliser en toute fin de match (but refusé par la VAR), est éliminée : c'est la dernière Coupe du monde de Luka Modrić. Portugal 2-1 Croatie." },
-  { date:"2 juillet 2026", title:"🇪🇸 L'Espagne déroule face à l'Autriche (3-0), doublé d'Oyarzabal", text:"Championne d'Europe en titre, l'Espagne n'a pas tremblé à Los Angeles : Mikel Oyarzabal a ouvert le score (36ᵉ) puis scellé la victoire en fin de match (89ᵉ), Pedro Porro ayant corsé l'addition de la tête (66ᵉ). De retour de blessure, Lamine Yamal a rassuré. La Roja affrontera le Portugal en 8ᵉ de finale — un choc ibérique programmé le 6 juillet à Dallas." },
+  { date:"4 juillet 2026", title:"🎬 Les 16ᵉˢ sont bouclés : place aux 8ᵉˢ, le tableau final est complet", text:"Le tour des 16ᵉˢ de finale est terminé et les 32 rescapés sont connus. Les 8ᵉˢ démarrent dès ce samedi 4 juillet avec Paraguay–France à Philadelphie et Canada–Maroc à Houston, avant le choc Brésil–Norvège attendu dimanche. Deux nations africaines restent en lice — le Maroc et l'Égypte — après les sorties du Ghana, de l'Algérie et du Sénégal. Tous les résultats sont désormais intégrés et recoupés." },
+  { date:"4 juillet 2026", title:"🇦🇷 Frayeur maximale pour Messi : l'Argentine élimine le Cap-Vert 3-2 après prolongation", text:"À Miami, les champions du monde ont frôlé l'exploit inverse. Lionel Messi a ouvert le score (29ᵉ) et signé son 20ᵉ but en Coupe du monde, mais les débutants cap-verdiens ont égalisé deux fois (Duarte 59ᵉ, Cabral 103ᵉ). Il a fallu un but contre son camp de Borges, sur corner de Messi, pour délivrer l'Albiceleste (111ᵉ). L'Argentine défiera l'Égypte en 8ᵉ de finale, le 7 juillet à Atlanta." },
+  { date:"4 juillet 2026", title:"🇪🇬 L'Égypte écrit l'histoire : première victoire en phase finale, Salah glacial aux tirs au but", text:"À Dallas, l'Égypte a décroché la première victoire de son histoire dans un match à élimination directe de Coupe du monde. Après un 1-1 (Ashour 13ᵉ ; un csc de Hany 55ᵉ pour l'Australie), les Pharaons se sont imposés 4-2 aux tirs au but : Souttar et Herrington ont manqué leurs tentatives côté australien, quand Mohamed Salah signait un Panenka plein de sang-froid. L'Égypte rejoint le Maroc comme porte-drapeau africain des 8ᵉˢ." },
+  { date:"3 juillet 2026", title:"🇨🇴 La Colombie maîtrise le Ghana (1-0) et file en 8ᵉ", text:"À Kansas City, la Colombie a validé sa qualification grâce à un but précoce de Jhon Arias (14ᵉ), servi par le remplaçant Luis Suárez, entré huit minutes plus tôt. Solide et jamais inquiétée — le Ghana n'a pas cadré une seule frappe — la Colombie signe un troisième clean sheet de rang et affrontera la Suisse le 7 juillet à Vancouver. Le Ghana, dernier espoir subsaharien, quitte le tournoi." },
+  { date:"3 juillet 2026", title:"🇨🇭 La Suisse bat l'Algérie 2-0 et met fin à 88 ans d'attente", text:"À Vancouver, la Suisse s'est imposée 2-0 face à l'Algérie de Riyad Mahrez : Breel Embolo a frappé tôt (10ᵉ) et Dan Ndoye a doublé la mise dès le retour des vestiaires (46ᵉ). C'est la première victoire helvète en phase à élimination directe d'un Mondial depuis 1938. L'Algérie, dernier porte-drapeau maghrébin, quitte le tournoi ; la Suisse défiera la Colombie en 8ᵉ de finale." },
   { date:"30 juin 2026", title:"🐘 Éliminés mais dans l'histoire : les Éléphants ont franchi un cap", text:"Battue par la Norvège d'Erling Haaland (1-2) en 16ᵉ de finale, la Côte d'Ivoire d'Emerse Faé quitte le Mondial la tête haute : pour la première fois, les Éléphants avaient passé la phase de groupes d'une Coupe du monde. Amad Diallo, buteur au 1ᵉʳ tour comme au 16ᵉ, et un Nicolas Pépé retrouvé auront marqué ce parcours qui pose une nouvelle référence pour le football ivoirien." },
 ];
 
