@@ -733,7 +733,7 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-07-04";
+const LAST_UPDATE = "2026-07-05";
 
 // Compte à rebours : Éléphants éliminés en 16ᵉ → on pointe le prochain grand rendez-vous (ISO UTC)
 const NEXT_KICKOFF = { iso:"2026-07-05T20:00:00Z", label:"⏳ avant Brésil 🇧🇷 – Norvège 🇳🇴 · 8ᵉ de finale · 5 juillet, MetLife Stadium (New York/NJ) · 20h00 GMT — le bourreau des Éléphants défie la Seleção" };
@@ -877,8 +877,8 @@ const KNOCKOUT = [
   {id:"M87",d:"3 juillet",pairing:"1ᵉʳ K – 3ᵉ (D/E/I/J/L)",venue:"Arrowhead Stadium · Kansas City",t:"03h30 (+1j)",home:"Colombie",away:"Ghana",s:"1-0",st:"done",goals:[{p:"Arias",t:"Colombie",m:"14"}]},
   {id:"M88",d:"3 juillet",pairing:"2ᵉ D – 2ᵉ G",venue:"AT&T Stadium · Dallas",t:"20h00",home:"Australie",away:"Égypte",s:"1-1",pso:"2-4",st:"done",goals:[{p:"Ashour",t:"Égypte",m:"13"},{p:"Hany",t:"Égypte",m:"55",og:true}]}]},
  {phase:"8ᵉˢ de finale (4 – 7 juillet)", matches:[
-  {id:"M89",d:"4 juillet",pairing:"V. M74 – V. M77",venue:"Lincoln Financial Field · Philadelphie",home:"Paraguay",away:"France",s:"",st:"upcoming"},
-  {id:"M90",d:"4 juillet",pairing:"V. M73 – V. M75",venue:"NRG Stadium · Houston",home:"Canada",away:"Maroc",s:"",st:"upcoming"},
+  {id:"M89",d:"4 juillet",pairing:"V. M74 – V. M77",venue:"Lincoln Financial Field · Philadelphie",home:"Paraguay",away:"France",s:"0-1",st:"done",goals:[{p:"Mbappé",t:"France",m:"70",pen:true}]},
+  {id:"M90",d:"4 juillet",pairing:"V. M73 – V. M75",venue:"NRG Stadium · Houston",home:"Canada",away:"Maroc",s:"0-3",st:"done",goals:[{p:"Ounahi",t:"Maroc",m:"50"},{p:"Ounahi",t:"Maroc",m:"82"},{p:"Rahimi",t:"Maroc",m:"90+8"}]},
   {id:"M91",d:"5 juillet",pairing:"V. M76 – V. M78",venue:"MetLife Stadium · New York/NJ",home:"Brésil",away:"Norvège",s:"",st:"upcoming"},
   {id:"M92",d:"5 juillet",pairing:"V. M79 – V. M80",venue:"Estadio Azteca · Mexico",home:"Mexique",away:"Angleterre",s:"",st:"upcoming"},
   {id:"M93",d:"6 juillet",pairing:"V. M83 – V. M84",venue:"AT&T Stadium · Dallas",home:"Portugal",away:"Espagne",s:"",st:"upcoming"},
@@ -886,7 +886,7 @@ const KNOCKOUT = [
   {id:"M95",d:"7 juillet",pairing:"V. M86 – V. M88",venue:"Mercedes-Benz Stadium · Atlanta",home:"Argentine",away:"Égypte",s:"",st:"upcoming"},
   {id:"M96",d:"7 juillet",pairing:"V. M85 – V. M87",venue:"BC Place · Vancouver",home:"Suisse",away:"Colombie",s:"",st:"upcoming"}]},
  {phase:"Quarts de finale (9 – 11 juillet)", matches:[
-  {id:"M97",d:"9 juillet",pairing:"V. M89 – V. M90",venue:"Gillette Stadium · Boston",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M97",d:"9 juillet",pairing:"V. M89 – V. M90",venue:"Gillette Stadium · Boston",home:"France",away:"Maroc",s:"",st:"upcoming"},
   {id:"M98",d:"10 juillet",pairing:"V. M93 – V. M94",venue:"SoFi Stadium · Los Angeles",home:"",away:"",s:"",st:"upcoming"},
   {id:"M99",d:"11 juillet",pairing:"V. M91 – V. M92",venue:"Hard Rock Stadium · Miami",home:"",away:"",s:"",st:"upcoming"},
   {id:"M100",d:"11 juillet",pairing:"V. M95 – V. M96",venue:"Arrowhead Stadium · Kansas City",home:"",away:"",s:"",st:"upcoming"}]},
@@ -901,11 +901,10 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"4 juillet 2026", title:"🎬 Les 16ᵉˢ sont bouclés : place aux 8ᵉˢ, le tableau final est complet", text:"Le tour des 16ᵉˢ de finale est terminé et les 32 rescapés sont connus. Les 8ᵉˢ démarrent dès ce samedi 4 juillet avec Paraguay–France à Philadelphie et Canada–Maroc à Houston, avant le choc Brésil–Norvège attendu dimanche. Deux nations africaines restent en lice — le Maroc et l'Égypte — après les sorties du Ghana, de l'Algérie et du Sénégal. Tous les résultats sont désormais intégrés et recoupés." },
-  { date:"4 juillet 2026", title:"🇦🇷 Frayeur maximale pour Messi : l'Argentine élimine le Cap-Vert 3-2 après prolongation", text:"À Miami, les champions du monde ont frôlé l'exploit inverse. Lionel Messi a ouvert le score (29ᵉ) et signé son 20ᵉ but en Coupe du monde, mais les débutants cap-verdiens ont égalisé deux fois (Duarte 59ᵉ, Cabral 103ᵉ). Il a fallu un but contre son camp de Borges, sur corner de Messi, pour délivrer l'Albiceleste (111ᵉ). L'Argentine défiera l'Égypte en 8ᵉ de finale, le 7 juillet à Atlanta." },
-  { date:"4 juillet 2026", title:"🇪🇬 L'Égypte écrit l'histoire : première victoire en phase finale, Salah glacial aux tirs au but", text:"À Dallas, l'Égypte a décroché la première victoire de son histoire dans un match à élimination directe de Coupe du monde. Après un 1-1 (Ashour 13ᵉ ; un csc de Hany 55ᵉ pour l'Australie), les Pharaons se sont imposés 4-2 aux tirs au but : Souttar et Herrington ont manqué leurs tentatives côté australien, quand Mohamed Salah signait un Panenka plein de sang-froid. L'Égypte rejoint le Maroc comme porte-drapeau africain des 8ᵉˢ." },
-  { date:"3 juillet 2026", title:"🇨🇴 La Colombie maîtrise le Ghana (1-0) et file en 8ᵉ", text:"À Kansas City, la Colombie a validé sa qualification grâce à un but précoce de Jhon Arias (14ᵉ), servi par le remplaçant Luis Suárez, entré huit minutes plus tôt. Solide et jamais inquiétée — le Ghana n'a pas cadré une seule frappe — la Colombie signe un troisième clean sheet de rang et affrontera la Suisse le 7 juillet à Vancouver. Le Ghana, dernier espoir subsaharien, quitte le tournoi." },
-  { date:"3 juillet 2026", title:"🇨🇭 La Suisse bat l'Algérie 2-0 et met fin à 88 ans d'attente", text:"À Vancouver, la Suisse s'est imposée 2-0 face à l'Algérie de Riyad Mahrez : Breel Embolo a frappé tôt (10ᵉ) et Dan Ndoye a doublé la mise dès le retour des vestiaires (46ᵉ). C'est la première victoire helvète en phase à élimination directe d'un Mondial depuis 1938. L'Algérie, dernier porte-drapeau maghrébin, quitte le tournoi ; la Suisse défiera la Colombie en 8ᵉ de finale." },
+  { date:"5 juillet 2026", title:"🇫🇷🆚🇲🇦 France–Maroc en quart : le choc est programmé le 9 juillet à Boston", text:"En sortant respectivement le Paraguay et le Canada, la France et le Maroc se retrouveront en quart de finale le 9 juillet au Gillette Stadium de Boston — un remake de la demi-finale de 2022. Seule nation africaine encore en lice avec l'Égypte, les Lions de l'Atlas porteront les espoirs du continent face aux Bleus de Mbappé. Ce dimanche, place d'abord au choc Brésil–Norvège au MetLife Stadium : la Seleção de Vinícius défie le bourreau des Éléphants, Erling Haaland." },
+  { date:"4 juillet 2026", title:"🇲🇦 Le Maroc écrase le Canada (0-3) et élimine un pays hôte", text:"À Houston, le Maroc a dominé le co-organisateur canadien pour filer en quart de finale. Azzedine Ounahi a signé un doublé (50ᵉ sur un coup franc joué par Hakimi, 82ᵉ sur un service de Brahim Díaz — dont la 4ᵉ passe décisive établit un record africain en Coupe du monde), avant que Rahimi ne conclue dans le temps additionnel (90+8). Le Maroc devient la première nation africaine à atteindre plus d'une fois les quarts d'un Mondial." },
+  { date:"4 juillet 2026", title:"🇫🇷 Un penalty de Mbappé suffit à la France face au Paraguay (0-1)", text:"À Philadelphie et sous une chaleur étouffante, la France a arraché sa qualification pour les quarts grâce à un penalty de Kylian Mbappé (70ᵉ), son 7ᵉ but du tournoi. Un succès laborieux face à un Paraguay accrocheur, mais suffisant pour envoyer les Bleus au dernier carré des huit — où les attend le Maroc, le 9 juillet à Boston." },
+  { date:"4 juillet 2026", title:"🇪🇬 L'Égypte écrit l'histoire : première victoire en phase finale, Salah glacial aux tirs au but", text:"À Dallas, l'Égypte a décroché la première victoire de son histoire dans un match à élimination directe de Coupe du monde. Après un 1-1 (Ashour 13ᵉ ; un csc de Hany 55ᵉ pour l'Australie), les Pharaons se sont imposés 4-2 aux tirs au but : Souttar et Herrington ont manqué leurs tentatives côté australien, quand Mohamed Salah signait un Panenka plein de sang-froid. L'Égypte rejoint le Maroc comme porte-drapeau africain des quarts." },
   { date:"30 juin 2026", title:"🐘 Éliminés mais dans l'histoire : les Éléphants ont franchi un cap", text:"Battue par la Norvège d'Erling Haaland (1-2) en 16ᵉ de finale, la Côte d'Ivoire d'Emerse Faé quitte le Mondial la tête haute : pour la première fois, les Éléphants avaient passé la phase de groupes d'une Coupe du monde. Amad Diallo, buteur au 1ᵉʳ tour comme au 16ᵉ, et un Nicolas Pépé retrouvé auront marqué ce parcours qui pose une nouvelle référence pour le football ivoirien." },
 ];
 
