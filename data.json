@@ -27,7 +27,36 @@
     {
       "id": "M92",
       "st": "live",
-      "s": "0-0"
+      "s": "2-3",
+      "goals": [
+        {
+          "p": "Bellingham",
+          "t": "Angleterre",
+          "m": "36"
+        },
+        {
+          "p": "Bellingham",
+          "t": "Angleterre",
+          "m": "38"
+        },
+        {
+          "p": "Quiñones",
+          "t": "Mexique",
+          "m": "42"
+        },
+        {
+          "p": "Kane",
+          "t": "Angleterre",
+          "m": "60",
+          "pen": true
+        },
+        {
+          "p": "Jiménez",
+          "t": "Mexique",
+          "m": "69",
+          "pen": true
+        }
+      ]
     },
     {
       "id": "M99",
