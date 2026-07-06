@@ -733,10 +733,10 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-07-05";
+const LAST_UPDATE = "2026-07-06";
 
 // Compte à rebours : Éléphants éliminés en 16ᵉ → on pointe le prochain grand rendez-vous (ISO UTC)
-const NEXT_KICKOFF = { iso:"2026-07-05T20:00:00Z", label:"⏳ avant Brésil 🇧🇷 – Norvège 🇳🇴 · 8ᵉ de finale · 5 juillet, MetLife Stadium (New York/NJ) · 20h00 GMT — le bourreau des Éléphants défie la Seleção" };
+const NEXT_KICKOFF = { iso:"2026-07-06T21:00:00Z", label:"⏳ avant Portugal 🇵🇹 – Espagne 🇪🇸 · 8ᵉ de finale · 6 juillet, AT&T Stadium (Dallas) · 21h00 GMT — le derby ibérique, choc de ce tour" };
 
 // Drapeaux des 48 équipes
 const FLAGS = {
@@ -879,8 +879,8 @@ const KNOCKOUT = [
  {phase:"8ᵉˢ de finale (4 – 7 juillet)", matches:[
   {id:"M89",d:"4 juillet",pairing:"V. M74 – V. M77",venue:"Lincoln Financial Field · Philadelphie",t:"23h00",home:"Paraguay",away:"France",s:"0-1",st:"done",goals:[{p:"Mbappé",t:"France",m:"70",pen:true}]},
   {id:"M90",d:"4 juillet",pairing:"V. M73 – V. M75",venue:"NRG Stadium · Houston",t:"19h00",home:"Canada",away:"Maroc",s:"0-3",st:"done",goals:[{p:"Ounahi",t:"Maroc",m:"50"},{p:"Ounahi",t:"Maroc",m:"82"},{p:"Rahimi",t:"Maroc",m:"90+8"}]},
-  {id:"M91",d:"5 juillet",pairing:"V. M76 – V. M78",venue:"MetLife Stadium · New York/NJ",t:"22h00",home:"Brésil",away:"Norvège",s:"",st:"upcoming"},
-  {id:"M92",d:"5 juillet",pairing:"V. M79 – V. M80",venue:"Estadio Azteca · Mexico",t:"02h00 (+1j)",home:"Mexique",away:"Angleterre",s:"",st:"upcoming"},
+  {id:"M91",d:"5 juillet",pairing:"V. M76 – V. M78",venue:"MetLife Stadium · New York/NJ",t:"22h00",home:"Brésil",away:"Norvège",s:"1-2",st:"done",goals:[{p:"Haaland",t:"Norvège",m:"79"},{p:"Haaland",t:"Norvège",m:"90"},{p:"Neymar",t:"Brésil",m:"90+10",pen:true}]},
+  {id:"M92",d:"5 juillet",pairing:"V. M79 – V. M80",venue:"Estadio Azteca · Mexico",t:"02h00 (+1j)",home:"Mexique",away:"Angleterre",s:"2-3",st:"done",goals:[{p:"Bellingham",t:"Angleterre",m:"36"},{p:"Bellingham",t:"Angleterre",m:"38"},{p:"Quiñones",t:"Mexique",m:"42"},{p:"Kane",t:"Angleterre",m:"60",pen:true},{p:"Jiménez",t:"Mexique",m:"69",pen:true}]},
   {id:"M93",d:"6 juillet",pairing:"V. M83 – V. M84",venue:"AT&T Stadium · Dallas",t:"21h00",home:"Portugal",away:"Espagne",s:"",st:"upcoming"},
   {id:"M94",d:"6 juillet",pairing:"V. M81 – V. M82",venue:"Lumen Field · Seattle",t:"23h00",home:"États-Unis",away:"Belgique",s:"",st:"upcoming"},
   {id:"M95",d:"7 juillet",pairing:"V. M86 – V. M88",venue:"Mercedes-Benz Stadium · Atlanta",t:"18h00",home:"Argentine",away:"Égypte",s:"",st:"upcoming"},
@@ -888,7 +888,7 @@ const KNOCKOUT = [
  {phase:"Quarts de finale (9 – 11 juillet)", matches:[
   {id:"M97",d:"9 juillet",pairing:"V. M89 – V. M90",venue:"Gillette Stadium · Boston",t:"22h00",home:"France",away:"Maroc",s:"",st:"upcoming"},
   {id:"M98",d:"10 juillet",pairing:"V. M93 – V. M94",venue:"SoFi Stadium · Los Angeles",t:"21h00",home:"",away:"",s:"",st:"upcoming"},
-  {id:"M99",d:"11 juillet",pairing:"V. M91 – V. M92",venue:"Hard Rock Stadium · Miami",t:"23h00",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M99",d:"11 juillet",pairing:"V. M91 – V. M92",venue:"Hard Rock Stadium · Miami",t:"23h00",home:"Norvège",away:"Angleterre",s:"",st:"upcoming"},
   {id:"M100",d:"11 juillet",pairing:"V. M95 – V. M96",venue:"Arrowhead Stadium · Kansas City",t:"03h00 (+1j)",home:"",away:"",s:"",st:"upcoming"}]},
  {phase:"Demi-finales (14 – 15 juillet)", matches:[
   {id:"M101",d:"14 juillet",pairing:"V. M97 – V. M98",venue:"AT&T Stadium · Dallas",t:"21h00",home:"",away:"",s:"",st:"upcoming"},
@@ -901,7 +901,9 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"5 juillet 2026", title:"🇫🇷🆚🇲🇦 France–Maroc en quart : le choc est programmé le 9 juillet à Boston", text:"En sortant respectivement le Paraguay et le Canada, la France et le Maroc se retrouveront en quart de finale le 9 juillet au Gillette Stadium de Boston — un remake de la demi-finale de 2022. Seule nation africaine encore en lice avec l'Égypte, les Lions de l'Atlas porteront les espoirs du continent face aux Bleus de Mbappé. Ce dimanche, place d'abord au choc Brésil–Norvège au MetLife Stadium : la Seleção de Vinícius défie le bourreau des Éléphants, Erling Haaland." },
+  { date:"6 juillet 2026", title:"🇳🇴 Haaland foudroie le Brésil (1-2) : la Norvège en quart, le bourreau des Éléphants file jusqu'au bout", text:"Au MetLife Stadium, la Norvège a créé la sensation en éliminant le Brésil de Vinícius (2-1). Muet jusqu'alors, Erling Haaland a frappé deux fois en fin de match (79ᵉ de la tête, 90ᵉ du gauche) pour porter son total à 7 buts dans son tout premier Mondial ; Neymar n'a réduit le score que sur penalty dans le temps additionnel (90+10), après un premier penalty brésilien manqué par Bruno Guimarães. Le tombeur de la Côte d'Ivoire poursuit sa route et défiera l'Angleterre en quart le 11 juillet à Miami." },
+  { date:"6 juillet 2026", title:"🦁 L'Angleterre survit à l'Azteca à dix (2-3) : Bellingham et Kane qualifient les Three Lions", text:"À plus de 2 200 m d'altitude et dans un Estadio Azteca bouillant, l'Angleterre a éliminé le Mexique co-hôte (3-2). Jude Bellingham a assommé les Aztèques d'un doublé éclair (36ᵉ, 38ᵉ), avant que Julián Quiñones ne relance le match (42ᵉ). Réduits à dix après l'expulsion de Jarell Quansah (54ᵉ), les Anglais ont tenu grâce à un penalty de Harry Kane (60ᵉ) et malgré la réponse de Raúl Jiménez sur penalty (69ᵉ). En quart, l'Angleterre retrouvera la Norvège de Haaland." },
+  { date:"6 juillet 2026", title:"🇵🇹🆚🇪🇸 Derby ibérique en 8ᵉ : Portugal–Espagne, choc royal ce lundi à Dallas", text:"Après une phase finale déjà spectaculaire, ce lundi 6 juillet offre l'affiche la plus attendue du tour : Portugal–Espagne à l'AT&T Stadium de Dallas, un derby ibérique entre Cristiano Ronaldo et la Roja. En soirée, les États-Unis co-hôtes défieront la Belgique à Seattle pour la dernière place en quart de finale." },
   { date:"4 juillet 2026", title:"🇲🇦 Le Maroc écrase le Canada (0-3) et élimine un pays hôte", text:"À Houston, le Maroc a dominé le co-organisateur canadien pour filer en quart de finale. Azzedine Ounahi a signé un doublé (50ᵉ sur un coup franc joué par Hakimi, 82ᵉ sur un service de Brahim Díaz — dont la 4ᵉ passe décisive établit un record africain en Coupe du monde), avant que Rahimi ne conclue dans le temps additionnel (90+8). Le Maroc devient la première nation africaine à atteindre plus d'une fois les quarts d'un Mondial." },
   { date:"4 juillet 2026", title:"🇫🇷 Un penalty de Mbappé suffit à la France face au Paraguay (0-1)", text:"À Philadelphie et sous une chaleur étouffante, la France a arraché sa qualification pour les quarts grâce à un penalty de Kylian Mbappé (70ᵉ), son 7ᵉ but du tournoi. Un succès laborieux face à un Paraguay accrocheur, mais suffisant pour envoyer les Bleus au dernier carré des huit — où les attend le Maroc, le 9 juillet à Boston." },
   { date:"4 juillet 2026", title:"🇪🇬 L'Égypte écrit l'histoire : première victoire en phase finale, Salah glacial aux tirs au but", text:"À Dallas, l'Égypte a décroché la première victoire de son histoire dans un match à élimination directe de Coupe du monde. Après un 1-1 (Ashour 13ᵉ ; un csc de Hany 55ᵉ pour l'Australie), les Pharaons se sont imposés 4-2 aux tirs au but : Souttar et Herrington ont manqué leurs tentatives côté australien, quand Mohamed Salah signait un Panenka plein de sang-froid. L'Égypte rejoint le Maroc comme porte-drapeau africain des quarts." },
