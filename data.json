@@ -1,41 +1,6 @@
 {
-  "lastUpdate": "2026-07-05",
+  "lastUpdate": "2026-07-06",
   "matches": [
-    {
-      "id": "M90",
-      "st": "done",
-      "s": "0-3",
-      "goals": [
-        {
-          "p": "Ounahi",
-          "t": "Maroc",
-          "m": "50"
-        },
-        {
-          "p": "Ounahi",
-          "t": "Maroc",
-          "m": "82"
-        },
-        {
-          "p": "Rahimi",
-          "t": "Maroc",
-          "m": "90+8"
-        }
-      ]
-    },
-    {
-      "id": "M89",
-      "st": "done",
-      "s": "0-1",
-      "goals": [
-        {
-          "p": "Mbappé",
-          "t": "France",
-          "m": "70",
-          "pen": true
-        }
-      ]
-    },
     {
       "id": "M91",
       "st": "done",
@@ -58,6 +23,11 @@
           "pen": true
         }
       ]
+    },
+    {
+      "id": "M92",
+      "st": "live",
+      "s": "0-0"
     },
     {
       "id": "M99",
