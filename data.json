@@ -26,7 +26,7 @@
     },
     {
       "id": "M92",
-      "st": "live",
+      "st": "done",
       "s": "2-3",
       "goals": [
         {
@@ -60,7 +60,8 @@
     },
     {
       "id": "M99",
-      "home": "Norvège"
+      "home": "Norvège",
+      "away": "Angleterre"
     }
   ]
 }
