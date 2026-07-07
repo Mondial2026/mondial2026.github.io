@@ -15,8 +15,8 @@
     },
     {
       "id": "M94",
-      "st": "live",
-      "s": "1-3",
+      "st": "done",
+      "s": "1-4",
       "goals": [
         {
           "p": "Ketelaere",
@@ -37,12 +37,18 @@
           "p": "Vanaken",
           "t": "Belgique",
           "m": "57"
+        },
+        {
+          "p": "Lukaku",
+          "t": "Belgique",
+          "m": "90+3"
         }
       ]
     },
     {
       "id": "M98",
-      "home": "Espagne"
+      "home": "Espagne",
+      "away": "Belgique"
     }
   ]
 }
