@@ -47,15 +47,39 @@
     },
     {
       "id": "M95",
-      "st": "live",
-      "s": "0-1",
+      "st": "done",
+      "s": "3-2",
       "goals": [
         {
           "p": "Ibrahim",
           "t": "Égypte",
           "m": "15"
+        },
+        {
+          "p": "Zico",
+          "t": "Égypte",
+          "m": "67"
+        },
+        {
+          "p": "Romero",
+          "t": "Argentine",
+          "m": "79"
+        },
+        {
+          "p": "Messi",
+          "t": "Argentine",
+          "m": "83"
+        },
+        {
+          "p": "Fernández",
+          "t": "Argentine",
+          "m": "90+2"
         }
       ]
+    },
+    {
+      "id": "M100",
+      "home": "Argentine"
     }
   ]
 }
