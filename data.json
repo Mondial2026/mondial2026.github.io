@@ -1,50 +1,6 @@
 {
-  "lastUpdate": "2026-07-07",
+  "lastUpdate": "2026-07-08",
   "matches": [
-    {
-      "id": "M93",
-      "st": "done",
-      "s": "0-1",
-      "goals": [
-        {
-          "p": "Merino",
-          "t": "Espagne",
-          "m": "90+1"
-        }
-      ]
-    },
-    {
-      "id": "M94",
-      "st": "done",
-      "s": "1-4",
-      "goals": [
-        {
-          "p": "Ketelaere",
-          "t": "Belgique",
-          "m": "9"
-        },
-        {
-          "p": "Tillman",
-          "t": "États-Unis",
-          "m": "31"
-        },
-        {
-          "p": "Ketelaere",
-          "t": "Belgique",
-          "m": "33"
-        },
-        {
-          "p": "Vanaken",
-          "t": "Belgique",
-          "m": "57"
-        },
-        {
-          "p": "Lukaku",
-          "t": "Belgique",
-          "m": "90+3"
-        }
-      ]
-    },
     {
       "id": "M95",
       "st": "done",
