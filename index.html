@@ -733,10 +733,10 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-07-09";
+const LAST_UPDATE = "2026-07-10";
 
 // Compte à rebours : Éléphants éliminés en 16ᵉ → on pointe le prochain grand rendez-vous (ISO UTC)
-const NEXT_KICKOFF = { iso:"2026-07-09T20:00:00Z", label:"⏳ avant France 🇫🇷 – Maroc 🇲🇦 · Quart de finale · CE SOIR 9 juillet, Gillette Stadium (Boston) · 20h00 GMT — remake de la demie 2022, dernière nation africaine en lice" };
+const NEXT_KICKOFF = { iso:"2026-07-10T19:00:00Z", label:"⏳ avant Espagne 🇪🇸 – Belgique 🇧🇪 · Quart de finale · CE SOIR 10 juillet, SoFi Stadium (Los Angeles) · 19h00 GMT — la Roja invaincue (5 clean sheets) face aux Diables rouges (13 buts) ; le vainqueur défiera la France en demie" };
 
 // Drapeaux des 48 équipes
 const FLAGS = {
@@ -886,12 +886,12 @@ const KNOCKOUT = [
   {id:"M95",d:"7 juillet",pairing:"V. M86 – V. M88",venue:"Mercedes-Benz Stadium · Atlanta",t:"18h00",home:"Argentine",away:"Égypte",s:"3-2",st:"done",goals:[{p:"Ibrahim",t:"Égypte",m:"15"},{p:"Zico",t:"Égypte",m:"67"},{p:"Romero",t:"Argentine",m:"79"},{p:"Messi",t:"Argentine",m:"83"},{p:"Fernández",t:"Argentine",m:"90+2"}]},
   {id:"M96",d:"7 juillet",pairing:"V. M85 – V. M87",venue:"BC Place · Vancouver",t:"22h00",home:"Suisse",away:"Colombie",s:"0-0",pso:"4-3",st:"done",goals:[]}]},
  {phase:"Quarts de finale (9 – 11 juillet)", matches:[
-  {id:"M97",d:"9 juillet",pairing:"V. M89 – V. M90",venue:"Gillette Stadium · Boston",t:"22h00",home:"France",away:"Maroc",s:"",st:"upcoming"},
+  {id:"M97",d:"9 juillet",pairing:"V. M89 – V. M90",venue:"Gillette Stadium · Boston",t:"22h00",home:"France",away:"Maroc",s:"2-0",st:"done",goals:[{p:"Mbappé",t:"France",m:"60"},{p:"Dembélé",t:"France",m:"66"}]},
   {id:"M98",d:"10 juillet",pairing:"V. M93 – V. M94",venue:"SoFi Stadium · Los Angeles",t:"21h00",home:"Espagne",away:"Belgique",s:"",st:"upcoming"},
   {id:"M99",d:"11 juillet",pairing:"V. M91 – V. M92",venue:"Hard Rock Stadium · Miami",t:"23h00",home:"Norvège",away:"Angleterre",s:"",st:"upcoming"},
   {id:"M100",d:"11 juillet",pairing:"V. M95 – V. M96",venue:"Arrowhead Stadium · Kansas City",t:"03h00 (+1j)",home:"Argentine",away:"Suisse",s:"",st:"upcoming"}]},
  {phase:"Demi-finales (14 – 15 juillet)", matches:[
-  {id:"M101",d:"14 juillet",pairing:"V. M97 – V. M98",venue:"AT&T Stadium · Dallas",t:"21h00",home:"",away:"",s:"",st:"upcoming"},
+  {id:"M101",d:"14 juillet",pairing:"V. M97 – V. M98",venue:"AT&T Stadium · Dallas",t:"21h00",home:"France",away:"",s:"",st:"upcoming"},
   {id:"M102",d:"15 juillet",pairing:"V. M99 – V. M100",venue:"Mercedes-Benz Stadium · Atlanta",t:"21h00",home:"",away:"",s:"",st:"upcoming"}]},
  {phase:"Match pour la 3ᵉ place (18 juillet)", matches:[
   {id:"M103",d:"18 juillet",pairing:"Perdant M101 – Perdant M102",venue:"Hard Rock Stadium · Miami",t:"23h00",home:"",away:"",s:"",st:"upcoming"}]},
@@ -901,7 +901,8 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"9 juillet 2026", title:"🇫🇷🇲🇦 Ce soir, France – Maroc lance les quarts : remake de la demie de 2022", text:"Les quarts de finale s'ouvrent ce jeudi 9 juillet à 20h00 GMT (22h Paris) au Gillette Stadium de Boston avec un choc au parfum de revanche : France – Maroc, trois ans et demi après la demi-finale du Qatar remportée 2-0 par les Bleus. Porté par un Kylian Mbappé candidat au Soulier d'or, le champion 2018 défie des Lions de l'Atlas devenus la première nation africaine à enchaîner deux quarts de Coupe du monde de rang, et seul rescapé du continent dans le dernier carré des huit. Le vainqueur affrontera l'Espagne ou la Belgique en demi-finale le 14 juillet à Dallas." },
+  { date:"10 juillet 2026", title:"🇪🇸🇧🇪 Ce soir, Espagne – Belgique pour une place en demie contre la France", text:"Deuxième quart de finale ce vendredi 10 juillet à 19h00 GMT (21h Paris) au SoFi Stadium de Los Angeles : l'Espagne, seule équipe encore invaincue et surtout imbattue défensivement (cinq matchs, cinq clean sheets, aucun but encaissé), défie une Belgique parmi les plus prolifiques du tournoi (13 buts en cinq rencontres). Le vainqueur rejoindra la France en demi-finale le 14 juillet à Dallas. Diffusion sur M6 et beIN Sports 1." },
+  { date:"9 juillet 2026", title:"🇫🇷 La France maîtrise le Maroc (2-0) et file en demi-finale", text:"Au Gillette Stadium de Boston, les Bleus ont dominé de bout en bout ce remake de la demie de 2022 (xG 3,04 contre 0,14). Après un penalty manqué en première période, Kylian Mbappé a débloqué la situation à la 60ᵉ minute — son 20ᵉ but en Coupe du monde — avant de servir Ousmane Dembélé, buteur à la 66ᵉ (son 5ᵉ du tournoi). La France élimine le dernier représentant africain et se qualifie pour les demi-finales, où elle affrontera l'Espagne ou la Belgique le 14 juillet à Dallas." },
   { date:"8 juillet 2026", title:"🎟️ Les huitièmes sont pliés : voici les quarts de finale", text:"Avec les qualifications de l'Argentine et de la Suisse, le tableau des huit derniers est complet. Au programme : France 🇫🇷 – Maroc 🇲🇦 (9 juillet, Boston), Espagne 🇪🇸 – Belgique 🇧🇪 (10 juillet, Los Angeles), puis le 11 juillet Norvège 🇳🇴 – Angleterre 🇬🇧 (Miami) et Argentine 🇦🇷 – Suisse 🇨🇭 (Kansas City). Deux nations africaines encore en lice, le Maroc, et une affiche de gala entre l'Espagne et la Belgique : les quarts s'annoncent brûlants." },
   { date:"8 juillet 2026", title:"🇨🇭 La Suisse élimine la Colombie aux tirs au but (0-0, 4-3) et rejoint le dernier carré des huit", text:"À Vancouver, il a fallu 120 minutes et une séance de tirs au but pour départager deux équipes jusque-là invaincues. Après un 0-0 verrouillé, la Suisse s'est imposée 4-3 dans l'exercice fatidique, Rubén Vargas transformant le penalty décisif. Les Helvètes atteignent les quarts d'une Coupe du monde pour la première fois depuis 1954 et défieront l'Argentine tenante du titre le 11 juillet à Kansas City." },
   { date:"8 juillet 2026", title:"🇦🇷 Messi renverse l'Égypte (3-2) : l'Argentine s'arrache dans le temps additionnel", text:"Menée 2-0 après les buts de Yasser Ibrahim (15ᵉ) et Zico (67ᵉ) à Atlanta, l'Argentine a signé une remontada de champion. Cristian Romero a relancé les Albicelestes de la tête sur un centre de Lionel Messi (79ᵉ), avant que Messi n'égalise lui-même (83ᵉ). Dans le temps additionnel, Enzo Fernández a offert la victoire d'une tête sur un centre de Lautaro Martínez (90+2). L'Argentine file en quart et retrouvera la Suisse." },
