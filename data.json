@@ -1,23 +1,6 @@
 {
-  "lastUpdate": "2026-07-10",
+  "lastUpdate": "2026-07-11",
   "matches": [
-    {
-      "id": "M97",
-      "st": "done",
-      "s": "2-0",
-      "goals": [
-        {
-          "p": "Mbappé",
-          "t": "France",
-          "m": "60"
-        },
-        {
-          "p": "Dembélé",
-          "t": "France",
-          "m": "66"
-        }
-      ]
-    },
     {
       "id": "M98",
       "st": "done",
