@@ -26,7 +26,7 @@
     {
       "id": "M99",
       "st": "live",
-      "s": "1-1",
+      "s": "1-2",
       "goals": [
         {
           "p": "Schjelderup",
@@ -37,6 +37,11 @@
           "p": "Bellingham",
           "t": "Angleterre",
           "m": "45+2"
+        },
+        {
+          "p": "Bellingham",
+          "t": "Angleterre",
+          "m": "93"
         }
       ]
     }
