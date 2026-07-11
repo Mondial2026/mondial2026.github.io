@@ -26,7 +26,19 @@
     {
       "id": "M99",
       "st": "live",
-      "s": "0-0"
+      "s": "1-1",
+      "goals": [
+        {
+          "p": "Schjelderup",
+          "t": "Norvège",
+          "m": "36"
+        },
+        {
+          "p": "Bellingham",
+          "t": "Angleterre",
+          "m": "45+2"
+        }
+      ]
     }
   ]
 }
