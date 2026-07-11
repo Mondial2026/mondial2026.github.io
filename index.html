@@ -733,10 +733,10 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-07-10";
+const LAST_UPDATE = "2026-07-11";
 
 // Compte à rebours : Éléphants éliminés en 16ᵉ → on pointe le prochain grand rendez-vous (ISO UTC)
-const NEXT_KICKOFF = { iso:"2026-07-10T19:00:00Z", label:"⏳ avant Espagne 🇪🇸 – Belgique 🇧🇪 · Quart de finale · CE SOIR 10 juillet, SoFi Stadium (Los Angeles) · 19h00 GMT — la Roja invaincue (5 clean sheets) face aux Diables rouges (13 buts) ; le vainqueur défiera la France en demie" };
+const NEXT_KICKOFF = { iso:"2026-07-11T21:00:00Z", label:"⏳ avant Norvège 🇳🇴 – Angleterre 🏴󠁧󠁢󠁥󠁮󠁧󠁿 · Quart de finale · CE SOIR 11 juillet, Hard Rock Stadium (Miami) · 21h00 GMT — Erling Haaland (7 buts, bourreau des Éléphants) et sa Norvège surprise défient les Three Lions ; le vainqueur file en demie face à l'Argentine ou la Suisse" };
 
 // Drapeaux des 48 équipes
 const FLAGS = {
@@ -887,11 +887,11 @@ const KNOCKOUT = [
   {id:"M96",d:"7 juillet",pairing:"V. M85 – V. M87",venue:"BC Place · Vancouver",t:"22h00",home:"Suisse",away:"Colombie",s:"0-0",pso:"4-3",st:"done",goals:[]}]},
  {phase:"Quarts de finale (9 – 11 juillet)", matches:[
   {id:"M97",d:"9 juillet",pairing:"V. M89 – V. M90",venue:"Gillette Stadium · Boston",t:"22h00",home:"France",away:"Maroc",s:"2-0",st:"done",goals:[{p:"Mbappé",t:"France",m:"60"},{p:"Dembélé",t:"France",m:"66"}]},
-  {id:"M98",d:"10 juillet",pairing:"V. M93 – V. M94",venue:"SoFi Stadium · Los Angeles",t:"21h00",home:"Espagne",away:"Belgique",s:"",st:"upcoming"},
+  {id:"M98",d:"10 juillet",pairing:"V. M93 – V. M94",venue:"SoFi Stadium · Los Angeles",t:"21h00",home:"Espagne",away:"Belgique",s:"2-1",st:"done",goals:[{p:"Ruiz",t:"Espagne",m:"30"},{p:"Ketelaere",t:"Belgique",m:"41"},{p:"Merino",t:"Espagne",m:"88"}]},
   {id:"M99",d:"11 juillet",pairing:"V. M91 – V. M92",venue:"Hard Rock Stadium · Miami",t:"23h00",home:"Norvège",away:"Angleterre",s:"",st:"upcoming"},
   {id:"M100",d:"11 juillet",pairing:"V. M95 – V. M96",venue:"Arrowhead Stadium · Kansas City",t:"03h00 (+1j)",home:"Argentine",away:"Suisse",s:"",st:"upcoming"}]},
  {phase:"Demi-finales (14 – 15 juillet)", matches:[
-  {id:"M101",d:"14 juillet",pairing:"V. M97 – V. M98",venue:"AT&T Stadium · Dallas",t:"21h00",home:"France",away:"",s:"",st:"upcoming"},
+  {id:"M101",d:"14 juillet",pairing:"V. M97 – V. M98",venue:"AT&T Stadium · Dallas",t:"21h00",home:"France",away:"Espagne",s:"",st:"upcoming"},
   {id:"M102",d:"15 juillet",pairing:"V. M99 – V. M100",venue:"Mercedes-Benz Stadium · Atlanta",t:"21h00",home:"",away:"",s:"",st:"upcoming"}]},
  {phase:"Match pour la 3ᵉ place (18 juillet)", matches:[
   {id:"M103",d:"18 juillet",pairing:"Perdant M101 – Perdant M102",venue:"Hard Rock Stadium · Miami",t:"23h00",home:"",away:"",s:"",st:"upcoming"}]},
@@ -901,7 +901,8 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"10 juillet 2026", title:"🇪🇸🇧🇪 Ce soir, Espagne – Belgique pour une place en demie contre la France", text:"Deuxième quart de finale ce vendredi 10 juillet à 19h00 GMT (21h Paris) au SoFi Stadium de Los Angeles : l'Espagne, seule équipe encore invaincue et surtout imbattue défensivement (cinq matchs, cinq clean sheets, aucun but encaissé), défie une Belgique parmi les plus prolifiques du tournoi (13 buts en cinq rencontres). Le vainqueur rejoindra la France en demi-finale le 14 juillet à Dallas. Diffusion sur M6 et beIN Sports 1." },
+  { date:"11 juillet 2026", title:"🇳🇴🏴󠁧󠁢󠁥󠁮󠁧󠁿🇦🇷🇨🇭 Les quarts se terminent : Norvège – Angleterre puis Argentine – Suisse", text:"Deux derniers quarts de finale ce samedi 11 juillet pour compléter le dernier carré. À 21h00 GMT (23h Paris) au Hard Rock Stadium de Miami, la Norvège d'Erling Haaland — révélation du tournoi avec 7 buts et tombeuse de la Côte d'Ivoire en 16ᵉ — affronte l'Angleterre d'Harry Kane et Jude Bellingham. Puis à 01h00 GMT (03h Paris, dans la nuit) à Kansas City, l'Argentine tenante du titre, portée par Lionel Messi, défie la Suisse, invaincue et qualifiée aux tirs au but contre la Colombie. Les vainqueurs se retrouveront en demi-finale le 15 juillet à Atlanta." },
+  { date:"11 juillet 2026", title:"🇪🇸 L'Espagne brise les rêves belges (2-1) et rejoint la France en demie", text:"Au SoFi Stadium de Los Angeles, la Roja a fait tomber la première équipe capable de la bousculer. Fabián Ruiz a ouvert le score (30ᵉ) avant l'égalisation de Charles De Ketelaere (41ᵉ). Alors que la prolongation se profilait, Mikel Merino a surgi à la 88ᵉ minute sur un rebond mal repoussé par le gardien belge pour offrir la victoire (2-1) et une place en demi-finale. Privée de son capitaine Youri Tielemans (blessé à l'échauffement) puis de Thibaut Courtois (sorti sur blessure), la Belgique quitte le tournoi. L'Espagne, toujours invaincue, défiera la France le 14 juillet à Dallas dans un choc 100 % européen." },
   { date:"9 juillet 2026", title:"🇫🇷 La France maîtrise le Maroc (2-0) et file en demi-finale", text:"Au Gillette Stadium de Boston, les Bleus ont dominé de bout en bout ce remake de la demie de 2022 (xG 3,04 contre 0,14). Après un penalty manqué en première période, Kylian Mbappé a débloqué la situation à la 60ᵉ minute — son 20ᵉ but en Coupe du monde — avant de servir Ousmane Dembélé, buteur à la 66ᵉ (son 5ᵉ du tournoi). La France élimine le dernier représentant africain et se qualifie pour les demi-finales, où elle affrontera l'Espagne ou la Belgique le 14 juillet à Dallas." },
   { date:"8 juillet 2026", title:"🎟️ Les huitièmes sont pliés : voici les quarts de finale", text:"Avec les qualifications de l'Argentine et de la Suisse, le tableau des huit derniers est complet. Au programme : France 🇫🇷 – Maroc 🇲🇦 (9 juillet, Boston), Espagne 🇪🇸 – Belgique 🇧🇪 (10 juillet, Los Angeles), puis le 11 juillet Norvège 🇳🇴 – Angleterre 🇬🇧 (Miami) et Argentine 🇦🇷 – Suisse 🇨🇭 (Kansas City). Deux nations africaines encore en lice, le Maroc, et une affiche de gala entre l'Espagne et la Belgique : les quarts s'annoncent brûlants." },
   { date:"8 juillet 2026", title:"🇨🇭 La Suisse élimine la Colombie aux tirs au but (0-0, 4-3) et rejoint le dernier carré des huit", text:"À Vancouver, il a fallu 120 minutes et une séance de tirs au but pour départager deux équipes jusque-là invaincues. Après un 0-0 verrouillé, la Suisse s'est imposée 4-3 dans l'exercice fatidique, Rubén Vargas transformant le penalty décisif. Les Helvètes atteignent les quarts d'une Coupe du monde pour la première fois depuis 1954 et défieront l'Argentine tenante du titre le 11 juillet à Kansas City." },
