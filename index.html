@@ -733,10 +733,10 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-07-11";
+const LAST_UPDATE = "2026-07-12";
 
 // Compte à rebours : Éléphants éliminés en 16ᵉ → on pointe le prochain grand rendez-vous (ISO UTC)
-const NEXT_KICKOFF = { iso:"2026-07-11T21:00:00Z", label:"⏳ avant Norvège 🇳🇴 – Angleterre 🏴󠁧󠁢󠁥󠁮󠁧󠁿 · Quart de finale · CE SOIR 11 juillet, Hard Rock Stadium (Miami) · 21h00 GMT — Erling Haaland (7 buts, bourreau des Éléphants) et sa Norvège surprise défient les Three Lions ; le vainqueur file en demie face à l'Argentine ou la Suisse" };
+const NEXT_KICKOFF = { iso:"2026-07-14T21:00:00Z", label:"⏳ avant France 🇫🇷 – Espagne 🇪🇸 · Demi-finale · mardi 14 juillet, AT&T Stadium (Dallas) · 21h00 GMT — choc 100 % européen entre deux invaincus : les Bleus de Mbappé (20 buts en Coupe du monde) défient la Roja pour une place en finale. Le lendemain, Angleterre 🏴󠁧󠁢󠁥󠁮󠁧󠁿 – Argentine 🇦🇷 à Atlanta désignera l'autre finaliste" };
 
 // Drapeaux des 48 équipes
 const FLAGS = {
@@ -888,11 +888,11 @@ const KNOCKOUT = [
  {phase:"Quarts de finale (9 – 11 juillet)", matches:[
   {id:"M97",d:"9 juillet",pairing:"V. M89 – V. M90",venue:"Gillette Stadium · Boston",t:"22h00",home:"France",away:"Maroc",s:"2-0",st:"done",goals:[{p:"Mbappé",t:"France",m:"60"},{p:"Dembélé",t:"France",m:"66"}]},
   {id:"M98",d:"10 juillet",pairing:"V. M93 – V. M94",venue:"SoFi Stadium · Los Angeles",t:"21h00",home:"Espagne",away:"Belgique",s:"2-1",st:"done",goals:[{p:"Ruiz",t:"Espagne",m:"30"},{p:"Ketelaere",t:"Belgique",m:"41"},{p:"Merino",t:"Espagne",m:"88"}]},
-  {id:"M99",d:"11 juillet",pairing:"V. M91 – V. M92",venue:"Hard Rock Stadium · Miami",t:"23h00",home:"Norvège",away:"Angleterre",s:"",st:"upcoming"},
-  {id:"M100",d:"11 juillet",pairing:"V. M95 – V. M96",venue:"Arrowhead Stadium · Kansas City",t:"03h00 (+1j)",home:"Argentine",away:"Suisse",s:"",st:"upcoming"}]},
+  {id:"M99",d:"11 juillet",pairing:"V. M91 – V. M92",venue:"Hard Rock Stadium · Miami",t:"23h00",home:"Norvège",away:"Angleterre",s:"1-2",st:"done",goals:[{p:"Schjelderup",t:"Norvège",m:"36"},{p:"Bellingham",t:"Angleterre",m:"45+2"},{p:"Bellingham",t:"Angleterre",m:"93"}]},
+  {id:"M100",d:"11 juillet",pairing:"V. M95 – V. M96",venue:"Arrowhead Stadium · Kansas City",t:"03h00 (+1j)",home:"Argentine",away:"Suisse",s:"3-1",st:"done",goals:[{p:"Mac Allister",t:"Argentine",m:"10"},{p:"Ndoye",t:"Suisse",m:"67"},{p:"Álvarez",t:"Argentine",m:"112"},{p:"Martínez",t:"Argentine",m:"120+1"}]}]},
  {phase:"Demi-finales (14 – 15 juillet)", matches:[
   {id:"M101",d:"14 juillet",pairing:"V. M97 – V. M98",venue:"AT&T Stadium · Dallas",t:"21h00",home:"France",away:"Espagne",s:"",st:"upcoming"},
-  {id:"M102",d:"15 juillet",pairing:"V. M99 – V. M100",venue:"Mercedes-Benz Stadium · Atlanta",t:"21h00",home:"",away:"",s:"",st:"upcoming"}]},
+  {id:"M102",d:"15 juillet",pairing:"V. M99 – V. M100",venue:"Mercedes-Benz Stadium · Atlanta",t:"21h00",home:"Angleterre",away:"Argentine",s:"",st:"upcoming"}]},
  {phase:"Match pour la 3ᵉ place (18 juillet)", matches:[
   {id:"M103",d:"18 juillet",pairing:"Perdant M101 – Perdant M102",venue:"Hard Rock Stadium · Miami",t:"23h00",home:"",away:"",s:"",st:"upcoming"}]},
  {phase:"🏆 FINALE (19 juillet)", matches:[
@@ -901,7 +901,8 @@ const KNOCKOUT = [
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
 const NEWS = [
-  { date:"11 juillet 2026", title:"🇳🇴🏴󠁧󠁢󠁥󠁮󠁧󠁿🇦🇷🇨🇭 Les quarts se terminent : Norvège – Angleterre puis Argentine – Suisse", text:"Deux derniers quarts de finale ce samedi 11 juillet pour compléter le dernier carré. À 21h00 GMT (23h Paris) au Hard Rock Stadium de Miami, la Norvège d'Erling Haaland — révélation du tournoi avec 7 buts et tombeuse de la Côte d'Ivoire en 16ᵉ — affronte l'Angleterre d'Harry Kane et Jude Bellingham. Puis à 01h00 GMT (03h Paris, dans la nuit) à Kansas City, l'Argentine tenante du titre, portée par Lionel Messi, défie la Suisse, invaincue et qualifiée aux tirs au but contre la Colombie. Les vainqueurs se retrouveront en demi-finale le 15 juillet à Atlanta." },
+  { date:"12 juillet 2026", title:"🏆 Un dernier carré historique : les 4 meilleures nations FIFA en demi-finales", text:"Pour la première fois dans l'histoire de la Coupe du monde, les quatre premières nations au classement FIFA se retrouvent dans le dernier carré. Mardi 14 juillet à Dallas, la France 🇫🇷 (16 buts marqués, 2 encaissés sur le tournoi) défie l'Espagne 🇪🇸 (11-1) dans un choc 100 % européen entre les champions 2018 et 2010 ; Kylian Mbappé fait figure de favori pour le Soulier et le Ballon d'or. Mercredi 15 juillet à Atlanta, l'Angleterre 🏴󠁧󠁢󠁥󠁮󠁧󠁿, en quête d'un premier sacre depuis 1966, affronte l'Argentine 🇦🇷 tenante du titre. Ni l'Afrique ni la CONCACAF ne comptent plus de représentant." },
+  { date:"11 juillet 2026", title:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Bellingham envoie l'Angleterre en demie (2-1 a.p.), l'Argentine sort la Suisse (3-1 a.p.)", text:"Les deux derniers quarts ont livré leur verdict après prolongation. À Miami, la Norvège d'Erling Haaland a ouvert le score par Andreas Schjelderup (36ᵉ), mais Jude Bellingham a tout renversé : égalisation avant la pause (45+2) puis but victorieux dès l'entame de la prolongation (93ᵉ), portant son total à 6 buts dans le tournoi. À Kansas City, l'Argentine tenante du titre a dominé une Suisse réduite à dix après l'exclusion d'Embolo : Mac Allister a ouvert (10ᵉ), Ndoye a égalisé (67ᵉ), avant que Julián Álvarez (112ᵉ) et Lautaro Martínez (120+1) ne scellent le 3-1 en prolongation. Angleterre et Argentine se retrouveront le 15 juillet à Atlanta." },
   { date:"11 juillet 2026", title:"🇪🇸 L'Espagne brise les rêves belges (2-1) et rejoint la France en demie", text:"Au SoFi Stadium de Los Angeles, la Roja a fait tomber la première équipe capable de la bousculer. Fabián Ruiz a ouvert le score (30ᵉ) avant l'égalisation de Charles De Ketelaere (41ᵉ). Alors que la prolongation se profilait, Mikel Merino a surgi à la 88ᵉ minute sur un rebond mal repoussé par le gardien belge pour offrir la victoire (2-1) et une place en demi-finale. Privée de son capitaine Youri Tielemans (blessé à l'échauffement) puis de Thibaut Courtois (sorti sur blessure), la Belgique quitte le tournoi. L'Espagne, toujours invaincue, défiera la France le 14 juillet à Dallas dans un choc 100 % européen." },
   { date:"9 juillet 2026", title:"🇫🇷 La France maîtrise le Maroc (2-0) et file en demi-finale", text:"Au Gillette Stadium de Boston, les Bleus ont dominé de bout en bout ce remake de la demie de 2022 (xG 3,04 contre 0,14). Après un penalty manqué en première période, Kylian Mbappé a débloqué la situation à la 60ᵉ minute — son 20ᵉ but en Coupe du monde — avant de servir Ousmane Dembélé, buteur à la 66ᵉ (son 5ᵉ du tournoi). La France élimine le dernier représentant africain et se qualifie pour les demi-finales, où elle affrontera l'Espagne ou la Belgique le 14 juillet à Dallas." },
   { date:"8 juillet 2026", title:"🎟️ Les huitièmes sont pliés : voici les quarts de finale", text:"Avec les qualifications de l'Argentine et de la Suisse, le tableau des huit derniers est complet. Au programme : France 🇫🇷 – Maroc 🇲🇦 (9 juillet, Boston), Espagne 🇪🇸 – Belgique 🇧🇪 (10 juillet, Los Angeles), puis le 11 juillet Norvège 🇳🇴 – Angleterre 🇬🇧 (Miami) et Argentine 🇦🇷 – Suisse 🇨🇭 (Kansas City). Deux nations africaines encore en lice, le Maroc, et une affiche de gala entre l'Espagne et la Belgique : les quarts s'annoncent brûlants." },
