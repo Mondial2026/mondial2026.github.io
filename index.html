@@ -1323,7 +1323,14 @@ function renderAll(){
   }).join('');
 
   // Calendrier : phase finale
-  $("#cal-knockout").innerHTML=KNOCKOUT.map(p=>`
+  // Affichage : demi-finales puis finale en tête, le reste ensuite dans l'ordre chronologique
+  const isDemi=p=>p.phase.startsWith("Demi-finales"), isFinale=p=>p.phase.includes("FINALE");
+  const koDisplay=[
+    ...KNOCKOUT.filter(isDemi),
+    ...KNOCKOUT.filter(isFinale),
+    ...KNOCKOUT.filter(p=>!isDemi(p)&&!isFinale(p))
+  ];
+  $("#cal-knockout").innerHTML=koDisplay.map(p=>`
     <div class="group-block">
       <div class="group-title"><span class="gl" style="background:var(--orange)">${p.phase}</span></div>
       ${p.matches.map(m=>matchRow(m,{goals:true})).join('')}
