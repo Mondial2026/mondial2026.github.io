@@ -22,7 +22,19 @@
     {
       "id": "M102",
       "st": "live",
-      "s": "0-0"
+      "s": "1-1",
+      "goals": [
+        {
+          "p": "Gordon",
+          "t": "Angleterre",
+          "m": "55"
+        },
+        {
+          "p": "Fernández",
+          "t": "Argentine",
+          "m": "85"
+        }
+      ]
     }
   ]
 }
