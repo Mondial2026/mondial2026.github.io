@@ -1,24 +1,6 @@
 {
-  "lastUpdate": "2026-07-15",
+  "lastUpdate": "2026-07-16",
   "matches": [
-    {
-      "id": "M101",
-      "st": "done",
-      "s": "0-2",
-      "goals": [
-        {
-          "p": "Oyarzabal",
-          "t": "Espagne",
-          "m": "22",
-          "pen": true
-        },
-        {
-          "p": "Porro",
-          "t": "Espagne",
-          "m": "58"
-        }
-      ]
-    },
     {
       "id": "M102",
       "st": "done",
