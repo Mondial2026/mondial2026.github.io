@@ -1,35 +1,4 @@
 {
   "lastUpdate": "2026-07-17",
-  "matches": [
-    {
-      "id": "M102",
-      "st": "done",
-      "s": "1-2",
-      "goals": [
-        {
-          "p": "Gordon",
-          "t": "Angleterre",
-          "m": "55"
-        },
-        {
-          "p": "Fernández",
-          "t": "Argentine",
-          "m": "85"
-        },
-        {
-          "p": "Martínez",
-          "t": "Argentine",
-          "m": "90+2"
-        }
-      ]
-    },
-    {
-      "id": "M103",
-      "away": "Angleterre"
-    },
-    {
-      "id": "M104",
-      "away": "Argentine"
-    }
-  ]
+  "matches": []
 }
