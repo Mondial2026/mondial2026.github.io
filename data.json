@@ -1,64 +1,6 @@
 {
-  "lastUpdate": "2026-07-19",
+  "lastUpdate": "2026-07-20",
   "matches": [
-    {
-      "id": "M103",
-      "st": "done",
-      "s": "4-6",
-      "goals": [
-        {
-          "p": "Rice",
-          "t": "Angleterre",
-          "m": "3"
-        },
-        {
-          "p": "Konsa",
-          "t": "Angleterre",
-          "m": "18"
-        },
-        {
-          "p": "Saka",
-          "t": "Angleterre",
-          "m": "37"
-        },
-        {
-          "p": "Saka",
-          "t": "Angleterre",
-          "m": "45+1"
-        },
-        {
-          "p": "Mbappé",
-          "t": "France",
-          "m": "48"
-        },
-        {
-          "p": "Barcola",
-          "t": "France",
-          "m": "54"
-        },
-        {
-          "p": "Mbappé",
-          "t": "France",
-          "m": "66"
-        },
-        {
-          "p": "Saka",
-          "t": "Angleterre",
-          "m": "87",
-          "pen": true
-        },
-        {
-          "p": "Dembélé",
-          "t": "France",
-          "m": "90+6"
-        },
-        {
-          "p": "Bellingham",
-          "t": "Angleterre",
-          "m": "90+8"
-        }
-      ]
-    },
     {
       "id": "M104",
       "st": "done",
