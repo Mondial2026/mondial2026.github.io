@@ -146,6 +146,30 @@
   .legend span{display:flex;align-items:center;gap:7px}
   .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
   .qprov{font-size:.72rem;font-weight:700;color:var(--muted);background:#f1f1ee;border-radius:20px;padding:2px 9px}
+  /* Palmarès & trophées */
+  .champ-banner{display:flex;gap:18px;align-items:center;background:linear-gradient(120deg,#fff8e6,#fdeec2);
+    border:1px solid #f0d98a;border-radius:18px;padding:20px 22px;box-shadow:0 8px 26px rgba(190,150,20,.16)}
+  .champ-star{font-size:3.4rem;line-height:1;filter:drop-shadow(0 4px 6px rgba(180,140,10,.35))}
+  .champ-kicker{display:block;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#a9791a}
+  .champ-name{margin:2px 0 6px;font-size:2rem;line-height:1.05}
+  .champ-final{margin:0;color:var(--ink);font-size:.96rem}
+  .champ-ap{color:var(--muted);font-weight:700}
+  .podium3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:end;margin-top:18px;max-width:560px}
+  .pod{display:flex;flex-direction:column;align-items:center;gap:3px;background:#fff;border:1px solid var(--line);
+    border-radius:14px 14px 10px 10px;padding:12px 8px;text-align:center}
+  .pod-medal{font-size:1.7rem;line-height:1}
+  .pod-team{font-weight:800;font-size:.92rem}
+  .pod-rank{font-size:.72rem;color:var(--muted);font-weight:700}
+  .pod-1{background:linear-gradient(180deg,#fffaf0,#fff);border-color:#f0d98a;padding-top:22px;box-shadow:0 6px 16px rgba(190,150,20,.14)}
+  .pod-1 .pod-team{color:var(--orange-dark)}
+  .trophy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:10px}
+  .trophy{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+  .tr-ico{font-size:2rem;line-height:1}
+  .trophy>div{display:flex;flex-direction:column}
+  .tr-title{font-weight:900;font-size:1rem}
+  .tr-sub{font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:800;margin-bottom:4px}
+  .tr-win{font-weight:800;color:var(--green-dark);font-size:1.02rem}
+  .tr-note{font-size:.82rem;color:var(--muted);margin-top:2px}
   /* ===== Bracket de phase finale (colonnes par tour + coudes) ===== */
   .kbr{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 0 14px;min-width:100%}
   .kbr-round{display:flex;flex-direction:column;flex:1 1 0;min-width:158px}
@@ -394,6 +418,34 @@
       <div id="cd-label"></div>
     </div>
   </div>
+
+  <section>
+    <div class="wrap">
+      <div class="champ-banner">
+        <div class="champ-star">🏆</div>
+        <div class="champ-main">
+          <span class="champ-kicker">Champion du monde 2026</span>
+          <h2 class="champ-name">🇪🇸 Espagne</h2>
+          <p class="champ-final">Finale — Espagne <b>1-0</b> Argentine 🇦🇷 <span class="champ-ap">(a.p.)</span> · but de Ferran Torres (106ᵉ) · MetLife Stadium, New York/NJ. <b>2ᵉ étoile</b> pour la Roja.</p>
+        </div>
+      </div>
+
+      <div class="podium3">
+        <div class="pod pod-2"><span class="pod-medal">🥈</span><span class="pod-team">🇦🇷 Argentine</span><span class="pod-rank">Finaliste</span></div>
+        <div class="pod pod-1"><span class="pod-medal">🥇</span><span class="pod-team">🇪🇸 Espagne</span><span class="pod-rank">Championne</span></div>
+        <div class="pod pod-3"><span class="pod-medal">🥉</span><span class="pod-team">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Angleterre</span><span class="pod-rank">3ᵉ (6-4 c. France)</span></div>
+      </div>
+
+      <h3 style="margin-top:26px">🏅 Les trophées individuels</h3>
+      <div class="trophy-grid">
+        <div class="trophy"><span class="tr-ico">⚽</span><div><span class="tr-title">Soulier d'Or</span><span class="tr-sub">Meilleur buteur</span><span class="tr-win">🇫🇷 Kylian Mbappé</span><span class="tr-note">10 buts en 8 matchs</span></div></div>
+        <div class="trophy"><span class="tr-ico">🏆</span><div><span class="tr-title">Ballon d'Or</span><span class="tr-sub">Meilleur joueur</span><span class="tr-win">🇪🇸 Rodri</span><span class="tr-note">Le patron du milieu espagnol</span></div></div>
+        <div class="trophy"><span class="tr-ico">🧤</span><div><span class="tr-title">Gant d'Or</span><span class="tr-sub">Meilleur gardien</span><span class="tr-win">🇪🇸 Unai Simón</span><span class="tr-note">7 clean sheets en 8 matchs</span></div></div>
+        <div class="trophy"><span class="tr-ico">🌟</span><div><span class="tr-title">Meilleur jeune</span><span class="tr-sub">Young Player Award</span><span class="tr-win">🇪🇸 Pau Cubarsí</span><span class="tr-note">Roc de la défense championne</span></div></div>
+      </div>
+      <p class="sub" style="margin-top:12px">🐘 Côte d'Ivoire : les Éléphants ont porté haut leurs couleurs — merci pour ce Mondial ! Retrouve leur parcours dans l'onglet dédié.</p>
+    </div>
+  </section>
 
   <section class="alt-bg">
     <div class="wrap">
@@ -733,10 +785,10 @@
    5. NEXT_KICKOFF → prochain match de la Côte d'Ivoire
    ════════════════════════════════════════════════════════════ */
 
-const LAST_UPDATE = "2026-07-19";
+const LAST_UPDATE = "2026-07-20";
 
 // Compte à rebours : Éléphants éliminés en 16ᵉ → on pointe le prochain grand rendez-vous (ISO UTC)
-const NEXT_KICKOFF = { iso:"2026-07-19T19:00:00Z", label:"🏆 FINALE Espagne 🇪🇸 – Argentine 🇦🇷 · dimanche 19 juillet, MetLife Stadium (New York/NJ) · 19h00 GMT (15h ET · 21h Paris) — le sommet du Mondial : l'Espagne de Lamine Yamal, invaincue et une seule fois battue au filet en sept matchs, défie l'Argentine tenante du titre et son capitaine Lionel Messi, sans doute son dernier grand rendez-vous mondial. La médaille de bronze est déjà revenue à l'Angleterre, victorieuse de la France 6-4 dans un festival à Miami" };
+const NEXT_KICKOFF = { iso:"2026-07-19T19:00:00Z", label:"🏆 L'Espagne 🇪🇸 championne du monde 2026 ! Victoire 1-0 après prolongation face à l'Argentine 🇦🇷 (but de Ferran Torres, 106ᵉ) au MetLife Stadium. 2ᵉ étoile pour la Roja. Merci pour ce Mondial 🐘" };
 
 // Drapeaux des 48 équipes
 const FLAGS = {
@@ -896,7 +948,7 @@ const KNOCKOUT = [
  {phase:"Match pour la 3ᵉ place (18 juillet)", matches:[
   {id:"M103",d:"18 juillet",pairing:"Perdant M101 – Perdant M102",venue:"Hard Rock Stadium · Miami",t:"23h00",home:"France",away:"Angleterre",s:"4-6",st:"done",goals:[{p:"Rice",t:"Angleterre",m:"3"},{p:"Konsa",t:"Angleterre",m:"18"},{p:"Saka",t:"Angleterre",m:"37"},{p:"Saka",t:"Angleterre",m:"45+1"},{p:"Mbappé",t:"France",m:"48"},{p:"Barcola",t:"France",m:"54"},{p:"Mbappé",t:"France",m:"66"},{p:"Saka",t:"Angleterre",m:"87",pen:true},{p:"Dembélé",t:"France",m:"90+6"},{p:"Bellingham",t:"Angleterre",m:"90+8"}]}]},
  {phase:"🏆 FINALE (19 juillet)", matches:[
-  {id:"M104",d:"19 juillet",pairing:"V. M101 – V. M102",venue:"MetLife Stadium · New York/NJ",t:"21h00",home:"Espagne",away:"Argentine",s:"",st:"upcoming"}]},
+  {id:"M104",d:"19 juillet",pairing:"V. M101 – V. M102",venue:"MetLife Stadium · New York/NJ",t:"21h00",home:"Espagne",away:"Argentine",s:"1-0",st:"done",note:"après prolongation",goals:[{p:"Ferran Torres",t:"Espagne",m:"106"}]}]},
 ];
 
 // ───────── DERNIÈRES INFOS (les plus récentes en haut) ─────────
@@ -1025,8 +1077,8 @@ function renderCountdown(){
   const target=new Date(STATE.nextKickoff.iso).getTime();
   let diff=target-Date.now();
   const box=$("#countdown"), lbl=$("#cd-label");
-  if(diff<=0){ box.innerHTML=`<div class="cd-box"><b>🔥</b><small>C'est parti !</small></div>`;
-               lbl.textContent="Le match est lancé — allez les Éléphants !"; return; }
+  if(diff<=0){ box.innerHTML=`<div class="cd-box"><b>🏆</b><small>Champion</small></div><div class="cd-box"><b>🇪🇸</b><small>Espagne</small></div><div class="cd-box"><b>2026</b><small>2ᵉ titre</small></div>`;
+               lbl.textContent=STATE.nextKickoff.label; return; }
   const d=Math.floor(diff/864e5); diff-=d*864e5;
   const h=Math.floor(diff/36e5);  diff-=h*36e5;
   const m=Math.floor(diff/6e4);   diff-=m*6e4;
